@@ -1,1 +1,2 @@
-# AmatuerSausageDeli
+# Amatuer Sausage Deli
+
