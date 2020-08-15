@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+> remember to run `npm i` to install the npm packages before running the start script
+
+> Also the stuff here is all generated using `create-react-app`
+
+## Dependencies
+
+- an ui library, maybe `material-ui`
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -11,6 +19,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+> dont worry about the stuff under here
+
+---
 
 ### `npm test`
 

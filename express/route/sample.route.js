@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-
+// /api/
 router.route('/').get((req, res) => {
     try {
         res.json({
