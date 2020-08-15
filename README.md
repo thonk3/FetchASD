@@ -1,2 +1,2 @@
-# Amatuer Sausage Deli
+# Amateur Sausage Deli
 
