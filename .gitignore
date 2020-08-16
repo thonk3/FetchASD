@@ -28,4 +28,6 @@ Thumbs.db
 ##########################
 /react/build
 
-
+# git creds just to be sure #
+#############################
+.git-credentials
