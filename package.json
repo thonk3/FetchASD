@@ -1,0 +1,23 @@
+{
+  "name": "AmatuerSausageDeli",
+  "version": "1.0.0",
+  "description": "- [Amatuer Sausage Deli](#amatuer-sausage-deli)   - [Availiable scripts](#availiable-scripts)     - [Development build](#development-build)     - [Deployment build](#deployment-build) ---",
+  "main": "index.js",
+  "scripts": {
+    "start": "node express/server.js",
+    "install": "sh install_deps.sh",
+    "build": "cd react && npm run build && wait",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doppeltwirkend/AmatuerSausageDeli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doppeltwirkend/AmatuerSausageDeli/issues"
+  },
+  "homepage": "https://go-fetch.herokuapp.com/"
+}
