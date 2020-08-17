@@ -19,4 +19,13 @@ Thumbs.db
 #################
 .vscode/*
 
+# node dependancies installs #
+##############################
+/react/node_modules
+/express/node_modules
+
+# react production build #
+##########################
+/react/build
+
 
