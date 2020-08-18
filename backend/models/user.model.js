@@ -30,7 +30,7 @@ const userSchema = new Schema ({
             require: true,            
         }
     },
-    dog: {
+    dog: [{
         name: {
             type: String,
             require: true,
@@ -54,8 +54,8 @@ const userSchema = new Schema ({
                 type: Schema.Types.ObjectId,
             }
         }]        
-    },
-    card: {
+    }],
+    card: [{
         number: {
             type: String,
             require: true,
@@ -71,7 +71,7 @@ const userSchema = new Schema ({
             require: true,
             trim: true
         }
-    }
+    }]
 });
 
 const User = mongoose.model('User', userSchema);
