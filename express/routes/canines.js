@@ -1,19 +1,21 @@
 const router = require('express').Router();
-let Person = require('../models/person.model');
+let Canine = require('../models/canine.model');
 
+// GET all dogs
 router.route('/').get((req, res) => {
-    Person.find()
-	.then(people => res.json(people))
+    Canine.find()
+	.then(people => res.json(canine))
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
+// POST add new dog
 router.route('/add').post((req, res) => {
-    const name = req.body.username;
+    const breed = req.body.breed;
 
-    const newUser = new Person({name});
+    const newCanine = new Canine({breed});
     
-    newUser.save()
-	.then(() => res.json('User added!'))
+    newCanine.save()
+	.then(() => res.json('Canine added!'))
 	.catch(err => res.status(400).json('Error: ' + err));
 });
 
