@@ -7,6 +7,8 @@ export { default as Dates } from './Date/Date'
 export { default as Register } from './Register/Register'
 export { default as Login } from './Login/Login'
 export { default as Account } from './AccountMan/AccountMan'
+export { default as DogMan } from './DogMan/DogMan'
+export { default as PaymentMan } from './PaymentMan/PaymentMan'
 
 
 

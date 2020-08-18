@@ -11,6 +11,7 @@ import {
 // import Sample from '../Common/Sample'
 // import NotFound from '../Routes/NotFound/NotFound'
 // import Main from '../Routes/Home/Home'
+import NavBar from './NavBar'
 import * as Routes from '../Routes/Routes'
 
 function App() {
@@ -28,19 +29,7 @@ function App() {
 
      */}
       <Router>
-        {/* nav */}
-        <ul>
-          <li><Link to='/'>Home page</Link></li>
-          <li><Link to='/login'>Log in</Link></li>
-          <li><Link to='/register'>Register</Link></li>
-          <li><Link to='/myacc'>Account management</Link></li>
-          {/* <li><Link to='/dog'>Dog man page</Link></li> */}
-          <li><Link to='/kennel'>kennel page</Link></li>
-          <li><Link to='/date'>date management</Link></li>
-          {/* <li><Link to='/payment'>payment man page</Link></li> */}
-          <li><Link to='/admin/products'>Admin/Product management</Link></li>
-        </ul>
-        {/* remember to chuck nav into its own component */}
+        <NavBar />
       
         {/* routing */}
         <Switch>
@@ -48,6 +37,8 @@ function App() {
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
           <Route path='/myacc' component={Routes.Account} />
+          <Route path='/myacc/mypack' component={Routes.DogMan} />
+          <Route path='/myacc/payment' component={Routes.PaymentMan} />
           <Route path='/kennel' component={Routes.Kennel} />
           <Route path='/date' component={Routes.Dates} />
           <Route path='/admin/products' component={Routes.ProductMan} />
