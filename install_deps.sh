@@ -16,12 +16,9 @@ express_dep() {
     echo "[EXPRS] instalation complete";
 }
 
-
-
 # letsa go
 react_dep &
 express_dep &
-
 
 wait
 echo "\ndependencies istallation complete"

@@ -1,31 +1,50 @@
 import React from 'react';
 import { 
   BrowserRouter as Router, 
-  // Route, 
-  Link 
+  Route, 
+  Link,
+  Switch
 } from 'react-router-dom'
-import './App.css';
+// import './App.css';
 
 // component imports
-import Sample from '../Components/Sample'
+// import Sample from '../Common/Sample'
+// import NotFound from '../Routes/NotFound/NotFound'
+// import Main from '../Routes/Home/Home'
+import NavBar from './NavBar'
+import * as Routes from '../Routes/Routes'
 
 function App() {
   return (
-    <div className="App">
-      < Sample/>
+    <div className='App'>
+    {/* 
+      r0 features
 
-      {/* put nav into its own component */}
+      account man
+      dog man
+      kennel
+      date
+      payment man
+      product man
+
+     */}
       <Router>
-      <ul>
-        <li><Link to="/">main</Link></li>
-        <li><Link to="/list">list</Link></li>
-      </ul>
-      {/* routing */}
+        <NavBar />
+      
+        {/* routing */}
+        <Switch>
+          <Route exact path='/' component={Routes.Home} />
+          <Route path='/login' component={Routes.Login} />
+          <Route path='/register' component={Routes.Register} />
+          <Route path='/myacc' component={Routes.Account} />
+          <Route path='/myacc/mypack' component={Routes.DogMan} />
+          <Route path='/myacc/payment' component={Routes.PaymentMan} />
+          <Route path='/kennel' component={Routes.Kennel} />
+          <Route path='/date' component={Routes.Dates} />
+          <Route path='/admin/products' component={Routes.ProductMan} />
 
-        <div>
-          {/* <Route exact path="/" component={Main} />
-          <Route path="/list" component={List} /> */}
-        </div>
+          <Route component={Routes.NotFound} />
+        </Switch>
         
       </Router>
 

@@ -7,6 +7,8 @@
     "start": "node express/server.js",
     "install": "sh install_deps.sh",
     "build": "cd react && npm run build && wait",
+    "dev-react": "cd react && npm run start",
+    "dev-exp": "cd express && nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
