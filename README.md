@@ -1,4 +1,4 @@
-# Amatuer Sausage Deli
+# Amateur Sausage Deli
 
 - [Amatuer Sausage Deli](#amatuer-sausage-deli)
   - [Availiable scripts](#availiable-scripts)
