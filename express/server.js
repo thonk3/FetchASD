@@ -27,7 +27,6 @@ app.use('/api/sample', sample);
 // redirecting everything else to the main build index.html
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, "../react", "build", "index.html"));
-    
 })
 
 // start express server
