@@ -3,8 +3,9 @@ import {
   BrowserRouter as Router, 
   Route, 
   Switch
-} from 'react-router-dom'
-// import './App.css';
+} from 'react-router-dom';
+
+import { makeStyles } from '@material-ui/core/styles'
 
 
 // component imports
@@ -14,8 +15,14 @@ import {
 import BunchoLinks from './BunchoLinks'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
+import useStyle from '../Common/NavBar/NavBar.style';
+
+const useStyles = makeStyles(theme => ({
+  offset: theme.mixins.toolbar,
+}))
 
 function App() {
+  const classes = useStyles();
   return (
     <div className='App'>
     {/* 
@@ -31,6 +38,7 @@ function App() {
      */}
       <Router>
         <NavBar />
+        <div className={classes.offset}></div>
         <BunchoLinks />
       
         {/* routing */}
