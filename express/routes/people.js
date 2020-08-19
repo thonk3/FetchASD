@@ -4,12 +4,14 @@ let UserSchema = require('../models/user.model');
 
 const User = UserSchema.User;
 
+// GET all people
 router.route('/').get((req, res) => {
     Person.find()
 	.then(people => res.json(people))
 	.catch(err => res.status(400).json('Error:' + err));
 });
 
+// POST add new user
 router.route('/add').post((req, res) => {
     const name = req.body.username;
 
