@@ -10,6 +10,11 @@ class Home extends React.Component {
                 <h1>Main Page</h1>
 
                 <NameThing />
+                <NameThing />
+                <NameThing />
+                <NameThing />
+                <NameThing />
+                <NameThing />
             </>
 
         )

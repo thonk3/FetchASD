@@ -11,7 +11,8 @@ import {
 // import Sample from '../Common/Sample'
 // import NotFound from '../Routes/NotFound/NotFound'
 // import Main from '../Routes/Home/Home'
-import NavBar from './NavBar'
+import BunchoLinks from './BunchoLinks'
+import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
      */}
       <Router>
         <NavBar />
+        <BunchoLinks />
       
         {/* routing */}
         <Switch>
