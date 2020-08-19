@@ -16,8 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // mongo connection
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { 
+const URI = process.env.ATLAS_URI;
+mongoose.connect(URI, { 
     useNewUrlParser: true, 
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -36,8 +36,8 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 const caninesRouter = require('./routes/canines');
 const peopleRouter = require('./routes/people');
 
-app.use('/canines', caninesRouter);
-app.use('/people', peopleRouter);
+app.use('/api/canines', caninesRouter);
+app.use('/api/people', peopleRouter);
 // --------------------------------------------------------------
 
 
