@@ -4,7 +4,6 @@ import {
 } from 'react-router-dom';
 
 // component imports
-import * as Routes from '../Routes/Routes';
 
 
       // r0 features
