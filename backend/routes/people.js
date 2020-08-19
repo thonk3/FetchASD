@@ -1,5 +1,8 @@
 const router = require('express').Router();
 let Person = require('../models/person.model');
+let UserSchema = require('../models/user.model');
+
+const User = UserSchema.User;
 
 router.route('/').get((req, res) => {
     Person.find()
@@ -15,6 +18,12 @@ router.route('/add').post((req, res) => {
     newUser.save()
 	.then(() => res.json('User added!'))
 	.catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/rel').get((req, res) => {
+    User.find()
+	.then(user => res.json(user))
+	.catch(err => res.status(400).json('Error:' + err));
 });
 
 module.exports = router;
