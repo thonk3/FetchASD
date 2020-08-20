@@ -12,7 +12,7 @@ import {
       // payment man
       // product man
       
-class NavBar extends React.Component {
+class BunchoLinks extends React.Component {
   render() {
     return (
       <ul>
@@ -32,4 +32,4 @@ class NavBar extends React.Component {
 
 
 
-export default NavBar;
+export default BunchoLinks;

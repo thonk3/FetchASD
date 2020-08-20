@@ -17,11 +17,12 @@ class NameThing extends React.Component {
         this.handleNameSubmit = this.handleNameSubmit.bind(this);
     }
 
-
+    // when text change
     handleNameChange(e) {
         this.setState({ name: e.target.value });
     }
 
+    // on submit
     handleNameSubmit(e) {
         e.preventDefault();
 
