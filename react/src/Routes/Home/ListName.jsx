@@ -1,3 +1,4 @@
+// pls ignore
 import React from 'react';
 
 class ListName extends React.Component {
@@ -33,17 +34,12 @@ class ListName extends React.Component {
     // map data to a jsx element
     // yes its ugly
     renderName = () => 
-        this.state.people.map( p => <li key={p._id}> {p.name} </li>);
-
-    /**do this instead
-    
-    renderName() {
-        return this.state.people.map(p => {
-            return <li key={p._id}> {p.name} </li>
-        });
-    };
-     */
-    
+        this.state.people.map( p => {
+            return (
+                <li key={p._id}>{p.name} </li>
+            )
+        }
+    );
 
     render() {
         return ( <ul> { this.renderName() } </ul> )

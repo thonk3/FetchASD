@@ -36,6 +36,7 @@ const App = () => {
     adminAuth: false,
   });
 
+  // set auth 
   const handleLogToggle = (e) => setState({ ...state, [e.target.name]: !state.[e.target.name] });
 
   return (
@@ -45,20 +46,22 @@ const App = () => {
         <div className={classes.offset}></div>
 
         <BunchoLinks />
+        {/* ------------------------------------- */}
         <FormControlLabel name='loggedIn' control={<Switch checked={state.loggedIn} onChange={handleLogToggle} />} label={`logged in: ${state.loggedIn}`} />
         <FormControlLabel name='adminAuth' control={<Switch checked={state.adminAuth} onChange={handleLogToggle} disabled={!state.loggedIn}/>} label={`admin: ${state.adminAuth}`} />
+        {/* ------------------------------------- */}
 
         <div className={classes.borderThing}>
         <RouterSwitch>
-          <Route exact path='/' component={Routes.Home} />
+          <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
-          <Route path='/myacc' component={Routes.Account} />
+          <Route path='/myacc' component={Routes.AccountMan} />
           <Route path='/myacc/mypack' component={Routes.DogMan} />
-          <Route path='/myacc/payment' component={Routes.PaymentMan} />
           <Route path='/kennel' component={Routes.Kennel} />
           <Route path='/date' component={Routes.Dates} />
-          <Route path='/admin/products' component={Routes.ProductMan} />
+          <Route path='/date/id' component={Routes.RateDate} />
+          <Route path='/admin' component={Routes.AdminHome} />
 
           <Route component={Routes.NotFound} />
         </RouterSwitch>
