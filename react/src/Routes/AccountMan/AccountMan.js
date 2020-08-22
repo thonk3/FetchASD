@@ -5,14 +5,12 @@ import React from 'react'
 //     Link
 // } from 'react-router-dom'
 
-class Account extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Accounts</h1>
-            </div>
-        )
-    }
-}
+const AccountMan = props => {
+    return (
+        <div>
+            <h1>Accounts</h1>
+        </div>
+    );
+};
 
-export default Account
+export default AccountMan;

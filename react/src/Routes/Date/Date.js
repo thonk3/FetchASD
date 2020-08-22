@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-class Dates extends React.Component {
-    render() {
-        return (
-            <h1>My Dates</h1>
-        )
-    }
-}
+const Dates = props => {
+    return (
+        <h1>My Dates</h1>
+    );
+};
 
-export default Dates
+export default Dates;

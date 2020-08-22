@@ -2,12 +2,10 @@ import React from 'react'
 
 // kennel page
 
-class Kennel extends React.Component {
-    render() {
-        return (
-            <h1>Kennel</h1>
-        )
-    }
-}
+const Kennel = props => {
+    return (
+        <h1>Kennel</h1>
+    );
+};
 
-export default Kennel
+export default Kennel;
