@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // mongo connection
-const URI = process.env.ATLAS_URI;
+const URI = process.env.ATLAS_URI || "mongodb+srv://fetchThis:letMeIn@cluster0.3mhwe.mongodb.net/fetch?retryWrites=true&w=majority";
 mongoose.connect(URI, { 
     useNewUrlParser: true, 
     useCreateIndex: true,
@@ -35,9 +35,11 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 // api imports --------------------------------------------------
 const caninesRouter = require('./routes/canines');
 const peopleRouter = require('./routes/people');
+const relationshipRouter = require('./routes/relationships');
 
 app.use('/api/canines', caninesRouter);
 app.use('/api/people', peopleRouter);
+app.use('/api/relationships', relationshipRouter);
 // --------------------------------------------------------------
 
 

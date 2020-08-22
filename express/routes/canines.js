@@ -4,7 +4,8 @@ let Canine = require('../models/canine.model');
 // GET all dogs
 router.route('/').get((req, res) => {
     Canine.find()
-	.then(people => res.json(canine))
+    .then(canine => res.json(canine))
+    //.then(canine => console.log(canine))
 	.catch(err => res.status(400).json('Error:' + err));
 });
 

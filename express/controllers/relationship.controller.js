@@ -1,11 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-let UserSchema = require('../models/user.model');
+const User = require('../models/user.model');
 
-const User = UserSchema.User;
-
-const getUser = (req, res) => {
-    User.find()
-	.then(user => res.json(user))
-	.catch(err => res.status(400).json('Error:' + err));
-}
+exports.getUsers = (req, res) => {
+	User.find()
+	.then((users) => {
+		res.status(200).send(users);
+	})
+	.catch((err) => {
+		res.status(500).send({
+			message: err.message || "Error Occurred",
+		});
+	});
+};
