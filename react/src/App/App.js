@@ -3,7 +3,6 @@ import React
   ,{ useState } 
   from 'react';
 import { 
-  BrowserRouter as Router, 
   Route, 
   Switch as RouterSwitch
 } from 'react-router-dom';
@@ -11,20 +10,14 @@ import {
 // component imports
 import BunchoLinks from './BunchoLinks'
 import NavBar from '../Common/NavBar/NavBar'
-
 import * as Routes from '../Routes/Routes'
-import useStyles from './App.style';
 
 // material ui
+import useStyles from './App.style';
+
+// temp
 import Switch from '@material-ui/core/Switch'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-// for nav bar offset
-
-//style
-// const styles = theme => ({
-//   offset: theme.mixins.toolbar,
-// })
 
 const App = () => {
   
@@ -41,7 +34,6 @@ const App = () => {
 
   return (
     <div>
-      <Router>
         <NavBar />
         <div className={classes.offset}></div>
 
@@ -51,6 +43,7 @@ const App = () => {
         <FormControlLabel name='adminAuth' control={<Switch checked={state.adminAuth} onChange={handleLogToggle} disabled={!state.loggedIn}/>} label={`admin: ${state.adminAuth}`} />
         {/* ------------------------------------- */}
 
+        {/* delet router thing later */}
         <div className={classes.borderThing}>
         <RouterSwitch>
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
@@ -66,7 +59,6 @@ const App = () => {
           <Route component={Routes.NotFound} />
         </RouterSwitch>
         </div>
-      </Router>
     </div>
   )
 };

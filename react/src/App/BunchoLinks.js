@@ -16,7 +16,6 @@ import {
 const BunchoLinks = () => {
   return (
     <>
-      <p>alright ignore this bit</p>
       <ul>
         <li><Link to='/'>Home page</Link></li>
         <li><Link to='/login'>Log in</Link></li>
