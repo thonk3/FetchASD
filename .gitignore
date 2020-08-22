@@ -1,3 +1,7 @@
+# Secret #
+##########
+*.env
+
 # emacs & vim files #
 #####################
 *org

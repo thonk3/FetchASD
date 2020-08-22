@@ -4,11 +4,11 @@
   "description": "- [Amatuer Sausage Deli](#amatuer-sausage-deli)   - [Availiable scripts](#availiable-scripts)     - [Development build](#development-build)     - [Deployment build](#deployment-build) ---",
   "main": "index.js",
   "scripts": {
-    "start": "node express/server.js",
+    "start": "cd express && node server.js",
     "install": "sh install_deps.sh",
     "build": "cd react && npm run build && wait",
     "dev-react": "cd react && npm run start",
-    "dev-exp": "cd express && nodemon",
+    "dev-express": "cd express && nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/doppeltwirkend/AmatuerSausageDeli/issues"
   },
-  "homepage": "https://go-fetch.herokuapp.com/"
+  "homepage": "https://go-fetch.herokuapp.com/",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0"
+  }
 }
