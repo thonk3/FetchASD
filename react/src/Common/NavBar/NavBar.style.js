@@ -1,5 +1,6 @@
+import { makeStyles } from '@material-ui/core/styles'
 
-const Style = theme => ({
+const useStyles = makeStyles(theme => ({
     menuRoot: {
         flexGrow: 1,
     },
@@ -12,6 +13,6 @@ const Style = theme => ({
     menuLink: {
         color: '#fff !important' ,
     }
-});
+}));
 
-export default Style;
+export default useStyles;

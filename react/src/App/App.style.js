@@ -1,9 +1,10 @@
+import { makeStyles } from '@material-ui/core/styles'
 
-const Style = theme => ({
+const Styles = makeStyles((theme) => ({
     offset: theme.mixins.toolbar,
     borderThing: {
         border: '1px solid red',
     }
-});
+}));
 
-export default Style;
+export default Styles;
