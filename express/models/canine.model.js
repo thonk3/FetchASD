@@ -3,14 +3,34 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const canineSchema = new Schema({
-    breed: {
-	type: String,
-	required: true,
-	trim: true,
-	minlength: 3
+    dogName: {
+        type: String,
+        required: true
     },
-}, {
-    timestamps: true,
+    dogAge: {
+        type: Number,
+        required: true
+    },
+    dogBreed: {
+        type: String,
+        required: true
+    },
+    dogLocation: {
+        type: String,
+        required: true
+    },
+    dogGender: {
+        type: String,
+        enum: ["M","F"]
+    },
+    dogWeight: {
+        type: Number,
+        required: true
+    },
+    isDogVaccinated: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const Canine = mongoose.model('Canine', canineSchema);
