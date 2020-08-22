@@ -1,40 +1,38 @@
 # Amateur Sausage Deli 
 
-- [Amatuer Sausage Deli](#amatuer-sausage-deli)
-  - [Availiable scripts](#availiable-scripts)
-    - [Development build](#development-build)
-    - [Deployment build](#deployment-build)
+[![Codeship Status for doppeltwirkend/AmatuerSausageDeli](https://app.codeship.com/projects/be207d10-bda5-0138-63db-360f77155614/status?branch=master)](https://app.codeship.com/projects/405472)
+
 ---
 
 ## Availiable scripts
 
-run `sh install_deps.sh` to install the required node modules
+install required node_modules
 
-### Development build
-
-> remember to to run the install dependancies script when you first cloned the repo
-
-react
 ```
-cd react
-npm run start
+npm install
 ```
 
-express
+run the frontend(react) for development
+
 ```
-cd express
-nodemon
+npm run dev-react
 ```
 
-> NOTE: `nodemon` may need to be installed globaly in your system
+run the backend(express) for development
+
+```
+npm run dev-express
+```
+
+> **Note**: `nodemon` is required to run the dev-react script
 >
 > to install: `npm i -g nodemon`
 
-### Deployment build
+to build and deploy
+```
+npm run build
+npm run start
+```
 
-1. build the react static files.
-   - in the react dir `npm run build`
-2. run the express server
-   - in the express dir `node sever.js`
+> **Note**: A MongoDb connection string is required  for the variable `ATLAS_URI` in `express/.env` file to run the express server.
 
-the page will be run on port `5000` (just for now)
