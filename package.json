@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node express/server.js",
-    "install": "sh install_deps.sh",
     "build": "cd react && npm run build && wait",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
