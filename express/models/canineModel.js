@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-export const canineSchema = new Schema({
+const canineSchema = new Schema({
     dogName: {
         type: String,
         required: true
@@ -33,6 +33,6 @@ export const canineSchema = new Schema({
     }
 });
 
-// const Canine = mongoose.model('Canine', canineSchema);
+const Canine = mongoose.model('Canine', canineSchema);
 
-// module.exports = Canine;
+module.exports = Canine;

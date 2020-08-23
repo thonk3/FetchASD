@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+import ButtonAppBar from './Components/navbar';
+import SimpleSelect from './Components/filters';
 
 // kennel page
 
 class Kennel extends React.Component {
     render() {
         return (
-            <h1>Kennel</h1>
+            <div><ButtonAppBar />
+            <SimpleSelect /></div>
         )
     }
 }

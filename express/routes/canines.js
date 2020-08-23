@@ -1,32 +1,23 @@
-// const router = require('express').Router();
-// let Canine = require('../models/canine.model');
+const router = require('express').Router();
+let Canine = require('../models/canineModel');
 
+// GET all dogs
+router.route('/').get((req, res) => {
+    Canine.find()
+    .then(canine => res.json(canine))
 
-// // GET all dogs
-// router.route('/').get((req, res) => {
-//     Canine.find()
-// 	.then(people => res.json(canine))
-// 	.catch(err => res.status(400).json('Error:' + err));
-// });
+    .catch(err => res.status(400).json('Error:' + err));
+});
 
-// // POST add new dog
-// router.route('/add').post((req, res) => {
-//     const breed = req.body.breed;
+// POST add new dog
+router.route('/add').post((req, res) => {
+    const breed = req.body.breed;
 
-//     const newCanine = new Canine({breed});
+    const newCanine = new Canine({breed});
     
-//     newCanine.save()
-// 	.then(() => res.json('Canine added!'))
-// 	.catch(err => res.status(400).json('Error: ' + err));
-// });
+    newCanine.save()
+	.then(() => res.json('Canine added!'))
+	.catch(err => res.status(400).json('Error: ' + err));
+});
 
-// module.exports = router;
-
-import {getDog} from '../controllers/canine.controller';
-const routes = (app) => {
-    app.route('/')
-    //GET endpoint
-    .get(getDog)
-}
-
-export default routes;
+module.exports = router;

@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // mongo connection
-const URI = process.env.ATLAS_URI || 'mongodb+srv://fetchThis:letMeIn@cluster0.3mhwe.mongodb.net/test';
+const URI = process.env.ATLAS_URI || 'mongodb+srv://fetchThis:letMeIn@cluster0.3mhwe.mongodb.net/fetch?retryWrites=true&w=majority';
 mongoose.connect(URI, { 
     useNewUrlParser: true, 
     useCreateIndex: true,
