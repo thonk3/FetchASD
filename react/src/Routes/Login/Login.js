@@ -15,6 +15,8 @@ const Login = props => {
     // style
     const classes = useStyles();
 
+    const { onTextChange, onSubmit } = props;
+
     // ----------------------------------------------------------
     return (
         <Container width="300px">
@@ -26,7 +28,7 @@ const Login = props => {
                 </Avatar>
 
             <Typography component="h1" variant="h4">Login</Typography>
-            <form >
+            <form onSubmit={onSubmit}>
                 {/* login */}
                 <TextField 
                     variant="outlined"
@@ -36,6 +38,7 @@ const Login = props => {
                     autoComplete="username" // see mdn docs 
                     label="Username"
                     className={classes.text}
+                    onChange={onTextChange}
                     />
 
                 {/* password */}
@@ -47,6 +50,7 @@ const Login = props => {
                     autoComplete="current-password" // see mdn docs 
                     label="Password"
                     type="password"
+                    onChange={onTextChange}
                     />
 
                 {/* submit */}
