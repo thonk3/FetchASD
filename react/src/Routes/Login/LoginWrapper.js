@@ -18,6 +18,7 @@ const LoginWrapper = props => {
     //     console.log(`pass: ${state.password}`);
     // };
 
+    // somwehat ugly
     const handleTextChange = e => {
         setState({ ...state, [e.target.name]: e.target.value });
         console.log(`${e.target.name}: ${state.[e.target.name]}`);
