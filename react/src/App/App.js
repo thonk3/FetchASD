@@ -43,6 +43,7 @@ const App = () => {
 
         {/* delet DemoThing later thing later */}
         <div className={classes.borderThing}>
+        {/* <div> */}
         <RouterSwitch>
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
