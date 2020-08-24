@@ -20,7 +20,7 @@ const ForDemo = props => {
 
   return (
     <>
-      <Typography>quickLinks</Typography>
+      <Typography variant="h4">Demo Component</Typography>
       <ul>
         <li><Link to='/'>Home page</Link></li>
         <li><Link to='/login'>Log in</Link></li>
@@ -45,7 +45,7 @@ const ForDemo = props => {
         name='adminAuth'
         label={`admin: ${authState.adminAuth}`}
         control={
-        <Switch checked={authState.adminAuth} onChange={switchChange} disabled={props.authState.loggedIn}/>
+        <Switch checked={authState.adminAuth} onChange={switchChange} disabled={!props.authState.loggedIn}/>
       } />
 
     </>

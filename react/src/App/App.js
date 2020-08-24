@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-        <NavBar />
+        <NavBar authState={state.loggedIn} />
         <div className={classes.offset}></div>
 
         <ForDemo authState={state} switchChange={handleLogToggle}/>
