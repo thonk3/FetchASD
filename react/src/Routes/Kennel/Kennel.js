@@ -1,21 +1,42 @@
-import React from 'react';
-// import ButtonAppBar from './Components/navbar';
-// import SimpleSelect from './Components/filters';
+import React, { Component } from 'react';
+import axios from "axios";
+import DataTable from './Components/data-table';
+import './Components/kennel.css';
+import Container from '@material-ui/core/Container';
 
-// kennel page
 
-// class Kennel extends React.Component {
-//     render() {
-//         return (
-//             <div><ButtonAppBar />
-//             <SimpleSelect /></div>
-//         )
-//     }
-// }
-const Kennel = props => {
-    return (
-        <h1>Kennel</h1>
-    );
-};
 
-export default Kennel;
+export default class Kennel extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { dogs: [] };
+    }
+
+    componentDidMount() {
+        axios.get('/api/canines')
+            .then(res => {
+                this.setState({ dogs: res.data });
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+
+        dataTable() {
+            return this.state.dogs.map((data, i) => {
+                return <DataTable obj={data} key={i} />;
+            });
+        }
+
+        render() {
+
+            return (
+                <Container fixed>
+                <div class="flex-container">
+                {this.dataTable()}
+                </div>
+                </Container>
+
+            )
+        }
+    }

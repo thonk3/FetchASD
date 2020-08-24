@@ -29,7 +29,8 @@ const canineSchema = new Schema({
     },
     isDogVaccinated: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     }
 });
 
