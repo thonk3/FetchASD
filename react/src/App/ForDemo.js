@@ -36,14 +36,14 @@ const ForDemo = props => {
       <Typography>demo authentication states</Typography>
       <FormControlLabel
         name='loggedIn'
-        label={`logged in: ${authState.loggedIn}`}l
+        label={`logged in: ${authState.loggedIn}`}
         control={
         <Switch checked={authState.loggedIn} onChange={switchChange} />
       } />
 
       <FormControlLabel
         name='adminAuth'
-        label={`admin: ${authState.adminAuth}`}l
+        label={`admin: ${authState.adminAuth}`}
         control={
         <Switch checked={authState.adminAuth} onChange={switchChange} disabled={props.authState.loggedIn}/>
       } />

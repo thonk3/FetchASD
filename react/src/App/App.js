@@ -3,21 +3,19 @@ import React
   ,{ useState } 
   from 'react';
 import { 
+  BrowserRouter,
   Route, 
   Switch as RouterSwitch
 } from 'react-router-dom';
 
 // component imports
-import ForDemo from './BunchoLinks'
+import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 
 // material ui
 import useStyles from './App.style';
 
-// temp
-import Switch from '@material-ui/core/Switch'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const App = () => {
   
@@ -36,7 +34,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <BrowserRouter>
         <NavBar />
         <div className={classes.offset}></div>
 
@@ -59,7 +57,7 @@ const App = () => {
           <Route component={Routes.NotFound} />
         </RouterSwitch>
         </div>
-    </div>
+    </BrowserRouter>
   )
 };
 
