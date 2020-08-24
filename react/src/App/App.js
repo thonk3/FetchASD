@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 // component imports
-import BunchoLinks from './BunchoLinks'
+import ForDemo from './BunchoLinks'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 
@@ -30,20 +30,20 @@ const App = () => {
   });
 
   // set auth 
-  const handleLogToggle = (e) => setState({ ...state, [e.target.name]: !state.[e.target.name] });
+  const handleLogToggle = (e) => {
+    setState({ ...state, [e.target.name]: !state.[e.target.name] });
+    // console.log('a')
+  }
 
   return (
     <div>
         <NavBar />
         <div className={classes.offset}></div>
 
-        <BunchoLinks />
-        {/* ------------------------------------- */}
-        <FormControlLabel name='loggedIn' control={<Switch checked={state.loggedIn} onChange={handleLogToggle} />} label={`logged in: ${state.loggedIn}`} />
-        <FormControlLabel name='adminAuth' control={<Switch checked={state.adminAuth} onChange={handleLogToggle} disabled={!state.loggedIn}/>} label={`admin: ${state.adminAuth}`} />
+        <ForDemo authState={state} switchChange={handleLogToggle}/>
         {/* ------------------------------------- */}
 
-        {/* delet router thing later */}
+        {/* delet DemoThing later thing later */}
         <div className={classes.borderThing}>
         <RouterSwitch>
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
