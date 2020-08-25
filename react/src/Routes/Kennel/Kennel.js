@@ -3,7 +3,7 @@ import axios from "axios";
 import DataTable from './Components/data-table';
 import './Components/kennel.css';
 import Container from '@material-ui/core/Container';
-
+import LayoutTextFields from './Components/filters';
 
 
 export default class Kennel extends Component{
@@ -31,7 +31,10 @@ export default class Kennel extends Component{
         render() {
 
             return (
+                
                 <Container fixed>
+                    <br></br>
+                    <LayoutTextFields/>
                 <div class="flex-container">
                 {this.dataTable()}
                 </div>

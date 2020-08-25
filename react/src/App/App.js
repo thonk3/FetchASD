@@ -37,14 +37,11 @@ const App = () => {
         <NavBar />
         <div className={classes.offset}></div>
 
-        <BunchoLinks />
         {/* ------------------------------------- */}
-        <FormControlLabel name='loggedIn' control={<Switch checked={state.loggedIn} onChange={handleLogToggle} />} label={`logged in: ${state.loggedIn}`} />
-        <FormControlLabel name='adminAuth' control={<Switch checked={state.adminAuth} onChange={handleLogToggle} disabled={!state.loggedIn}/>} label={`admin: ${state.adminAuth}`} />
+     
         {/* ------------------------------------- */}
 
         {/* delet router thing later */}
-        <div className={classes.borderThing}>
         <RouterSwitch>
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
@@ -58,7 +55,7 @@ const App = () => {
 
           <Route component={Routes.NotFound} />
         </RouterSwitch>
-        </div>
+        
     </div>
   )
 };
