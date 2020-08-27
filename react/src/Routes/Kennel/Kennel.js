@@ -20,26 +20,24 @@ export default class Kennel extends Component{
             .catch(function (error) {
                 console.log(error);
             })
-        }
-
-        dataTable() {
-            return this.state.dogs.map((data, i) => {
-                return <DataTable obj={data} key={i} />;
-            });
-        }
-
-        render() {
-
-            return (
-                
-                <Container fixed>
-                    <br></br>
-                    <LayoutTextFields/>
-                <div class="flex-container">
-                {this.dataTable()}
-                </div>
-                </Container>
-
-            )
-        }
     }
+
+    dataTable = () => {
+        return this.state.dogs.map((data, i) => {
+            return <DataTable obj={data} key={i} />;
+        });
+    }
+
+    render() {
+        return (
+            <Container fixed>
+                <br></br>
+                <LayoutTextFields/>
+
+                <div class="flex-container">
+                    {this.dataTable()}
+                </div>
+            </Container>
+        )
+    }
+}
