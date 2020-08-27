@@ -1,39 +1,52 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavLink from './components/NavLink'
 
 import {
     AppBar,
     Toolbar,
     Typography,
-    Button,
-    IconButton
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+// import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
 
 const NavBar = props => {
+    // add styling
     const classes = useStyles();
+
+    // deconstructing props
+    const { authState } = props;
     
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color='inherit' aria-label='menu'
                         >
                         <MenuIcon />
-                    </IconButton>
-                    <Typography variant='h6' className={classes.menuTitle}>Fetch</Typography>
+                    </IconButton> */}
+                    
+                    <Typography variant='h5' className={classes.menuTitle}><b>Fetch</b></Typography>
 
-                    <Link to='/login'>
-                        <Button className={classes.menuLink}>Login</Button>
-                    </Link>
+                    {   // setting nav links based on auth status
+                        authState ?
+                        (
+                            <>
+                            <NavLink dir='/kennel' label='the kennel' />
+                            <Typography>|</Typography>
+                            <NavLink dir='/myacc' label='my account' />
+                            </>
+                        ) : (
+                            <>
+                            <NavLink dir='/login' label='login' />
+                            <Typography>|</Typography>
+                            <NavLink dir='/register' label='register' />
+                            </>
+                        )
+                    }
 
-                    <Link to='/register'>
-                        <Button className={classes.menuLink}>Register</Button>
-                    </Link>
                 </Toolbar>
             </AppBar>
         </div>

@@ -1,22 +1,7 @@
 const router = require('express').Router();
-let Canine = require('../models/canine.model');
+const canineController = require('../controllers/canineController');
 
-// GET all dogs
-router.route('/').get((req, res) => {
-    Canine.find()
-	.then(people => res.json(canine))
-	.catch(err => res.status(400).json('Error:' + err));
-});
-
-// POST add new dog
-router.route('/add').post((req, res) => {
-    const breed = req.body.breed;
-
-    const newCanine = new Canine({breed});
-    
-    newCanine.save()
-	.then(() => res.json('Canine added!'))
-	.catch(err => res.status(400).json('Error: ' + err));
-});
+router.get('/', canineController.getDog);
+router.get('/:id', canineController.getDogbyId);
 
 module.exports = router;

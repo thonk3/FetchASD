@@ -27,6 +27,7 @@ Thumbs.db
 ##############################
 /react/node_modules
 /express/node_modules
+/node_modules
 
 # react production build #
 ##########################

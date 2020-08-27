@@ -3,21 +3,19 @@ import React
   ,{ useState } 
   from 'react';
 import { 
+  BrowserRouter,
   Route, 
   Switch as RouterSwitch
 } from 'react-router-dom';
 
 // component imports
-import BunchoLinks from './BunchoLinks'
+import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 
 // material ui
 import useStyles from './App.style';
 
-// temp
-import Switch from '@material-ui/core/Switch'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const App = () => {
   
@@ -30,21 +28,22 @@ const App = () => {
   });
 
   // set auth 
-  const handleLogToggle = (e) => setState({ ...state, [e.target.name]: !state.[e.target.name] });
+  const handleLogToggle = (e) => {
+    setState({ ...state, [e.target.name]: !state.[e.target.name] });
+    // console.log('a')
+  }
 
   return (
-    <div>
-        <NavBar />
+    <BrowserRouter>
+        <NavBar authState={state.loggedIn} />
         <div className={classes.offset}></div>
 
-        <BunchoLinks />
-        {/* ------------------------------------- */}
-        <FormControlLabel name='loggedIn' control={<Switch checked={state.loggedIn} onChange={handleLogToggle} />} label={`logged in: ${state.loggedIn}`} />
-        <FormControlLabel name='adminAuth' control={<Switch checked={state.adminAuth} onChange={handleLogToggle} disabled={!state.loggedIn}/>} label={`admin: ${state.adminAuth}`} />
+        <ForDemo authState={state} switchChange={handleLogToggle}/>
         {/* ------------------------------------- */}
 
-        {/* delet router thing later */}
+        {/* delet DemoThing later thing later */}
         <div className={classes.borderThing}>
+        {/* <div> */}
         <RouterSwitch>
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
@@ -59,7 +58,7 @@ const App = () => {
           <Route component={Routes.NotFound} />
         </RouterSwitch>
         </div>
-    </div>
+    </BrowserRouter>
   )
 };
 
