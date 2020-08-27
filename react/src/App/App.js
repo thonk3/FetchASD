@@ -1,36 +1,66 @@
-import React from 'react';
+// messy imports
+import React
+  ,{ useState } 
+  from 'react';
 import { 
-  BrowserRouter as Router, 
-  // Route, 
-  Link 
-} from 'react-router-dom'
-import './App.css';
+  BrowserRouter,
+  Route, 
+  Switch as RouterSwitch
+} from 'react-router-dom';
 
 // component imports
-import Sample from '../Components/Sample'
+import ForDemo from './ForDemo'
+import NavBar from '../Common/NavBar/NavBar'
+import * as Routes from '../Routes/Routes'
 
-function App() {
+// material ui
+import useStyles from './App.style';
+
+
+const App = () => {
+  
+  const classes = useStyles();
+
+  // state hooks
+  const [ state, setState ] = useState({
+    loggedIn: false,
+    adminAuth: false,
+  });
+
+  // set auth 
+  const handleLogToggle = (e) => {
+    setState({ ...state, [e.target.name]: !state.[e.target.name] });
+    // console.log('a')
+  }
+
   return (
-    <div className="App">
-      < Sample/>
+    <BrowserRouter>
+        <NavBar authState={state.loggedIn} />
+        <div className={classes.offset}></div>
 
-      {/* put nav into its own component */}
-      <Router>
-      <ul>
-        <li><Link to="/">main</Link></li>
-        <li><Link to="/list">list</Link></li>
-      </ul>
-      {/* routing */}
+        <ForDemo authState={state} switchChange={handleLogToggle}/>
+        {/* ------------------------------------- */}
 
-        <div>
-          {/* <Route exact path="/" component={Main} />
-          <Route path="/list" component={List} /> */}
+        {/* delet DemoThing later thing later */}
+        <div className={classes.borderThing}>
+        {/* <div> */}
+        <RouterSwitch>
+          <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
+          <Route path='/login' component={Routes.Login} />
+          <Route path='/register' component={Routes.Register} />
+          <Route path='/myacc' component={Routes.AccountMan} />
+          <Route path='/myacc/mypack' component={Routes.DogMan} />
+          <Route path='/kennel' component={Routes.Kennel} />
+          <Route path='/date' component={Routes.Dates} />
+          <Route path='/date/id' component={Routes.RateDate} />
+          <Route path='/admin' component={Routes.AdminHome} />
+
+          <Route component={Routes.NotFound} />
+        </RouterSwitch>
         </div>
-        
-      </Router>
+    </BrowserRouter>
+  )
+};
 
-    </div>
-  );
-}
 
 export default App;

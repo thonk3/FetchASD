@@ -1,0 +1,12 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    }
+
+    .dog{
+    width: 15vw;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin:1vw;
+    padding:0.5vw;
+}
