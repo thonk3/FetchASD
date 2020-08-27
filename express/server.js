@@ -38,6 +38,7 @@ const peopleRouter = require('./routes/people');
 
 app.use('/api/canines', caninesRouter);
 app.use('/api/people', peopleRouter);
+
 // --------------------------------------------------------------
 
 
