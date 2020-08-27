@@ -11,8 +11,6 @@ import { Switch, FormControlLabel, Typography } from '@material-ui/core'
       // dog man
       // kennel
       // date
-      // payment man
-      // product man
 
       
 const ForDemo = props => {
@@ -27,10 +25,8 @@ const ForDemo = props => {
         <li><Link to='/register'>Register</Link></li>
         <li><Link to='/myacc'>Account management</Link></li>
         <li><Link to='/myacc/mypack'>Dog man page</Link></li>
-        <li><Link to='/myacc/payment'>payment man page</Link></li>
         <li><Link to='/kennel'>kennel page</Link></li>
         <li><Link to='/date'>date management</Link></li>
-        <li><Link to='/admin/products'>Admin/Product management</Link></li>
       </ul>
 
       <Typography>demo authentication states</Typography>
