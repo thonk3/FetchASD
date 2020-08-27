@@ -8,7 +8,7 @@ const Theme = createMuiTheme({
     },
     spacing: 16,
     typography: {
-        fontSize: 16
+        fontSize: 12
     }
 });
 
