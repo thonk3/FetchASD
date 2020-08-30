@@ -1,6 +1,7 @@
 import React from 'react';
 
 // import NameThing from './NameThing'
+import LandingPage from './LandingPage';
 
 const Home = (props) => {
     // const { loggedIn } = props;
@@ -17,12 +18,8 @@ const Home = (props) => {
                     {/* <NameThing />  */}
                 </>
                 : 
-                <>
-                    <h2> Who are you</h2>
-                    {/* <NameThing />  */}
-                </>}
-
-
+                <LandingPage />
+            }
         </>
     );
 };
