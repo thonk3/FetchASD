@@ -5,8 +5,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: theme.spacing(9),
-        marginBottom: theme.spacing(9),
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
     },
     button: {
         border: '4px solid currentColor',

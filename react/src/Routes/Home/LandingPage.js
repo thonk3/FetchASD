@@ -1,19 +1,20 @@
 import React from 'react';
 
-import LandingHelp from './LandingComponents/LandingHelp';
+import LandingHero from './LandingComponents/Hero/LandingHero';
+import LandingHelp from './LandingComponents/Help/LandingHelp';
 
+
+// I DONT KNOW WHAT ANY OF THIS DOES
+// HOW DO I REFACTOR THIS
 const LandingPage = () => {
     return (
         <>
-            <h1>Landing page</h1>
-            <p>LandingHero</p>
+            <LandingHero />
             <p>LandingValues</p>
             <p>LandingHowItWorks</p>
             <p>LaningCategories</p>
-            <p>LandingHelp</p>
             <LandingHelp />
 
-            <p>Footer component</p>
         </>
     );
 };

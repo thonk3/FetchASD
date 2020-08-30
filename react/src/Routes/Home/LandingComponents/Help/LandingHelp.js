@@ -4,7 +4,7 @@ import {
     Button, Container, Typography
 } from '@material-ui/core';
 import useStyles from './LandingHelp.style';
-import heart_thing from '../../../Assets/heart_paw.png';
+import heart_thing from '../../../../Assets/heart_paw.png';
 
 
 
@@ -31,4 +31,4 @@ const LandingHelp = ( props ) => {
 };
 
 
-export default LandingHelp
+export default LandingHelp;

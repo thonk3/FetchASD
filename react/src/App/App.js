@@ -46,8 +46,8 @@ const App = () => {
 
         { state.showDemo ?
         <>
-          <ForDemo authState={state} switchChange={handleLogToggle}/>
           <Button variant="contained" color="secondary" onClick={handleDemoToggle}>CLOSE</Button>
+          <ForDemo authState={state} switchChange={handleLogToggle}/>
         </> :
         <>
         </> }
@@ -71,6 +71,8 @@ const App = () => {
           <Route component={Routes.NotFound} />
         </RouterSwitch>
         </div>
+
+        <p>Footer component</p>
     </BrowserRouter>
   )
 };
