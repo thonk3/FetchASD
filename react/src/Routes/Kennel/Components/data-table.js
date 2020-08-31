@@ -10,8 +10,8 @@ class DataTable extends Component {
         return (
             <Card class="dog">
                 <CardContent>
-                    <h3>{this.props.obj.dogName}</h3>
-                    <p>{this.props.obj.dogBreed}, {this.props.obj.dogLocation}</p>
+                    <h3>{this.props.obj.Name}</h3>
+                    <p>{this.props.obj.Breed}, {this.props.obj.Suburb}</p>
                     <Button variant="contained" color="primary"> View Profile </Button>
                 </CardContent> 
             </Card>
