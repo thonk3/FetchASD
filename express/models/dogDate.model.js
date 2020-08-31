@@ -26,6 +26,7 @@ const dogDateSchema = new Schema ({
     parkID: {
         type: Schema.Types.ObjectId,
         required: false,
+        ref: 'Park'
     },
     location: {
         type: String,
