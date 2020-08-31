@@ -3,6 +3,7 @@ import React from 'react';
 import LandingHero from './LandingComponents/Hero/LandingHero';
 import LandingValues from './LandingComponents/Values/LandingValues'
 import LandingCategories from './LandingComponents/Categories/LandingCategories';
+import LandingHowItWorks from './LandingComponents/HowItWorks/LandingHowItWorks';
 import LandingHelp from './LandingComponents/Help/LandingHelp';
 
 
@@ -14,9 +15,8 @@ const LandingPage = () => {
             <LandingHero />
             <LandingValues />
             <LandingCategories />
-            <p>LandingHowItWorks</p>
+            <LandingHowItWorks />
             <LandingHelp />
-
         </>
     );
 };
