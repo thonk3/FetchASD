@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         border: '4px solid currentColor',
+        background: theme.palette.secondary.main,
         borderRadius: 0,
         height: 'auto',
         padding: theme.spacing(2, 5),
@@ -21,6 +22,11 @@ const useStyles = makeStyles(theme => ({
     heartIcon: {
         width: 60,
     },
+    helpAvatar: {
+        background: '#fff',
+        border: '3.5px solid black',
+        padding: theme.spacing(1)
+    }
 }));
 
 export default useStyles;

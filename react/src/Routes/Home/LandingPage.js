@@ -1,6 +1,7 @@
 import React from 'react';
 
 import LandingHero from './LandingComponents/Hero/LandingHero';
+import LandingValues from './LandingComponents/Values/LandingValues'
 import LandingHelp from './LandingComponents/Help/LandingHelp';
 
 
@@ -10,9 +11,9 @@ const LandingPage = () => {
     return (
         <>
             <LandingHero />
-            <p>LandingValues</p>
-            <p>LandingHowItWorks</p>
+            <LandingValues />
             <p>LaningCategories</p>
+            <p>LandingHowItWorks</p>
             <LandingHelp />
 
         </>

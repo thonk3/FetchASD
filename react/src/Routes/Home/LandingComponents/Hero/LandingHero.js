@@ -32,37 +32,37 @@ const LandingHero = props => {
     const classes = useStyles();
 
     return (
-    <LandingHeroWrapper backgroundClassName={classes.background}>
-      {/* Increase the network loading priority of the background image. */}
-        <img
-            style={{ display: 'none' }}
-            src={backgroundImage}
-            alt="increase priority"/>
-        <Typography align="center" variant="h2"> A Title Thing </Typography>
+        <LandingHeroWrapper backgroundClassName={classes.background}>
+            <img
+                style={{ display: 'none' }}
+                src={backgroundImage}
+                alt="increase priority"/>
+            <Typography align="center" variant="h2"> A Title Thing </Typography>
 
-        <Typography
-            align="center"
-            variant="h5"
-            className={classes.h5}
-        >
-            something something a sentence
-        </Typography>
+            <Typography
+                align="center"
+                variant="h5"
+                className={classes.h5}
+            >
+                STYLING IS DUMB, webdev is dumb, am dum
+            </Typography>
 
-        <Button
-        color="secondary"
-        variant="contained"
-        size="large"
-        className={classes.button}
-        component="a"
-        href="/register/"
-        >
-            Register
-        </Button>
+            {/* redir to register page */}
+            <Button
+                color="secondary"
+                variant="contained"
+                size="large"
+                className={classes.button}
+                component="a"
+                href="/register/"
+            >
+                Register
+            </Button>
 
-        <Typography variant="body2" className={classes.subtitle}>
-            Discover the experience
-        </Typography>
-    </LandingHeroWrapper>
+            <Typography variant="body2" className={classes.subtitle}>
+                Get your bestfriend a friend
+            </Typography>
+        </LandingHeroWrapper>
     );
 }
 
