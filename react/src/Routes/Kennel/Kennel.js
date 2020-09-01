@@ -2,22 +2,28 @@ import React, { Component } from 'react';
 import axios from "axios";
 import DataTable from './Components/data-table';
 import './Components/kennel.css';
-import Container from '@material-ui/core/Container';
+import { Container, CircularProgress } from '@material-ui/core/';
 import LayoutTextFields from './Components/filters';
 
 
 export default class Kennel extends Component{
     constructor(props) {
         super(props);
-        this.state = { dogs: [] };
+        this.state = { 
+            dogs: [],
+            isLoaded: false
+        };
     }
 
     componentDidMount() {
         axios.get('/api/canines')
             .then(res => {
-                this.setState({ dogs: res.data });
+                this.setState({
+                    dogs: res.data, 
+                    isLoaded: true 
+                });
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
             })
     }
@@ -35,7 +41,14 @@ export default class Kennel extends Component{
                 <LayoutTextFields/>
 
                 <div class="flex-container">
-                    {this.dataTable()}
+                    {this.state.isLoaded ?
+                        this.dataTable()
+                        :
+                        <>
+                            <br />
+                            <CircularProgress color="secondary"/>
+                        </>
+                    }
                 </div>
             </Container>
         )
