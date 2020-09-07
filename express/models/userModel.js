@@ -9,40 +9,48 @@ const userSchema = new Schema({
     },
     firstName: {
         type: String,
-        required: true
+        required: true,
+        min: 3,
+        max: 50,
     },
     lastName: {
         type: String,
-        required: true
+        required: true,
+        min: 3,
+        max: 100,
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        min: 6,
+        max: 255,
     },
     password: {
         type: String,
-        requireq:true
+        requireq:true,
+        min: 6,
+        max: 1024
     },
-    phoneNumber: {
-        type: String,
-        required: true
-    },
-    suburb: {
-        type: String,
-        required: true
-    },
-    postcode: {
-        type: String,
-        required: true
-    },
-    isStaffUser: {
-        type: Boolean,
-        default: false,
-        required: true
-    },
-    dogId: {
-        type: Array,
-        required: false,
+    // phoneNumber: {
+    //     type: String,
+    //     required: true
+    // },
+    // suburb: {
+    //     type: String,
+    //     required: true
+    // },
+    // postcode: {
+    //     type: String,
+    //     required: true
+    // },
+    // isStaffUser: {
+    //     type: Boolean,
+    //     default: false,
+    //     required: true
+    // },
+    // dogId: {
+    //     type: Array,
+    //     required: false,
                 
     }
 });
