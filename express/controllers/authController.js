@@ -2,9 +2,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
+const router = require("../routes/auth");
+
+// maybe change validation into express-validator
 const { registerValidation } = require("../validation");
 const { valid, required } = require("joi");
-const router = require("../routes/auth");
 
 // this gucci
 module.exports.Register = async (req, res) => {
@@ -15,6 +17,7 @@ module.exports.Register = async (req, res) => {
 
     // check existing email
     const emailExist = await User.findOne({ email: req.body.email });
+
     if(emailExist) 
         return res.status(400).json({ error: "Email already exist" });
         
@@ -32,9 +35,14 @@ module.exports.Register = async (req, res) => {
     try {
         const savedUser = await user.save();
         res.json({ error: null, data: savedUser });
+        console.log("new user created");
     } catch (error) {
         res.status(400).json({ error });
     }
+}
+
+module.exports.Login = async (req, res) => {
+
 }
 
 
