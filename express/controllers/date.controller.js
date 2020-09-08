@@ -4,8 +4,8 @@ const DogDate = require('../models/dogDate.model');
 
 exports.getDates = (req, res) => {
 	DogDate.find()
-	.then(dogDate => res.json(dogDate))
-	.catch(err => res.status(400).json('Error:' + err))
+	    .then(dogDate => res.json(dogDate))
+	    .catch(err => res.status(400).json('Error:' + err))
 };
 
 exports.createDate = (req, res) => {
@@ -17,4 +17,20 @@ exports.createDate = (req, res) => {
     .catch(err => {
         res.status(400).send('Could not add the Date');    
     });
+}
+
+exports.acceptDate = (req, res) => {
+    DogDate.findById(req.params.id, function(err, dogDate) {
+        if(!dogDate) {
+            res.status(400).send("Could not find dog date with that ID");
+        } else {
+            dogDate.status = "Upcoming";
+            dogDate.save()
+                .then(dogDate => {
+                    res.json('Dog Date has been accepted');
+                })
+                .catch(err => {
+                    res.status(400).send("Could not accep the dog date");
+                });
+        }});
 }

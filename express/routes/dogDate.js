@@ -7,4 +7,7 @@ router.route('/')
 router.route('/add')
     .post(dateController.createDate);
 
+router.route('/accept/:id')
+    .post(dateController.acceptDate);
+
 module.exports = router;
