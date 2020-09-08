@@ -47,6 +47,21 @@ const userSchema = new Schema({
     }
 });
 
+UserSchema
+  .virtual('password')
+  .set(function(password) {
+    this.password = password
+})
+.get(function() {
+  return this.password
+})
+
+userSchema.methods = {
+    authenticate: function(plainText) {
+        return plainText === this.password
+    }
+}
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
