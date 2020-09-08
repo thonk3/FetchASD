@@ -39,7 +39,7 @@ const authRouter = require('./routes/auth');
 
 app.use('/api/canines', caninesRouter);
 app.use('/api/people', peopleRouter);
-app.use('api/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 // --------------------------------------------------------------
 

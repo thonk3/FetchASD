@@ -1,4 +1,5 @@
-const Joi, { required } = require("joi");
+const { required } = require("joi");
+const Joi  = require("joi");
 
 module.exports.registerValidation = data => {
     const schema = Joi.object({
