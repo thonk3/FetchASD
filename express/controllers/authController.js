@@ -5,8 +5,12 @@ const User = require("../models/userModel");
 const router = require("../routes/auth");
 
 // maybe change validation into express-validator
-const { registerValidation } = require("../validation");
+const { 
+    registerValidation,
+    loginValidation,
+} = require("../validation");
 const { valid, required } = require("joi");
+const { check } = require("express-validator");
 
 // this gucci
 module.exports.Register = async (req, res) => {
@@ -42,7 +46,36 @@ module.exports.Register = async (req, res) => {
 }
 
 module.exports.Login = async (req, res) => {
+    // validate input
+    const { error } = loginValidation(req.body);
+    if(error)
+        return res.status(400).json({ error: error.details[0].message });
+    
+    // check matching email
+    const user = await User.findOne({ email: req.body.email });
+    if(!user)
+        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
 
+    // check matching password
+    const checkPassword = await bcrypt.compare(req.body.password, user.password);
+    if(!checkPassword)
+        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+
+    // create token
+    const token = jwt.sign({
+        email: user.email,      // just here for testing
+        id: user._id,
+        }, process.env.TOKEN_SECRET
+    );
+
+    // logged in
+    res.json({
+        error: null,
+        data: {
+            token,
+            message: "YOURE IN",
+        }
+    })
 }
 
 
