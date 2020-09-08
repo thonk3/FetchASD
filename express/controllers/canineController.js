@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Dog = require('../models/canineModel');
+const Dog = require('../models/canine.model');
 
 exports.getDog = (req, res) => {
     Dog.find()
