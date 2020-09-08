@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-    const token = req.handler("auth-token");
+    const token = req.header("auth-token");
     
     // no token
     if(!token)
@@ -16,3 +16,5 @@ const verifyToken = (req, res, next) => {
         res.status(401).json({ error: "BAD TOKEN" });
     }
 }
+
+module.exports = verifyToken;

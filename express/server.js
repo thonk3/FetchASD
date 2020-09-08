@@ -36,8 +36,9 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 const caninesRouter = require('./routes/canines');
 const peopleRouter = require('./routes/people');
 const authRouter = require('./routes/auth');
+const verifyToken = require('./validate-token');
 
-app.use('/api/canines', caninesRouter);
+app.use('/api/canines', verifyToken, caninesRouter);
 app.use('/api/people', peopleRouter);
 app.use('/api/auth', authRouter);
 
