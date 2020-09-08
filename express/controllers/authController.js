@@ -72,7 +72,7 @@ module.exports.Login = async (req, res) => {
     res.json({
         error: null,
         data: {
-            token,
+            token,      // test in https://jwt.io/
             message: "YOURE IN",
         }
     })
