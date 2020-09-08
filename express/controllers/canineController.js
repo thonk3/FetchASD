@@ -1,5 +1,3 @@
-const express = require('express');
-const mongoose = require('mongoose');
 const Dog = require('../models/canineModel');
 
 exports.getDog = (req, res) => {
@@ -17,3 +15,4 @@ exports.getDogbyId = (req, res) => {
     })
     .catch(err => res.status(400).json('Error' + err));
 }
+

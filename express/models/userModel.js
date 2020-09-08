@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    userID: {
-        type: String,
-        required: true
-    },
-    firstName: {
-        type: String,
-        required: true,
-        min: 3,
-        max: 50,
-    },
-    lastName: {
-        type: String,
-        required: true,
-        min: 3,
-        max: 100,
-    },
+    // userID: {
+    //     type: String,
+    //     required: true
+    // },
+    // firstName: {
+    //     type: String,
+    //     required: true,
+    //     min: 3,
+    //     max: 50,
+    // },
+    // lastName: {
+    //     type: String,
+    //     required: true,
+    //     min: 3,
+    //     max: 100,
+    // },
     email: {
         type: String,
         required: true,
@@ -29,8 +29,9 @@ const userSchema = new Schema({
         type: String,
         requireq:true,
         min: 6,
-        max: 1024
+        max: 1024   // hashing size
     },
+    // slowly implement each part
     // phoneNumber: {
     //     type: String,
     //     required: true
@@ -52,7 +53,7 @@ const userSchema = new Schema({
     //     type: Array,
     //     required: false,
                 
-    }
+    // }
 });
 
 const User = mongoose.model('User', userSchema);
