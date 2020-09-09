@@ -34,3 +34,17 @@ exports.acceptDate = (req, res) => {
                 });
         }});
 }
+
+exports.declineDate = (req, res) => {
+    DogDate.findById(req.params.id, function(err, dogDate) {
+        if(!dogDate) {
+            res.status(400).send("Could not find dog date with that ID");
+        } else {
+            dogDate.deleteOne()
+                .then(dogDate =>{
+                    res.json("Dog Date request has been declined");
+                }).catch(err => {
+                    res.status(400).send("Could not decline the dog date");
+                });
+    }});
+}
