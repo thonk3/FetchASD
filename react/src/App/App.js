@@ -64,6 +64,7 @@ const App = () => {
           <Route path='/myacc' component={Routes.AccountMan} />
           <Route path='/myacc/mypack' component={Routes.DogMan} />
           <Route path='/kennel' component={Routes.Kennel} />
+          <Route path='/:id' component={Routes.Dog} />
           <Route path='/date' component={Routes.Dates} />
           <Route path='/date/id' component={Routes.RateDate} />
           <Route path='/admin' component={Routes.AdminHome} />

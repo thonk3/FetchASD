@@ -6,14 +6,19 @@ import { Container, CircularProgress } from '@material-ui/core/';
 import LayoutTextFields from './Components/filters';
 
 
+
 export default class Kennel extends Component{
     constructor(props) {
         super(props);
         this.state = { 
             dogs: [],
+
             isLoaded: false
         };
+
     }
+
+  
 
     componentDidMount() {
         axios.get('/api/canines')
@@ -49,7 +54,9 @@ export default class Kennel extends Component{
                             <CircularProgress color="secondary"/>
                         </>
                     }
+
                 </div>
+
             </Container>
         )
     }
