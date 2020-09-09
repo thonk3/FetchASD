@@ -6,6 +6,7 @@ const UniqueDog = ({dog}) => {
     return(
         <div>
             <p>This is Dog </p>
+            {/* i wanna put dog's name and stuff here */}
         </div>
     )
 }
