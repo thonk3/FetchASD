@@ -1,4 +1,4 @@
-const Dog = require('../models/canineModel');
+const Dog = require('../models/dogModel');
 
 exports.getDog = (req, res) => {
     Dog.find()
