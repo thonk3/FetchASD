@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import './Components/kennel.css';
+import Button from '@material-ui/core/Button';
+
  
  export default class Dog extends Component {
      constructor(props) {
@@ -38,14 +41,32 @@ import axios from "axios";
      render() {
          const{name, age, breed, suburb, gender, rating} = this.state
          return (
-             <div>
-            {name},{age}
-             Breed: {breed}
+        
+             <div class = "contain-within">
+                 <div class="float-left">
+                 <div class="imgplaceholder">image here
+                 </div>
+                 <div class="button">
+                 <Button variant="contained" color="primary">
+  Express Interest
+</Button>
+</div>
+                 </div>
+             <div>  
+            <h1>{name}, {age}</h1>
+             <h3>Breed: {breed}
+             <br/>
              Suburb: {suburb}
+             <br/>
              Gender: {gender}
+             <br/>
              Rating: {rating}
+             <br/>
+             <h4>Bio:</h4> </h3>
+             
+             </div>  
              </div>
-
+       
          )
      }
  } 

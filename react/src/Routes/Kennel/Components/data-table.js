@@ -11,16 +11,19 @@ class DataTable extends Component {
     render() {
 
         return (
-
+            <div class="center-this">
             <Card class="dog">
                 <CardContent>
-                    <h3>{this.props.obj.Name}</h3>
+                <div class="imgplaceholder">image here
+                 </div>
+                    <h2>{this.props.obj.Name}</h2>
                     <p>{this.props.obj.Breed}, {this.props.obj.Suburb}</p>
                     <Link to={this.props.obj._id} Component={Dog}>
                     <Button variant="contained" color="primary" > View Profile </Button>
                     </Link>
                 </CardContent> 
             </Card>
+            </div>
         );
     }
 }
