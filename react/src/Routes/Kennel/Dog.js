@@ -1,62 +1,18 @@
 import React, { Component } from 'react';
-import UniqueDog from './Components/uniquedog';
 import axios from "axios";
-
-/* 
-
-export default class Dog extends Component{
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            dog: []
-        };
-    }
-
-    componentDidMount() {
-        const { id } = this.props.match.params;
-        console.log(id);
-        axios.get('/api/canines/${id}')
-        .then(res => {
-            this.setState({
-                dogs: res.data, 
-                isLoaded: true 
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-
-    uniqueDog = () => {
-        return this.state.dogs.map((data, i) => {
-            return <UniqueDog dogs={data} key={i} />;
-        });
-    }
-    render() {
-        return (
-            <div>
-                     {this.state.isLoaded ?
-                        this.uniqueDog()
-                        :
-                        <>
-                            <br />
-                    
-                        </>
-                    }  
-            </div>
-        )
-    }
-}
- */
-
+ 
  export default class Dog extends Component {
      constructor(props) {
          super(props)
 
          this.state = {
-             id: this.props.match.params._id,
+             id: this.props.match.params.id,
              name: '',
+             age: '',
+             breed: '',
+             suburb: '',
+             gender: '',
+             rating: '',
          }
      }
 
@@ -65,7 +21,13 @@ export default class Dog extends Component{
          axios.get(`/api/canines/${id}`)
          .then(res => {
              this.setState({
-                name: res.data.name,
+                name: res.data.Name,
+                age: res.data.Age,
+                breed: res.data.Breed,
+                suburb: res.data.Suburb,
+                gender: res.data.Gender,
+                rating: res.data.Rating,
+
              });
          })
          .catch((error) => {
@@ -74,9 +36,16 @@ export default class Dog extends Component{
      }
 
      render() {
-         const{name} = this.state
+         const{name, age, breed, suburb, gender, rating} = this.state
          return (
-             <h1>{name}</h1>
+             <div>
+            {name},{age}
+             Breed: {breed}
+             Suburb: {suburb}
+             Gender: {gender}
+             Rating: {rating}
+             </div>
+
          )
      }
- }
+ } 
