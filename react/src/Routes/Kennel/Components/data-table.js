@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import './kennel.css';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-
+import Dog from '../Dog'
 
 class DataTable extends Component {
 
@@ -16,7 +16,7 @@ class DataTable extends Component {
                 <CardContent>
                     <h3>{this.props.obj.Name}</h3>
                     <p>{this.props.obj.Breed}, {this.props.obj.Suburb}</p>
-                    <Link to={this.props.obj._id}>
+                    <Link to={this.props.obj._id} Component={Dog}>
                     <Button variant="contained" color="primary" > View Profile </Button>
                     </Link>
                 </CardContent> 
