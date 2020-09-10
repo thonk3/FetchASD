@@ -17,3 +17,12 @@ exports.getDogbyId = (req, res) => {
     })
     .catch(err => res.status(400).json('Error' + err));
 }
+
+exports.createDog = (req, res) => {
+    let newDog = new Dog(req.body);
+    newDog.save()
+        .then(newDog => {
+            res.status(200).json({'Dog': 'Dog addded successfully'});
+        })
+        .catch(err => res.status(400).json('Error' + err));
+}
