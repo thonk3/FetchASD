@@ -3,34 +3,50 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const canineSchema = new Schema({
-    dogName: {
+    Name: {
         type: String,
         required: true
     },
-    dogAge: {
+    Age: {
         type: Number,
         required: true
     },
-    dogBreed: {
+    Breed: {
         type: String,
         required: true
     },
-    dogLocation: {
+    Suburb: {
         type: String,
         required: true
     },
-    dogGender: {
+    Postcode: {     
         type: String,
-        enum: ["M","F"]
-    },
-    dogWeight: {
-        type: Number,
         required: true
     },
-    isDogVaccinated: {
+    Gender: {
+        type: String,
+        enum: ["Male","Female"],
+        required: true
+    },
+    isVaccinated: {
         type: Boolean,
         default: false,
         required: true
+    },
+    isDesexed: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    Bio: {
+        type: String,
+        required: true,
+    },
+    // With rating do we need it requried as a dog starts of with a null rating
+    Rating: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 

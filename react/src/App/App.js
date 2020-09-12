@@ -61,8 +61,8 @@ const App = () => {
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
-          <Route path='/myacc' component={Routes.AccountMan} />
           <Route path='/myacc/mypack' component={Routes.DogMan} />
+          <Route path='/myacc' component={Routes.AccountMan} />
           <Route path='/kennel' component={Routes.Kennel} />
           <Route path='/date' component={Routes.Dates} />
           <Route path='/date/id' component={Routes.RateDate} />

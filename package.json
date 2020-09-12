@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/doppeltwirkend/AmatuerSausageDeli/issues"
   },
-  "homepage": "https://go-fetch.herokuapp.com/"
+  "homepage": "https://go-fetch.herokuapp.com/",
+  "dependencies": {
+    "express-validator": "^6.6.1"
+  }
 }
