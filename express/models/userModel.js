@@ -40,10 +40,9 @@ const userSchema = new Schema({
         default: false,
         required: true
     },
-    dogId: {
-        type: Array,
-        required: false,
-                
+    dogs: {
+        type: [String],
+        required: false, 
     }
 });
 
