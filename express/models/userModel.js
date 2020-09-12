@@ -3,17 +3,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    userID: {
-        type: String,
-        required: true
-    },
     firstName: {
         type: String,
-        required: true
+        required: true,
+        max: 30
     },
     lastName: {
         type: String,
-        required: true
+        required: true,
+        max: 30
     },
     email: {
         type: String,
@@ -21,7 +19,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        requireq:true
+        required: true
     },
     phoneNumber: {
         type: String,
@@ -40,20 +38,16 @@ const userSchema = new Schema({
         default: false,
         required: true
     },
-    dogId: {
+    dogs: {
         type: Array,
         required: false,
-                
+            
     }
 });
-
-UserSchema
-  .virtual('password')
+/*
+userSchema
   .set(function(password) {
     this.password = password
-})
-.get(function() {
-  return this.password
 })
 
 userSchema.methods = {
@@ -61,7 +55,6 @@ userSchema.methods = {
         return plainText === this.password
     }
 }
-
+*/
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

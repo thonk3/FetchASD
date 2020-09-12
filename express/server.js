@@ -35,10 +35,11 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 // api imports --------------------------------------------------
 const caninesRouter = require('./routes/canines');
 const peopleRouter = require('./routes/people');
+const userRouter = require('./routes/users');
 
 app.use('/api/canines', caninesRouter);
 app.use('/api/people', peopleRouter);
-
+app.use('/api/users', userRouter);
 // --------------------------------------------------------------
 
 // redirecting everything else to the main build index.html
