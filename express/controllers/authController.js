@@ -2,23 +2,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
-const router = require("../routes/auth");
-
-// maybe change validation into express-validator
-const { 
-    registerValidation,
-    loginValidation,
-} = require("../validation");
-const { valid, required } = require("joi");
-const { check } = require("express-validator");
 
 // this gucci
 module.exports.Register = async (req, res) => {
-    // validating input
-    const { error } = registerValidation(req.body);
-    if(error)
-        return res.status(400).json({ error: error.details[0].message });
-
     // check existing email
     const emailExist = await User.findOne({ email: req.body.email });
 
@@ -46,11 +32,6 @@ module.exports.Register = async (req, res) => {
 }
 
 module.exports.Login = async (req, res) => {
-    // validate input
-    const { error } = loginValidation(req.body);
-    if(error)
-        return res.status(400).json({ error: error.details[0].message });
-    
     // check matching email
     const user = await User.findOne({ email: req.body.email });
     if(!user)

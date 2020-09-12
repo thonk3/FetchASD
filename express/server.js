@@ -36,6 +36,7 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 const caninesRouter = require('./routes/canines');
 // const peopleRouter = require('./routes/people');
 const authRouter = require('./routes/auth');
+// to lock api calls for users only
 const verifyToken = require('./validate-token');
 
 app.use('/api/canines', verifyToken, caninesRouter);

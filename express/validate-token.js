@@ -1,3 +1,7 @@
+/* 
+this is to verify token, lock hide api calls for users only 
+*/
+
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
