@@ -45,8 +45,8 @@ const canineSchema = new Schema({
     // With rating do we need it requried as a dog starts of with a null rating
     Rating: {
         type: Number,
-        required: true,
-        default: 0
+        required: false,
+        default: null
     }
 });
 
