@@ -23,6 +23,7 @@
   },
   "homepage": "https://go-fetch.herokuapp.com/",
   "dependencies": {
+    "backend": "file:express",
     "express-validator": "^6.6.1"
   }
 }
