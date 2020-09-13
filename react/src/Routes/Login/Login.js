@@ -15,7 +15,12 @@ const Login = props => {
     // style
     const classes = useStyles();
 
-    const { onTextChange, onSubmit } = props;
+    const {
+        onSubmit,
+        email, emailHandler,
+        password, passHandler
+    } = props;
+
 
     // ----------------------------------------------------------
     return (
@@ -23,22 +28,25 @@ const Login = props => {
             <div className={classes.paper}>
                 <Paper className={classes.innerPaper} elevation={3}>
 
+                {/* avatar thing */}
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
 
+            {/* form thing */}
             <Typography component="h1" variant="h4">Login</Typography>
             <form onSubmit={onSubmit}>
-                {/* login */}
+                {/* email */}
                 <TextField 
                     variant="outlined"
                     margin="normal"
                     required fullWidth
                     name="username"
-                    autoComplete="username" // see mdn docs 
-                    label="Username"
+                    autoComplete="email" // see mdn docs 
+                    label="Email"
                     className={classes.text}
-                    onChange={onTextChange}
+                    onChange={emailHandler}
+                    value={email}
                     />
 
                 {/* password */}
@@ -50,7 +58,8 @@ const Login = props => {
                     autoComplete="current-password" // see mdn docs 
                     label="Password"
                     type="password"
-                    onChange={onTextChange}
+                    onChange={passHandler}
+                    value={password}
                     />
 
                 {/* submit */}

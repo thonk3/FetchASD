@@ -28,13 +28,15 @@ const App = (props) => {
         <NavBar authState={state.loggedIn} />
         <div className={classes.offset}></div>
 
+        {/* to remove later */}
         { state.showDemo ?
         <>
           <Button variant="contained" color="secondary" onClick={handleDemoToggle}>CLOSE</Button>
           <ForDemo authState={state} switchChange={handleLogToggle}/>
-        </> :
-        <>
-        </> }
+        </>
+        :
+        <></>
+        }
 
         {/* ------------------------------------- */}
 
@@ -42,12 +44,15 @@ const App = (props) => {
         <div className={state.showDemo ? classes.borderThing : null}>
         {/* <div> */}
         <RouterSwitch>
+          {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
+          
+          {/* only logged in users can see these */}
           <PrivateRoute path='/myacc' component={Routes.AccountMan} />
           <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
-          <PrivateRoute path='/kennel' component={Routes.Kennel} />
+          <PrivateRoute path='/kennel' component={Routes.Kennel} /> {/* might be removed/ combine with home */}
           <PrivateRoute path='/date' component={Routes.Dates} />
           <PrivateRoute path='/date/id' component={Routes.RateDate} />
           <PrivateRoute path='/admin' component={Routes.AdminHome} />

@@ -19,27 +19,26 @@ function AppWrapper(props) {
     }
 
   // demo nonsense ===================================================
-  const [ state, setState ] = useState({
-    loggedIn: false,
-    adminAuth: false,
-    showDemo: true,
-  });
+    const [ state, setState ] = useState({
+        loggedIn: false,
+        adminAuth: false,
+        showDemo: true,
+    });
 
-  const handleLogToggle = (e) => {
-    setState({ ...state, [e.target.name]: !state.[e.target.name] });
-    // console.log('a')
-  }
+    const handleLogToggle = (e) => {
+        setState({ ...state, [e.target.name]: !state.[e.target.name] });
+        // console.log('a')
+    }
 
-  const handleDemoToggle = (e) => {
-    setState({ ...state, showDemo: false });
-  }
+    const handleDemoToggle = (e) => {
+        setState({ ...state, showDemo: false });
+    }
 
     let passedIn = {
         state,
         handleDemoToggle,
         handleLogToggle
     }
-
   // =================================================================
 
 

@@ -34,15 +34,17 @@ const NavBar = props => {
                         authState ?
                         (
                             <>
-                            <NavLink dir='/kennel' label='the kennel' />
-                            <Typography>|</Typography>
-                            <NavLink dir='/myacc' label='my account' />
+                                <NavLink dir='/kennel' label='the kennel' />
+                                <Typography>|</Typography>
+                                <NavLink dir='/myacc' label='my account' />
                             </>
-                        ) : (
+                        ) 
+                        : 
+                        (
                             <>
-                            <NavLink dir='/login' label='login' />
-                            <Typography>|</Typography>
-                            <NavLink dir='/register' label='register' />
+                                <NavLink dir='/login' label='login' />
+                                <Typography>|</Typography>
+                                <NavLink dir='/register' label='register' />
                             </>
                         )
                     }
