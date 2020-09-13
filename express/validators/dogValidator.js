@@ -28,8 +28,8 @@ module.exports.addDogValidator = [
     check('Gender')
         .isString()
         .matches('^(Male)?$|^(Female)?$')
-        .isLength({ min: 4, max: 5 })
-        .withMessage('Dog Gender can only be "M" or "F".'),
+        .isLength({ min: 4, max: 6 })
+        .withMessage('Dog Gender can only be "Male" or "Female".'),
     check('isVaccinated')
         .isBoolean()
         .withMessage('Vaccination status can only be "True" or "False".'),
