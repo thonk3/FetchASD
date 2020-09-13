@@ -22,4 +22,13 @@ const router = require('express').Router();
 router.post("/register", registerValidator, runValidation, Register);
 router.post("/login", loginValidator, runValidation, Login);
 
+/* 
+    how validation work:
+    validator - adds validation rule
+    runValidation - checks the post payload against the validation rules
+    
+    if pass - Controller is called
+       fail - returns withMessage() message in validator
+*/
+
 module.exports = router;

@@ -11,19 +11,18 @@ module.exports.Register = async (req, res) => {
     if(emailExist) return res.status(400).json({ error: "Email already exist" });
         
     // securing password
-    const salt = await bcrypt.genSalt(process.env.PASS_SALT_ROUNDS);
-    const password = await bcrypt.hash(req.body.password, salt);
+    const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
+    const passHash = await bcrypt.hash(req.body.password, salt);
 
-    // user model object
     const user = new User({
-        email: req.body.email,
-        password,
+        ...req.body,
+        password: passHash,
     });
 
-    // save to mongo
-    try {
+    
+    try {   // save to mongo
         const savedUser = await user.save();
-        res.json({ error: null, newUser: savedUser });
+        res.json({ error: null, newUser: user });
     } catch (error) {
         res.status(400).json({ error });
     }

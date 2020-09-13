@@ -9,7 +9,7 @@ const { check } = require('express-validator');
 // get started with required fields 
 module.exports.registerValidator = [
     check('firstName')
-        .notEmpty()
+        .not().isEmpty()
         .isLength({ max: 50 })
         .withMessage('FirstName must not be empty or over 50 characters'),
     check('lastName')
@@ -23,6 +23,7 @@ module.exports.registerValidator = [
         .isLength({ min: 6 })   // raw unhash/salted password
         .withMessage('Password must be atleast 6 characters long'),
     check('phoneNumber')
+        .optional()
         .isNumeric({ no_symbols: true })
         .withMessage('Must be a valid phone Number'),
     check('suburb')
@@ -31,7 +32,8 @@ module.exports.registerValidator = [
         .withMessage('Suburb must not be empty or over 50 characters'),
     check('postcode')
         .isNumeric({ no_symbols: true })
-        .withMessage('Must be a valid Postcode'),
+        .isLength({ min:4, max: 4 })
+        .withMessage('Must be a valid Postcode')
 
     // staffUser should not be in the payload, set in the controller
     // since this route will be public,
@@ -39,7 +41,7 @@ module.exports.registerValidator = [
 ]
 
 // these are managed in the front end already
-// BUT something onion defence model
+// BUT something onion defence model?
 module.exports.loginValidator = [
     check('emai')
         .isEmail()

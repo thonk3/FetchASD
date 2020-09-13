@@ -32,18 +32,15 @@ connection.once('open', () => {
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));
 
-// api imports --------------------------------------------------
+// api imports ==============================================================
 const caninesRouter = require('./routes/canines');
-// const peopleRouter = require('./routes/people');
 const authRouter = require('./routes/auth');
-// to lock api calls for users only
-const verifyToken = require('./validate-token');
+const verifyToken = require('./validate-token');        // lock api calls to only users
 
-app.use('/api/canines', verifyToken, caninesRouter);
-// app.use('/api/people', peopleRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/canines', verifyToken, caninesRouter);
 
-// --------------------------------------------------------------
+// ==========================================================================
 
 // redirecting everything else to the main build index.html
 app.get('*', (req, res) => {
