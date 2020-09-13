@@ -40,7 +40,7 @@ module.exports.Login = async (req, res) => {
 
     // create token
     const tokenPayload = {
-        email: uder.email,
+        email: user.email,
         id: user._id,
     }
     const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
