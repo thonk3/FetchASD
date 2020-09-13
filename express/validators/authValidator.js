@@ -1,3 +1,6 @@
+/*
+    validation rules for authentication Controller
+*/
 const { check } = require('express-validator');
 
 module.exports.registerValidator = [

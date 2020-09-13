@@ -1,4 +1,6 @@
-const router = require('express').Router();
+/* 
+    handle routing for authentication
+*/
 
 // controller middleware
 const {
@@ -7,11 +9,13 @@ const {
 } = require('../controllers/authController');
 
 // validator middleware
-const { runValidation } = require('../validators/runValidation');
 const {
     registerValidator,
     loginValidator,
 } = require('../validators/authValidator')
+
+const { runValidation } = require('../validators/runValidation');
+const router = require('express').Router();
 
 
 // yer routes

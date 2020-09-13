@@ -6,7 +6,9 @@ const { validationResult } = require('express-validator');
 
 
 module.exports.runValidation = (req, res, next) => {
-    const err = validationResult(req);
+    const err = validationResult(req.body);
+
+    console.log(req.body);
 
     // validation failed
     if(!err.isEmpty())

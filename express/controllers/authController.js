@@ -3,16 +3,15 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
 
-// this gucci
+
+
 module.exports.Register = async (req, res) => {
     // check existing email
     const emailExist = await User.findOne({ email: req.body.email });
-
-    if(emailExist) 
-        return res.status(400).json({ error: "Email already exist" });
+    if(emailExist) return res.status(400).json({ error: "Email already exist" });
         
-    // can create now, hash password
-    const salt = await bcrypt.genSalt(10); // change this value, move to .env later
+    // securing password
+    const salt = await bcrypt.genSalt(process.env.PASS_SALT_ROUNDS);
     const password = await bcrypt.hash(req.body.password, salt);
 
     // user model object
@@ -21,11 +20,10 @@ module.exports.Register = async (req, res) => {
         password,
     });
 
-    // try save to db
+    // save to mongo
     try {
         const savedUser = await user.save();
-        res.json({ error: null, data: savedUser });
-        console.log("new user created");
+        res.json({ error: null, newUser: savedUser });
     } catch (error) {
         res.status(400).json({ error });
     }
@@ -34,25 +32,23 @@ module.exports.Register = async (req, res) => {
 module.exports.Login = async (req, res) => {
     // check matching email
     const user = await User.findOne({ email: req.body.email });
-    if(!user)
-        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+    if(!user) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
 
     // check matching password
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
-    if(!checkPassword)
-        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+    if(!checkPassword) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
 
     // create token
-    const token = jwt.sign({
-        email: user.email,      // just here for testing
+    const tokenPayload = {
+        email: uder.email,
         id: user._id,
-        }, process.env.TOKEN_SECRET
-    );
+    }
+    const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
 
     // logged in
     res.json({
         error: null,
-        data: {
+        payload: {
             token,      // test in https://jwt.io/
             message: "YOURE IN",
         }
