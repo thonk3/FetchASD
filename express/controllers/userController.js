@@ -38,13 +38,19 @@ module.exports.userByID = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
     try {
-    //  tried this   
-    // let user = User.findByIdAndUpdate(req.params.id, {$set:req.body})
-    //    return res.json(user)
-        let user = req.profile
-        user = extend(user, req.body)
-        await user.save()
-        res.json(user)
+        let _id = req.params.id
+        let data = req.body
+        User.findByIdAndUpdate(_id, data, { new: true }, function(
+            err,
+            data
+        ) {
+            if (err) {
+                return res.status(400).json('Error' + err)
+            }
+            else {
+                return res.status(200).send(data)
+            }
+        })
     } catch (err) {
         return res.status(400).json('Error' + err)
     }
