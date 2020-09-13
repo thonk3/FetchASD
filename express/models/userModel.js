@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-/* 
-required: firstName, lastName, email, password, suburb, postcode */
+// optional: phoneNumber, staff, dogid
 const userSchema = new Schema({
     firstName: {
         type: String,
@@ -23,7 +22,7 @@ const userSchema = new Schema({
     password: {         // hashed passwords only
         type: String,
         requireq:true,
-        min: 1024, max: 1024 
+        min: 60, max: 60
     },
     phoneNumber: {
         type: String,

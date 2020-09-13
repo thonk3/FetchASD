@@ -1,7 +1,5 @@
 // messy imports
-import React
-  ,{ useState } 
-  from 'react';
+import React from 'react';
 import { 
   BrowserRouter,
   Route, 
@@ -12,32 +10,18 @@ import {
 import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
+import PrivateRoute from './PrivateRoute'
 
 // material ui
 import useStyles from './App.style';
 import { Button } from '@material-ui/core';
 
 
-const App = () => {
-  
+const App = (props) => {
   const classes = useStyles();
 
-  // state hooks
-  const [ state, setState ] = useState({
-    loggedIn: false,
-    adminAuth: false,
-    showDemo: true,
-  });
-
-  // set auth 
-  const handleLogToggle = (e) => {
-    setState({ ...state, [e.target.name]: !state.[e.target.name] });
-    // console.log('a')
-  }
-
-  const handleDemoToggle = (e) => {
-    setState({ ...state, showDemo: false });
-  }
+  // demo nonsense
+  const { state, handleDemoToggle, handleLogToggle } = props.thing;
 
   return (
     <BrowserRouter>
@@ -61,12 +45,12 @@ const App = () => {
           <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
-          <Route path='/myacc' component={Routes.AccountMan} />
-          <Route path='/myacc/mypack' component={Routes.DogMan} />
-          <Route path='/kennel' component={Routes.Kennel} />
-          <Route path='/date' component={Routes.Dates} />
-          <Route path='/date/id' component={Routes.RateDate} />
-          <Route path='/admin' component={Routes.AdminHome} />
+          <PrivateRoute path='/myacc' component={Routes.AccountMan} />
+          <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+          <PrivateRoute path='/kennel' component={Routes.Kennel} />
+          <PrivateRoute path='/date' component={Routes.Dates} />
+          <PrivateRoute path='/date/id' component={Routes.RateDate} />
+          <PrivateRoute path='/admin' component={Routes.AdminHome} />
 
           <Route component={Routes.NotFound} />
         </RouterSwitch>
