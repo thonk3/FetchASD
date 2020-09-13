@@ -30,12 +30,7 @@ exports.createDog = async (req, res) => {
         // find the user by the email
         const user = await User.findOneAndUpdate({ email: req.body.userEmail},
             //push the dog id into the dogs array
-            { $push: {dogs: dogId}},
-            { safe: true, upsert: true},
-            // if error print it to console
-            function(err) {
-                console.log(err);
-            },
+            { $push: {dogs: dogId}}
         );
         // Set response status to 200 OK
         res.status(200).json({'Dog': 'Dog added sucessfully'});
