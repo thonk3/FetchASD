@@ -18,16 +18,15 @@ function LoginWrapper(props) {
     const handleEmail = e => setEmail(e.target.value);
     const handlePassword = e => setPassword(e.target.value);
 
-    // for redirect
-    // let ref = props.location.state.referer;
+    // set redirecting path
+    // should do the same for register
     function referer() {
-        if(props.location.state.referer === undefined)
+        if(props.location.state === undefined)
             return '/'
         return props.location.state.referer;
     }
-    // console.log('loggedin referer: ');
-    // console.log(props.location.state.referer || '/');
 
+    // submittingg loging in form
     const onSubmit = e => {
         e.preventDefault();
 
@@ -50,6 +49,7 @@ function LoginWrapper(props) {
     };
 
     // redirect to main or previous link
+    // shoudl do the same for register
     if(loggedIn) {
         console.log("redirecting to ", referer);
         return <Redirect to={referer()} />
@@ -62,7 +62,6 @@ function LoginWrapper(props) {
         passHandler={handlePassword}
         onSubmit={onSubmit}
         isError={isError}
-        {...props}
         />
 }
 

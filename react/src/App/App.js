@@ -24,30 +24,37 @@ const App = (props) => {
 
   // use auth context 
   // see provider in AppWrapper
-  const { authTokens, setAuthTokens, loggedIn, setLoggedIn } = useAuth();
+  const { 
+    authTokens, setAuthTokens,
+    loggedIn, setLoggedIn 
+  } = useAuth();
 
   // demo nonsense
-  const { state, handleDemoToggle, handleLogToggle } = props.thing;
+  const { 
+    admin, toggleAdmin,
+    demoBorder, toggleBorder
+  } = props.thing;
 
   // OK neet to set Logged in state in Login.js
   function logOut() {
     setAuthTokens(null);
     setLoggedIn(null);
   }
-  // move this to nav bar
+  // move this to NAV
 
   return (
     <BrowserRouter>
         <NavBar authState={loggedIn} />
         <div className={classes.offset}></div>
 
+        {/* move this to NAV */}
         <Button variant="contained" color="primary" onClick={logOut}> LOG OUT</Button>
 
         {/* to remove later */}
-        { state.showDemo ?
+        { demoBorder ?
         <>
-          <Button variant="contained" color="secondary" onClick={handleDemoToggle}>CLOSE</Button>
-          <ForDemo authState={state} switchChange={handleLogToggle}/>
+          <Button variant="contained" color="secondary" onClick={toggleBorder}>CLOSE</Button>
+          <ForDemo authState={ admin } switchChange={toggleAdmin}/>
         </>
         :
         <></>
@@ -56,7 +63,7 @@ const App = (props) => {
         {/* ------------------------------------- */}
 
         {/* delet DemoThing later thing later */}
-        <div className={state.showDemo ? classes.borderThing : null}>
+        <div className={demoBorder ? classes.borderThing : null}>
         {/* <div> */}
         <RouterSwitch>
           {/* setup isLoggedin bool for this to redirect to kennel if logged in */}

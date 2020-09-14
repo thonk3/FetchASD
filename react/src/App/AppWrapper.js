@@ -24,28 +24,18 @@ function AppWrapper(props) {
     }
 
 
-  // demo nonsense ===================================================
-    const [ state, setState ] = useState({
-        loggedIn: false,
-        adminAuth: false,
-        showDemo: true,
-    });
+    // demo nonsense ===================================================
+    // slowly removing this bs
+    const [admin, setAdmin] = useState(false);
+    const [demoBorder, setDemoBorder] = useState(true)
 
     // for the toggle
-    const handleLogToggle = (e) => {
-        setState({ ...state, [e.target.name]: !state.[e.target.name] });
-        // console.log('a')
-    }
+    const toggleAdmin = e => setAdmin(!admin);
+    const toggleBorder = (e) => setDemoBorder(false)
 
-    const handleDemoToggle = (e) => {
-        setState({ ...state, showDemo: false });
-    }
-
-    let passedIn = {
-        state,
-        setState,
-        handleDemoToggle,
-        handleLogToggle
+    let thing = {
+        admin, toggleAdmin,
+        demoBorder, toggleBorder,
     }
   // =================================================================
 
@@ -58,7 +48,7 @@ function AppWrapper(props) {
                 loggedIn, setLoggedIn
                 }}
         >   
-            <App thing={passedIn} />
+            <App thing={thing} />
         </AuthContext.Provider>
     )
 };
