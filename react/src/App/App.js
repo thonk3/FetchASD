@@ -36,19 +36,13 @@ const App = (props) => {
   } = props.thing;
 
   // OK neet to set Logged in state in Login.js
-  function logOut() {
-    setAuthTokens(null);
-    setLoggedIn(null);
-  }
+ 
   // move this to NAV
 
   return (
     <BrowserRouter>
         <NavBar authState={loggedIn} />
         <div className={classes.offset}></div>
-
-        {/* move this to NAV */}
-        <Button variant="contained" color="primary" onClick={logOut}> LOG OUT</Button>
 
         {/* to remove later */}
         { demoBorder ?
