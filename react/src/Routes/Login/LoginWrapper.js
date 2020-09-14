@@ -5,16 +5,14 @@ import Login from './Login'
 import { Redirect } from 'react-router-dom';
 
 const LoginWrapper = props => {
-    const [state, setState] = React.useState({
-        username: '',
-        password: ''
-    })
 
-    const [isError, setIsError] = useState(false);  // prop a better way
-    const [isLoggedIn, setisLoggedIn] = useState(false); // maybe not needed?
+    const [isError, setIsError] = useState(false);  // do something with this
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    // context
     const { setAuthTokens } = useAuth();
+    const { loggedIn, setLoggedIn } = useAuth();
 
     // onTextChange
     const handleEmail = e => setEmail(e.target.value);
@@ -30,21 +28,24 @@ const LoginWrapper = props => {
         axios.post('/api/auth/login', payload)
             .then(res => {
                 if(res.status === 200) {
-                    // save jwt token
+                    // save jwt token/ logged in status
                     setAuthTokens(res.data.payload.token);
-                    setisLoggedIn(true);
+                    setLoggedIn(true);
                 } else {
-                    console.log("failed to log in");
+                    setIsError(true);
                 }
             })
             .catch(e => {
-                console.log("uh oh something bad happened");
+                // do somethinng with this
+                console.log("uh oh something bad happened:");
+                setIsError(true);
             });
     };
 
     // redirect to main or previous link
-    if(isLoggedIn) {
-        return <Redirect to={referer} />
+    if(loggedIn) {
+        console.log("redirecting to ", referer);
+        return <Redirect to={ referer } />
     }
 
     return <Login
@@ -53,6 +54,7 @@ const LoginWrapper = props => {
         password={password}
         passHandler={handlePassword}
         onSubmit={onSubmit}
+        isError={isError}
         />
 }
 

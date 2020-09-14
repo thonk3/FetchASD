@@ -6,7 +6,6 @@ import LandingPage from './LandingPage';
 const Home = (props) => {
     // const { loggedIn } = props;
 
-    console.log(props.loggedIn)
     return (
         <>
             {props.loggedIn ? 

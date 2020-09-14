@@ -16,17 +16,32 @@ import PrivateRoute from './PrivateRoute'
 import useStyles from './App.style';
 import { Button } from '@material-ui/core';
 
+import { useAuth } from '../Context/authContext'
+
 
 const App = (props) => {
   const classes = useStyles();
 
+  // use auth context 
+  // see provider in AppWrapper
+  const { authTokens, setAuthTokens, loggedIn, setLoggedIn } = useAuth();
+
   // demo nonsense
   const { state, handleDemoToggle, handleLogToggle } = props.thing;
 
+  // OK neet to set Logged in state in Login.js
+  function logOut() {
+    setAuthTokens(null);
+    setLoggedIn(null);
+  }
+  // move this to nav bar
+
   return (
     <BrowserRouter>
-        <NavBar authState={state.loggedIn} />
+        <NavBar authState={loggedIn} />
         <div className={classes.offset}></div>
+
+        <Button variant="contained" color="primary" onClick={logOut}> LOG OUT</Button>
 
         {/* to remove later */}
         { state.showDemo ?
@@ -45,7 +60,7 @@ const App = (props) => {
         {/* <div> */}
         <RouterSwitch>
           {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
-          <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
+          <Route exact path='/' component={() => <Routes.Home loggedIn={loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
           

@@ -43,7 +43,7 @@ module.exports.registerValidator = [
 // these are managed in the front end already
 // BUT something onion defence model?
 module.exports.loginValidator = [
-    check('emai')
+    check('email')
         .isEmail()
         .withMessage('Must be a valid email address'),
     check('password')

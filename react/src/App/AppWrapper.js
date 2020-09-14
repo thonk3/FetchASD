@@ -5,18 +5,25 @@ import App from "./App";
 import React, { useState } from 'react'
 
 import { AuthContext } from '../Context/authContext'
+import { LoggedInContext } from '../Context/loggedIn'
 
 
 function AppWrapper(props) {
-    // parse token and hooks
+    // TOKEN CONTEXT
     const existingTokens = JSON.parse(localStorage.getItem("tokens"));
     const [ authTokens, setAuthTokens ] = useState(existingTokens);
+
+    // LOGGED IN CONTEXT
+    const [ loggedIn, setLoggedIn ] = useState(existingTokens != null);
+    console.log("Init logged state: ", loggedIn);
 
     // set new tokens through context
     const setTokens = (token) => {
         localStorage.setItem("tokens", JSON.stringify(token));
         setAuthTokens(token);
+        console.log({'tk': (token === null)});
     }
+
 
   // demo nonsense ===================================================
     const [ state, setState ] = useState({
@@ -25,6 +32,7 @@ function AppWrapper(props) {
         showDemo: true,
     });
 
+    // for the toggle
     const handleLogToggle = (e) => {
         setState({ ...state, [e.target.name]: !state.[e.target.name] });
         // console.log('a')
@@ -36,6 +44,7 @@ function AppWrapper(props) {
 
     let passedIn = {
         state,
+        setState,
         handleDemoToggle,
         handleLogToggle
     }
@@ -46,10 +55,10 @@ function AppWrapper(props) {
     return (
         <AuthContext.Provider 
             value={{ 
-                authTokens, 
-                setAuthTokens: setTokens,
+                authTokens, setAuthTokens: setTokens,
+                loggedIn, setLoggedIn
                 }}
-        >
+        >   
             <App thing={passedIn} />
         </AuthContext.Provider>
     )
