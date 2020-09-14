@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 // The Controller Middleware
 const canineController = require('../controllers/canineController');
+const { report, all } = require('./auth');
 
 // Validation
 const { runValidation } = require('../validators/runValidation');
@@ -16,3 +17,4 @@ router.get('/:id', canineController.getDogbyId);
 router.post('/add', addDogValidator, runValidation, canineController.createDog);
 
 module.exports = router;
+

@@ -9,9 +9,16 @@ module.exports.runValidation = (req, res, next) => {
     const err = validationResult(req);
 
     // validation failed
-    if(!err.isEmpty())
-        return res.status(422).json({ error: err.array()[0].msg });
-
-    // validation passed
+    if(!err.isEmpty()) return res.status(422).json({ error: mapError(err.errors)  })
+    
     next();
+}
+
+function mapError( errors ) {
+    return errors.map(err => {
+        return {
+            param: err.param,
+            msg: err.msg
+        }
+    });
 }
