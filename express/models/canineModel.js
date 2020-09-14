@@ -42,7 +42,8 @@ const canineSchema = new Schema({
         type: String,
         required: true,
     },
-    // With rating do we need it requried as a dog starts of with a null rating
+    // Start rating as null as Bao said plus all new dogs don't have
+    // a rating yet
     Rating: {
         type: Number,
         required: false,

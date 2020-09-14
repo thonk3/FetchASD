@@ -8,15 +8,19 @@ import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import coolDogImage from '../../assets/cool.jpg';
 
+// Basic styling for pictures in CardMedia
 const styles =
 {
     media: {
         height: "150px",
-        // paddingTop: '56.25%', // 16:9,
         marginTop: '5'
     }
 };
 
+// This is the default state
+// I have hardcoded userEmail as we don't have
+// functionality to pass around the _id through
+// the app
 const defaultState = {
     dogs: [],
     userEmail: 'rbabcock0@dyndns.org',
@@ -34,25 +38,17 @@ const defaultState = {
 class DogMan extends Component {
     constructor(props) {
         super(props);
-
-        this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeAge = this.onChangeAge.bind(this);
-        this.onChangeBreed = this.onChangeBreed.bind(this);
-        this.onChangeSuburb = this.onChangeSuburb.bind(this);
-        this.onChangePostcode = this.onChangePostcode.bind(this);
-        this.onChangeGender = this.onChangeGender.bind(this);
-        this.onChangeIsVaccinated = this.onChangeIsVaccinated.bind(this);
-        this.onChangeIsDesexed = this.onChangeIsDesexed.bind(this);
-        this.onChangeBio = this.onChangeBio.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
+        // sets the default state using a spread
+        // operator :)
         this.state = {...defaultState};
     }
 
-    // Special function that runs on reload
+    // Special function that onLoad
     componentDidMount() {
+        // Hardcoded get request the "logged in" user's dogs
         axios.get('http://localhost:5000/api/users/5f57036e927d194baceedf7a/dogs')
             .then(res => {
+                // add the dog objects in the dogs state array
                 this.setState({
                     dogs: res.data,
                 });
@@ -62,83 +58,98 @@ class DogMan extends Component {
             })
     }
 
-    onChangeName(e) {
+    // Using anonymous function arrow syntax!
+    // We can set the state and don't have to include the binding
+    // statements. Anonymous arrow functions keeps the 
+    // context of where it is assigned so "this" always
+    // refers to DogMan and not something else
+    // https://alligator.io/js/this-keyword/
+    onChangeName = e => {
         this.setState({
             Name: e.target.value
         })
     }
 
-    onChangeAge(e) {
+    onChangeAge = e => {
         this.setState({
             Age: e.target.value
         })
     }
 
-    onChangeBreed(e) {
+    onChangeBreed = e => {
         this.setState({
             Breed: e.target.value
         })
     }
 
-    onChangeSuburb(e) {
+    onChangeSuburb = e => {
         this.setState({
             Suburb: e.target.value
         })
     }
 
-    onChangePostcode(e) {
+    onChangePostcode = e => {
         this.setState({
             Postcode: e.target.value
         })
     }
 
-    onChangeGender(e) {
+    onChangeGender = e => {
         this.setState({
             Gender: e.target.value
         })
     }
-
-    onChangeIsVaccinated(e) {
+    // this is a checkbox so we have to set the state according to 
+    // whether it is checked
+    onChangeIsVaccinated = e => {
         this.setState({
             isVaccinated: e.target.checked
         })
     }
 
-    onChangeIsDesexed(e) {
+    onChangeIsDesexed = e => {
         this.setState({
             isDesexed: e.target.checked
         })
     }
 
-    onChangeBio(e) {
+    onChangeBio = e => {
         this.setState({
             Bio: e.target.value
         })
     }
-
-    onSubmit(e) {
+    // function that will run when press the submit button at the bottom
+    // of the form
+    onSubmit = e => {
+        // Method cancels the event if it is cancelable
         e.preventDefault();
-
+        // New Dog Object setting via state
         const newDog = {
-            "userEmail": this.state.userEmail,
-            "Name": this.state.Name,
-            "Age": this.state.Age,
-            "Breed": this.state.Breed,
-            "Suburb": this.state.Suburb,
-            "Postcode": this.state.Postcode,
-            "Gender": this.state.Gender,
-            "isVaccinated": this.state.isVaccinated,
-            "isDesexed": this.state.isDesexed,
-            "Bio": this.state.Bio
+            userEmail: this.state.userEmail,
+            Name: this.state.Name,
+            Age: this.state.Age,
+            Breed: this.state.Breed,
+            Suburb: this.state.Suburb,
+            Postcode: this.state.Postcode,
+            Gender: this.state.Gender,
+            isVaccinated: this.state.isVaccinated,
+            isDesexed: this.state.isDesexed,
+            Bio: this.state.Bio
         }
 
-
+        // For debugging purposes delete later
         console.log(newDog);
 
+        // Send a post request with the newDog object
         axios.post('http://localhost:5000/api/canines/add', newDog)
             .then(res => {
+                // For debugging purposes delete later
                 console.log(res.data)
-                // Adds the new dog object to the table
+                // Adds the new dog object to the state so we don't
+                // need to refresh. Also we use spread operator magic
+                // to merge the two objects together as the bottom object
+                // overwrites the pervious one so we don't lose the user's
+                // dogs. https://www.javascripttutorial.net/object/javascript-merge-objects/
                 this.setState({
                     ...defaultState,
                     dogs: [
@@ -147,12 +158,13 @@ class DogMan extends Component {
                     ]
                 })
             })
+            // if error display in console
             .catch((error) => {
                 console.log(error);
             });
     }
 
-
+    
     render() {
         return (
             <div className="dog-management">
@@ -244,14 +256,18 @@ class DogMan extends Component {
                 </form>
                 <h2>Your Dogs</h2>
                 <Grid container spacing={2} style={{ marginLeft: 5 }}>
-                    {this.state.dogs.map(dog => <DataTable obj={dog} />)}
+                    {this.state.dogs.map(dog => <DogCard obj={dog} />)}
                 </Grid>
             </div >
         );
     }
 }
 
-class DataTable extends Component {
+{/*This is a component for each dog that the particular
+user has registered. It makes the amount of dogs 
+dynamically based on the amount of dogs a user has 
+registered*/}
+class DogCard extends Component {
     render() {
         return (
             <div style={{ marginTop: 5, padding: 5 }}>

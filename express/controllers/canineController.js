@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Dog = require('../models/canineModel');
 const User = require('../models/userModel');
 
+// Method to get all the dogs in the database
 exports.getDog = (req, res) => {
     Dog.find()
     .then((dogs) => {
@@ -11,6 +12,7 @@ exports.getDog = (req, res) => {
     .catch(err => res.status(400).json('Error' + err));
 }
 
+// Method to get a singular dog by referencing there _id
 exports.getDogbyId = (req, res) => {
     Dog.findById(req.params.id)
     .then((dogs) => {
@@ -19,6 +21,7 @@ exports.getDogbyId = (req, res) => {
     .catch(err => res.status(400).json('Error' + err));
 }
 
+// Method to get create a new dog
 exports.createDog = async (req, res) => {
     // Dog Object
     let newDog = new Dog(req.body);

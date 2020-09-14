@@ -40,6 +40,8 @@ const userSchema = new Schema({
         default: false,
         required: true
     },
+    // dogs has the type of an array of string values
+    // In the MongoDB dogs has to be set to array
     dogs: {
         type: [String],
         required: false, 
