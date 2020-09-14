@@ -17,6 +17,19 @@ const styles =
     }
 };
 
+const defaultState = {
+    dogs: [],
+    userEmail: 'rbabcock0@dyndns.org',
+    Name: '',
+    Age: '',
+    Breed: '',
+    Suburb: '',
+    Postcode: '',
+    Gender: '',
+    isVaccinated: false,
+    isDesexed: false,
+    Bio: ''
+};
 
 class DogMan extends Component {
     constructor(props) {
@@ -33,19 +46,7 @@ class DogMan extends Component {
         this.onChangeBio = this.onChangeBio.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
-        this.state = {
-            dogs: [],
-            userEmail: 'rbabcock0@dyndns.org',
-            Name: '',
-            Age: '',
-            Breed: '',
-            Suburb: '',
-            Postcode: '',
-            Gender: '',
-            isVaccinated: '',
-            isDesexed: '',
-            Bio: ''
-        };
+        this.state = {...defaultState};
     }
 
     // Special function that runs on reload
@@ -99,13 +100,13 @@ class DogMan extends Component {
 
     onChangeIsVaccinated(e) {
         this.setState({
-            isVaccinated: e.target.value
+            isVaccinated: e.target.checked
         })
     }
 
     onChangeIsDesexed(e) {
         this.setState({
-            isDesexed: e.target.value
+            isDesexed: e.target.checked
         })
     }
 
@@ -139,6 +140,7 @@ class DogMan extends Component {
                 console.log(res.data)
                 // Adds the new dog object to the table
                 this.setState({
+                    ...defaultState,
                     dogs: [
                         ...this.state.dogs,
                         newDog
@@ -213,8 +215,7 @@ class DogMan extends Component {
                     </div>
                     <div className="form-group">
                         <label> Vaccinated: </label>
-                        <input type="text"
-
+                        <input type="checkbox"
                             className="form-control"
                             value={this.state.isVaccinated}
                             onChange={this.onChangeIsVaccinated}
@@ -222,14 +223,12 @@ class DogMan extends Component {
                     </div>
                     <div className="form-group">
                         <label> Desexed: </label>
-                        <input type="text"
-
+                        <input type="checkbox"
                             className="form-control"
                             value={this.state.isDesexed}
                             onChange={this.onChangeIsDesexed}
                         />
                     </div>
-
                     <div className="form-group">
                         <label> Bio: </label>
                         <input type="text"
