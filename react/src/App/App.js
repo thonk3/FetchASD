@@ -25,7 +25,7 @@ const App = (props) => {
   // use auth context 
   // see provider in AppWrapper
   const { 
-    authTokens, setAuthTokens,
+    setAuthTokens,
     loggedIn, setLoggedIn 
   } = useAuth();
 

@@ -25,6 +25,11 @@ function Login(props) {
     // ----------------------------------------------------------
     return (
         <Container width="300px">
+            <div>
+                testAcc
+                <div>e@e.com</div>
+                <div>123456</div>
+            </div>
             <div className={classes.paper}>
                 <Paper className={classes.innerPaper} elevation={3}>
 

@@ -18,7 +18,8 @@ import { useAuth } from '../Context/authContext'
 const ForDemo = props => {
   let { authState, switchChange } = props;
 
-  const { loggedIn } = useAuth();
+  const { loggedIn, getUserID, getUserEmail } = useAuth();
+
 
   return (
     <>
@@ -34,7 +35,16 @@ const ForDemo = props => {
       </ul>
 
       <Typography>demo authentication states</Typography>
-      <Typography>{ loggedIn? "Logged In" : "NO ACCOUNT" }</Typography>
+      { 
+        loggedIn ? 
+        <>
+          <p> UserID: {getUserID()}</p>
+          <p> Email : {getUserEmail()}</p>
+        </>
+        :
+        <p>NO ACCOUNT</p>
+      }
+    
 
 
       <FormControlLabel

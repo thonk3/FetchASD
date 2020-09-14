@@ -23,6 +23,17 @@ function AppWrapper(props) {
         console.log({'tk': (token === null)});
     }
 
+    // get user ID
+    const parseToken = () => {
+        try{
+            return JSON.parse(atob(authTokens.split('.')[1]));
+        } catch (e) {
+            return null;
+        } 
+    }
+    const getUserID = () => parseToken().id;
+    const getUserEmail = () => parseToken().email;
+
 
     // demo nonsense ===================================================
     // slowly removing this bs
@@ -45,7 +56,8 @@ function AppWrapper(props) {
         <AuthContext.Provider 
             value={{ 
                 authTokens, setAuthTokens: setTokens,
-                loggedIn, setLoggedIn
+                loggedIn, setLoggedIn,
+                getUserID, getUserEmail
                 }}
         >   
             <App thing={thing} />
