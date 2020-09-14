@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../Context/authContext'
 
@@ -7,23 +7,21 @@ import { useAuth } from '../Context/authContext'
 
 // may need to be change to function
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { authTokens } = useAuth();
+    const { loggedIn } = useAuth();
 
     return (
         <Route 
             {...rest}
             render={ props =>
-                authTokens ?
+                loggedIn ?
                 ( <Component {...props} /> )
                 :
-                // redirect to login or previous page
-                ( 
+                (   // redirect to login or previous page
                     <Redirect 
-                        to={{ 
-                            pathname: "/login", 
-                            state: {referer: props.location} 
-                        }}
-                    /> 
+                    to={{ 
+                        pathname: "/login", 
+                        state: { referer: props.location } }}
+                    /> /* redirect if not auth */
                 )
             }
         />

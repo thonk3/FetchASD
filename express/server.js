@@ -35,10 +35,13 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 // api imports ==============================================================
 const caninesRouter = require('./routes/canines');
 const authRouter = require('./routes/auth');
-const verifyToken = require('./validate-token');        // lock api calls to only users
+
+// lock api calls to only users
+// do this after
+const verifyToken = require('./validate-token');
 
 app.use('/api/auth', authRouter);
-app.use('/api/canines', verifyToken, caninesRouter);
+app.use('/api/canines', /* verifyToken, */ caninesRouter);
 
 // ==========================================================================
 

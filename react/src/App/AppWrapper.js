@@ -5,7 +5,6 @@ import App from "./App";
 import React, { useState } from 'react'
 
 import { AuthContext } from '../Context/authContext'
-import { LoggedInContext } from '../Context/loggedIn'
 
 
 function AppWrapper(props) {

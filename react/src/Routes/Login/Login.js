@@ -11,7 +11,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './Login.style'
 
-const Login = props => {
+function Login(props) {
     // style
     const classes = useStyles();
 

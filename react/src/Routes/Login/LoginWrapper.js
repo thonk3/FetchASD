@@ -4,7 +4,7 @@ import { useAuth } from '../../Context/authContext';
 import Login from './Login'
 import { Redirect } from 'react-router-dom';
 
-const LoginWrapper = props => {
+function LoginWrapper(props) {
 
     const [isError, setIsError] = useState(false);  // do something with this
     const [email, setEmail] = useState("");
@@ -19,7 +19,14 @@ const LoginWrapper = props => {
     const handlePassword = e => setPassword(e.target.value);
 
     // for redirect
-    const referer = props.location.state.referer || '/';
+    // let ref = props.location.state.referer;
+    function referer() {
+        if(props.location.state.referer === undefined)
+            return '/'
+        return props.location.state.referer;
+    }
+    // console.log('loggedin referer: ');
+    // console.log(props.location.state.referer || '/');
 
     const onSubmit = e => {
         e.preventDefault();
@@ -45,7 +52,7 @@ const LoginWrapper = props => {
     // redirect to main or previous link
     if(loggedIn) {
         console.log("redirecting to ", referer);
-        return <Redirect to={ referer } />
+        return <Redirect to={referer()} />
     }
 
     return <Login
@@ -55,6 +62,7 @@ const LoginWrapper = props => {
         passHandler={handlePassword}
         onSubmit={onSubmit}
         isError={isError}
+        {...props}
         />
 }
 
