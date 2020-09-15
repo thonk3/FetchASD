@@ -35,9 +35,11 @@ app.use(express.static(path.resolve(__dirname, "../react", "build")));
 // api imports --------------------------------------------------
 const caninesRouter = require('./routes/canines');
 const peopleRouter = require('./routes/people');
+const dateRouter = require('./routes/dogDate');
 
 app.use('/api/canines', caninesRouter);
 app.use('/api/people', peopleRouter);
+app.use('/api/date', dateRouter);
 
 // --------------------------------------------------------------
 
