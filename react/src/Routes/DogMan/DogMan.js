@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom"
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 import Card from '@material-ui/core/Card';
@@ -263,10 +262,10 @@ class DogMan extends Component {
     }
 }
 
-{/*This is a component for each dog that the particular
-user has registered. It makes the amount of dogs 
-dynamically based on the amount of dogs a user has 
-registered*/}
+//This is a component for each dog that the particular
+//user has registered. It makes the amount of dogs 
+//dynamically based on the amount of dogs a user has 
+//Sregistered
 class DogCard extends Component {
     render() {
         return (
