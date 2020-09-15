@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 // The Controller Middleware
-const canineController = require('../controllers/canineController');
+const canineController = require('../controllers/dogController');
 const { report, all } = require('./auth');
 
 // Validation

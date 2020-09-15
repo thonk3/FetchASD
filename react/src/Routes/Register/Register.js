@@ -51,7 +51,7 @@ const Register = props => {
 
                 console.log(typeof errors.errList);
                 
-                errors.errList.map(er => console.log(er.param, ' - ', msg))
+                errors.errList.map(er => console.log(er.param, ' - ', er.msg))
 
             })
     }
