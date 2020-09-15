@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Dog = require('../models/canineModel');
+const Dog = require('../models/dogModel');
 const User = require('../models/userModel');
 
 // Method to get all the dogs in the database
