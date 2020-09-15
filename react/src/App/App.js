@@ -1,7 +1,5 @@
 // messy imports
-import React
-  ,{ useState } 
-  from 'react';
+import React from 'react';
 import { 
   BrowserRouter,
   Route, 
@@ -12,65 +10,74 @@ import {
 import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
+import PrivateRoute from './PrivateRoute'
 
 // material ui
 import useStyles from './App.style';
 import { Button } from '@material-ui/core';
 
+import { useAuth } from '../Context/authContext'
 
-const App = () => {
-  
+
+const App = (props) => {
   const classes = useStyles();
 
-  // state hooks
-  const [ state, setState ] = useState({
-    loggedIn: false,
-    adminAuth: false,
-    showDemo: true,
-  });
+  // use auth context 
+  // see provider in AppWrapper
+  const { 
+    setAuthTokens,
+    loggedIn, setLoggedIn 
+  } = useAuth();
 
-  // set auth 
-  const handleLogToggle = (e) => {
-    setState({ ...state, [e.target.name]: !state.[e.target.name] });
-    // console.log('a')
-  }
+  // demo nonsense
+  const { 
+    admin, toggleAdmin,
+    demoBorder, toggleBorder
+  } = props.thing;
 
-  const handleDemoToggle = (e) => {
-    setState({ ...state, showDemo: false });
-  }
+  // OK neet to set Logged in state in Login.js
+ 
+  // move this to NAV
 
   return (
     <BrowserRouter>
-        <NavBar authState={state.loggedIn} />
+        <NavBar authState={loggedIn} />
         <div className={classes.offset}></div>
 
-        { state.showDemo ?
+        {/* to remove later */}
+        { demoBorder ?
         <>
-          <ForDemo authState={state} switchChange={handleLogToggle}/>
-          <Button variant="contained" color="secondary" onClick={handleDemoToggle}>CLOSE</Button>
-        </> :
-        <>
-        </> }
+          <Button variant="contained" color="secondary" onClick={toggleBorder}>CLOSE</Button>
+          <ForDemo authState={ admin } switchChange={toggleAdmin}/>
+        </>
+        :
+        <></>
+        }
 
         {/* ------------------------------------- */}
 
         {/* delet DemoThing later thing later */}
-        <div className={state.showDemo ? classes.borderThing : null}>
+        <div className={demoBorder ? classes.borderThing : null}>
         {/* <div> */}
         <RouterSwitch>
-          <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
+          {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
+          <Route exact path='/' component={() => <Routes.Home loggedIn={loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
-          <Route path='/myacc' component={Routes.AccountMan} />
-          <Route path='/myacc/mypack' component={Routes.DogMan} />
-          <Route path='/kennel' component={Routes.Kennel} />
-          <Route path='/date' component={Routes.Dates} />
-          <Route path='/date/id' component={Routes.RateDate} />
-          <Route path='/admin' component={Routes.AdminHome} />
+          
+          {/* only logged in users can see these */}
+          <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+          <PrivateRoute path='/myacc' component={Routes.AccountMan} />
+          <PrivateRoute path='/kennel' component={Routes.Kennel} /> {/* might be removed/ combine with home */}
+          <PrivateRoute path='/date' component={Routes.Dates} />
+          <PrivateRoute path='/date/id' component={Routes.RateDate} />
+          <PrivateRoute path='/admin' component={Routes.AdminHome} />
 
           <Route component={Routes.NotFound} />
         </RouterSwitch>
         </div>
+
+        <p>Footer component</p>
     </BrowserRouter>
   )
 };
