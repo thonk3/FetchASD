@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
-import coolDogImage from '../../assets/cool.jpg';
+import coolDogImage from '../../Assets/cool.jpg';
 
 // Basic styling for pictures in CardMedia
 const styles =

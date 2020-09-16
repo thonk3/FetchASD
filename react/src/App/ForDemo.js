@@ -5,6 +5,7 @@ import {
 import { Switch, FormControlLabel, Typography } from '@material-ui/core'
 
 import { useAuth } from '../Context/authContext'
+import token from '../Helpers/token'
 
 
       // r0 features
@@ -18,8 +19,7 @@ import { useAuth } from '../Context/authContext'
 const ForDemo = props => {
   let { authState, switchChange } = props;
 
-  const { loggedIn, getUserID, getUserEmail } = useAuth();
-
+  const { loggedIn } = useAuth();
 
   return (
     <>
@@ -38,8 +38,8 @@ const ForDemo = props => {
       { 
         loggedIn ? 
         <>
-          <p> UserID: {getUserID()}</p>
-          <p> Email : {getUserEmail()}</p>
+          <p> UserID: {token().id}</p>
+          <p> Email : {token().payload}</p>
         </>
         :
         <p>NO ACCOUNT</p>

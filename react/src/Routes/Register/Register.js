@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
+/* 
+    TODO:
+    - Display error messages from the payload
+    - split these into logic / style components
+*/
+
 const Register = props => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
@@ -94,6 +100,7 @@ const Register = props => {
     );
 };
 
+// component for input boxes
 const TextBox = props => {
     const { label, value, onChange, inputType } = props;
 

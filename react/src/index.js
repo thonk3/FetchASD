@@ -6,14 +6,16 @@ import { ThemeProvider /*, CssBaseline */} from '@material-ui/core';
 import theme from './Theme';
 
 import './index.css';
-import AppWrapper from './App/AppWrapper';
+import AppContainer from './App/AppContainer';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+
         {/* <CssBaseline /> */}
-        <AppWrapper />
+        <AppContainer />
+        
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
