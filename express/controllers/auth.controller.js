@@ -1,11 +1,12 @@
+/*
+    authentication controller
+*/
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/userModel");
+const User = require("../models/user.model");
 
-
-
-module.exports.Register = async (req, res) => {
+module.exports.register = async (req, res) => {
     // check existing email
     const emailExist = await User.findOne({ email: req.body.email });
     if(emailExist) return res.status(400).json({ error: "Email already exist" });
@@ -14,6 +15,7 @@ module.exports.Register = async (req, res) => {
     const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
     const passHash = await bcrypt.hash(req.body.password, salt);
 
+    // new user object
     const user = new User({
         ...req.body,
         password: passHash,
@@ -22,13 +24,13 @@ module.exports.Register = async (req, res) => {
     
     try {   // save to mongo
         const savedUser = await user.save();
-        res.json({ error: null, newUser: user });
+        res.json({ error: null, newUser: savedUser });
     } catch (error) {
         res.status(400).json({ error });
     }
 }
 
-module.exports.Login = async (req, res) => {
+module.exports.login = async (req, res) => {
     // check matching email
     const user = await User.findOne({ email: req.body.email });
     if(!user) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
@@ -44,7 +46,7 @@ module.exports.Login = async (req, res) => {
     }
     const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
 
-    // logged in
+    // return token
     res.json({
         error: null,
         payload: {

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { schema } = require('./canine.model');
+const { schema } = require('./dog.model');
 const Schema = mongoose.Schema;
 
 const dogDateSchema = new Schema ({

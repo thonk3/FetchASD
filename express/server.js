@@ -29,8 +29,6 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
-
-
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));
 
@@ -47,9 +45,9 @@ const dateRouter = require('./routes/dogDate');
 const verifyToken = require('./validate-token');
 
 app.use('/api/auth', authRouter);
-app.use('/api/canines', /* verifyToken, */ dogRouter);
-app.use('/api/users', /* verifyToken, */ userRouter);
-app.use('/api/date', /* verifyToken, */ dateRouter);
+app.use('/api/dogs', /* verifyToken, */ dogRouter);
+// app.use('/api/users', /* verifyToken, */ userRouter);
+// app.use('/api/date', /* verifyToken, */ dateRouter);
 
 // ==========================================================================
 

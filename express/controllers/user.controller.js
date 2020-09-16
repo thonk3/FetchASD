@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('../models/userModel');
-const Dog = require('../models/dogModel');
+const User = require('../models/user.model');
+const Dog = require('../models/dog.model');
 const router = require('../routes/users');
 
 module.exports.listUsers = async (req, res) => {

@@ -1,20 +1,20 @@
 const router = require('express').Router();
 
 // The Controller Middleware
-const canineController = require('../controllers/dogController');
+const dogController = require('../controllers/dog.controller');
 const { report, all } = require('./auth');
 
 // Validation
 const { runValidation } = require('../validators/runValidation');
-const { addDogValidator } = require('../validators/dogValidator');
+const { addDogValidator } = require('../validators/dog.validate');
 
 // Routes
 // get all dogs route Route
-router.get('/', canineController.getDog);
+router.get('/', dogController.getAllDog);
 // get a particular dogs id route
-router.get('/:id', canineController.getDogbyId);
-// creation of new dog that is passed through express-validatior first
-router.post('/add', addDogValidator, runValidation, canineController.createDog);
+router.get('/:id', dogController.getDogbyId);
+// create new dog for user
+router.post('/add', addDogValidator, runValidation, dogController.createDog);
 
 module.exports = router;
 
