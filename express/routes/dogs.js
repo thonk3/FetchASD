@@ -1,3 +1,6 @@
+/* 
+    dog api routing
+*/
 const router = require('express').Router();
 
 // The Controller Middleware

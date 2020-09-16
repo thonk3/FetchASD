@@ -46,7 +46,7 @@ const verifyToken = require('./validate-token');
 
 app.use('/api/auth', authRouter);
 app.use('/api/dogs', /* verifyToken, */ dogRouter);
-// app.use('/api/users', /* verifyToken, */ userRouter);
+app.use('/api/users', /* verifyToken, */ userRouter);
 // app.use('/api/date', /* verifyToken, */ dateRouter);
 
 // ==========================================================================

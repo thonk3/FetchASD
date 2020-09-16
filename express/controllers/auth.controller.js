@@ -24,9 +24,9 @@ module.exports.register = async (req, res) => {
     
     try {   // save to mongo
         const savedUser = await user.save();
-        res.json({ error: null, newUser: savedUser });
+        return res.json({ error: null, newUser: savedUser });
     } catch (error) {
-        res.status(400).json({ error });
+        return res.status(400).json({ error });
     }
 }
 

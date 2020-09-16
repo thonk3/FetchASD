@@ -38,7 +38,7 @@ module.exports.createDog = async (req, res) => {
             { $push: {dogs: dogId} }
         );
         // Set response status to 200 OK
-        res.status(200).json({
+        return res.status(200).json({
             'user': user._id,
             'msg': 'New dog added succesfully',
             'dog': savedDog,
@@ -46,6 +46,6 @@ module.exports.createDog = async (req, res) => {
 
     } catch (err) {
         // There was an error set it to 400 response
-        res.status(400).json({'error': err});
+        return res.status(400).json({'error': err});
     }
 }
