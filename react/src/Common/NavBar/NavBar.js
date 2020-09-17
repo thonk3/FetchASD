@@ -12,9 +12,11 @@ import {
 // import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
 
-// poper thing
-
-
+/* 
+TODO
+- clean up this mess
+- move the popup menu in its own component
+ */
 
 
 const NavBar = props => {
@@ -74,9 +76,9 @@ const NavBar = props => {
 
                     {   // setting nav links based on auth status
                         authState ?
-                        (
+                        (   // logged in
                             <>
-                                <NavLink dir='/kennel' label='the kennel' />
+                                <NavLink dir='/' label='the kennel' />
                                 <Typography>|</Typography>
                                 <Button className={classes.menuLink} ref={anchorRef} onClick={handleToggle}>
                                     <Typography variant='h6'> ME </Typography>
@@ -114,7 +116,7 @@ const NavBar = props => {
                             </>
                         ) 
                         : 
-                        (
+                        (   // not logged in
                             <>
                                 <NavLink dir='/login' label='login' />
                                 <Typography>|</Typography>

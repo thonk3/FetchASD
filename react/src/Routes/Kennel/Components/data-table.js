@@ -7,11 +7,13 @@ import Button from '@material-ui/core/Button';
 
 class DataTable extends Component {
     render() {
+        const { obj } = this.props;
+
         return (
-            <Card class="dog">
+            <Card className="dog">
                 <CardContent>
-                    <h3>{this.props.obj.dogName}</h3>
-                    <p>{this.props.obj.dogBreed}, {this.props.obj.dogLocation}</p>
+                    <h3>{obj.Name}</h3>
+                    <p>{obj.Breed}, {obj.Location}</p>
                     <Button variant="contained" color="primary"> View Profile </Button>
                 </CardContent> 
             </Card>

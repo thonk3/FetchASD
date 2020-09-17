@@ -23,18 +23,6 @@ function AppWrapper(props) {
         console.log({'tk': (token === null)});
     }
 
-    // get user ID
-    const parseToken = () => {
-        try{
-            return JSON.parse(atob(authTokens.split('.')[1]));
-        } catch (e) {
-            return null;
-        } 
-    }
-    const getUserID = () => parseToken().id;
-    const getUserEmail = () => parseToken().email;
-
-
     // demo nonsense ===================================================
     // slowly removing this bs
     const [admin, setAdmin] = useState(false);
@@ -57,7 +45,6 @@ function AppWrapper(props) {
             value={{ 
                 authTokens, setAuthTokens: setTokens,
                 loggedIn, setLoggedIn,
-                getUserID, getUserEmail
                 }}
         >   
             <App thing={thing} />

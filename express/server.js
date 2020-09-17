@@ -29,23 +29,25 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
-
-
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));
+
 
 // api imports ==============================================================
 const dogRouter = require('./routes/dogs');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
+const dateRouter = require('./routes/dogDate');
 
-// lock api calls to only users
+// lock api calls to only users with token
+// token is grabbed from res.header("auth-token")
 // do this after
 const verifyToken = require('./validate-token');
 
 app.use('/api/auth', authRouter);
-app.use('/api/canines', /* verifyToken, */ dogRouter);
-app.use('/api/users', userRouter);
+app.use('/api/dogs', /* verifyToken, */ dogRouter);
+app.use('/api/users', /* verifyToken, */ userRouter);
+app.use('/api/date', /* verifyToken, */ dateRouter);
 
 // ==========================================================================
 

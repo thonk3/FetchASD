@@ -16,7 +16,7 @@ export default class Kennel extends Component{
     }
 
     componentDidMount() {
-        axios.get('/api/canines')
+        axios.get('/api/dogs')
             .then(res => {
                 this.setState({
                     dogs: res.data, 
@@ -40,7 +40,7 @@ export default class Kennel extends Component{
                 <br></br>
                 <LayoutTextFields/>
 
-                <div class="flex-container">
+                <div className="flex-container">
                     {this.state.isLoaded ?
                         this.dataTable()
                         :

@@ -1,34 +1,25 @@
 /* 
-    handle routing for authentication
+    Auth api routing
 */
 
-// controller middleware
-const {
-    Register,
-    Login,
-} = require('../controllers/authController');
-
-// validator middleware
-const {
-    registerValidator,
-    loginValidator,
-} = require('../validators/authValidator')
-
+// middleware
+const authController = require('../controllers/auth.controller');
+const validateAuth = require('../validators/auth.validate')
 const { runValidation } = require('../validators/runValidation');
+
 const router = require('express').Router();
 
-
-// yer routes
-router.post("/register", registerValidator, runValidation, Register);
-router.post("/login", loginValidator, runValidation, Login);
+// ROUTES
+router.post("/register", validateAuth.registerValidator, runValidation, authController.register);
+router.post("/login", validateAuth.loginValidator, runValidation, authController.login);
 
 /* 
     how validation work:
     validator - adds validation rule
     runValidation - checks the post payload against the validation rules
     
-    if pass - Controller is called
-       fail - returns withMessage() message in validator
+    if  pass - Controller is called
+        fail - returns withMessage() message in validator
 */
 
 module.exports = router;
