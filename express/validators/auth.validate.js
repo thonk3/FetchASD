@@ -22,7 +22,7 @@ module.exports.registerValidator = [
     check('password')
         .isLength({ min: 6 })   // raw unhash/salted password
         .withMessage('Password must be atleast 6 characters long'),
-    check('phoneNumber')
+    check('phoneNumber')    // OPTIONAL - REFLECT THIS IN THE FRONT END
         .optional()
         .isNumeric({ no_symbols: true })
         .withMessage('Must be a valid phone Number'),

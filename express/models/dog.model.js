@@ -19,14 +19,13 @@ const canineSchema = new Schema({
         type: String,
         required: true
     },
-    Postcode: {     
+    Postcode: {
         type: String,
         required: true
     },
     Gender: {
         type: String,
-        enum: ["Male","Female"],
-        required: true
+        enum: ["Male","Female"]
     },
     isVaccinated: {
         type: Boolean,

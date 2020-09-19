@@ -1,27 +1,28 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const User = require('../models/userModel');
-const Dog = require('../models/dogModel');
-const router = require('../routes/users');
+/* 
+    user controller
+*/
+const User = require('../models/user.model');
+const Dog = require('../models/dog.model');
 
+
+// GET - all users (should be limited for certain users)
 module.exports.listUsers = async (req, res) => {
     try {
-          let users = await User.find().select('email password')
-          res.json(users)
-      } catch (err) {
-          return res.status(400).json('Error' + err)
-      }
+        let users = await User.find().select('email password');
+        return res.status(200).res.json(users);
+    } catch (err) {
+        return res.status(400).json('Error' + err);
+    }
 }
 
 // Method to get a particular user's dogs and display it
 // as a series of json dog objects
 module.exports.userGetDogs = async (req, res) => {
     try {
-        // find the user by their _id provided by mongodb
-        const user = await User.findById(req.params.id)
-        // if we cannot find the user provided an error
-        if(!user)
-            return res.status(400).json('Error' + err)
+        // find if user exist by their _id provided by mongodb
+        const user = await User.findById(req.params.id);
+        if(!user) return res.status(400).json('Error' + err);
+
         // store the users dog _ids
         const dogsArray = user.dogs;
         // create an empty array to push the dog objects into
@@ -33,20 +34,23 @@ module.exports.userGetDogs = async (req, res) => {
             newDogsArray.push(newDog);
         }
         // return dog array in the response with json format
-        return res.json(newDogsArray);
+        return res.status(200).json(newDogsArray);
     } catch (err) {
         // if error give error
         return res.status(400).json('Error' + err)
     }
 }
 
+// get user by id
 module.exports.userByID = async (req, res) => {
     try {
         let user = await User.findById(req.params.id)
-        if(!user)
-            return res.status(400).json('Error' + err)
-        return res.json(user)
+        if(!user) return res.status(400).json({'error': 'User doesnt exist' });
+
+        // found user
+        return res.status(200).json(user);
     } catch (err) {
-        return res.status(400).json('Error' + err)
+        return res.status(400).json({'error': err});
     }
+
 }

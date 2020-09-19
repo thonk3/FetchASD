@@ -24,10 +24,7 @@ const App = (props) => {
 
   // use auth context 
   // see provider in AppWrapper
-  const { 
-    setAuthTokens,
-    loggedIn, setLoggedIn 
-  } = useAuth();
+  const { loggedIn } = useAuth();
 
   // demo nonsense
   const { 
@@ -35,9 +32,6 @@ const App = (props) => {
     demoBorder, toggleBorder
   } = props.thing;
 
-  // OK neet to set Logged in state in Login.js
- 
-  // move this to NAV
 
   return (
     <BrowserRouter>
@@ -54,10 +48,10 @@ const App = (props) => {
         <></>
         }
 
+        <div className={demoBorder ? classes.borderThing : null}>
+
         {/* ------------------------------------- */}
 
-        {/* delet DemoThing later thing later */}
-        <div className={demoBorder ? classes.borderThing : null}>
         {/* <div> */}
         <RouterSwitch>
           {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
@@ -66,9 +60,10 @@ const App = (props) => {
           <Route path='/register' component={Routes.Register} />
           
           {/* only logged in users can see these */}
+          <Route path='/:id' component={Routes.Dog} />
           <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
           <PrivateRoute path='/myacc' component={Routes.AccountMan} />
-          <PrivateRoute path='/kennel' component={Routes.Kennel} /> {/* might be removed/ combine with home */}
+          {/* <PrivateRoute path='/kennel' component={Routes.Kennel} /> might be removed/ combine with home */}
           <PrivateRoute path='/date' component={Routes.Dates} />
           <PrivateRoute path='/date/id' component={Routes.RateDate} />
           <PrivateRoute path='/admin' component={Routes.AdminHome} />
