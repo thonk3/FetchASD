@@ -1,6 +1,7 @@
 export { default as Home } from './Home/Home'
 
 export { default as Kennel } from './Kennel/Kennel'
+export {default as Dog} from './Kennel/Dog'
 
 export { default as Dates } from './Date/Date'
 export { default as RateDate } from './RateDate/RateDate'
