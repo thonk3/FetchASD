@@ -37,9 +37,16 @@ const canineSchema = new Schema({
         default: false,
         required: true
     },
+    Bio: {
+        type: String,
+        required: true,
+    },
+    // Start rating as null as Bao said plus all new dogs don't have
+    // a rating yet
     Rating: {
         type: Number,
-        required: true
+        required: false,
+        default: null
     }
 });
 
