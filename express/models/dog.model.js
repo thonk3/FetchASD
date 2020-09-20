@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { dogRatingSchema } = require('./dogRating.model');
 const Schema = mongoose.Schema;
 
 const canineSchema = new Schema({
@@ -43,10 +43,14 @@ const canineSchema = new Schema({
     },
     // Start rating as null as Bao said plus all new dogs don't have
     // a rating yet
-    Rating: {
+    Score: {
         type: Number,
         required: false,
         default: null
+    },
+    Rating: {
+        type: [dogRatingSchema],
+        default: undefined, // hmm? overwrite default empty array
     }
 });
 
