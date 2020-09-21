@@ -8,32 +8,40 @@ const Schema = mongoose.Schema;
 
 
 const dogRatingSchema = new Schema({
-    dogID: {
-        type: mongoose.Types.ObjectId,
-        required: true,
-    },
+    // dogID: {
+    //     type: mongoose.Types.ObjectId,
+    //     // required: true,
+    // },
     rateBy: {
         type: mongoose.Types.ObjectId,
-        required: true,
+        // required: true,
     },
-    rating: {
+    score: {
         type: Number,
-        required: true,
+        // required: true,
+    },
+    comment: {
+        type: String,
+        // required: false,
+        // default: ""
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        required: true,
+        // required: true,
     },
     lastEdited: {   // first entry will be the same as createdAt
         type: Date, // then change when an edit is made
-        default: Date.now,
-        required: true,
+        // required: true,
     }
+    // rateBy: String, 
+    // score: Number,
+    // comment: String,
+    // createdAt: Date,
+    // lastEdited: Date
 });
 
-const dogRating = mongoose.model('dogRating', dogRatingSchema);
+const DogRating = mongoose.model('dogRating', dogRatingSchema);
 
-module.exports = { dogRating, dogRatingSchema };
+module.exports = { DogRating, dogRatingSchema };
 
 

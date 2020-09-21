@@ -39,19 +39,22 @@ const canineSchema = new Schema({
     },
     Bio: {
         type: String,
-        required: true,
+        default: "",
+        required: false,
     },
     // Start rating as null as Bao said plus all new dogs don't have
     // a rating yet
     Score: {
         type: Number,
-        required: false,
-        default: null
+        // required: false,
+        // default: null
     },
-    Rating: {
-        type: [dogRatingSchema],
-        default: undefined, // hmm? overwrite default empty array
-    }
+    // Rating: {
+    //     type: [dogRatingSchema],
+    //     default: null,
+    //     required: false,
+    // }
+    Rating: [dogRatingSchema]
 });
 
 const Canine = mongoose.model('Canine', canineSchema);
