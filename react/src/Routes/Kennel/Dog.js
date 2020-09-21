@@ -30,7 +30,6 @@ import Button from '@material-ui/core/Button';
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
                 rating: res.data.Rating,
-
              });
          })
          .catch((error) => {
@@ -41,30 +40,31 @@ import Button from '@material-ui/core/Button';
      render() {
          const{name, age, breed, suburb, gender, rating} = this.state
          return (
-        
              <div class = "contain-within">
                  <div class="float-left">
-                 <div class="imgplaceholder">image here
-                 </div>
-                 <div class="button">
-                 <Button variant="contained" color="primary">
-  Express Interest
-</Button>
-</div>
-                 </div>
-             <div>  
-            <h1>{name}, {age}</h1>
-             <h3>Breed: {breed}
-             <br/>
-             Suburb: {suburb}
-             <br/>
-             Gender: {gender}
-             <br/>
-             Rating: {rating}
-             <br/>
-             <h4>Bio:</h4> </h3>
-             
-             </div>  
+                    <div class="imgplaceholder">
+                        image here
+                    </div>
+                    <div class="button">
+                        <Button variant="contained" color="primary">
+                            Express Interest
+                        </Button>
+                    </div>
+                </div>
+                <div>  
+                    <h1>{name}, {age}</h1>
+                    <h3>
+                        Breed: {breed}
+                    <br/>
+                        Suburb: {suburb}
+                    <br/>
+                        Gender: {gender}
+                    <br/>
+                        Rating: {rating}
+                    <br/>
+                        Bio: 
+                    </h3>
+                </div>  
              </div>
        
          )

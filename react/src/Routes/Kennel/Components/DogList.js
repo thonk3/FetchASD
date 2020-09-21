@@ -1,32 +1,39 @@
-import React, { Component } from 'react';
+
+import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import './kennel.css';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import Dog from '../Dog'
+import './kennel.css';
 
-class DataTable extends Component {
-
-    render() {
-
-        return (
+const DogList = ({dogList=[]}) => {
+  return (
+    <>
+    { dogList.map((data,index) => {
+        if (data) {
+          return (
             <div class="center-this">
-            <Card class="dog">
+            <div key={data.Name}>
+               <Card class="dog">
                 <CardContent>
                 <div class="imgplaceholder">image here
                  </div>
-                    <h2>{this.props.obj.Name}</h2>
-                    <p>{this.props.obj.Breed}, {this.props.obj.Suburb}</p>
-                    <Link to={this.props.obj._id} Component={Dog}>
+                    <h2>{data.Name}</h2>
+                    <p>{data.Breed}, {data.Suburb}</p>
+                    <Link to={data._id} Component={Dog}>
                     <Button variant="contained" color="primary" > View Profile </Button>
                     </Link>
                 </CardContent> 
             </Card>
-            </div>
-        );
-    }
+	    </div>	
+      </div>
+    	   )	
+    	 }
+    	 return null
+    }) }
+    </>
+  );
 }
 
-
-export default DataTable;
+export default DogList 
