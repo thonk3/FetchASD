@@ -30,9 +30,10 @@ exports.acceptDate = (req, res) => {
                     res.json('Dog Date has been accepted');
                 })
                 .catch(err => {
-                    res.status(400).send("Could not accep the dog date");
+                    res.status(400).send("Could not accept the dog date");
                 });
-        }});
+        }
+    });
 }
 
 exports.declineDate = (req, res) => {
