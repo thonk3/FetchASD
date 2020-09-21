@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import DogList from './Components/DogList';
 import './Components/kennel.css';
 import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 
