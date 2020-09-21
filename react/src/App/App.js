@@ -58,6 +58,7 @@ const App = (props) => {
           <Route exact path='/' component={() => <Routes.Home loggedIn={loggedIn} />} />
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
+          <Route path='/kennel' component={Routes.Kennel}/>
           
           {/* only logged in users can see these */}
           <Route path='/:id' component={Routes.Dog} />

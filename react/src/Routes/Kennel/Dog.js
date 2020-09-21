@@ -21,7 +21,7 @@ import Button from '@material-ui/core/Button';
 
      componentDidMount = async () => {
          const { id } = this.state
-         axios.get(`/api/canines/${id}`)
+         axios.get(`/api/dogs/${id}`)
          .then(res => {
              this.setState({
                 name: res.data.Name,

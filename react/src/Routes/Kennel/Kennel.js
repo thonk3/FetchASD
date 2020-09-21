@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import DogList from './Components/DogList';
 import './Components/kennel.css';
 import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 
 
 const Kennel = (props) => {
@@ -9,8 +13,8 @@ const Kennel = (props) => {
   const [dogListDefault, setDogListDefault] = useState();
   const [dogList, setDogList] = useState();
 
-  const fetchData = async () => {
-    return await fetch(`/api/canines`)
+  const getData = async () => {
+    return await fetch(`/api/dogs`)
       .then(response => response.json())
       .then(dog => {
          setDogList(dog) 
@@ -25,17 +29,26 @@ const Kennel = (props) => {
      setDogList(filtered);
   }
 
-  useEffect( () => {fetchData()},[]);
+  useEffect( () => {getData()},[]);
 	
   return (
     <>
-        <h1>Search for a dog..</h1>
+        <br/>
+        <h1 class="centre-this">Search for a dog..</h1>
+        <br/>
 
-        <TextField 
-        id="outlined-basic" placeholder="Location" variant="outlined"
+
+        <TextField class="centre-this"
+        id="standard-full-width" 
+        fullWidth
+        placeholder="Enter your suburb here..."
+        variant="outlined"
         value={input} 
-        onChange={(e) => updateInput(e.target.value)}
-        />
+        onChange={(e) => updateInput(e.target.value)}>
+       
+        </TextField>
+      
+       
 
         <div class="flex-container">
             <DogList dogList={dogList}/>
@@ -46,6 +59,8 @@ const Kennel = (props) => {
 }
 
 export default Kennel 
+
+
 
 
 

@@ -19,10 +19,12 @@ const DogList = ({dogList=[]}) => {
                 <CardContent>
                 <div class="imgplaceholder">image here
                  </div>
-                    <h2>{data.Name}</h2>
+                    <div class="cardtxt">
+                    <h2>{data.Name}, {data.Age}</h2>
                     <p>{data.Breed}, {data.Suburb}</p>
-                    <Link to={data._id} Component={Dog}>
-                    <Button variant="contained" color="primary" > View Profile </Button>
+                    </div>
+                    <Link to={data._id} Component={Dog} class="viewProfile">
+                    <Button  variant="contained" color="primary" > View Profile </Button>
                     </Link>
                 </CardContent> 
             </Card>
