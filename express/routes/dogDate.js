@@ -1,17 +1,29 @@
-const router = require('express').Router();
+/* 
+    dog date api routing
+*/
+
+// middleware
 const dateController = require('../controllers/date.controller');
-const { Router } = require('express');
 
-router.route('/')
-    .get(dateController.getDates);
+const router = require('express').Router();
 
-router.route('/add')
-    .post(dateController.createDate);
+// router.route('/')
+//     .get(dateController.getDates);
 
-router.route('/accept/:id')
-    .post(dateController.acceptDate);
+// router.route('/add')
+//     .post(dateController.createDate);
 
-router.route('/decline/:id')
-    .post(dateController.declineDate);
+// router.route('/accept/:id')
+//     .post(dateController.acceptDate);
+
+// router.route('/decline/:id')
+//     .post(dateController.declineDate);
+
+// hoi hoi changing to use the other one for post reqest validations
+
+router.get('/', dateController.getDates);
+
+router.post('/add', dateController.createDate);
+router.post('/accept/:id')
 
 module.exports = router;
