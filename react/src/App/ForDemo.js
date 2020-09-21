@@ -4,6 +4,9 @@ import {
 } from 'react-router-dom';
 import { Switch, FormControlLabel, Typography } from '@material-ui/core'
 
+import { useAuth } from '../Context/authContext'
+import token from '../Helpers/token'
+
 
       // r0 features
 
@@ -15,6 +18,8 @@ import { Switch, FormControlLabel, Typography } from '@material-ui/core'
       
 const ForDemo = props => {
   let { authState, switchChange } = props;
+
+  const { loggedIn } = useAuth();
 
   return (
     <>
@@ -30,22 +35,27 @@ const ForDemo = props => {
       </ul>
 
       <Typography>demo authentication states</Typography>
-      <FormControlLabel
-        name='loggedIn'
-        label={`logged in: ${authState.loggedIn}`}
-        control={
-        <Switch checked={authState.loggedIn} onChange={switchChange} />
-      } />
+      { 
+        loggedIn ? 
+        <>
+          <p> UserID: {token().id}</p>
+          <p> Email : {token().payload}</p>
+        </>
+        :
+        <p>NO ACCOUNT</p>
+      }
+    
+
 
       <FormControlLabel
         name='adminAuth'
         label={`admin: ${authState.adminAuth}`}
         control={
-        <Switch checked={authState.adminAuth} onChange={switchChange} disabled={!props.authState.loggedIn}/>
+        <Switch checked={authState.adminAuth} onChange={switchChange} disabled={!loggedIn}/>
       } />
 
     </>
-  )
+  );
 }
 
 export default ForDemo;
