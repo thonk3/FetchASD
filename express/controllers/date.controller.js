@@ -26,6 +26,38 @@ exports.createDate = (req, res) => {
     });
 }
 
+exports.viewUpcomingDates = (req, res) => {
+    let query = DogDate.find({
+        "firstDogID": req.params.id,
+        "status": "Upcoming",
+    })
+
+    query.exec(function (err, dogDate) {
+        if (err)
+            return res.status(400).json({ 'error': 'Could not find any dog dates with those criteria'});
+        res.status(200).json({
+            'message': 'Upcoming dog dates found successfully',
+            'date': dogDate,
+        });
+    });
+}
+
+exports.viewRequestedDates = (req, res) => {
+    let query = DogDate.find({
+        "firstDogID": req.params.id,
+        "status": "Requested",
+    })
+
+    query.exec(function (err, dogDate) {
+        if (err)
+            return res.status(400).json({ 'error': 'Could not find any dog dates with those criteria'});
+        res.status(200).json({
+            'message': 'Requested dog dates found successfully',
+            'date': dogDate,
+        });
+    });
+}
+
 // accept date
 exports.acceptDate = (req, res) => {
     DogDate.findById(req.params.id, function(err, dogDate) {
@@ -36,10 +68,10 @@ exports.acceptDate = (req, res) => {
         dogDate.status = "Upcoming";
         dogDate.save()
             .then(dogDate => {
-                return res.status(200).json({ 'error': 'Dog Date has been accepted' });
+                return res.status(200).json({ 'message': 'Dog Date has been accepted' });
             })
             .catch(err => {
-                return res.status(400).send({ 'error': 'Could not accep the dog date' });
+                return res.status(400).send({ 'error': 'Could not accept the dog date' });
             });
     });
 }
@@ -53,7 +85,7 @@ exports.declineDate = (req, res) => {
 
         dogDate.deleteOne()
             .then(dogDate =>{
-                return res.status(200).json({ 'msg': 'Dog Date request has been declined' });
+                return res.status(200).json({ 'message': 'Dog Date request has been declined' });
             }).catch(err => {
                 return res.status(400).json({ 'error': 'Could not decline the dog date' });
             });

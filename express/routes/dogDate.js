@@ -24,6 +24,9 @@ const router = require('express').Router();
 router.get('/', dateController.getDates);
 
 router.post('/add', dateController.createDate);
-router.post('/accept/:id')
+router.post('/accept/:id', dateController.acceptDate);
+router.post('/upcoming/:id', dateController.viewUpcomingDates);
+router.post('/requests/:id', dateController.viewRequestedDates);
+
 
 module.exports = router;
