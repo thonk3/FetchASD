@@ -7,26 +7,13 @@ const dateController = require('../controllers/date.controller');
 
 const router = require('express').Router();
 
-// router.route('/')
-//     .get(dateController.getDates);
-
-// router.route('/add')
-//     .post(dateController.createDate);
-
-// router.route('/accept/:id')
-//     .post(dateController.acceptDate);
-
-// router.route('/decline/:id')
-//     .post(dateController.declineDate);
-
-// hoi hoi changing to use the other one for post reqest validations
-
 router.get('/', dateController.getDates);
 
 router.post('/add', dateController.createDate);
 router.post('/accept/:id', dateController.acceptDate);
-router.post('/upcoming/:id', dateController.viewUpcomingDates);
-router.post('/requests/:id', dateController.viewRequestedDates);
-
+router.post('/update/:id', dateController.updateDate);
+router.get('/upcoming/:id', dateController.viewUpcomingDates);
+router.get('/sent/:id', dateController.viewSentDateRequests);
+router.get('/received/:id', dateController.viewReceivedDateRequests);
 
 module.exports = router;

@@ -3,12 +3,12 @@ const { schema } = require('./dog.model');
 const Schema = mongoose.Schema;
 
 const dogDateSchema = new Schema ({
-    firstDogID: {
+    senderDogID: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Canine'
     },
-    secondDogID: {
+    receiverDogID: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Canine'
