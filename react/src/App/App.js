@@ -60,13 +60,15 @@ const App = (props) => {
           <Route path='/register' component={Routes.Register} />
           
           {/* only logged in users can see these */}
-          <Route path='/:id' component={Routes.Dog} />
+          
           <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+          <PrivateRoute path='/:id' component={Routes.Dog} />
           <PrivateRoute path='/myacc' component={Routes.AccountMan} />
           {/* <PrivateRoute path='/kennel' component={Routes.Kennel} /> might be removed/ combine with home */}
           <PrivateRoute path='/date' component={Routes.Dates} />
           <PrivateRoute path='/date/id' component={Routes.RateDate} />
           <PrivateRoute path='/admin' component={Routes.AdminHome} />
+          {/* <PrivateRoute path='/myacc/mypack/:id/edit' component={Routes.AdminHome} />*/}
 
           <Route component={Routes.NotFound} />
         </RouterSwitch>

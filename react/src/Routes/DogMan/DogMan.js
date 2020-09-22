@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
 import coolDogImage from '../../Assets/cool.jpg';
+import token from '../../Helpers/token'
+
 
 // Basic styling for pictures in CardMedia
 const styles =
@@ -22,7 +24,7 @@ const styles =
 // the app
 const defaultState = {
     dogs: [],
-    userEmail: 'rbabcock0@dyndns.org',
+    UserId: token().id,
     Name: '',
     Age: '',
     Breed: '',
@@ -45,7 +47,7 @@ class DogMan extends Component {
     // Special function that onLoad
     componentDidMount() {
         // Hardcoded get request the "logged in" user's dogs
-        axios.get('http://localhost:5000/api/users/5f57036e927d194baceedf7a/dogs')
+        axios.get('/api/users/' + token().id +'/dogs')
             .then(res => {
                 // add the dog objects in the dogs state array
                 this.setState({
@@ -68,31 +70,26 @@ class DogMan extends Component {
             Name: e.target.value
         })
     }
-
     onChangeAge = e => {
         this.setState({
             Age: e.target.value
         })
     }
-
     onChangeBreed = e => {
         this.setState({
             Breed: e.target.value
         })
     }
-
     onChangeSuburb = e => {
         this.setState({
             Suburb: e.target.value
         })
     }
-
     onChangePostcode = e => {
         this.setState({
             Postcode: e.target.value
         })
     }
-
     onChangeGender = e => {
         this.setState({
             Gender: e.target.value
@@ -105,13 +102,11 @@ class DogMan extends Component {
             isVaccinated: e.target.checked
         })
     }
-
     onChangeIsDesexed = e => {
         this.setState({
             isDesexed: e.target.checked
         })
     }
-
     onChangeBio = e => {
         this.setState({
             Bio: e.target.value
@@ -124,7 +119,7 @@ class DogMan extends Component {
         e.preventDefault();
         // New Dog Object setting via state
         const newDog = {
-            userEmail: this.state.userEmail,
+            UserId: this.state.UserId,
             Name: this.state.Name,
             Age: this.state.Age,
             Breed: this.state.Breed,
@@ -140,7 +135,7 @@ class DogMan extends Component {
         console.log(newDog);
 
         // Send a post request with the newDog object
-        axios.post('http://localhost:5000/api/canines/add', newDog)
+        axios.post('/api/dogs/add', newDog)
             .then(res => {
                 // For debugging purposes delete later
                 console.log(res.data)
@@ -170,85 +165,21 @@ class DogMan extends Component {
                 <h1>Dog Management</h1>
                 <h2>Create New Dog</h2>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label> Name: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Name}
-                            onChange={this.onChangeName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Age: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Age}
-                            onChange={this.onChangeAge}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Breed: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Breed}
-                            onChange={this.onChangeBreed}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Suburb: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Suburb}
-                            onChange={this.onChangeSuburb}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Postcode: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Postcode}
-                            onChange={this.onChangePostcode}
-                        />
-                    </div>
+                    <InputBox label="Name: " value={this.state.Name} onChange={this.onChangeName}/>
+                    <InputBox label="Age: " value={this.state.Age} onChange={this.onChangeAge}/>
+                    <InputBox label="Breed: " value={this.state.Breed} onChange={this.onChangeBreed}/>
+                    <InputBox label="Suburb: " value={this.state.Suburb} onChange={this.onChangeSuburb}/>
+                    <InputBox label="Postcode: " value={this.state.Postcode} onChange={this.onChangePostcode}/>
                     <div className="form-group">
                         <label> Gender: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Gender}
-                            onChange={this.onChangeGender}
-                        />
+                        <select required className="form-control" value={this.state.Gender} onChange={this.onChangeGender}>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
                     </div>
-                    <div className="form-group">
-                        <label> Vaccinated: </label>
-                        <input type="checkbox"
-                            className="form-control"
-                            value={this.state.isVaccinated}
-                            onChange={this.onChangeIsVaccinated}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Desexed: </label>
-                        <input type="checkbox"
-                            className="form-control"
-                            value={this.state.isDesexed}
-                            onChange={this.onChangeIsDesexed}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Bio: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.Bio}
-                            onChange={this.onChangeBio}
-                        />
-                    </div>
+                    <InputBox label="Vaccinated: " inputType="checkbox" value={this.state.isVaccinated} onChange={this.onChangeIsVaccinated}/>
+                    <InputBox label="Desexed: " inputType="checkbox" value={this.state.isDesexed} onChange={this.onChangeIsDesexed}/>
+                    <InputBox label="Bio: " value={this.state.Bio} onChange={this.onChangeBio}/>
                     <div className="form-group">
                         <input type="submit" value="Create Dog" />
                     </div>
@@ -277,12 +208,34 @@ class DogCard extends Component {
                             <h3>{this.props.obj.Name}, {this.props.obj.Age}</h3>
                             <p>{this.props.obj.Breed}</p>
                             <p>{this.props.obj.Suburb}, {this.props.obj.Postcode}</p>
+                            // Link=''
                             <Button variant="contained" color="primary">Edit Dog </Button>
                         </CardContent>
                     </Card>
                 </Grid>
             </div>
         );
+    }
+}
+
+class InputBox extends Component {
+    render() {
+        const { label, value, onChange, inputType } = this.props;
+    
+        const  type = inputType || "text";
+        
+        return (
+        
+            <div className="form-group">
+                <label> {this.props.label}</label>
+                <input type={type}
+                    required
+                    className="form-control"
+                    value={this.props.value}
+                    onChange={this.props.onChange}
+                />
+            </div>
+        )
     }
 }
 
