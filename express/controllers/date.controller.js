@@ -8,10 +8,7 @@ exports.createDate = (req, res) => {
     let dogDate = new DogDate(req.body);
     dogDate.save()
         .then(dogDate => {
-            return res.status(200).json({
-                'msg': 'Date added successfully',
-                'date': dogDate,    
-            });    
+            return res.status(200).json({dogDate});    
     })
     .catch(err => {
         return res.status(400).json({ 'error': err });    
@@ -73,10 +70,7 @@ exports.viewSentDateRequests = async(req, res) => {
     if (query.length <= 0) 
         return res.status(400).json({ 'error': 'Could not find sent date requests'});
     else {
-        res.status(200).json({
-            'message': 'Sent date requests found successfully',
-            'date': query,
-        });
+        res.status(200).json(query);
     }
 }
 
@@ -93,6 +87,34 @@ exports.viewReceivedDateRequests = async(req, res) => {
         res.status(200).json({
             'message': 'Received date requests found successfully',
             'date': query,
+        });
+    }
+}
+
+// Returns a list of all completed dates
+exports.viewCompletedDates = async(req, res) => {
+    let receivedCompletedDates = await DogDate.find({
+        "receiverDogID": req.params.id,
+        "status": "Completed",
+    })
+
+    let sentCompletedDates = await DogDate.find({
+        "senderDogID": req.params.id,
+        "status": "Completed",
+    })
+
+    let combinedDates = [
+        ...receivedCompletedDates,
+        ...sentCompletedDates
+
+    ]
+
+    if (combinedDates.length <= 0) 
+        return res.status(400).json({ 'error': 'Could not find any upcoming dog dates'});
+    else {
+        res.status(200).json({
+            'message': 'Upcoming dog dates found successfully',
+            'date': combinedDates,
         });
     }
 }
