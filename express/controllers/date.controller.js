@@ -3,9 +3,6 @@
 */
 const DogDate = require('../models/dogDate.model');
 const User = require('../models/user.model');
-const Dog = require('../models/dog.model');
-
-
 
 // Creates a new date
 exports.createDate = (req, res) => {
@@ -37,6 +34,7 @@ exports.updateDate = async(req, res) => {
     }
 }
 
+// It works dude
 exports.viewAllUsersDates = async(req, res) => {
     const user = await User.findById(req.params.id);
     if(!user) 
@@ -74,92 +72,6 @@ exports.viewAllUsersDates = async(req, res) => {
         })
     }
 }    
-
-// // Returns JSON containing a list of all the upcoming dates of a dog
-// exports.viewUpcomingDates = async(req, res) => {
-//     let receivedDates = await DogDate.find({
-//         "receiverDogID": req.params.id,
-//         "status": "Upcoming",
-//     })
-
-//     let sentDates = await DogDate.find({
-//         "senderDogID": req.params.id,
-//         "status": "Upcoming",
-//     })
-
-//     let combinedDates = [
-//         ...receivedDates,
-//         ...sentDates
-//     ]
-
-//     if (combinedDates.length <= 0) 
-//         return res.status(400).json({ 'error': 'Could not find any upcoming dog dates'});
-//     else {
-//         res.status(200).json({
-//             'message': 'Upcoming dog dates found successfully',
-//             'date': combinedDates,
-//         });
-//     }
-// }
-
-// // Returns a list of sent date reqeusts to other dogs
-// exports.viewSentDateRequests = async(req, res) => {
-//     let query = await DogDate.find({
-//         "senderDogID": req.params.id,
-//         "status": "Requested",
-//     })
-
-//     if (query.length <= 0) 
-//         return res.status(400).json({ 'error': 'Could not find sent date requests'});
-//     else {
-//         res.status(200).json(query);
-//     }
-// }
-
-// // Returns a list of all received date requests
-// exports.viewReceivedDateRequests = async(req, res) => {
-//     let query = await DogDate.find({
-//         "receiverDogID": req.params.id,
-//         "status": "Requested",
-//     })
-
-//     if (query.length <= 0) 
-//         return res.status(400).json({ 'error': 'Could not find sent date requests'});
-//     else {
-//         res.status(200).json({
-//             'message': 'Received date requests found successfully',
-//             'date': query,
-//         });
-//     }
-// }
-
-// // Returns a list of all completed dates
-// exports.viewCompletedDates = async(req, res) => {
-//     let receivedCompletedDates = await DogDate.find({
-//         "receiverDogID": req.params.id,
-//         "status": "Completed",
-//     })
-
-//     let sentCompletedDates = await DogDate.find({
-//         "senderDogID": req.params.id,
-//         "status": "Completed",
-//     })
-
-//     let combinedDates = [
-//         ...receivedCompletedDates,
-//         ...sentCompletedDates
-
-//     ]
-
-//     if (combinedDates.length <= 0) 
-//         return res.status(400).json({ 'error': 'Could not find any upcoming dog dates'});
-//     else {
-//         res.status(200).json({
-//             'message': 'Upcoming dog dates found successfully',
-//             'date': combinedDates,
-//         });
-//     }
-// }
 
 // Accepts a requested date 
 exports.acceptDate = (req, res) => {

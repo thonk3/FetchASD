@@ -23,6 +23,7 @@ class Dates extends React.Component {
         axios.get('api/date/5f6df2cbbceb0d1fd024c19d/')
             .then(res => {
                 this.setState({
+                    requestList: true,
                     requested: res.data.requested,
                     upcoming: res.data.upcoming,
                     completed: res.data.completed
@@ -68,9 +69,9 @@ class Dates extends React.Component {
             <Container fluid>
                 <h2>My Dates</h2>
                 <Grid container justify="space-between" direction="row" alignItems="center">
-                    <Grid item><Button onClick={this.handleRequested}>Requested</Button></Grid>
-                    <Grid item><Button onClick={this.handleUpcoming}>Upcoming</Button></Grid>
-                    <Grid item><Button onClick={this.handleCompleted}>Completed</Button></Grid>
+                    <Grid item><Button variant="contained" color={this.state.requestList ? "primary" : "default"} onClick={this.handleRequested}>Requested</Button></Grid>
+                    <Grid item><Button variant="contained" color={this.state.upcomingList ? "primary" : "default"} onClick={this.handleUpcoming}>Upcoming</Button></Grid>
+                    <Grid item><Button variant="contained" color={this.state.completedList ? "primary" : "default"} onClick={this.handleCompleted}>Completed</Button></Grid>
                 </Grid>
                 <div className='form-container'>
                     {(this.state.requestList) ? this.dateItem(this.state.requested) : ''}
