@@ -59,6 +59,8 @@ const App = (props) => {
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
           <PrivateRoute path='/date' component={Routes.Dates} />
+          <PrivateRoute path='/kennel' component={Routes.Kennel} /> 
+
 
           {/* only logged in users can see these */}
           <Route path='/:id' component={Routes.Dog} />

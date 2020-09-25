@@ -7,7 +7,9 @@ class Dates extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dates: [],
+            requested: [],
+            upcoming: [],
+            completed: [],
             requestList: true,
             upcomingList: false,
             completedList: false,
@@ -18,10 +20,12 @@ class Dates extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/api/date/sent/5f5850017fb19a1420425abb')
+        axios.get('api/date/5f6df2cbbceb0d1fd024c19d/')
             .then(res => {
                 this.setState({
-                    dates: res.data,
+                    requested: res.data.requested,
+                    upcoming: res.data.upcoming,
+                    completed: res.data.completed
                 });
             })
             .catch(function (error) {
@@ -29,8 +33,8 @@ class Dates extends React.Component {
             })
     }
 
-    dateItem() {
-        return this.state.dates.map((data, i) => {
+    dateItem(list) {
+        return list.map((data, i) => {
             return <DateItem obj={data} key={i} />;
         });
     }
@@ -69,20 +73,15 @@ class Dates extends React.Component {
                     <Grid item><Button onClick={this.handleCompleted}>Completed</Button></Grid>
                 </Grid>
                 <div className='form-container'>
-                    {(this.state.requestList) ?
-                    this.dateItem() : ''}
-                </div>
-                <div className='form-container'>
-                    {(this.state.upcomingList) ?
-                    this.dateItem() : ''}
-                </div>
-                <div className='form-container'>
-                    {(this.state.completedList) ?
-                    this.dateItem() : ''}
+                    {(this.state.requestList) ? this.dateItem(this.state.requested) : ''}
+                    
+                    {(this.state.upcomingList) ? this.dateItem(this.state.upcoming) : ''}
+
+                    {(this.state.completedList) ? this.dateItem(this.state.completed) : ''}
                 </div>
             </Container>
         )
     }
-
 }
+
 export default Dates;
