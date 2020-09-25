@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 // component imports
-import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
@@ -27,30 +26,11 @@ const App = (props) => {
   const { loggedIn } = useAuth();
 
   // demo nonsense
-  const { 
-    admin, toggleAdmin,
-    demoBorder, toggleBorder
-  } = props.thing;
-
 
   return (
     <BrowserRouter>
         <NavBar authState={loggedIn} />
         <div className={classes.offset}></div>
-
-        {/* to remove later */}
-        { demoBorder ?
-        <>
-          <Button variant="contained" color="secondary" onClick={toggleBorder}>CLOSE</Button>
-          <ForDemo authState={ admin } switchChange={toggleAdmin}/>
-        </>
-        :
-        <></>
-        }
-
-        <div className={demoBorder ? classes.borderThing : null}>
-
-        {/* ------------------------------------- */}
 
         {/* <div> */}
         <RouterSwitch>
@@ -74,7 +54,6 @@ const App = (props) => {
           <Route component={Routes.NotFound} />
 
         </RouterSwitch>
-        </div>
 
         <p>Footer component</p>
     </BrowserRouter>

@@ -81,6 +81,8 @@ module.exports.updateRating = async (req, res) => {
     }
 }
 
+
+
 module.exports.deleteRating = async (req, res) => {
     const rateMe = await Dog.findOne({ _id: req.body.dogID });
     const imRating = await Dog.findOne({ _id: req.body.rateBy });
@@ -118,3 +120,6 @@ const newAvgScore = (ratingArray) => {
 
     return (score/ratingArray.length);
 }
+
+
+
