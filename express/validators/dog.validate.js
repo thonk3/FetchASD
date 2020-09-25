@@ -3,10 +3,10 @@ const { check } = require('express-validator');
 // Performs the validation of Dog data upon creation intended for the database
 // if wrong it provides the error with "with Message"
 module.exports.addDogValidator = [
-    check('userId')
-        .isMongoId()
-        .withMessage('Must be User ID format'),
-    // Name must be smaller than 30 chars
+    // check('userId')
+    //     .isMongoId()
+    //     .withMessage('Must be User ID format'),
+    // // Name must be smaller than 30 chars
     check('Name')
         .isString()
         .isLength({ max: 30 })
@@ -21,14 +21,12 @@ module.exports.addDogValidator = [
     // breeds don't have numbers like elon's kid
         check('Breed')
         .isString()
-        .isAlpha()
         .isLength({ min: 1, max: 30 })
         .withMessage('Breed must be less than 30 characters long.'),
     // Australian suburbs. I looked it up and the longest one and it is 
     // exactly 31 chars. it is 'Mamungkukumpurangkuntjunya Hill'.
         check('Suburb')
         .isString()
-        .isAlpha()
         .isLength({ min: 1, max: 31})
         .withMessage('Suburb must be less than 30 characters long.'),
     // Australian postcodes are in a 4 digit format and only numbers
@@ -64,13 +62,13 @@ module.exports.addDogValidator = [
 // if wrong it provides the error with "with Message"
 module.exports.updateDogValidator = [
     // Must be in MongoDBId format
-    check('userId')
-        .isMongoId()
-        .withMessage('Must be a valid User Id'),
+    // check('userId')
+    //     .isMongoId()
+    //     .withMessage('Must be a valid User Id'),
     // Must be in MongoDBId format    
-    check('userId')
-        .isMongoId()
-        .withMessage('Must be a valid Dog Id'),
+    // check('userId')
+    //     .isMongoId()
+    //     .withMessage('Must be a valid Dog Id'),
     // Name must be smaller than 30 chars
     check('Name')
         .isString()
@@ -86,14 +84,11 @@ module.exports.updateDogValidator = [
     // breeds don't have numbers like elon's kid
         check('Breed')
         .isString()
-        .isAlpha()
         .isLength({ min: 1, max: 30 })
         .withMessage('Breed must be less than 30 characters long.'),
     // Australian suburbs. I looked it up and the longest one and it is 
     // exactly 31 chars. it is 'Mamungkukumpurangkuntjunya Hill'.
         check('Suburb')
-        .isString()
-        .isAlpha()
         .isLength({ min: 1, max: 31})
         .withMessage('Suburb must be less than 30 characters long.'),
     // Australian postcodes are in a 4 digit format and only numbers

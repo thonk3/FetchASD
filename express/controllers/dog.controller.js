@@ -55,12 +55,17 @@ module.exports.createDog = async (req, res) => {
 module.exports.updateDog = async (req, res) => {
     try {
         // find user by id
+        
         const user = await User.findById(req.body.userId);
-        const dogId = req.body.dogId;
+        console.log("YES");
+        const dogId = req.params.id;
+        console.log("User:" + user);
         // iterate of the user's dog
         for (x in user.dogs) {
+            console.log(user.dogs[x] + '===' + dogId);
             // If a dog belong to the user matches the requested dogId continue
             if (user.dogs[x] === dogId) {
+
                 // Find the dog in the database via dogId and update it with the new details
                 const dog = await Dog.findByIdAndUpdate({_id: dogId}, {...req.body}, {new: true});
                 // Return 200 OK

@@ -19,7 +19,7 @@ router.get('/:id', dogController.getDogbyId);
 // create new dog for user
 router.post('/add', addDogValidator, runValidation, dogController.createDog);
 // update dog
-router.post('/edit', updateDogValidator, runValidation, dogController.updateDog);
+router.post('/:id/edit', updateDogValidator, runValidation, dogController.updateDog);
 
 module.exports = router;
 

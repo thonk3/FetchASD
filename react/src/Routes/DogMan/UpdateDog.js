@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Grid } from "@material-ui/core";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
-import coolDogImage from '../../Assets/cool.jpg';
-import token from '../../Helpers/token'
-import { Link } from 'react-router-dom';
-import UpdateDog from './UpdateDog'
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import token from '../../Helpers/token';
 
 
 // Basic styling for pictures in CardMedia
@@ -19,13 +13,12 @@ const styles =
         marginTop: '5'
     }
 };
-
 // This is the default state
 // I have hardcoded userEmail as we don't have
 // functionality to pass around the _id through
 // the app
 const defaultState = {
-    dogs: [],
+    id: '',
     UserId: token().id,
     Name: '',
     Age: '',
@@ -38,23 +31,22 @@ const defaultState = {
     Bio: ''
 };
 
-class DogMan extends Component {
+class UpdateDog extends Component {
     constructor(props) {
         super(props);
         // sets the default state using a spread
         // operator :)
-        this.state = { ...defaultState };
+        this.state = { ...defaultState, id: this.props.match.params.id};
     }
 
     // Special function that onLoad
     componentDidMount() {
         // Hardcoded get request the "logged in" user's dogs
-        axios.get('/api/users/' + token().id + '/dogs')
+        axios.get('/api/dogs/' + this.state.id + '')
             .then(res => {
                 // add the dog objects in the dogs state array
-                this.setState({
-                    dogs: res.data,
-                });
+                this.setState({ ...res.data });
+                console.log('Desexed: ' + res.data.isDesexed)
             })
             .catch((error) => {
                 console.log(error);
@@ -103,7 +95,9 @@ class DogMan extends Component {
         this.setState({
             isVaccinated: e.target.checked
         })
+
     }
+
     onChangeIsDesexed = e => {
         this.setState({
             isDesexed: e.target.checked
@@ -120,7 +114,7 @@ class DogMan extends Component {
         // Method cancels the event if it is cancelable
         e.preventDefault();
         // New Dog Object setting via state
-        const newDog = {
+        const updatedDog = {
             UserId: this.state.UserId,
             Name: this.state.Name,
             Age: this.state.Age,
@@ -134,10 +128,10 @@ class DogMan extends Component {
         }
 
         // For debugging purposes delete later
-        console.log(newDog);
+        console.log(updatedDog);
 
         // Send a post request with the newDog object
-        axios.post('/api/dogs/add', newDog)
+        axios.post('/api/dogs/' + this.state.id +'/edit', updatedDog)
             .then(res => {
                 // For debugging purposes delete later
                 console.log(res.data)
@@ -146,25 +140,21 @@ class DogMan extends Component {
                 // to merge the two objects together as the bottom object
                 // overwrites the pervious one so we don't lose the user's
                 // dogs. https://www.javascripttutorial.net/object/javascript-merge-objects/
-                this.setState({
-                    ...defaultState,
-                    dogs: [
-                        ...this.state.dogs,
-                        newDog
-                    ]
-                })
             })
             // if error display in console
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data);
             });
     }
 
+
     render() {
         return (
-            <div className="dog-management">
+            <div className="update-dog">
                 <h1>Dog Management</h1>
-                <h2>Create New Dog</h2>
+                <h2>Edit Dog</h2>
+                <h3>Vacincatted = {String(this.state.isVaccinated)}</h3>
+                <h3>Desexed = {String(this.state.isDesexed)}</h3>
                 <form onSubmit={this.onSubmit}>
                     <InputBox label="Name: " value={this.state.Name} onChange={this.onChangeName} />
                     <InputBox label="Age: " value={this.state.Age} onChange={this.onChangeAge} />
@@ -178,53 +168,33 @@ class DogMan extends Component {
                             <option value="Female">Female</option>
                         </select>
                     </div>
-                    <InputBox label="Vaccinated: " inputType="checkbox" value={this.state.isVaccinated} onChange={this.onChangeIsVaccinated} />
-                    <InputBox label="Desexed: " inputType="checkbox" value={this.state.isDesexed} onChange={this.onChangeIsDesexed} />
+                    <FormControlLabel
+                        control={<Checkbox color="primary" checked={this.state.isVaccinated} onChange={this.onChangeIsVaccinated} />}
+                        label="Vaccination:"
+                        labelPlacement="start"
+                    />
+                    <FormControlLabel
+                        control={<Checkbox color="primary" checked={this.state.isDesexed} onChange={this.onChangeIsDesexed} />}
+                        label="Desexed:"
+                        labelPlacement="start"
+                    />
                     <InputBox label="Bio: " value={this.state.Bio} onChange={this.onChangeBio} />
                     <div className="form-group">
-                        <input type="submit" value="Create Dog" />
+                        <input type="submit" value="Update Dog" />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Delete Dog" />
                     </div>
                 </form>
-                <h2>Your Dogs</h2>
-                <Grid container spacing={2} style={{ marginLeft: 5 }}>
-                    {this.state.dogs.map(dog => <DogCard obj={dog} />)}
-                </Grid>
             </div >
         );
     }
-    
 }
 
 //This is a component for each dog that the particular
 //user has registered. It makes the amount of dogs 
 //dynamically based on the amount of dogs a user has 
 //Sregistered
-class DogCard extends Component {
-
-    render() {
-        return (
-            <div style={{ marginTop: 5, padding: 5 }}>
-                <Grid>
-                    <Card class="dog" style={{ padding: 5, height: 400 }}>
-                        <CardContent>
-                            <CardMedia component="img" alt="cool dog img" image={coolDogImage} title="Cool Dog" style={styles.media} />
-                            <h3>{this.props.obj.Name}, {this.props.obj.Age}</h3>
-                            <p>{this.props.obj.Breed}</p>
-                            <p>{this.props.obj._id}</p>
-                            <p>{this.props.obj.Suburb}, {this.props.obj.Postcode}</p>
-                            <Link to={'/myacc/mypack/' + this.props.obj._id} Component={UpdateDog}>
-                                <Button variant="contained" color="primary">Edit Dog </Button>
-                            </Link>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                
-            </div>
-            
-        );
-    }
-}
-
 
 class InputBox extends Component {
     render() {
@@ -247,4 +217,4 @@ class InputBox extends Component {
     }
 }
 
-export default DogMan;
+export default UpdateDog;
