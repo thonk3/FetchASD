@@ -51,4 +51,21 @@ h3{
 
 .centre-this{
     margin:auto;
+    text-align: center;
+    padding-left: 15vw;
+    padding-right:15vw;
+}
+
+.viewProfile{
+    text-decoration:none;
+
+}
+
+h2{
+    line-height:0vw;
+}
+
+.cardtxt{
+    margin-top:1.5vw;
+    
 }

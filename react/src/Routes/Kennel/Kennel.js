@@ -1,63 +1,65 @@
-import React, { Component } from 'react';
-import axios from "axios";
-import DataTable from './Components/data-table';
+import React, { useState, useEffect } from 'react';
+import DogList from './Components/DogList';
 import './Components/kennel.css';
-import { Container, CircularProgress } from '@material-ui/core/';
-import LayoutTextFields from './Components/filters';
+import TextField from '@material-ui/core/TextField';
 
 
 
-export default class Kennel extends Component{
-    constructor(props) {
-        super(props);
-        this.state = { 
-            dogs: [],
 
-            isLoaded: false
-        };
+const Kennel = (props) => {
+  const [input, setInput] = useState('');
+  const [dogListDefault, setDogListDefault] = useState();
+  const [dogList, setDogList] = useState();
 
-    }
+  const getData = async () => {
+    return await fetch(`/api/dogs`)
+      .then(response => response.json())
+      .then(dog => {
+         setDogList(dog) 
+         setDogListDefault(dog)
+       });}
 
-  
+  const updateInput = async (input) => {
+     const filtered = dogListDefault.filter(dog => {
+      return dog.Suburb.toLowerCase().includes(input.toLowerCase())
+     })
+     setInput(input);
+     setDogList(filtered);
+  }
 
-    componentDidMount() {
-        axios.get('/api/dogs')
-            .then(res => {
-                this.setState({
-                    dogs: res.data, 
-                    isLoaded: true 
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+  useEffect( () => {getData()},[]);
+	
+  return (
+    <>
+        <br/>
+        <h1 class="centre-this">Search for a dog..</h1>
+        <br/>
 
-    dataTable = () => {
-        return this.state.dogs.map((data, i) => {
-            return <DataTable obj={data} key={i} />;
-        });
-    }
 
-    render() {
-        return (
-            <Container fixed>
-                <br></br>
-                <LayoutTextFields/>
+        <TextField class="centre-this"
+        id="standard-full-width" 
+        fullWidth
+        placeholder="Enter your suburb here..."
+        variant="outlined"
+        value={input} 
+        onChange={(e) => updateInput(e.target.value)}>
+       
+        </TextField>
+      
+       
 
-                <div className="flex-container">
-                    {this.state.isLoaded ?
-                        this.dataTable()
-                        :
-                        <>
-                            <br />
-                            <CircularProgress color="secondary"/>
-                        </>
-                    }
-
-                </div>
-
-            </Container>
-        )
-    }
+        <div class="flex-container">
+            <DogList dogList={dogList}/>
+        </div>
+        
+    </>
+   );
 }
+
+export default Kennel 
+
+
+
+
+
+
