@@ -14,22 +14,28 @@ import Footer from '../Common/Footer/Footer';
 
 // material ui
 import useStyles from './App.style';
-import { useAuth } from '../Context/authContext'
-
+import Container from '@material-ui/core/Container'
+import { CssBaseline } from '@material-ui/core';
 
 const App = (props) => {
   const classes = useStyles();
 
-  // demo nonsense
-
   return (
-    <BrowserRouter>
+    <div className={classes.root}>
+
+    <BrowserRouter className={classes.root}>
+      {/* <CssBaseline /> */}
       {/* nav */}
       <NavBar />
       <div className={classes.offset}></div>
 
       {/* content */}
-      <RouterSwitch>
+
+
+      <div className={classes.main}>
+
+
+      <RouterSwitch >
         <Route exact path='/' component={Routes.Home} />
         <Route path='/login' component={Routes.Login} />
         <Route path='/register' component={Routes.Register} />
@@ -44,8 +50,11 @@ const App = (props) => {
 
         <Route component={Routes.NotFound} />
       </RouterSwitch>
+      </div>
+
       <Footer />
     </BrowserRouter>
+    </div>
   )
 };
 
