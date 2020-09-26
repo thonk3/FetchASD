@@ -59,12 +59,10 @@ export default class Dog extends Component {
             dateOn: this.state.dateOn,
             location: this.state.location,
         }
-        alert("SenderID:" + this.state.senderDogID + " - Receiver ID:" + this.state.id + " - Date On:" + this.state.dateOn + " - Location:" +  this.state.location);
-        console.log(newDate);
         axios.post('/api/date/add/', newDate)
-        .then(console.log(newDate))
+        .then(console.log("Yes"))
         .catch((error => {
-            console.log("A fucky wucky occurred")
+            console.log("Could not create a new date")
         }))
     }
 

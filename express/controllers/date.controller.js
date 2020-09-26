@@ -3,6 +3,7 @@
 */
 const DogDate = require('../models/dogDate.model');
 const User = require('../models/user.model');
+const Dog = require('../models/dog.model');
 
 // Creates a new date
 exports.createDate = (req, res) => {
@@ -58,6 +59,14 @@ exports.viewAllUsersDates = async(req, res) => {
         const requested = mergedArray.filter(dogDate => {
             return dogDate.status === 'Requested';
         })
+        let requestedArray = [];
+        for (let i = 0; i < userDogs.length; ++i) {
+            for (let j = 0; j < requested.length; ++j) {
+                if (requested[j].receiverDogID.toString() === userDogs[i].toString())
+                    requestedArray.push(requested[j])
+            }
+        }
+        
         const upcoming = mergedArray.filter(dogDate => {
             return dogDate.status === 'Upcoming';
         })
@@ -66,7 +75,7 @@ exports.viewAllUsersDates = async(req, res) => {
         })
         return res.status(200).json({
             'Message': 'Successful',
-            'requested': requested,
+            'requested': requestedArray,
             'upcoming': upcoming,
             'completed': completed,
         })
@@ -79,14 +88,18 @@ exports.acceptDate = (req, res) => {
         if(!dogDate) {  // not found
             return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
         }
-        
         dogDate.status = "Upcoming";
         dogDate.save()
             .then(dogDate => {
-                return res.status(200).json({ 'message': 'Dog Date has been accepted' });
+                return res.status(200).json({ 
+                    'message': 'Dog Date has been accepted',
+                });
             })
             .catch(err => {
-                return res.status(400).send({ 'error': 'Could not accept the dog date' });
+                return res.status(400).send({ 
+                    'error': 'Could not accept the dog date',
+                    'err': err 
+                });
             });
     });
 }
@@ -95,12 +108,15 @@ exports.acceptDate = (req, res) => {
 exports.declineDate = (req, res) => {
     DogDate.findById(req.params.id, function(err, dogDate) {
         if(!dogDate) {
-            return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
+            return res.status(400).json({ 
+                'error': 'Could not find dog date with that ID',
+            });
         } 
-
         dogDate.deleteOne()
             .then(dogDate =>{
-                return res.status(200).json({ 'message': 'Dog Date request has been declined' });
+                return res.status(200).json({ 
+                    'message': 'Dog Date request has been declined',
+                });
             }).catch(err => {
                 return res.status(400).json({ 'error': 'Could not decline the dog date' });
             });
