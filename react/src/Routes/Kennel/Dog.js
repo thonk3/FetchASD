@@ -30,10 +30,10 @@ export default class Dog extends Component {
                 breed: res.data.Breed,
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
-                // rating: res.data.Rating,
-            });
-        })
-        .catch((error) => {
+                rating: res.data.Rating,
+             });
+         })
+         .catch((error) => {
             console.log(error);
         })
     }
