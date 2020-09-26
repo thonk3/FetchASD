@@ -51,6 +51,7 @@ const userSchema = new Schema({
         required: false, 
     }
 });
+
 /*
 userSchema
   .set(function(password) {

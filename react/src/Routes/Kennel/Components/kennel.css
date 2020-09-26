@@ -10,3 +10,45 @@
     margin:1vw;
     padding:0.5vw;
 }
+
+.contain-within{
+    margin: 5vw;
+    
+    
+    
+}
+
+.imgplaceholder {
+    height: 13vw;
+    width: 13vw;
+    background-color: lightpink;
+    color:white;
+    font-weight: bold;
+    text-align:center;
+    margin:auto;
+
+    
+    
+  }
+
+  .paper {
+      height:10vw;
+  }
+
+.float-left {
+    float:left;
+    margin-right:2vw;
+}
+
+.button {
+    margin: 1vw;
+}
+
+h3{
+    font-weight:normal
+;
+}
+
+.centre-this{
+    margin:auto;
+}

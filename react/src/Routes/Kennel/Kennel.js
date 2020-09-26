@@ -6,17 +6,22 @@ import { Container, CircularProgress } from '@material-ui/core/';
 import LayoutTextFields from './Components/filters';
 
 
+
 export default class Kennel extends Component{
     constructor(props) {
         super(props);
         this.state = { 
             dogs: [],
+
             isLoaded: false
         };
+
     }
 
+  
+
     componentDidMount() {
-        axios.get('/api/canines')
+        axios.get('/api/dogs')
             .then(res => {
                 this.setState({
                     dogs: res.data, 
@@ -40,7 +45,7 @@ export default class Kennel extends Component{
                 <br></br>
                 <LayoutTextFields/>
 
-                <div class="flex-container">
+                <div className="flex-container">
                     {this.state.isLoaded ?
                         this.dataTable()
                         :
@@ -49,7 +54,9 @@ export default class Kennel extends Component{
                             <CircularProgress color="secondary"/>
                         </>
                     }
+
                 </div>
+
             </Container>
         )
     }
