@@ -90,12 +90,6 @@ const Register = props => {
                     <input type="submit" value="Create Dog" />
                 </div>
             </form>
-
-            {/* <ul>
-                {
-                    test()
-                }
-            </ul> */}
         </div>
     );
 };
