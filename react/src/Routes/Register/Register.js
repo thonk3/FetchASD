@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-
+import { Box, TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 /* 
     TODO:
     - Display error messages from the payload
@@ -74,7 +75,7 @@ const Register = props => {
 
     return (
         <div>
-            <h1>NEW ACCOUNT PLES {errors.error.toString()}</h1>
+            <h1>NEW ACCOUNT PLEASE {errors.error.toString()}</h1>
 
             <form onSubmit={submit}>
                 <TextBox label="FirstName" value={firstName} onChange={onChangeFName}/>
@@ -86,9 +87,11 @@ const Register = props => {
                 <TextBox label="PostCode" value={postcode} onChange={onChangePostcode}/>
 
 
-                <div className="form-group">
-                    <input type="submit" value="Create Account" />
-                </div>
+                <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
+                        <Button color="primary" variant="contained" type="submit">
+                            Register
+                        </Button>
+                    </Box>
             </form>
 
             {/* <ul>
@@ -108,13 +111,18 @@ const TextBox = props => {
 
     return (
         <div className="form-group">
-            <label> {label}</label>
-            <input type={type}
+            <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}}>
+            <TextField type={type}
                 required
                 className="form-control"
                 value={value}
                 onChange={onChange}
+                style={{width: "500px"}} 
+                variant="outlined"
+                label={label}
             />
+            </Box>
+            
         </div>
     )
 }
