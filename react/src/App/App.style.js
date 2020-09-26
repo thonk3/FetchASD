@@ -13,7 +13,15 @@ const Styles = makeStyles((theme) => ({
     main: {
         marginBottom: theme.spacing(2),
         width: '100%'
-    }
+    },
+    footer: {
+        padding: theme.spacing(2, 2),
+        marginTop: 'auto',
+        width: '100%',
+        background: theme.palette.primary.main,
+        color: '#fff',
+        display: 'flex'
+    },
 }));
 
 export default Styles;
