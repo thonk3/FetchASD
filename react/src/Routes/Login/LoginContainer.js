@@ -7,8 +7,7 @@ import { Redirect } from 'react-router-dom';
 function LoginWrapper(props) {
 
     // hooks 
-    const [isError, setIsError] = useState(false);  // do something with this
-    // const [errMessage, setErrMessage] = useState("");
+    const [isError, setIsError] = useState(false);
     const [ errMsg, setErrMsg ] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

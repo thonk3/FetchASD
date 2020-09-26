@@ -34,6 +34,7 @@ function Login(props) {
                 <div>e@e.com</div>
                 <div>123456</div>
             </div>
+            
             <div className={classes.paper}>
                 <Paper className={classes.innerPaper} elevation={3}>
 
@@ -45,31 +46,9 @@ function Login(props) {
                 {/* form thing */}
                 <Typography component="h1" variant="h4">Login</Typography>
                 <form onSubmit={onSubmit}>
-                    {/* email */}
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required fullWidth
-                        name="username"
-                        autoComplete="email" // see mdn docs 
-                        label="Email"
-                        className={classes.text}
-                        onChange={emailHandler}
-                        value={email}
-                    />
-
-                    {/* password */}
-                    <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required fullWidth
-                        name="password"
-                        autoComplete="current-password" // see mdn docs 
-                        label="Password"
-                        type="password"
-                        onChange={passHandler}
-                        value={password}
-                        />
+                    {/*  */}
+                    <TextBox label="Email" value={email} onChange={emailHandler} />
+                    <TextBox label="Password" value={password} onChange={passHandler} inputType="password"/>
 
                     {/* submit */}
                     <Button
@@ -78,9 +57,7 @@ function Login(props) {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        >
-                            Log In
-                    </Button>
+                        > Log In </Button>
                 
 
                     {/* OH YEASSSS */}
@@ -89,16 +66,13 @@ function Login(props) {
                         { isLoading ? <CircularProgress color="secondary"/> : <></> }
                     </div>
 
-
                 
                 {/* line and register link */}
                 <hr className={classes.line}/>
 
                 <Container maxWidth="xs">
                     <Link to="/register">
-                        <Typography align="center">
-                            Don't have an account? Register here
-                        </Typography>
+                        <Typography align="center"> Don't have an account? Register here </Typography>
                     </Link>
                 </Container>
             </form>
@@ -111,5 +85,30 @@ function Login(props) {
         </Container>
     );
 };
+
+
+const TextBox = props => {
+        const { label, value, onChange, inputType } = props;
+    const  type = inputType || "text";
+
+    const classes = useStyles();
+    
+    return (
+        <div className="form-group">
+
+        <TextField 
+            variant="outlined"
+            margin="normal"
+            required fullWidth
+            label={label}
+            type={inputType}
+            className={classes.text}
+            onChange={onChange}
+            value={value}
+        />
+
+        </div>
+    )
+}
 
 export default Login;
