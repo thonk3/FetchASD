@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
 const router = require('../routes/users');
@@ -55,3 +55,4 @@ module.exports.updateUser = async (req, res) => {
         return res.status(400).json('Error' + err)
     }
 }
+*/

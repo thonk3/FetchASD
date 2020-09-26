@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
 import jwt from 'jsonwebtoken'
@@ -37,3 +37,4 @@ module.exports.logout = async (req, res) => {
         message: "You have been signed out."
     })
 }
+*/
