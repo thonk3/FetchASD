@@ -9,7 +9,13 @@ router.get('/', userController.listUsers)
 
 // @MAX maybe try to move the ID into the request body?? its fine eitherway
 router.get('/:id', userController.userByID);
+
 router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+// Route for getting a user's dogs
+// it requires a user _id
+router.get('/:id/dogs', userController.userGetDogs);
+
 router.delete('/:id', userController.deleteUser);
 // Route for getting a user's dogs
 // it requires a user _id

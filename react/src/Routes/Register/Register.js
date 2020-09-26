@@ -87,7 +87,7 @@ const Register = props => {
 
 
                 <div className="form-group">
-                    <input type="submit" value="Create Dog" />
+                    <input type="submit" value="Create Account" />
                 </div>
             </form>
 
