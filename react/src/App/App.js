@@ -14,7 +14,6 @@ import PrivateRoute from './PrivateRoute'
 
 // material ui
 import useStyles from './App.style';
-import Container from '@material-ui/core/Container'
 import { CssBaseline, Typography } from '@material-ui/core';
 
 const App = (props) => {
@@ -22,7 +21,7 @@ const App = (props) => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
 
       <div className={classes.main}>
         <NavBar />
@@ -30,7 +29,6 @@ const App = (props) => {
         
           <RouterSwitch>
             <Route exact path='/' component={Routes.Home} />
-
             <Route path='/register' component={Routes.Register} />
             <Route path='/login' component={Routes.Login} />
 

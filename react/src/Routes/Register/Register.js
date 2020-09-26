@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import useStyles from '../Login/Login.style'
 import { Link } from 'react-router-dom';
@@ -104,8 +104,6 @@ const TextBox = props => {
     const { label, value, onChange, inputType, } = props;
     const  type = inputType || "text";
 
-    const classes = useStyles();
-    
     return (
         <div className="form-group">
 
@@ -113,7 +111,7 @@ const TextBox = props => {
             variant="outlined"
             margin="normal"
             required fullWidth
-            type={inputType}
+            type={type}
             label={label}
             onChange={onChange}
             value={value}

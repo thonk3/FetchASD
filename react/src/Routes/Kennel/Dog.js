@@ -19,9 +19,9 @@ export default class Dog extends Component {
         }
     }
 
-    componentDidMount = async () => {
-        const { id } = this.state;
 
+    componentDidMount = async () => {
+        const { id } = this.state
         axios.get(`/api/dogs/${id}`)
         .then(res => {
             this.setState({
@@ -30,7 +30,7 @@ export default class Dog extends Component {
                 breed: res.data.Breed,
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
-                // rating: res.data.Rating,
+                rating: res.data.Rating,
             });
         })
         .catch((error) => {
@@ -39,11 +39,11 @@ export default class Dog extends Component {
     }
 
     render() {
-        const{name, age, breed, suburb, gender, rating} = this.state;
+        const { name, age, breed, suburb, gender, rating } = this.state;
         console.log("state")
         console.log(this.state)
         return (
-            <div className = "contain-within">
+            <div className="contain-within">
                 <div className="float-left">
                     <div className="imgplaceholder">image here</div>
 
@@ -53,18 +53,17 @@ export default class Dog extends Component {
                 </div>
 
                 <div>  
-                    <h1>{name}, {age}</h1> 
-                    <h3>Breed: {breed} 
-                        <br/>
-                        Suburb: {suburb}
-                        <br/>
-                        Gender: {gender}
-                        <br/>
-                        Rating: {rating || "not yet rated"}
-                        <br/> 
-                        <b>Bio:</b> 
-                    </h3>
-                </div>  
+                    <h1>{name}, {age}</h1>
+                    <h3> Breed: {breed} </h3>
+                    <br/> 
+                    <h3> Suburb: {suburb} </h3>
+                    <br/> 
+                    <h3> Gender: {gender} </h3>
+                    <br/> 
+                    <h3> Rating: {rating} </h3>
+                    <br/> 
+                    <h3> Bio:  </h3>
+                </div>
             </div>
         )
     }

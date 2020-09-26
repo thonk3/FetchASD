@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';  
+import React from 'react';  
 import { Link } from 'react-router-dom';
 import {
     Typography,
@@ -77,9 +77,6 @@ function Login(props) {
                 </Container>
             </form>
 
-
-
-
             </Paper>
             </div>
         </Container>
@@ -91,8 +88,6 @@ const TextBox = props => {
         const { label, value, onChange, inputType } = props;
     const  type = inputType || "text";
 
-    const classes = useStyles();
-    
     return (
         <div className="form-group">
 
@@ -101,8 +96,7 @@ const TextBox = props => {
             margin="normal"
             required fullWidth
             label={label}
-            type={inputType}
-            className={classes.text}
+            type={type}
             onChange={onChange}
             value={value}
         />
