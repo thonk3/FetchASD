@@ -3,11 +3,7 @@ const { check } = require('express-validator');
 // Performs the validation of Dog data upon creation intended for the database
 // if wrong it provides the error with "with Message"
 module.exports.addDogValidator = [
-    // check('userId')
-    //     .isMongoId()
-    //     .withMessage('Must be User ID format'),
-    // // Name must be smaller than 30 chars
-    check('Name')
+        check('Name')
         .isString()
         .isLength({ max: 30 })
         .withMessage('Dog name must be less than 30 characters long.'),
@@ -47,7 +43,7 @@ module.exports.addDogValidator = [
         .isBoolean()
         .withMessage('Vaccination status can only be "True" or "False".'),
     // Dog's Desexed Status is boolean
-        check('isDesexed')
+    check('isDesexed')
         .isBoolean()
         .withMessage('Desexed status can only be "True" or "False".'),
     // Decided to make bio 250 characters because that is the same length
@@ -61,14 +57,6 @@ module.exports.addDogValidator = [
 // Performs the validation of Dog data upon updating intended for the database
 // if wrong it provides the error with "with Message"
 module.exports.updateDogValidator = [
-    // Must be in MongoDBId format
-    // check('userId')
-    //     .isMongoId()
-    //     .withMessage('Must be a valid User Id'),
-    // Must be in MongoDBId format    
-    // check('userId')
-    //     .isMongoId()
-    //     .withMessage('Must be a valid Dog Id'),
     // Name must be smaller than 30 chars
     check('Name')
         .isString()

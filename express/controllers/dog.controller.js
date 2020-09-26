@@ -33,12 +33,11 @@ module.exports.createDog = async (req, res) => {
         const dogId = savedDog._id;
         // find the user by the email
         const user = await User.findOneAndUpdate(
-            { _id: req.body.userId },
+            { _id: req.body.UserId },
             //push the dog id into the dogs array
-            { $push: {dogs: dogId} }
-            // {$push: {...savedDog}}
+            { $push: {dogs: dogId} },
+            {new: true} 
         );
-        console.log("Made it here")
         // Set response status to 200 OK
         return res.status(200).json({
             'user': user._id,
@@ -55,8 +54,7 @@ module.exports.createDog = async (req, res) => {
 module.exports.updateDog = async (req, res) => {
     try {
         // find user by id
-        
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.body.UserId);
         console.log("YES");
         const dogId = req.params.id;
         console.log("User:" + user);
@@ -65,7 +63,6 @@ module.exports.updateDog = async (req, res) => {
             console.log(user.dogs[x] + '===' + dogId);
             // If a dog belong to the user matches the requested dogId continue
             if (user.dogs[x] === dogId) {
-
                 // Find the dog in the database via dogId and update it with the new details
                 const dog = await Dog.findByIdAndUpdate({_id: dogId}, {...req.body}, {new: true});
                 // Return 200 OK
@@ -80,3 +77,35 @@ module.exports.updateDog = async (req, res) => {
         return res.status(400).json({'error': err});
     }
 }
+
+// module.exports.deleteDog = async (req, res) => {
+//     try {
+//         // find user by id
+//         // for loop over dogid to find one to be removed
+//         // findbyIdAndUpdate using pull method you can remove an item from an array
+//         // https://docs.mongodb.com/manual/reference/operator/update/pull/
+//         // then findByIdAndDelete the dog document
+//         const user = await User.findById(req.body.userId);
+//         console.log("YES");
+//         const dogId = req.params.id;
+//         console.log("User:" + user);
+//         // iterate of the user's dog
+//         for (x in user.dogs) {
+//             console.log(user.dogs[x] + '===' + dogId);
+//             // If a dog belong to the user matches the requested dogId continue
+//             if (user.dogs[x] === dogId) {
+
+//                 // Find the dog in the database via dogId and update it with the new details
+//                 const dog = await Dog.findByIdAndUpdate({_id: dogId}, {...req.body}, {new: true});
+//                 // Return 200 OK
+//                 return res.status(200).json({
+//                     'msg': 'Dog updated succesfully',
+//                     'dog': dog,
+//                 });
+//             }  
+//         }
+//     } catch (err) {
+//         // There was an error set it to 400 response
+//         return res.status(400).json({'error': err});
+//     }
+// }

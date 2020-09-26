@@ -156,11 +156,11 @@ class UpdateDog extends Component {
                 <h3>Vacincatted = {String(this.state.isVaccinated)}</h3>
                 <h3>Desexed = {String(this.state.isDesexed)}</h3>
                 <form onSubmit={this.onSubmit}>
-                    <InputBox label="Name: " value={this.state.Name} onChange={this.onChangeName} />
-                    <InputBox label="Age: " value={this.state.Age} onChange={this.onChangeAge} />
-                    <InputBox label="Breed: " value={this.state.Breed} onChange={this.onChangeBreed} />
-                    <InputBox label="Suburb: " value={this.state.Suburb} onChange={this.onChangeSuburb} />
-                    <InputBox label="Postcode: " value={this.state.Postcode} onChange={this.onChangePostcode} />
+                    <InputBox label="Name: " required value={this.state.Name} onChange={this.onChangeName} />
+                    <InputBox label="Age: " required value={this.state.Age} onChange={this.onChangeAge} />
+                    <InputBox label="Breed: " required value={this.state.Breed} onChange={this.onChangeBreed} />
+                    <InputBox label="Suburb: " required value={this.state.Suburb} onChange={this.onChangeSuburb} />
+                    <InputBox label="Postcode: " required value={this.state.Postcode} onChange={this.onChangePostcode} />
                     <div className="form-group">
                         <label> Gender: </label>
                         <select required className="form-control" value={this.state.Gender} onChange={this.onChangeGender}>
@@ -178,7 +178,7 @@ class UpdateDog extends Component {
                         label="Desexed:"
                         labelPlacement="start"
                     />
-                    <InputBox label="Bio: " value={this.state.Bio} onChange={this.onChangeBio} />
+                    <InputBox label="Bio: " required value={this.state.Bio} onChange={this.onChangeBio} />
                     <div className="form-group">
                         <input type="submit" value="Update Dog" />
                     </div>
@@ -198,7 +198,7 @@ class UpdateDog extends Component {
 
 class InputBox extends Component {
     render() {
-        const { label, value, onChange, inputType } = this.props;
+        const { label, value, onChange, inputType, required } = this.props;
 
         const type = inputType || "text";
 
@@ -207,7 +207,7 @@ class InputBox extends Component {
             <div className="form-group">
                 <label> {this.props.label}</label>
                 <input type={type}
-                    required
+                    required={this.props.required}
                     className="form-control"
                     value={this.props.value}
                     onChange={this.props.onChange}
