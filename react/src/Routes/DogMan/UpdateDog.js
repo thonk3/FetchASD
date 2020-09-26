@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import token from '../../Helpers/token';
-
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // Basic styling for pictures in CardMedia
-const styles =
-{
-    media: {
-        height: "150px",
-        marginTop: '5'
-    }
-};
 // This is the default state
+
 // I have hardcoded userEmail as we don't have
 // functionality to pass around the _id through
 // the app
@@ -28,25 +34,28 @@ const defaultState = {
     Gender: '',
     isVaccinated: false,
     isDesexed: false,
-    Bio: ''
+    Bio: '',
+    open: false,
+    setOpen: false
 };
+
 
 class UpdateDog extends Component {
     constructor(props) {
         super(props);
         // sets the default state using a spread
         // operator :)
-        this.state = { ...defaultState, id: this.props.match.params.id};
+        this.state = { ...defaultState, id: this.props.match.params.id };
     }
+
 
     // Special function that onLoad
     componentDidMount() {
         // Hardcoded get request the "logged in" user's dogs
-        axios.get('/api/dogs/' + this.state.id + '')
+        axios.get('/api/dogs/' + this.state.id)
             .then(res => {
                 // add the dog objects in the dogs state array
                 this.setState({ ...res.data });
-                console.log('Desexed: ' + res.data.isDesexed)
             })
             .catch((error) => {
                 console.log(error);
@@ -108,9 +117,23 @@ class UpdateDog extends Component {
             Bio: e.target.value
         })
     }
+
+    onChangeOpen = () => {
+        this.setState({
+            setOpen: true,
+            open: true
+        })
+    }
+
+    onChangeClose = () => {
+        this.setState({
+            setOpen: false,
+            open: false
+        })
+    }
     // function that will run when press the submit button at the bottom
     // of the form
-    onSubmit = e => {
+    onSubmitUpdate = e => {
         // Method cancels the event if it is cancelable
         e.preventDefault();
         // New Dog Object setting via state
@@ -131,7 +154,7 @@ class UpdateDog extends Component {
         console.log(updatedDog);
 
         // Send a post request with the newDog object
-        axios.post('/api/dogs/' + this.state.id +'/edit', updatedDog)
+        axios.post('/api/dogs/' + this.state.id + '/edit', updatedDog)
             .then(res => {
                 // For debugging purposes delete later
                 console.log(res.data)
@@ -146,46 +169,108 @@ class UpdateDog extends Component {
                 console.log(error.response.data);
             });
     }
+    // function to call when Delete Dog button is called
+    onSubmitDelete = e => {
+        e.preventDefault();
+        this.setState({
+            setOpen: false,
+            open: false
+        })
+        console.log("UserId: " + this.state.UserId);
+        console.log("DogId: " + this.state.id);
+        const deletedDog = {
+            UserId: this.state.UserId
+        }
+        axios.post('/api/dogs/' + this.state.id + '/delete', deletedDog)
+            .then(res => {
+                console.log(res.data)
+            })
+            // if error display in console
+            .catch((error) => {
+                console.log(error.response.data);
+            });
+    }
+
 
 
     render() {
         return (
             <div className="update-dog">
-                <h1>Dog Management</h1>
-                <h2>Edit Dog</h2>
-                <h3>Vacincatted = {String(this.state.isVaccinated)}</h3>
-                <h3>Desexed = {String(this.state.isDesexed)}</h3>
-                <form onSubmit={this.onSubmit}>
-                    <InputBox label="Name: " required value={this.state.Name} onChange={this.onChangeName} />
-                    <InputBox label="Age: " required value={this.state.Age} onChange={this.onChangeAge} />
-                    <InputBox label="Breed: " required value={this.state.Breed} onChange={this.onChangeBreed} />
-                    <InputBox label="Suburb: " required value={this.state.Suburb} onChange={this.onChangeSuburb} />
-                    <InputBox label="Postcode: " required value={this.state.Postcode} onChange={this.onChangePostcode} />
-                    <div className="form-group">
-                        <label> Gender: </label>
-                        <select required className="form-control" value={this.state.Gender} onChange={this.onChangeGender}>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <FormControlLabel
-                        control={<Checkbox color="primary" checked={this.state.isVaccinated} onChange={this.onChangeIsVaccinated} />}
-                        label="Vaccination:"
-                        labelPlacement="start"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox color="primary" checked={this.state.isDesexed} onChange={this.onChangeIsDesexed} />}
-                        label="Desexed:"
-                        labelPlacement="start"
-                    />
-                    <InputBox label="Bio: " required value={this.state.Bio} onChange={this.onChangeBio} />
-                    <div className="form-group">
-                        <input type="submit" value="Update Dog" />
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Delete Dog" />
-                    </div>
-                </form>
+                <Paper style={{ margin: "10px", padding: "10px" }}>
+                    <Typography component="h1" variant="h4" align="center">
+                        Edit Dog
+                    </Typography>
+                    <form onSubmit={this.onSubmitUpdate}>
+                        <InputBox label="Name" required value={this.state.Name} onChange={this.onChangeName} />
+                        <InputBox label="Age" required value={this.state.Age} onChange={this.onChangeAge} />
+                        <InputBox label="Breed" required value={this.state.Breed} onChange={this.onChangeBreed} />
+                        <InputBox label="Suburb" required value={this.state.Suburb} onChange={this.onChangeSuburb} />
+                        <InputBox label="Postcode" required value={this.state.Postcode} onChange={this.onChangePostcode} />
+                        <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                            <FormControl variant="outlined" style={{ width: "500px" }}>
+                                <Select
+                                    labelId="Gender"
+                                    value={this.state.Gender}
+                                    onChange={this.onChangeGender}
+                                >
+                                    <MenuItem value={"Male"}>Male</MenuItem>
+                                    <MenuItem value={"Female"}>Female</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                            <TextField
+                                style={{ width: "500px" }}
+                                rows="2"
+                                multiline
+                                required
+                                value={this.state.Bio}
+                                label="Bio"
+                                onChange={this.onChangeBio}
+                                variant="outlined"
+                            />
+                        </Box>
+                        <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                            <FormControlLabel
+                                control={<Checkbox color="primary" checked={this.state.isVaccinated} onChange={this.onChangeIsVaccinated} />}
+                                label="Vaccination:"
+                                labelPlacement="start"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox color="primary" checked={this.state.isDesexed} onChange={this.onChangeIsDesexed} />}
+                                label="Desexed:"
+                                labelPlacement="start"
+                            />
+                        </Box>
+                        <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">Submit</Button>
+                        </Box>
+                    </form>
+                    <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                        <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>DELETE DOG</Button>
+                    </Box>
+                    <Dialog
+                        open={this.state.open}
+                        onClose={this.onChangeClose}
+                    >
+                        <DialogTitle>{"Are you sure you want to delete " + this.state.Name + "? 😢"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Performing this action will completely remove your dog from Fetch. This action cannot
+                                be undone. Please think wisely before you perform this action!
+                                </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.onSubmitDelete} color="primary">
+                                Yes
+                                </Button>
+                            <Button onClick={this.onChangeClose} color="primary" autoFocus>
+                                No
+                                </Button>
+                        </DialogActions>
+                    </Dialog>
+
+                </Paper>
             </div >
         );
     }
@@ -198,21 +283,21 @@ class UpdateDog extends Component {
 
 class InputBox extends Component {
     render() {
-        const { label, value, onChange, inputType, required } = this.props;
+        // const { label, value, onChange, inputType, required } = this.props;
 
-        const type = inputType || "text";
+        // const type = inputType || "text";
 
         return (
-
-            <div className="form-group">
-                <label> {this.props.label}</label>
-                <input type={type}
+            <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                <TextField
+                    variant="outlined"
+                    style={{ width: "500px" }}
                     required={this.props.required}
-                    className="form-control"
                     value={this.props.value}
+                    label={this.props.label}
                     onChange={this.props.onChange}
                 />
-            </div>
+            </Box>
         )
     }
 }

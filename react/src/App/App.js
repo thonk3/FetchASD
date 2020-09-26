@@ -60,6 +60,7 @@ const App = (props) => {
           <Route path='/register' component={Routes.Register} />
           
           {/* only logged in users can see these */}
+          <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
           <PrivateRoute path='/myacc/mypack/:id' component={Routes.UpdateDog} />
 
           <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />

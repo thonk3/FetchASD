@@ -20,6 +20,8 @@ router.get('/:id', dogController.getDogbyId);
 router.post('/add', addDogValidator, runValidation, dogController.createDog);
 // update dog
 router.post('/:id/edit', updateDogValidator, runValidation, dogController.updateDog);
+// delete dog
+router.post('/:id/delete', dogController.deleteDog);
 
 module.exports = router;
 
