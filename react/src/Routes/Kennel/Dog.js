@@ -31,15 +31,9 @@ export default class Dog extends Component {
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
                 rating: res.data.Rating,
-<<<<<<< HEAD
             });
         })
         .catch((error) => {
-=======
-             });
-         })
-         .catch((error) => {
->>>>>>> 250f208f284eb72a5549d9df3018e03e1a6789cc
             console.log(error);
         })
     }

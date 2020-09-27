@@ -21,8 +21,6 @@
   "bugs": {
     "url": "https://github.com/doppeltwirkend/AmatuerSausageDeli/issues"
   },
-  "homepage": "https://go-fetch.herokuapp.com/",
-  "dependencies": {
-    "@material-ui/lab": "^4.0.0-alpha.56"
+  "homepage": "https://go-fetch.herokuapp.com/"
   }
 }
