@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import token from '../../Helpers/token';
 import { Button, Container, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core'
+import RequestedDialog from './Components/RequestedDialog';
+import UpcomingDialog from './Components/UpcomingDialog';
 
 class Dates extends React.Component {
     constructor(props) {
@@ -17,6 +19,8 @@ class Dates extends React.Component {
             viewUpcomingDetails: false,
             viewUpdate: false,
             viewDelete: false,
+            dateOn: '',
+            location: '',
         };
         this.handleRequested = this.handleRequested.bind(this);
         this.handleCompleted = this.handleCompleted.bind(this);
@@ -155,7 +159,20 @@ class Dates extends React.Component {
             location: this.state.location
         }
         axios.post(`/api/date/update/${data._id}`, updatedDate)
-        .then(window.location = '/date')
+        .then(res => {
+            this.setState({
+                requested: [],
+                upcoming: [],
+                completed: [],
+                requestList: true,
+                upcomingList: false,
+                completedList: false,
+                viewRequestDetails: false,
+                viewUpcomingDetails: false,
+                viewUpdate: false,
+                viewDelete: false,
+            })
+        })
         .catch(function (error) {
             console.log(error);
         })
@@ -228,7 +245,6 @@ class Dates extends React.Component {
     handleOpenViewUpdate() {
         this.setState(state => ({
             viewUpdate: true,
-
         }))
     }
 
@@ -238,7 +254,17 @@ class Dates extends React.Component {
         }))
     }
 
-   
+    requestedDates(list) {	    
+        return list.map((data, i) => {	      
+            return <RequestedDialog obj={data} key={i} />;	        
+        });
+    }
+
+    upcomingDates(list) {	    
+        return list.map((data, i) => {	      
+            return <UpcomingDialog obj={data} key={i} />;	        
+        });
+    }
 
     renderRequested(list) {
         return (
@@ -305,6 +331,8 @@ class Dates extends React.Component {
                                                         defaultValue={(data.dateOn).substring(0, 16)}
                                                         onChange={this.onChangeDateOn.bind(this)}
                                                     />
+                                                    <br/>
+                                                    <br/>
                                                     <TextField
                                                         label="Location"
                                                         value={this.state.location}
@@ -366,9 +394,9 @@ class Dates extends React.Component {
                 </Grid>
                 <br/>
                 <Grid>
-                    {(this.state.requestList) ? this.renderRequested(this.state.requested) : ''}
+                    {(this.state.requestList) ? this.requestedDates(this.state.requested) : ''}
                     
-                    {(this.state.upcomingList) ? this.renderUpcoming(this.state.upcoming) : ''}
+                    {(this.state.upcomingList) ? this.upcomingDates(this.state.upcoming) : ''}
 
                     {(this.state.completedList) ? this.renderCompleted(this.state.completed) : ''}
                 </Grid>

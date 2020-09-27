@@ -106,7 +106,10 @@ export default class Dog extends Component {
                 <div className="button">
                     <Button onClick={this.handleOpenExpressInterest} variant="contained" color="primary">
                         Request a date
-                    </Button>                
+                    </Button>         
+                    <br/>
+                    <br/>
+                    <br/>       
                     {(this.state.interestExpressed) ?
                     <Grid container direction="column" spacing={1} alignItems="center">
                         <form>
@@ -116,7 +119,8 @@ export default class Dog extends Component {
                                     {this.state.dogs.map((dog, i) => {
                                         return <MenuItem value={dog._id} key={i}>{dog.Name} </MenuItem>
                                     })}
-                                </Select>                                                           
+                                </Select> 
+                                <br/>                                                          
                                 <TextField
                                     label="Time and Date"
                                     type="datetime-local"
@@ -129,7 +133,9 @@ export default class Dog extends Component {
                                     value={this.state.location}
                                     onChange={this.onChangeLocation.bind(this)}
                                 />
+                                <br/>
                                 <Button onClick={this.handleCloseExpressInterest} variant="contained" color="default"> Cancel </Button>
+                                <br/>
                                 <Button type="submit"  onClick={() => this.onRequestSubmit()} variant="contained" color="primary"> Send Request </Button>
                             </FormGroup>
                         </form>

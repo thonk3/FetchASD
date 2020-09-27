@@ -41,7 +41,9 @@ exports.updateDate = async(req, res) => {
 exports.viewAllUsersDates = async(req, res) => {
     const user = await User.findById(req.params.id);
     if(!user) 
-        return res.status(400).json('Error' + err);
+        return res.status(400).json({
+            'Error': "Could not find dogs"
+        });
     else {
         let userDogs = user.dogs;
         let userDogDates = []
@@ -68,7 +70,6 @@ exports.viewAllUsersDates = async(req, res) => {
                     requestedArray.push(requested[j])
             }
         }
-        
         const upcoming = mergedArray.filter(dogDate => {
             return dogDate.status === 'Upcoming';
         })
