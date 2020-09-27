@@ -56,10 +56,10 @@ const App = (props) => {
         <RouterSwitch>
           {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
           <Route exact path='/' component={() => <Routes.Home loggedIn={loggedIn} />} />
+          
           <Route path='/login' component={Routes.Login} />
           <Route path='/register' component={Routes.Register} />
-          
-          <PrivateRoute path='/myacc/' component={Routes.AccountMan} />
+          <PrivateRoute path='/myacc' component={Routes.AccountMan} />
           {/* only logged in users can see these */}
           
           {/* <PrivateRoute path='/kennel' component={Routes.Kennel} /> might be removed/ combine with home */}

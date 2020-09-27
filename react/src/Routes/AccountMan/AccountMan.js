@@ -11,7 +11,7 @@ import bcrypt from 'bcryptjs'
 //     Link
 // } from 'react-router-dom'
 const defaultState = {
-    id: token().id, //token().id Need to figure out way to remove this
+    id: '', //token().id Need to figure out way to remove this
     firstName: '',
     lastName: '',
     email: '',
@@ -29,7 +29,7 @@ const defaultState = {
 class AccountMan extends Component {
     constructor(props) {
         super(props);
-        this.state = {...defaultState, password: ''}
+        this.state = {...defaultState, id: token().id}//password: ''
     }
 
     componentDidMount(){
