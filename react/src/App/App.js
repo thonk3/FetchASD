@@ -32,7 +32,11 @@ const App = (props) => {
             <Route path='/register' component={Routes.Register} />
             <Route path='/login' component={Routes.Login} />
 
+            {/* dog management */}
+            <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
+            <PrivateRoute path='/myacc/mypack/:id' component={Routes.UpdateDog} />
             <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
             <PrivateRoute path='/date/id' component={Routes.RateDate} />
