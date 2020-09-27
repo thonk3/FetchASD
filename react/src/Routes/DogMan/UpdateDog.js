@@ -16,13 +16,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InputBox from './Components/InputBox';
 
-// Basic styling for pictures in CardMedia
-// This is the default state
-
-// I have hardcoded userEmail as we don't have
-// functionality to pass around the _id through
-// the app
+// Setting an inital object for state called default state
 const defaultState = {
     id: '',
     UserId: token().id,
@@ -39,12 +35,12 @@ const defaultState = {
     setOpen: false
 };
 
-
+// Component for Update Dog
 class UpdateDog extends Component {
     constructor(props) {
         super(props);
-        // sets the default state using a spread
-        // operator :)
+        // sets the default state using a spread operator
+        // plys setting the 'id" of the dog to match the id parameter in the URL.
         this.state = { ...defaultState, id: this.props.match.params.id };
     }
 
@@ -68,75 +64,27 @@ class UpdateDog extends Component {
     // context of where it is assigned so "this" always
     // refers to DogMan and not something else
     // https://alligator.io/js/this-keyword/
-    onChangeName = e => {
-        this.setState({
-            Name: e.target.value
-        })
-    }
-    onChangeAge = e => {
-        this.setState({
-            Age: e.target.value
-        })
-    }
-    onChangeBreed = e => {
-        this.setState({
-            Breed: e.target.value
-        })
-    }
-    onChangeSuburb = e => {
-        this.setState({
-            Suburb: e.target.value
-        })
-    }
-    onChangePostcode = e => {
-        this.setState({
-            Postcode: e.target.value
-        })
-    }
-    onChangeGender = e => {
-        this.setState({
-            Gender: e.target.value
-        })
-    }
+    onChangeName = e => {this.setState({Name: e.target.value})};
+    onChangeAge = e => {this.setState({Age: e.target.value})};
+    onChangeBreed = e => {this.setState({Breed: e.target.value})};
+    onChangeSuburb = e => {this.setState({Suburb: e.target.value})};
+    onChangePostcode = e => {this.setState({Postcode: e.target.value})};
+    onChangeGender = e => {this.setState({Gender: e.target.value})};
     // this is a checkbox so we have to set the state according to 
     // whether it is checked
-    onChangeIsVaccinated = e => {
-        this.setState({
-            isVaccinated: e.target.checked
-        })
-
-    }
-
-    onChangeIsDesexed = e => {
-        this.setState({
-            isDesexed: e.target.checked
-        })
-    }
-    onChangeBio = e => {
-        this.setState({
-            Bio: e.target.value
-        })
-    }
-
-    onChangeOpen = () => {
-        this.setState({
-            setOpen: true,
-            open: true
-        })
-    }
-
-    onChangeClose = () => {
-        this.setState({
-            setOpen: false,
-            open: false
-        })
-    }
+    onChangeIsVaccinated = e => {this.setState({isVaccinated: e.target.checked})};
+    onChangeIsDesexed = e => {this.setState({isDesexed: e.target.checked})};
+    onChangeBio = e => {this.setState({Bio: e.target.value})};
+    // Handler for when the dialog box opens
+    onChangeOpen = () => {this.setState({setOpen: true,open: true})};
+    onChangeClose = () => {this.setState({setOpen: false,open: false})};
     // function that will run when press the submit button at the bottom
     // of the form
+    // Handler function that is called once the "Submit Button" is clicked
     onSubmitUpdate = e => {
         // Method cancels the event if it is cancelable
         e.preventDefault();
-        // New Dog Object setting via state
+        // Updated Dog Object setting via state
         const updatedDog = {
             UserId: this.state.UserId,
             Name: this.state.Name,
@@ -150,44 +98,43 @@ class UpdateDog extends Component {
             Bio: this.state.Bio
         }
 
-        // For debugging purposes delete later
-        console.log(updatedDog);
-
-        // Send a post request with the newDog object
+        // Send a post request with the UpdatedDog object
         axios.post('/api/dogs/' + this.state.id + '/edit', updatedDog)
             .then(res => {
                 // For debugging purposes delete later
                 console.log(res.data)
-                // Adds the new dog object to the state so we don't
-                // need to refresh. Also we use spread operator magic
-                // to merge the two objects together as the bottom object
-                // overwrites the pervious one so we don't lose the user's
-                // dogs. https://www.javascripttutorial.net/object/javascript-merge-objects/
+                // redirect to main dog management page
+                window.location = '/myacc/mypack'
             })
             // if error display in console
             .catch((error) => {
                 console.log(error.response.data);
             });
     }
-    // function to call when Delete Dog button is called
+    // Handler function that is called when Delete Dog button is called
     onSubmitDelete = e => {
         e.preventDefault();
+        // Changing the state of the dialog box to closed
         this.setState({
             setOpen: false,
             open: false
-        })
-        console.log("UserId: " + this.state.UserId);
-        console.log("DogId: " + this.state.id);
+        });
         const deletedDog = {
             UserId: this.state.UserId
         }
+        // Making an axios request to delete the current dog
         axios.post('/api/dogs/' + this.state.id + '/delete', deletedDog)
             .then(res => {
-                console.log(res.data)
+                // redirect to main dog management page
+                window.location = '/myacc/mypack';
+                console.log(res.data);
+            
+                
             })
             // if error display in console
             .catch((error) => {
                 console.log(error.response.data);
+                ;
             });
     }
 
@@ -246,6 +193,8 @@ class UpdateDog extends Component {
                             <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">Submit</Button>
                         </Box>
                     </form>
+
+                    {/* Code for the appearing dialog box */}
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                         <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>DELETE DOG</Button>
                     </Box>
@@ -273,32 +222,6 @@ class UpdateDog extends Component {
                 </Paper>
             </div >
         );
-    }
-}
-
-//This is a component for each dog that the particular
-//user has registered. It makes the amount of dogs 
-//dynamically based on the amount of dogs a user has 
-//Sregistered
-
-class InputBox extends Component {
-    render() {
-        // const { label, value, onChange, inputType, required } = this.props;
-
-        // const type = inputType || "text";
-
-        return (
-            <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                <TextField
-                    variant="outlined"
-                    style={{ width: "500px" }}
-                    required={this.props.required}
-                    value={this.props.value}
-                    label={this.props.label}
-                    onChange={this.props.onChange}
-                />
-            </Box>
-        )
     }
 }
 

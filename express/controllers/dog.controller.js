@@ -108,6 +108,9 @@ module.exports.deleteDog = async (req, res) => {
                     }
                 });
                 console.log("Dog Document Deleted");
+                return res.status(200).json({
+                    'msg': 'Dog deleted succesfully'
+                });
             }
         }
     } catch (err) {

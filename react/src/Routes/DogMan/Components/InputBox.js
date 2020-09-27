@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 
-
+// InputBox component that is used by a few other components
 class InputBox extends Component {
     render() {
-        // const { inputType, } = this.props;
-
-        // const type = inputType || "text";
-
         return (
             <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                 <TextField

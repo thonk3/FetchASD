@@ -13,11 +13,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-
-// This is the default state
-// I have hardcoded userEmail as we don't have
-// functionality to pass around the _id through
-// the app
+// Default State object
 const defaultState = {
     UserId: token().id,
     Name: '',
@@ -31,6 +27,7 @@ const defaultState = {
     Bio: ''
 };
 
+// Component for CreateDog
 class CreateDog extends Component {
     constructor(props) {
         super(props);
@@ -69,24 +66,15 @@ class CreateDog extends Component {
             Bio: this.state.Bio
         }
 
-        // For debugging purposes delete later
-        console.log(newDog);
-
         // Send a post request with the newDog object
         axios.post('/api/dogs/add', newDog)
             .then(res => {
-                // Adds the new dog object to the state so we don't
-                // need to refresh. Also we use spread operator magic
-                // to merge the two objects together as the bottom object
-                // overwrites the pervious one so we don't lose the user's
-                // dogs. https://www.javascripttutorial.net/object/javascript-merge-objects/
+                // Reset the form after adding a dog
                 this.setState({
                     ...defaultState
-                    // dogs: [
-                    //     ...this.state.dogs,
-                    //     newDog
-                    // ]
                 })
+                // redirect to main dog management page
+                window.location = '/myacc/mypack';
             })
             // if error display in console
             .catch((error) => {
