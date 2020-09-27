@@ -22,9 +22,11 @@ exports.updateDate = async(req, res) => {
     let updatedDate = await DogDate.findOneAndUpdate({
         _id: req.params.id
     }, {
-        dateOn: new Date(req.body.dateOn),
+        status: "Requested",
+        dateOn: req.body.dateOn,
         location: req.body.location,
     }, {new: true})
+    console.log(updatedDate);
     if(!updatedDate)
         return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
     else {

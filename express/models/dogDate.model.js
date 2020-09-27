@@ -21,7 +21,6 @@ const dogDateSchema = new Schema ({
     dateOn: {
         type: Date,
         required: true,
-        default: Date.now
     },
     parkID: {
         type: Schema.Types.ObjectId,

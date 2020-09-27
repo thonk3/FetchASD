@@ -60,7 +60,6 @@ export default class Dog extends Component {
             location: this.state.location,
         }
         axios.post('/api/date/add/', newDate)
-        .then(console.log("Yes"))
         .catch((error => {
             console.log("Could not create a new date")
         }))
