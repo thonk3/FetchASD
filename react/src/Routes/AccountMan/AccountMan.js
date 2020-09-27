@@ -1,4 +1,4 @@
-import { Box, Hidden } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
@@ -111,7 +111,8 @@ class AccountMan extends Component {
         console.log(updateUser);
         Axios.put('/api/users/' + this.state.id, updateUser)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data);
+                window.location = '/myacc';
             })
             .catch((error) => {
                 console.log(error.message);
@@ -130,11 +131,19 @@ class AccountMan extends Component {
             suburb: this.state.suburb,
             postcode: this.state.postcode
         }
-        
         console.log(deleteUser);
         Axios.delete('/api/users/' + this.state.id, deleteUser)
             .then(res => {
                 console.log(res.data)
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+        Axios.post('api/auth/logout')
+            .then(res => {
+                console.log(res.data)
+                localStorage.removeItem("tokens")
+                window.location = '/';
             })
             .catch((error) => {
                 console.log(error.message);
@@ -150,12 +159,12 @@ class AccountMan extends Component {
             errors["password"] = "Incorrect Password";
             formIsValid = false;
         }
-        if(this.state.newPassword!=this.state.newPassword2){
+        if(this.state.newPassword!==this.state.newPassword2){
             errors["passwords"] = "Passwords do not match";
             formIsValid = false;
         }
         this.setState({errors: errors});
-        if(formIsValid == false){
+        if(formIsValid === false){
             return(0)
         }
         //this.setState({...defaultState, id: token().id})
@@ -173,6 +182,7 @@ class AccountMan extends Component {
         Axios.put('/api/auth/changePassword/' + this.state.id, updatePassword)
             .then(res => {
                 console.log(res.data)
+                window.location = '/myacc';
             })
             .catch((error) => {
                 console.log(error.message);
@@ -204,7 +214,7 @@ class AccountMan extends Component {
             errors["email"] = "Email is not valid";
        }
         //phoneNumber validation
-        if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length == 10)){
+        if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
             formIsValid=false;
             errors["phoneNumber"] = "Only Numbers";
         }
@@ -214,7 +224,7 @@ class AccountMan extends Component {
             errors["suburb"] = "No Special Characters";
        }
         //postcode validation
-        if(!((this.state.postcode.match(/^[0-9]+$/)) && this.state.postcode.length == 4)){
+        if(!((this.state.postcode.match(/^[0-9]+$/)) && this.state.postcode.length === 4)){
             formIsValid=false;
             errors["postcode"] = "Only 4 Numbers";
         }
