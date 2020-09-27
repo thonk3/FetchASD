@@ -16,7 +16,6 @@ class Dates extends React.Component {
             requestList: true,
             upcomingList: false,
             completedList: false,
-
         };
         this.handleRequested = this.handleRequested.bind(this);
         this.handleCompleted = this.handleCompleted.bind(this);
