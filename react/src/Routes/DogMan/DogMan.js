@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 // We only need an array of dogs and the UserId 
 const defaultState = {
     dogs: [],
-    UserId: token().id,
+    UserId: '',
 };
 
 // Component for viewing all of a user's dogs
@@ -28,6 +28,10 @@ class DogMan extends Component {
 
     // Special function that onLoad
     componentDidMount() {
+        this.setState({
+            ...this.state,
+            UserId: token().id
+        });
         // Axios request to grab all the user's dogs
         axios.get('/api/users/' + token().id + '/dogs')
             .then(res => {
