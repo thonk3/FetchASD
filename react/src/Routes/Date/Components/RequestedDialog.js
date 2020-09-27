@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
-import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import axios from 'axios';
 
 class RequestedDialog extends Component {
     constructor(props) {
@@ -9,6 +10,8 @@ class RequestedDialog extends Component {
         }
         this.handleHide = this.handleHide.bind(this);
         this.handleShow = this.handleShow.bind(this);
+        this.handleAccept = this.handleAccept.bind(this);
+        this.handleDecline = this.handleDecline.bind(this);
     }
 
     handleHide() {
@@ -21,6 +24,26 @@ class RequestedDialog extends Component {
         this.setState({ 
             show: true 
         });
+    }
+
+    handleAccept(id) {
+        axios.post(`/api/date/accept/${id}`)
+            .then (
+                window.location = '/date'
+            )
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    handleDecline(id) {
+        axios.post(`/api/date/decline/${id}`)
+            .then (
+                window.location = '/date'
+            )
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     render() {
