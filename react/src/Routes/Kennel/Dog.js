@@ -24,13 +24,15 @@ export default class Dog extends Component {
         const { id } = this.state
         axios.get(`/api/dogs/${id}`)
         .then(res => {
+            console.log("return data")
+            console.log(res.data);
             this.setState({
                 name: res.data.Name,
                 age: res.data.Age,
                 breed: res.data.Breed,
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
-                rating: res.data.Rating,
+                // rating: res.data.Rating,
             });
         })
         .catch((error) => {
@@ -55,12 +57,9 @@ export default class Dog extends Component {
                 <div>  
                     <h1>{name}, {age}</h1>
                     <h3> Breed: {breed} </h3>
-                    <br/> 
                     <h3> Suburb: {suburb} </h3>
-                    <br/> 
                     <h3> Gender: {gender} </h3>
-                    <br/> 
-                    <h3> Rating: {rating} </h3>
+                    <h3> Rating: {rating || "not yet rated"} </h3>
                     <br/> 
                     <h3> Bio:  </h3>
                 </div>
