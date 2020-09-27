@@ -20,7 +20,8 @@ const URI = process.env.ATLAS_URI;
 mongoose.connect(URI, { 
     useNewUrlParser: true, 
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 const connection = mongoose.connection;
@@ -28,20 +29,29 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
-
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));
 
-// api imports --------------------------------------------------
-const caninesRouter = require('./routes/canines');
-const peopleRouter = require('./routes/people');
+
+// api imports ==============================================================
+const dogRouter = require('./routes/dogs');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
 const dateRouter = require('./routes/dogDate');
+const dogRatingRouter = require('./routes/dogRating');
 
-app.use('/api/canines', caninesRouter);
-app.use('/api/people', peopleRouter);
-app.use('/api/date', dateRouter);
+// lock api calls to only users with token
+// token is grabbed from res.header("auth-token")
+// do this after
+const verifyToken = require('./validate-token');
 
-// --------------------------------------------------------------
+app.use('/api/auth', authRouter);
+app.use('/api/dogs', /* verifyToken, */ dogRouter);
+app.use('/api/users', /* verifyToken, */ userRouter);
+app.use('/api/date', /* verifyToken, */ dateRouter);
+app.use('/api/rate', /* verifyToken, */ dogRatingRouter);
+
+// ==========================================================================
 
 // redirecting everything else to the main build index.html
 app.get('*', (req, res) => {

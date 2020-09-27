@@ -1,28 +1,25 @@
 import React from 'react';
 
 // import NameThing from './NameThing'
+import LandingPage from './LandingPage';
+import Kennel from '../Kennel/Kennel';
+import { useAuth } from '../../Context/authContext'; 
+
+import token from '../../Helpers/token';
 
 const Home = (props) => {
-    // const { loggedIn } = props;
+    const { loggedIn } = useAuth();
 
-    console.log(props.loggedIn)
     return (
         <>
-            <h1>Main Page</h1>
-
-
-            {props.loggedIn ? 
+            {loggedIn ? 
                 <>
-                    <h2> Hallo thar user something</h2>
-                    {/* <NameThing />  */}
+                    <h2> Hallo thar user { token().email }</h2>
+                    <Kennel />
                 </>
                 : 
-                <>
-                    <h2> Who are you</h2>
-                    {/* <NameThing />  */}
-                </>}
-
-
+                <LandingPage />
+            }
         </>
     );
 };

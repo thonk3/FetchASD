@@ -2,19 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider /*, CssBaseline */} from '@material-ui/core';
+import { ThemeProvider 
+  // CssBaseline 
+} from '@material-ui/core';
 import theme from './Theme';
 
 import './index.css';
-import App from './App/App';
-// import * as serviceWorker from './serviceWorker';
+import AppContainer from './App/AppContainer';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+
         {/* <CssBaseline /> */}
-        <App />
+        <AppContainer />
+        
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

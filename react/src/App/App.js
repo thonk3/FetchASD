@@ -1,77 +1,54 @@
 // messy imports
-import React
-  ,{ useState } 
-  from 'react';
+import React from 'react';
 import { 
-  BrowserRouter,
+  // BrowserRouter,
   Route, 
   Switch as RouterSwitch
 } from 'react-router-dom';
 
 // component imports
-import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
+import PrivateRoute from './PrivateRoute'
+// import Footer from '../Common/Footer/Footer';
 
 // material ui
 import useStyles from './App.style';
-import { Button } from '@material-ui/core';
+import { /* CssBaseline, */ Typography } from '@material-ui/core';
 
-
-const App = () => {
-  
+const App = (props) => {
   const classes = useStyles();
 
-  // state hooks
-  const [ state, setState ] = useState({
-    loggedIn: false,
-    adminAuth: false,
-    showDemo: true,
-  });
-
-  // set auth 
-  const handleLogToggle = (e) => {
-    setState({ ...state, [e.target.name]: !state.[e.target.name] });
-    // console.log('a')
-  }
-
-  const handleDemoToggle = (e) => {
-    setState({ ...state, showDemo: false });
-  }
-
   return (
-    <BrowserRouter>
-        <NavBar authState={state.loggedIn} />
+    <div className={classes.root}>
+      {/* <CssBaseline /> */}
+
+      <div className={classes.main}>
+        <NavBar />
         <div className={classes.offset}></div>
+        
+          <RouterSwitch>
+            <Route exact path='/' component={Routes.Home} />
+            <Route path='/register' component={Routes.Register} />
+            <Route path='/login' component={Routes.Login} />
 
-        { state.showDemo ?
-        <>
-          <ForDemo authState={state} switchChange={handleLogToggle}/>
-          <Button variant="contained" color="secondary" onClick={handleDemoToggle}>CLOSE</Button>
-        </> :
-        <>
-        </> }
+            <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+            <PrivateRoute path='/myacc' component={Routes.AccountMan} />
+            <PrivateRoute path='/date' component={Routes.Dates} />
+            <PrivateRoute path='/date/id' component={Routes.RateDate} />
+            <PrivateRoute path='/admin' component={Routes.AdminHome} />
+            <PrivateRoute path='/:id' component={Routes.Dog} />
 
-        {/* ------------------------------------- */}
+            <Route component={Routes.NotFound} />
+          </RouterSwitch>
+      </div>
 
-        {/* delet DemoThing later thing later */}
-        <div className={state.showDemo ? classes.borderThing : null}>
-        {/* <div> */}
-        <RouterSwitch>
-          <Route exact path='/' component={() => <Routes.Home loggedIn={state.loggedIn} />} />
-          <Route path='/login' component={Routes.Login} />
-          <Route path='/register' component={Routes.Register} />
-          <Route path='/myacc' component={Routes.AccountMan} />
-          <Route path='/myacc/mypack' component={Routes.DogMan} />
-          <Route path='/kennel' component={Routes.Kennel} />
-          <Route path='/date' component={Routes.Dates} />
-          <Route path='/date/id' component={Routes.RateDate} />
-          <Route path='/admin' component={Routes.AdminHome} />
-
-          <Route component={Routes.NotFound} />
-        </RouterSwitch>
-        </div>
-    </BrowserRouter>
+      <footer className={classes.footer}>
+        <Typography variant="caption" style={{margin: 'auto'}}>
+            Copyright © {new Date().getFullYear()} Fetch
+        </Typography>
+      </footer>
+    </div>
   )
 };
 
