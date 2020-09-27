@@ -52,6 +52,7 @@ module.exports.addDogValidator = [
     // Decided to make bio 250 characters because that is the same length
     // as a Twitter post
     check('Bio')
+        .optional()
         .isString()
         .isLength({ min: 1, max: 250})
         .withMessage('Bio must be less than 250 characters long.')

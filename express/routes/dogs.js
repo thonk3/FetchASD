@@ -17,7 +17,7 @@ router.get('/', dogController.getAllDog);
 // get a particular dogs id route
 router.get('/:id', dogController.getDogbyId);
 // create new dog for user
-router.post('/add', addDogValidator, runValidation, dogController.createDog);
+router.post('/add', /* addDogValidator, runValidation, */ dogController.createDog);
 
 module.exports = router;
 
