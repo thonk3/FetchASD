@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     height: 55,
-    marginTop: theme.spacing(4),
-    marginLeft: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   button: {
     marginTop: theme.spacing(2),
