@@ -4,7 +4,7 @@
     justify-content:center;
     }
 
-    .dog{
+.dog{
     width: 15vw;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin:1vw;
@@ -12,10 +12,7 @@
 }
 
 .contain-within{
-    margin: 5vw;
-    
-    
-    
+    margin: 5vw;  
 }
 
 .imgplaceholder {
@@ -26,39 +23,38 @@
     font-weight: bold;
     text-align:center;
     margin:auto;
-
-    
-    
   }
-
+/* for spinner */
+.spinner{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ }
   .paper {
       height:10vw;
   }
-
 .float-left {
     float:left;
     margin-right:2vw;
 }
-
 .button {
     margin: 1vw;
 }
-
 h3{
-    font-weight:normal
-;
+    font-weight:normal;
 }
-
 .centre-this{
     margin:auto;
     text-align: center;
     padding-left: 15vw;
     padding-right:15vw;
 }
-
 .viewProfile{
     text-decoration:none;
-
 }
 
 h2{
@@ -67,5 +63,4 @@ h2{
 
 .cardtxt{
     margin-top:1.5vw;
-    
 }

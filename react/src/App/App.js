@@ -1,82 +1,58 @@
 // messy imports
 import React from 'react';
 import { 
-  BrowserRouter,
+  // BrowserRouter,
   Route, 
   Switch as RouterSwitch
 } from 'react-router-dom';
 
 // component imports
-import ForDemo from './ForDemo'
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
+// import Footer from '../Common/Footer/Footer';
 
 // material ui
 import useStyles from './App.style';
-import { Button } from '@material-ui/core';
-
-import { useAuth } from '../Context/authContext'
-
+import { /* CssBaseline, */ Typography } from '@material-ui/core';
 
 const App = (props) => {
   const classes = useStyles();
 
-  // use auth context 
-  // see provider in AppWrapper
-  const { loggedIn } = useAuth();
-
-  // demo nonsense
-  const { 
-    admin, toggleAdmin,
-    demoBorder, toggleBorder
-  } = props.thing;
-
-
   return (
-    <BrowserRouter>
-        <NavBar authState={loggedIn} />
+    <div className={classes.root}>
+      {/* <CssBaseline /> */}
+
+      <div className={classes.main}>
+        <NavBar />
         <div className={classes.offset}></div>
+        
+          <RouterSwitch>
+            <Route exact path='/' component={Routes.Home} />
+            <Route path='/register' component={Routes.Register} />
+            <Route path='/login' component={Routes.Login} />
 
-        {/* to remove later */}
-        { demoBorder ?
-        <>
-          <Button variant="contained" color="secondary" onClick={toggleBorder}>CLOSE</Button>
-          <ForDemo authState={ admin } switchChange={toggleAdmin}/>
-        </>
-        :
-        <></>
-        }
+            {/* dog management */}
+            <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
+            <PrivateRoute path='/myacc/mypack/:id' component={Routes.UpdateDog} />
+            <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
 
-        <div className={demoBorder ? classes.borderThing : null}>
+            <PrivateRoute path='/myacc' component={Routes.AccountMan} />
+            <PrivateRoute path='/date' component={Routes.Dates} />
+            <PrivateRoute path='/date/id' component={Routes.RateDate} />
+            <PrivateRoute path='/admin' component={Routes.AdminHome} />
+            <PrivateRoute path='/:id' component={Routes.Dog} />
 
-        {/* ------------------------------------- */}
+            <Route component={Routes.NotFound} />
+          </RouterSwitch>
+      </div>
 
-        {/* <div> */}
-        <RouterSwitch>
-          {/* setup isLoggedin bool for this to redirect to kennel if logged in */}
-          <Route exact path='/' component={() => <Routes.Home loggedIn={loggedIn} />} />
-          <Route path='/login' component={Routes.Login} />
-          <Route path='/register' component={Routes.Register} />
-          <PrivateRoute path='/date' component={Routes.Dates} />
-          <PrivateRoute path='/kennel' component={Routes.Kennel} /> 
-
-
-          {/* only logged in users can see these */}
-          <Route path='/:id' component={Routes.Dog} />
-          <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
-          <PrivateRoute path='/myacc' component={Routes.AccountMan} />
-          {/* <PrivateRoute path='/kennel' component={Routes.Kennel} /> might be removed/ combine with home */}
-          <PrivateRoute path='/date' component={Routes.Dates} />
-          <PrivateRoute path='/date/id' component={Routes.RateDate} />
-          <PrivateRoute path='/admin' component={Routes.AdminHome} />
-
-          <Route component={Routes.NotFound} />
-        </RouterSwitch>
-        </div>
-
-        <p>Footer component</p>
-    </BrowserRouter>
+      <footer className={classes.footer}>
+        <Typography variant="caption" style={{margin: 'auto'}}>
+            Copyright © {new Date().getFullYear()} Fetch
+        </Typography>
+      </footer>
+    </div>
   )
 };
 

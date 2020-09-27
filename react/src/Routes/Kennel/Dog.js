@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import './Components/kennel.css';
+
 import token from '../../Helpers/token';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid }from '@material-ui/core';
 
@@ -24,34 +25,33 @@ export default class Dog extends Component {
         this.handleOpenExpressInterest = this.handleOpenExpressInterest.bind(this);
         this.handleCloseExpressInterest = this.handleCloseExpressInterest.bind(this);
     }
-     componentDidMount = async () => {
-         const { id } = this.state
-         axios.get(`/api/dogs/${id}`)
-         .then(res => {
-             this.setState({
+    componentDidMount = async () => {
+        const { id } = this.state
+        axios.get(`/api/dogs/${id}`)    // get dog by id
+        .then(res => {
+            this.setState({
                 name: res.data.Name,
                 age: res.data.Age,
                 breed: res.data.Breed,
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
-                rating: res.data.Rating,
-             });
-         })
-         .catch((error) => {
+                // rating: res.data.Rating,
+            });
+        })
+        .catch((error) => {
             console.log(error);
         })
-        axios.get(`/api/users/${token().id}/dogs`)
+
+        axios.get(`/api/users/${token().id}/dogs`) // get all dogs from user
             .then(res => {
                 this.setState({
                     dogs: res.data,
                 })
             })
-            .catch((error) => {
-                console.log(error);
-            })
-     }
+            .catch((error) => { console.log(error); })
+    }
 
-    onRequestSubmit() {
+    onRequestSubmit() { // create a new date
         const newDate = {
             senderDogID: this.state.senderDogID,
             receiverDogID: this.state.id,
@@ -107,6 +107,10 @@ export default class Dog extends Component {
                     <Button onClick={this.handleOpenExpressInterest} variant="contained" color="primary">
                         Request a date
                     </Button>                
+                    <br /> {/* yes more lines */}
+                    <br />
+                    <br />
+                    <br />
                     {(this.state.interestExpressed) ?
                     <Grid container direction="column" spacing={1} alignItems="center">
                         <form>
@@ -139,17 +143,11 @@ export default class Dog extends Component {
             </div>
             <div>  
                 <h1>{name}, {age}</h1>
-                <h3>
-                    Breed: {breed}
-                <br/>
-                    Suburb: {suburb}
-                <br/>
-                    Gender: {gender}
-                <br/>
-                    Rating: {rating}
-                <br/>
-                    Bio: 
-                </h3>
+                <h3> Breed: {breed} </h3>
+                <h3> Suburb: {suburb} </h3>
+                <h3> Gender: {gender} </h3>
+                <h3> Rating: {rating} </h3>
+                <h3> Bio:  </h3>
             </div>  
             </div>
         )
