@@ -29,12 +29,6 @@ function Login(props) {
     // ----------------------------------------------------------
     return (
         <Container width="300px">
-            <div>
-                testAcc
-                <div>e@e.com</div>
-                <div>123456</div>
-            </div>
-            
             <div className={classes.paper}>
                 <Paper className={classes.innerPaper} elevation={3}>
 
@@ -83,7 +77,7 @@ function Login(props) {
     );
 };
 
-
+// move this into shared component
 const TextBox = props => {
         const { label, value, onChange, inputType } = props;
     const  type = inputType || "text";
