@@ -13,6 +13,7 @@ const router = require('express').Router();
 router.post("/register", validateAuth.registerValidator, runValidation, authController.register);
 router.post("/login", validateAuth.loginValidator, runValidation, authController.login);
 router.post('/logout', authController.logout);
+router.put('/changePassword/:id', authController.changePassword);
 
 /* 
     how validation work:

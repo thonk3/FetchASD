@@ -143,7 +143,6 @@ class AccountMan extends Component {
     
     onSubmitPassword = e => {
         e.preventDefault();
-
         let errors = {};
         let formIsValid = true;
         const checkPass = bcrypt.compareSync(this.state.currentPassword, this.state.password);
@@ -151,7 +150,6 @@ class AccountMan extends Component {
             errors["password"] = "Incorrect Password";
             formIsValid = false;
         }
-
         if(this.state.newPassword!=this.state.newPassword2){
             errors["passwords"] = "Passwords do not match";
             formIsValid = false;
@@ -160,20 +158,25 @@ class AccountMan extends Component {
         if(formIsValid == false){
             return(0)
         }
-        const salt = bcrypt.genSaltSync(parseInt(process.env.PASS_SALT_ROUNDS));
-        const hash = bcrypt.hashSync(this.state.newPassword, salt);
-        this.setState({password: hash}, ()=> {
-            const passes = {
-                password: this.state.password
-            }
-            Axios.put('/api/users/' + this.state.id, passes)
+        //this.setState({...defaultState, id: token().id})
+        const updatePassword = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+            phoneNumber: this.state.phoneNumber,
+            suburb: this.state.suburb,
+            postcode: this.state.postcode,
+            newPassword: this.state.newPassword
+        }
+        console.log(updatePassword)
+        Axios.put('/api/auth/changePassword/' + this.state.id, updatePassword)
             .then(res => {
-                alert("Password Changed")
+                console.log(res.data)
             })
             .catch((error) => {
                 console.log(error.message);
-            })
-        });
+            }) 
 
         
 
