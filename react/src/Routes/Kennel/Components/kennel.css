@@ -24,12 +24,12 @@
     text-align:center;
     margin:auto;
   }
-
- img{
+/* for spinner */
+.spinner{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    /* position: absolute; */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

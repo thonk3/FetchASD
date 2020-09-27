@@ -21,7 +21,7 @@ import InputBox from './Components/InputBox';
 // Setting an inital object for state called default state
 const defaultState = {
     id: '',
-    UserId: token().id,
+    UserId: '',
     Name: '',
     Age: '',
     Breed: '',
@@ -41,12 +41,19 @@ class UpdateDog extends Component {
         super(props);
         // sets the default state using a spread operator
         // plys setting the 'id" of the dog to match the id parameter in the URL.
-        this.state = { ...defaultState, id: this.props.match.params.id };
+        this.state = { 
+            ...defaultState, 
+            id: this.props.match.params.id,
+        };
     }
 
 
     // Special function that onLoad
     componentDidMount() {
+        this.setState({
+            ...this.state,
+            UserId: token().id,
+         })
         // Hardcoded get request the "logged in" user's dogs
         axios.get('/api/dogs/' + this.state.id)
             .then(res => {

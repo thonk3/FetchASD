@@ -15,7 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 // Default State object
 const defaultState = {
-    UserId: token().id,
+    UserId: '',
     Name: '',
     Age: '',
     Breed: '',
@@ -34,6 +34,13 @@ class CreateDog extends Component {
         // sets the default state using a spread
         // operator :)
         this.state = { ...defaultState };
+    }
+
+    componentDidMount () {
+        this.setState({
+            ...this.state,
+            UserId: token().id,
+        })
     }
 
     onChangeName = e => { this.setState({ Name: e.target.value }) };
