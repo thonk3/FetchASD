@@ -4,6 +4,7 @@
 const DogDate = require('../models/dogDate.model');
 const User = require('../models/user.model');
 const Dog = require('../models/dog.model');
+const { merge, use } = require('../routes/dogDate');
 
 // Creates a new date
 exports.createDate = (req, res) => {
@@ -82,6 +83,78 @@ exports.viewAllUsersDates = async(req, res) => {
             'upcoming': upcoming,
             'completed': completed,
         })
+    }
+}    
+
+exports.alternateAllUsersDates = async(req, res) => {
+    const user = await User.findById(req.params.id);
+    if(!user) 
+        return res.status(400).json({
+            'Error': "Could not find dogs"
+        });
+    else {
+        let userDogs = user.dogs;
+        let userDogDates = []
+        for (let i = 0; i < userDogs.length; ++i) {
+            let receivedDates = await DogDate.find({"receiverDogID": userDogs[i] })
+            let recDog = await Dog.findById(userDogs[i])
+            let sentDates = await DogDate.find({ "senderDogID": userDogs[i] })
+            let senDog = await Dog.findById(userDogs[i])
+            if ((await recDog).length != 0 && (await receivedDates).length != 0) {
+                let receiver = {
+                    receiverDogID: userDogs[i],
+                    name: recDog.Name
+                }
+                let combinedReceive = {
+                    ...receivedDates,
+                    ...receiver
+                }
+                userDogDates.push(combinedReceive)
+            }
+            if ((await senDog).length != 0 && (await sentDates).length != 0) {
+                let sender = {
+                    senderDogID: userDogs[i],
+                    name: senDog.Name
+                }
+                let combinedSender = {
+                    ...sentDates,
+                    ...sender
+                }
+                userDogDates.push(combinedSender)
+            }
+        }
+        let mergedArray = [].concat.apply([],userDogDates);
+        return res.status(200).json({
+            'Message': 'Successful',
+            'Merged': mergedArray,
+        })
+        
+        
+        
+        
+        
+        // const requested = mergedArray.filter(dogDate => {
+        //     return dogDate.status === 'Requested';
+        // })
+        // let requestedArray = [];
+        // for (let i = 0; i < userDogs.length; ++i) {
+        //     for (let j = 0; j < requested.length; ++j) {
+        //         if (requested[j].receiverDogID.toString() === userDogs[i].toString())
+        //             requestedArray.push(requested[j])
+        //     }
+        // }
+        // const upcoming = mergedArray.filter(dogDate => {
+        //     return dogDate.status === 'Upcoming';
+        // })
+        // const completed = mergedArray.filter(dogDate => {
+        //     return dogDate.status === 'Completed';
+        // })
+        // return res.status(200).json({
+        //     'Message': 'Successful',
+        //     'requested': requestedArray,
+        //     'upcoming': upcoming,
+        //     'completed': completed,
+        // })
     }
 }    
 

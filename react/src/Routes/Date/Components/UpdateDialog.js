@@ -80,7 +80,6 @@ class UpdateDialog extends Component {
                                     value={this.state.location}
                                     defaultValue={this.props.obj.location}
                                     onChange={this.onChangeLocation.bind(this)}
-
                                 />
                         </DialogContent>
                         <DialogActions>
