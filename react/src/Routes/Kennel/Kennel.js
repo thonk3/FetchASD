@@ -30,7 +30,7 @@ const Kennel = (props) => {
   useEffect( () => {getData()},[])
   if (loading) return (
     <div class='centerpage'>
-      <img src={doggo} alt='a spinning dog, reaching for his tail - a loading icon.'/>
+      <img src={doggo} style={{position: 'absolute'}} alt='a spinning dog, reaching for his tail - a loading icon.'/>
     </div>
     )
 	

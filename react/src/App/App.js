@@ -14,7 +14,7 @@ import PrivateRoute from './PrivateRoute'
 
 // material ui
 import useStyles from './App.style';
-import { CssBaseline, Typography } from '@material-ui/core';
+import { /* CssBaseline, */ Typography } from '@material-ui/core';
 
 const App = (props) => {
   const classes = useStyles();
