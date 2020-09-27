@@ -14,7 +14,6 @@ function AppWrapper(props) {
 
     // LOGGED IN CONTEXT
     const [ loggedIn, setLoggedIn ] = useState(existingTokens != null);
-    console.log("Init logged state: ", loggedIn);
 
     // set new tokens through context
     const setTokens = (token) => {
@@ -23,23 +22,6 @@ function AppWrapper(props) {
         console.log({'tk': (token === null)});
     }
 
-    // demo nonsense ===================================================
-    // slowly removing this bs
-    const [admin, setAdmin] = useState(false);
-    const [demoBorder, setDemoBorder] = useState(true)
-
-    // for the toggle
-    const toggleAdmin = e => setAdmin(!admin);
-    const toggleBorder = (e) => setDemoBorder(false)
-
-    let thing = {
-        admin, toggleAdmin,
-        demoBorder, toggleBorder,
-    }
-  // =================================================================
-
-
-
     return (
         <AuthContext.Provider 
             value={{ 
@@ -47,7 +29,7 @@ function AppWrapper(props) {
                 loggedIn, setLoggedIn,
                 }}
         >   
-            <App thing={thing} />
+            <App />
         </AuthContext.Provider>
     )
 };

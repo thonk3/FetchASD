@@ -6,9 +6,13 @@ import { Redirect } from 'react-router-dom';
 
 function LoginWrapper(props) {
 
-    const [isError, setIsError] = useState(false);  // do something with this
+    // hooks 
+    const [isError, setIsError] = useState(false);
+    const [ errMsg, setErrMsg ] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
+    const [isLoading, setisLoading] = useState(false);
 
     // context
     const { setAuthTokens } = useAuth();
@@ -31,21 +35,24 @@ function LoginWrapper(props) {
         e.preventDefault();
 
         const payload = { email, password };
+        setisLoading(true)
         axios.post('/api/auth/login', payload)
             .then(res => {
-                if(res.status === 200) {
-                    // save jwt token/ logged in status
+                if(res.status === 200) { // save jwt token, is logged in context
                     setAuthTokens(res.data.payload.token);
                     setLoggedIn(true);
-                } else {
-                    setIsError(true);
+                } else { // set error message
+                    setIsError(true);   // do something with this // account doesnt exist/ wrong password 
                 }
             })
             .catch(e => {
-                // do somethinng with this
-                console.log("uh oh something bad happened:");
+                console.log("Something went wrong, please refresh your browser or contact support");
+
+                setErrMsg(e.response.data.error);
                 setIsError(true);
-            });
+            }).then(() => setisLoading(false));
+            // setLoggedIn(false)
+
     };
 
     // redirect to main or previous link
@@ -56,12 +63,11 @@ function LoginWrapper(props) {
     }
 
     return <Login
-        email={email}
-        emailHandler={handleEmail}
-        password={password}
-        passHandler={handlePassword}
+        email={email} emailHandler={handleEmail}
+        password={password} passHandler={handlePassword}
         onSubmit={onSubmit}
-        isError={isError}
+        isLoading={isLoading}
+        isError={isError} errMsg={errMsg}
         />
 }
 
