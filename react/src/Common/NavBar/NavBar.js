@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from './components/NavLink'
 import { useAuth } from '../../Context/authContext'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
     AppBar,
     Toolbar,
@@ -41,6 +41,7 @@ const NavBar = props => {
     const logOut = () => {
         setLoggedIn(null);
         setAuthTokens(null);
+        return <Redirect to='/' />
     }
 
     return (

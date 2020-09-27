@@ -10,6 +10,7 @@ const { runValidation } = require('../validators/runValidation');
 const router = require('express').Router();
 
 // ROUTES
+// /api/auth
 router.post("/register", validateAuth.registerValidator, runValidation, authController.register);
 router.post("/login", validateAuth.loginValidator, runValidation, authController.login);
 
