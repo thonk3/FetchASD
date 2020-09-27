@@ -7,10 +7,16 @@ export { default as Dates } from './Date/Date'
 export { default as RateDate } from './RateDate/RateDate'
 
 // Accounts
-export { default as Register } from './Register/Register'
+
+
+export { default as Register } from './Register/RegisterContainer'
 export { default as Login } from './Login/LoginContainer'
 export { default as AccountMan } from './AccountMan/AccountMan'
+
+// Dog management
 export { default as DogMan } from './DogMan/DogMan'
+export { default as CreateDog } from './DogMan/CreateDog'
+export { default as UpdateDog } from './DogMan/UpdateDog'
 
 // admin
 export { default as AdminHome } from './AdminHome/AdminHome'
