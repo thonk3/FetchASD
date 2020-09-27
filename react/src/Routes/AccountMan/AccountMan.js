@@ -122,17 +122,7 @@ class AccountMan extends Component {
     onSubmitDelete = e => {
         e.preventDefault();
         
-        const deleteUser = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            password: this.state.password,
-            phoneNumber: this.state.phoneNumber,
-            suburb: this.state.suburb,
-            postcode: this.state.postcode
-        }
-        console.log(deleteUser);
-        Axios.delete('/api/users/' + this.state.id, deleteUser)
+        Axios.delete('/api/users/' + this.state.id)
             .then(res => {
                 console.log(res.data)
             })
