@@ -18,26 +18,17 @@ TODO
 - move the popup menu in its own component
  */
 
-
 const NavBar = props => {
     // add styling
     const classes = useStyles();
-
-    // deconstructing props
-    const { authState } = props;
-
-    // feeeeek =================================================================
-    const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
-
+    
     const { setAuthTokens, setLoggedIn } = useAuth();
-
+    const { loggedIn } = useAuth();
+    
+    // drop down menu
+    const [open, setOpen] = React.useState(false);
     const handleToggle = () => { setOpen((prevOpen) => !prevOpen); };
-
-    // const handleClose = (event) => {
-    //     if (anchorRef.current && anchorRef.current.contains(event.target)) return;
-    //     setOpen(false);
-    // };
 
     function handleListKeyDown(event) {
         if (event.key === "Tab") {
@@ -46,20 +37,12 @@ const NavBar = props => {
         }
     }
 
-  // return focus to the button when we transitioned from !open -> open
-/*     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
-        if (prevOpen.current === true && open === false) anchorRef.current.focus();
-
-        prevOpen.current = open;
-    }, [open]); */
-
+    // log out button
     const logOut = () => {
         setLoggedIn(null);
         setAuthTokens(null);
     }
 
-    
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
@@ -75,7 +58,7 @@ const NavBar = props => {
                     <Typography variant='h5' className={classes.menuTitle}><b>Fetch</b></Typography>
 
                     {   // setting nav links based on auth status
-                        authState ?
+                        loggedIn ?
                         (   // logged in
                             <>
                                 <NavLink dir='/' label='the kennel' />
@@ -84,6 +67,7 @@ const NavBar = props => {
                                     <Typography variant='h6'> ME </Typography>
                                 </Button>
 
+                                {/* drop down box */}
                                 {/* Move this popper class outside */}
                                 <Popper open={open} anchorEl={anchorRef.current}
                                     /* role={undefined} */ transition disablePortal>

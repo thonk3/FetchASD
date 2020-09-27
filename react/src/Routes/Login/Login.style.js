@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
     },
     line: {
-        margin: theme.spacing(0, 2, 1),
+        margin: theme.spacing(1, 2, 1),
     },
     submit: {
         margin: theme.spacing(1, 0, 2),
@@ -33,6 +33,12 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         background: theme.palette.secondary.main,
         margin: theme.spacing(1)
+    },
+    error: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: theme.palette.primary.main,
     }
 }));
 

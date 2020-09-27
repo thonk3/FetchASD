@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
-import axios from 'axios'
-import { Redirect } from 'react-router-dom'
-import { Box, TextField } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+
+import useStyles from '../Login/Login.style'
+import { Link } from 'react-router-dom';
+import { 
+    Container,
+    Paper,
+    Avatar, Typography,
+    TextField,
+    Button,
+    CircularProgress
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+
 /* 
     TODO:
     - Display error messages from the payload
@@ -10,103 +19,89 @@ import Button from '@material-ui/core/Button';
 */
 
 const Register = props => {
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [phoneNumber, setPhoneNumber] = useState();
-    const [suburb, setSuburb] = useState();
-    const [postcode, setpostcode] = useState();
+    const { 
+        firstName, onChangeFName,
+        lastName, onChangeLName,
+        email, onChangeEmail,
+        password, onChangePassword,
+        phoneNumber, onChangePhone,
+        suburb, onChangeSuburb,
+        postcode, onChangePostcode,
+    } = props.form;
+    const { 
+        submit,
+        errMsg, isError,
+        isLoading
+    } = props;
+    
+    // styling
+    const classes = useStyles();
 
-    const [errors, setErrors] = useState({
-        error: false,
-        errList: [],
-    });
 
-    const onChangeFName = (e) =>  setFirstName(e.target.value);
-    const onChangeLName = (e) =>  setLastName(e.target.value);
-    const onChangeEmail = (e) =>  setEmail(e.target.value);
-    const onChangePassword = (e) =>  setPassword(e.target.value);
-    const onChangePhone = (e) =>  setPhoneNumber(e.target.value);
-    const onChangeSuburb = (e) =>  setSuburb(e.target.value);
-    const onChangePostcode = (e) =>  setpostcode(e.target.value);
 
-    const [redirLogin, setRedirLogin] = useState(false);
-
-    const submit = (e) => {
-        e.preventDefault();
-        const payload = {
-            firstName, lastName, email, password, phoneNumber, suburb, postcode
-        }
-
-        axios.post('/api/auth/register', payload)
-            .then(res => {
-                if(res.status === 200) {
-                    setRedirLogin(true);
-                } else {    // probably validation errors
-                    console.log(res);
-                }
-            }).catch(error => {
-                console.log("uhoh ");
-                let list = [...error.response.data.error];
-
-                console.log(list);
-                setErrors({
-                    error: true,
-                    errList: errors.errList.push(...list),
-                });
-
-                console.log(typeof errors.errList);
-                
-                errors.errList.map(er => console.log(er.param, ' - ', er.msg))
-
-            })
-    }
-
-    // const test = () => {
-    //     console.log("HELLO?");
-    //     if(errors.error) {
-    //         return errors.errList.map(er => { return <li>{er.param} - {er.msg}</li>});
-    //     }
-    // }
+    // const [redirLogin, setRedirLogin] = useState(false);
 
     // redirect to login after sign in
-    if(redirLogin) return <Redirect to='/login' />
+    // if(redirLogin) return <Redirect to='/login' />
 
     return (
-        <div>
-            <h1>NEW ACCOUNT PLEASE {errors.error.toString()}</h1>
+        <Container width="400px">
+            <div className={classes.paper}>
+                <Paper className={classes.innerPaper} elevation={3}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h4">Register</Typography>
 
-            <form onSubmit={submit}>
-                <TextBox label="FirstName" value={firstName} onChange={onChangeFName}/>
-                <TextBox label="LastName" value={lastName} onChange={onChangeLName}/>
-                <TextBox label="Email"  inputType="email" value={email} onChange={onChangeEmail}/>
-                <TextBox label="Password" inputType="password" value={password} onChange={onChangePassword}/>
-                <TextBox label="Phone" value={phoneNumber} onChange={onChangePhone}/>
-                <TextBox label="Suburb" value={suburb} onChange={onChangeSuburb}/>
-                <TextBox label="PostCode" value={postcode} onChange={onChangePostcode}/>
+                    {/* form */}
+                    <form onSubmit={submit}>
+                        <TextBox label="First Name" value={firstName} onChange={onChangeFName} />
+                        <TextBox label="Last Name" value={lastName} onChange={onChangeLName} />
+                        <TextBox label="Email" value={email} onChange={onChangeEmail} />
+                        <TextBox label="Password" value={password} onChange={onChangePassword} inputType="password"/>
+                        <TextBox label="Phone" value={phoneNumber} onChange={onChangePhone} inputType="tel"/>
+                        <TextBox label="Suburb" value={suburb} onChange={onChangeSuburb} />
+                        <TextBox label="PostCode" value={postcode} onChange={onChangePostcode} />
+                        
+                        <Button
+                            type="submit" fullWidth
+                            variant="contained"
+                            color="primary"
+                            classname={classes.submit}
+                            > Register </Button>
+                        
+                        <div className={classes.error}> 
+                                { (isError && !isLoading) 
+                                ?
+                                    (typeof errMsg === "string")
+                                    ?
+                                    <Typography> {errMsg} </Typography>
+                                    :
+                                    <ul>
+                                        {errMsg.map(err => <li><b>{err.param}: </b> {err.msg}</li>)}
+                                    </ul>
+                                : "" } 
+                            { isLoading ? <CircularProgress color="secondary"/> : <></> }
+                        </div>
 
+                        <hr className={classes.line} />
 
-                <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
-                        <Button color="primary" variant="contained" type="submit">
-                            Register
-                        </Button>
-                    </Box>
-            </form>
+                        <Container>
+                            <Link to="/login">
+                                <Typography>Have an account? Login Here</Typography>
+                            </Link>
+                        </Container>
+                    </form>
+                </Paper>
+            </div>
 
-            {/* <ul>
-                {
-                    test()
-                }
-            </ul> */}
-        </div>
+        </Container>
     );
 };
 
 // component for input boxes
 const TextBox = props => {
-    const { label, value, onChange, inputType } = props;
-
+    const { label, value, onChange, inputType, } = props;
     const  type = inputType || "text";
 
     return (
