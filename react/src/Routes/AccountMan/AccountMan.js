@@ -129,7 +129,7 @@ class AccountMan extends Component {
             .catch((error) => {
                 console.log(error.message);
             })
-        Axios.post('api/auth/logout')
+        Axios.post('/api/auth/logout')
             .then(res => {
                 console.log(res.data)
                 localStorage.removeItem("tokens")

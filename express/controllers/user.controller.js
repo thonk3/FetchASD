@@ -77,7 +77,7 @@ module.exports.updateUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        console.log("YES");
+        /*console.log("YES");
         const dogId = req.params.id;
         const dog = await Dog.findById(dogId);
         console.log("User:" + user);
@@ -107,7 +107,7 @@ module.exports.deleteUser = async (req, res) => {
                     'msg': 'Dog deleted succesfully'
                 });
             }
-        };
+        };*/
         let deletedUser = await user.remove();
         return res.status(200).json(deletedUser);
     } catch (err) {
