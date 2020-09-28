@@ -12,7 +12,6 @@ router.post('/accept/:id', dateController.acceptDate);
 router.post('/decline/:id', dateController.declineDate);
 router.post('/update/:id', dateController.updateDate);
 router.get('/:id', dateController.viewAllUsersDates);
-router.get('/test/:id', dateController.alternateAllUsersDates);
 
 
 module.exports = router;

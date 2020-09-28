@@ -57,7 +57,7 @@ class UpcomingDialog extends Component {
     render() {
             return(
                 <Grid container direction="row" spacing={1} alignItems="center">
-                    <Grid container item xs={10} sm={8}>{this.props.obj.senderDogID} will be going on a date with {this.props.obj.receiverDogID}</Grid>
+                    <Grid container item xs={10} sm={8}>{this.props.obj.senderDog.name} will be going on a date with {this.props.obj.receiverDog.name}</Grid>
                     <Grid container item xs={10} sm={2}>
                             <Button onClick={this.handleShowDetails} variant="contained">View Details</Button> 
                             {(this.state.showDetails) ?                    
@@ -65,8 +65,8 @@ class UpcomingDialog extends Component {
                                 <DialogTitle id="form-dialog-title">Upcoming Date</DialogTitle>
                                 <DialogContent>
                                     <DialogContentText>Here are the details of your date:</DialogContentText>
-                                        <p>{this.props.obj.senderDogID} is going out with {this.props.obj.receiverDogID}</p>
-                                        <p>When: {new Date(Date.parse(this.props.obj.dateOn)).toLocaleString()}</p>
+                                        <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
+                                        <p>When: {new Date(Date.parse(this.props.obj.dateOn)).toLocaleString('en-US')}</p>
                                         <p>Where: {this.props.obj.location}</p>
                                 </DialogContent>
                                 <DialogActions>
