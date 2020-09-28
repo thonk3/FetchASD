@@ -8,9 +8,9 @@ import {
     Avatar, Typography,
     TextField,
     Button,
-    CircularProgress
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Spinner from '../../Common/Spinner/Spinner';
 
 /* 
     TODO:
@@ -81,7 +81,7 @@ const Register = props => {
                                         {errMsg.map(err => <li><b>{err.param}: </b> {err.msg}</li>)}
                                     </ul>
                                 : "" } 
-                            { isLoading ? <CircularProgress color="secondary"/> : <></> }
+                            { isLoading ? <Spinner width='60%' /> : <></> }
                         </div>
 
                         <hr className={classes.line} />

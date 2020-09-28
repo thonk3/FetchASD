@@ -4,6 +4,7 @@
 const DogDate = require('../models/dogDate.model');
 const User = require('../models/user.model');
 const Dog = require('../models/dog.model');
+const { merge, use } = require('../routes/dogDate');
 
 // Creates a new date
 exports.createDate = (req, res) => {
@@ -38,6 +39,53 @@ exports.updateDate = async(req, res) => {
 }
 
 // It works dude
+// exports.viewAllUsersDates = async(req, res) => {
+//     const user = await User.findById(req.params.id);
+//     if(!user) 
+//         return res.status(400).json({
+//             'Error': "Could not find dogs"
+//         });
+//     else {
+//         let userDogs = user.dogs;
+//         let userDogDates = []
+//         for (let i = 0; i < userDogs.length; ++i) {
+//             let receivedDates = await DogDate.find({
+//                 "receiverDogID": userDogs[i]
+//             })
+//             let sentDates = await DogDate.find({
+//                 "senderDogID": userDogs[i]
+//             })
+//             if ((await receivedDates).length != 0)
+//                 userDogDates.push(receivedDates)
+//             if ((await sentDates).length != 0)
+//                 userDogDates.push(sentDates)
+//         }
+//         let mergedArray = [].concat.apply([],userDogDates);
+//         const requested = mergedArray.filter(dogDate => {
+//             return dogDate.status === 'Requested';
+//         })
+//         let requestedArray = [];
+//         for (let i = 0; i < userDogs.length; ++i) {
+//             for (let j = 0; j < requested.length; ++j) {
+//                 if (requested[j].receiverDogID.toString() === userDogs[i].toString())
+//                     requestedArray.push(requested[j])
+//             }
+//         }
+//         const upcoming = mergedArray.filter(dogDate => {
+//             return dogDate.status === 'Upcoming';
+//         })
+//         const completed = mergedArray.filter(dogDate => {
+//             return dogDate.status === 'Completed';
+//         })
+//         return res.status(200).json({
+//             'Message': 'Successful',
+//             'requested': requestedArray,
+//             'upcoming': upcoming,
+//             'completed': completed,
+//         })
+//     }
+// }    
+
 exports.viewAllUsersDates = async(req, res) => {
     const user = await User.findById(req.params.id);
     if(!user) 
@@ -48,40 +96,83 @@ exports.viewAllUsersDates = async(req, res) => {
         let userDogs = user.dogs;
         let userDogDates = []
         for (let i = 0; i < userDogs.length; ++i) {
-            let receivedDates = await DogDate.find({
-                "receiverDogID": userDogs[i]
-            })
-            let sentDates = await DogDate.find({
-                "senderDogID": userDogs[i]
-            })
-            if ((await receivedDates).length != 0)
-                userDogDates.push(receivedDates)
-            if ((await sentDates).length != 0)
-                userDogDates.push(sentDates)
-        }
-        let mergedArray = [].concat.apply([],userDogDates);
-        const requested = mergedArray.filter(dogDate => {
-            return dogDate.status === 'Requested';
-        })
-        let requestedArray = [];
-        for (let i = 0; i < userDogs.length; ++i) {
-            for (let j = 0; j < requested.length; ++j) {
-                if (requested[j].receiverDogID.toString() === userDogs[i].toString())
-                    requestedArray.push(requested[j])
+            //Find date where dog is the receiver of a date request
+            let receivedDate = await DogDate.find({"receiverDogID": userDogs[i] })
+            if ((await receivedDate).length != 0) {
+                for (let j = 0; j < receivedDate.length; ++j) {
+                    //Find the received dog data
+                    let receivedDateDog = await Dog.findById(receivedDate[j].receiverDogID)
+                    //console.log(receivedDateDog)
+                    //Find the sender dog data
+                    let senderDateDog = await Dog.findById(receivedDate[j].senderDogID)
+                    let dogWithName = [{
+                        receiverDog: {
+                            receiverDogID: receivedDate[j].receiverDogID,
+                            name: receivedDateDog.Name
+                        },
+                        senderDog: {
+                            senderDogID: receivedDate[j].senderDogID,
+                            name: senderDateDog.Name
+                        },
+                        status: receivedDate[j].status,
+                        dateOn: receivedDate[j].dateOn,
+                        location: receivedDate[j].location
+                    }]
+                    userDogDates.push(dogWithName);
+                }
             }
+            let sentDate = await DogDate.find({ "senderDogID": userDogs[i] })
+            if ((await sentDate).length != 0) {
+                for (let k = 0; k < sentDate.length; ++k) {
+                    //Find the received dog data
+                    let recDateDog = await Dog.findById(sentDate[k].receiverDogID)
+                    //Find the sender dog data
+                    let senDateDog = await Dog.findById(sentDate[k].senderDogID)
+                    let dateDogWithName = [{
+                        receiverDog: {
+                            receiverDogID: sentDate[k].receiverDogID,
+                            name: recDateDog.name
+                        },
+                        senderDog: {
+                            senderDogID: sentDate[k].senderDogID,
+                            name: senDateDog.name
+                        },
+                        status: sentDate[k].status,
+                        dateOn: sentDate[k].dateOn,
+                        location: sentDate[k].location
+                    }]
+                    userDogDates.push(dateDogWithName);
+                }
+            }
+            let mergedArray = [].concat.apply([],userDogDates);
+
+            const requested = mergedArray.filter(dogDate => {
+                return dogDate.status === 'Requested';
+            })
+            let requestedArray = [];
+
+            for (let i = 0; i < userDogs.length; ++i) {
+                for (let j = 0; j < requested.length; ++j) {
+                    if (requested[j].receiverDog.receiverDogID.toString() === userDogs[i].toString())
+                        requestedArray.push(requested[j])
+                }
+            }
+
+            const upcoming = mergedArray.filter(dogDate => {
+                return dogDate.status === 'Upcoming';
+            })
+
+            const completed = mergedArray.filter(dogDate => {
+                return dogDate.status === 'Completed';
+            })
+
+            return res.status(200).json({
+                'Message': 'Successful',
+                'requested': requestedArray,
+                'upcoming': upcoming,
+                'completed': completed,
+            })
         }
-        const upcoming = mergedArray.filter(dogDate => {
-            return dogDate.status === 'Upcoming';
-        })
-        const completed = mergedArray.filter(dogDate => {
-            return dogDate.status === 'Completed';
-        })
-        return res.status(200).json({
-            'Message': 'Successful',
-            'requested': requestedArray,
-            'upcoming': upcoming,
-            'completed': completed,
-        })
     }
 }    
 
