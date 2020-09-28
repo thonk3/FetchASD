@@ -87,24 +87,26 @@ class Dates extends React.Component {
             <Container fluid>
                 <h2>My Dates</h2>
 
-                {
-                    this.state.loading ?
-                    <Spinner />
-                    :
-                    <>
+                <br />
                 <Grid container justify="space-between" direction="row" alignItems="center">
                     <Grid item><Button variant="contained" color={this.state.requestList ? "primary" : "default"} onClick={this.handleRequested}>Requested</Button></Grid>
                     <Grid item><Button variant="contained" color={this.state.upcomingList ? "primary" : "default"} onClick={this.handleUpcoming}>Upcoming</Button></Grid>
                     <Grid item><Button variant="contained" color={this.state.completedList ? "primary" : "default"} onClick={this.handleCompleted}>Completed</Button></Grid>
                 </Grid>
-                <br/>
-                <Grid>
-                    {(this.state.requestList) ? this.requestedDates(this.state.requested) : ''}
-                    
-                    {(this.state.upcomingList) ? this.upcomingDates(this.state.upcoming) : ''}
 
-                    {(this.state.completedList) ? this.completedDates(this.state.completed) : ''}
-                </Grid>
+                {
+                    this.state.loading ?
+                    <Spinner />
+                    :
+                    <>  {/* buttons */}
+    
+                        <br/>
+                        {/* items */}
+                        <Grid>
+                            {(this.state.requestList) ? this.requestedDates(this.state.requested) : ''}
+                            {(this.state.upcomingList) ? this.upcomingDates(this.state.upcoming) : ''}
+                            {(this.state.completedList) ? this.completedDates(this.state.completed) : ''}
+                        </Grid>
                 </>
                     }
             </Container>

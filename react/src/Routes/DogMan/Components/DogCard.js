@@ -24,10 +24,11 @@ class DogCard extends Component {
                             <h3>{this.props.obj.Name}, {this.props.obj.Age}</h3>
                             <p>{this.props.obj.Breed}</p>
                             <p>{this.props.obj.Suburb}, {this.props.obj.Postcode}</p>
+
                             <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                            <Link to={'/myacc/mypack/' + this.props.obj._id} Component={UpdateDog}>
-                                <Button style={{ width: "100px" }} variant="contained" color="primary">Edit Dog</Button>
-                            </Link>
+                                <Link to={'/myacc/mypack/' + this.props.obj._id} Component={UpdateDog}>
+                                    <Button style={{ width: "100px" }} variant="contained" color="primary">Edit Dog</Button>
+                                </Link>
                             </Box>
                         </CardContent>
                     </Card>
