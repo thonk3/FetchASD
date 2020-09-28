@@ -5,6 +5,7 @@ import { Button, Container, Grid } from '@material-ui/core'
 import RequestedDialog from './Components/RequestedDialog';
 import UpcomingDialog from './Components/UpcomingDialog';
 import CompletedDialog from './Components/CompletedDialog';
+import Spinner from '../../Common/Spinner/Spinner';
 
 class Dates extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Dates extends React.Component {
             requestList: true,
             upcomingList: false,
             completedList: false,
+            loading: true,
         };
         this.handleRequested = this.handleRequested.bind(this);
         this.handleCompleted = this.handleCompleted.bind(this);
@@ -32,6 +34,7 @@ class Dates extends React.Component {
                     completed: res.data.completed
                 });
             })
+            .then(() => this.setState({ loading: false }))
             .catch(function (error) {
                 console.log(error);
             })
@@ -83,6 +86,12 @@ class Dates extends React.Component {
         return (
             <Container fluid>
                 <h2>My Dates</h2>
+
+                {
+                    this.state.loading ?
+                    <Spinner />
+                    :
+                    <>
                 <Grid container justify="space-between" direction="row" alignItems="center">
                     <Grid item><Button variant="contained" color={this.state.requestList ? "primary" : "default"} onClick={this.handleRequested}>Requested</Button></Grid>
                     <Grid item><Button variant="contained" color={this.state.upcomingList ? "primary" : "default"} onClick={this.handleUpcoming}>Upcoming</Button></Grid>
@@ -96,6 +105,8 @@ class Dates extends React.Component {
 
                     {(this.state.completedList) ? this.completedDates(this.state.completed) : ''}
                 </Grid>
+                </>
+                    }
             </Container>
         )
     }
