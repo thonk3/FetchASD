@@ -104,6 +104,7 @@ exports.viewAllUsersDates = async(req, res) => {
                     //Find the sender dog data
                     let senderDateDog = await Dog.findById(receivedDate[j].senderDogID)
                     let dogWithName = [{
+                        _id: receivedDate[j]._id,
                         receiverDog: {
                             receiverDogID: receivedDate[j].receiverDogID,
                             name: receivedDateDog.Name
@@ -128,6 +129,7 @@ exports.viewAllUsersDates = async(req, res) => {
                     //Find the sender dog data
                     let senDateDog = await Dog.findById(sentDate[k].senderDogID)
                     let dateDogWithName = [{
+                        _id: sentDate[k]._id,
                         receiverDog: {
                             receiverDogID: sentDate[k].receiverDogID,
                             name: recDateDog.name
