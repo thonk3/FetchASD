@@ -4,6 +4,7 @@ import React from 'react';
 import LandingPage from './LandingPage';
 import Kennel from '../Kennel/Kennel';
 import { useAuth } from '../../Context/authContext'; 
+import Container from '@material-ui/core/Container'
 
 import token from '../../Helpers/token';
 
@@ -14,7 +15,9 @@ const Home = (props) => {
         <>
             {loggedIn ? 
                 <>
-                    <h2> Hallo thar user { token().email }</h2>
+                    <Container>
+                    <h2> Welcome back { token().name }</h2>
+                    </Container>
                     <Kennel />
                 </>
                 : 
