@@ -24,7 +24,7 @@ class CompletedDateItem extends Component {
     
     toggleRatingDialog = () => {
         this.setState({ ratingDialog: !this.state.ratingDialog })
-        console.log('rating')
+        console.log('rating', this.state.ratingDialog)
     }
 
 
