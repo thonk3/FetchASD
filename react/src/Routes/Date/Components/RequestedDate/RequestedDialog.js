@@ -15,13 +15,13 @@ const RequestedDialog = props => {
     // probably move this back to RequestedDateItem to remove the item from the list instead
     const handleAccept = () => {
         axios.post(`/api/date/accept/${date._id}`)
-            .then(() => window.location('/date'))
+            .then(window.location = '/date')
             .catch((error) => console.log(error));
     }
 
     const handleDecline = () => {
         axios.post(`/api/date/decline/${date._id}`)
-            .then(() => window.location('/date'))
+            .then(window.location = '/date')
             .catch((error) => console.log(error));
     }
 

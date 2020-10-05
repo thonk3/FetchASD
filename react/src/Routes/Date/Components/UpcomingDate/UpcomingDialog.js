@@ -1,5 +1,7 @@
 import React,{ Component } from 'react';
 import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+
+import DialogContainer from '../DialogContainer'
 import UpdateDialog from './UpdateDialog';
 import DeleteDialog from './DeleteDialog';
 
@@ -10,23 +12,16 @@ class UpcomingDialog extends Component {
             showDetails: false,
             showUpdate: false,
         }
-        this.handleHideDetails = this.handleHideDetails.bind(this);
-        this.handleShowDetails = this.handleShowDetails.bind(this);
+        // this.handleHideDetails = this.handleHideDetails.bind(this);
+        // this.handleShowDetails = this.handleShowDetails.bind(this);
+
+        this.toggleDetails = this.toggleDetails.bind(this);
         this.handleHideUpdate = this.handleHideUpdate.bind(this);
         this.handleShowUpdate = this.handleShowUpdate.bind(this);
     }
 
-    handleHideDetails() {
-        this.setState({ 
-            showDetails: false 
-        });
-    }
-
-    handleShowDetails() {
-        this.setState({ 
-            showDetails: true 
-        });
-    }
+    toggleDetails = () =>
+        this.setState({ showDetails: !this.state.showDetails })
 
     handleHideUpdate() {
         this.setState({ 
@@ -55,32 +50,23 @@ class UpcomingDialog extends Component {
     }
 
     render() {
-            return(
-                <Grid container direction="row" spacing={1} alignItems="center">
-                    <Grid container item xs={10} sm={8}>{this.props.obj.senderDog.name} will be going on a date with {this.props.obj.receiverDog.name}</Grid>
-                    <Grid container item xs={10} sm={2}>
-                            <Button onClick={this.handleShowDetails} variant="contained">View Details</Button> 
-                            {(this.state.showDetails) ?                    
-                            <Dialog open={this.state.showDetails} onClose={this.handleHideDetails} aria-labelledby="alert-dialog-title">
-                                <DialogTitle id="form-dialog-title">Upcoming Date</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>Here are the details of your date:</DialogContentText>
-                                        <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
-                                        <p><b>When: </b>{new Date(Date.parse(this.props.obj.dateOn)).toLocaleString('en-US')}</p>
-                                        <p><b>Where: </b>{this.props.obj.location}</p>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={this.handleHideDetails} color="primary">Close</Button>
-                                    {/* <Button onClick={this.handleShowUpdate} color="primary">Update</Button> */}
-                                    {/* {(this.state.showUpdate) ? this.updateDialog(this.props.obj) : ''} */}
-                                    {this.updateDialog(this.props.obj)}
-                                    {this.deleteDialog(this.props.obj)}
-                                    {/* <Button  color="primary">Delete</Button> */}
-                                </DialogActions>
-                            </Dialog> : ''}
-                    </Grid>
-                </Grid>
-            );
+        const { date, toggleDialog, activeState } = this.props;
+
+        return(
+            <DialogContainer
+                activeState={activeState} toggleDialog={toggleDialog}
+                dialogTitle="Upcoming Date"
+                contentTitle="Here are the details of your date:"
+                actionsButtons={<>
+                    {this.updateDialog(date)}
+                    {this.deleteDialog(date)}
+                </>}
+            >
+                <p>{date.senderDog.name} is going out with {date.receiverDog.name}</p>
+                <p><b>When: </b>{new Date(Date.parse(date.dateOn)).toLocaleString('en-US')}</p>
+                <p><b>Where: </b>{date.location}</p>
+            </DialogContainer>
+        );
     }
 }
 

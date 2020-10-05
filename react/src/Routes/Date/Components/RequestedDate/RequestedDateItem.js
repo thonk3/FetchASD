@@ -21,19 +21,8 @@ class RequestedDateItem extends Component {
         this.setState({ show: !this.state.show });
     }
 
-    // probably pass in the list and remove the designated
+    // probably pass in the list and remove the designated item
     // to save loading time
-    // handleAccept(id) {
-    //     axios.post(`/api/date/accept/${id}`)
-    //         .then(() => window.location('/date'))
-    //         .catch((error) => console.log(error));
-    // }
-
-    // handleDecline(id) {
-    //     axios.post(`/api/date/decline/${id}`)
-    //         .then(() => window.location('/date'))
-    //         .catch((error) => console.log(error));
-    // }
 
     render() {
         return(

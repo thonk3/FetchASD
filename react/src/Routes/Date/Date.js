@@ -7,7 +7,7 @@ import token from '../../Helpers/token';
 import { Button, Container, Grid, Typography } from '@material-ui/core'
 
 import RequestedDateItem from './Components/RequestedDate/RequestedDateItem';
-import UpcomingDateItem from './Components/UpcomingDate/UpcomingDialog';
+import UpcomingDateItem from './Components/UpcomingDate/UpcomingDateItem';
 import CompletedDateItem from './Components/CompletedDate/CompletedDateItem';
 import Spinner from '../../Common/Spinner/Spinner';
 
