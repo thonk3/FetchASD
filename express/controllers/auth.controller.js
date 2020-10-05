@@ -45,7 +45,12 @@ module.exports.login = async (req, res) => {
         staff: user.isStaffUser,
         id: user._id,
     }
-    const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
+
+    const token = jwt.sign(
+        tokenPayload, 
+        process.env.TOKEN_SECRET,
+        { expiresIn: '1h' }
+    );
 
     // return token
     res.json({

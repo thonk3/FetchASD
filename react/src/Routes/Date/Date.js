@@ -1,10 +1,14 @@
+/* 
+    main date page
+*/
 import React from 'react';
 import axios from 'axios';
 import token from '../../Helpers/token';
 import { Button, Container, Grid } from '@material-ui/core'
-import RequestedDialog from './Components/RequestedDialog';
-import UpcomingDialog from './Components/UpcomingDialog';
-import CompletedDialog from './Components/CompletedDialog';
+
+import RequestedDialog from './Components/RequestedDate/RequestedDialog';
+import UpcomingDialog from './Components/UpcomingDate/UpcomingDialog';
+import CompletedDialog from './Components/CompletedDate/CompletedDateItems';
 import Spinner from '../../Common/Spinner/Spinner';
 
 class Dates extends React.Component {
@@ -14,7 +18,7 @@ class Dates extends React.Component {
             requested: [],
             upcoming: [],
             completed: [],
-            requestList: true,
+            requestList: false,
             upcomingList: false,
             completedList: false,
             loading: true,
@@ -24,63 +28,51 @@ class Dates extends React.Component {
         this.handleUpcoming = this.handleUpcoming.bind(this);   
     }
 
+    // load the dates on start
     componentDidMount() {
         axios.get(`/api/date/${token().id}/`)
-            .then(res => {
-                this.setState({
-                    requestList: true,
-                    requested: res.data.requested,
-                    upcoming: res.data.upcoming,
-                    completed: res.data.completed
-                });
-            })
+            .then(res => this.setState({
+                requestList: true,
+                requested: res.data.requested,
+                upcoming: res.data.upcoming,
+                completed: res.data.completed
+            }))
             .then(() => this.setState({ loading: false }))
-            .catch(function (error) {
-                console.log(error);
-            })
+            .catch(function (error) { console.log(error) });
     }
 
+    // swap which list to display
+    resetDisplay() {
+        this.setState({
+            requestList: false,
+            upcomingList: false,
+            completedList: false
+        })
+    }
     handleRequested() {
-        this.setState(state => ({ 
-            requestList: true, 
-            upcomingList: false, 
-            completedList: false 
-        }));
+        this.resetDisplay();
+        this.setState({requestList: true})
     }
 
     handleUpcoming() {
-        this.setState(state => ({ 
-            requestList: false, 
-            upcomingList: true, 
-            completedList: false 
-        }));
+        this.resetDisplay();
+        this.setState({upcomingList: true})
     }
 
     handleCompleted() {
-        this.setState(state => ({ 
-            requestList: false, 
-            upcomingList: false, 
-            completedList: true 
-        }));
+        this.resetDisplay();
+        this.setState({completedList: true})
     }    
 
-    requestedDates(list) {	    
-        return list.map((data, i) => {	      
-            return <RequestedDialog obj={data} key={i} />;	        
-        });
-    }
+    // each date category
+    requestedDates = (list) =>
+        list.map((data, i) => <RequestedDialog obj={data} key={i} />)
 
-    upcomingDates(list) {	    
-        return list.map((data, i) => {	      
-            return <UpcomingDialog obj={data} key={i} />;	        
-        });
-    }
+    upcomingDates = (list) => 
+        list.map((data, i) => <UpcomingDialog obj={data} key={i} />)
 
-    completedDates(list) {	    
-        return list.map((data, i) => {	      
-            return <CompletedDialog obj={data} key={i} />;	        
-        });
-    }
+    completedDates = (list) => 
+        list.map((data, i) => <CompletedDialog obj={data} key={i} />)
 
     render() {
         return (
@@ -98,8 +90,7 @@ class Dates extends React.Component {
                     this.state.loading ?
                     <Spinner />
                     :
-                    <>  {/* buttons */}
-    
+                    <>  {/* loaded content */}
                         <br/>
                         {/* items */}
                         <Grid>
