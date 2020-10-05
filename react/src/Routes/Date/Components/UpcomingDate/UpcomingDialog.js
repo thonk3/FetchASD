@@ -66,8 +66,8 @@ class UpcomingDialog extends Component {
                                 <DialogContent>
                                     <DialogContentText>Here are the details of your date:</DialogContentText>
                                         <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
-                                        <p>When: {new Date(Date.parse(this.props.obj.dateOn)).toLocaleString('en-US')}</p>
-                                        <p>Where: {this.props.obj.location}</p>
+                                        <p><b>When: </b>{new Date(Date.parse(this.props.obj.dateOn)).toLocaleString('en-US')}</p>
+                                        <p><b>Where: </b>{this.props.obj.location}</p>
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={this.handleHideDetails} color="primary">Close</Button>

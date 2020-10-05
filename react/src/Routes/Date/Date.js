@@ -8,7 +8,7 @@ import { Button, Container, Grid } from '@material-ui/core'
 
 import RequestedDialog from './Components/RequestedDate/RequestedDialog';
 import UpcomingDialog from './Components/UpcomingDate/UpcomingDialog';
-import CompletedDialog from './Components/CompletedDate/CompletedDateItems';
+import CompletedDialog from './Components/CompletedDate/CompletedDateItem';
 import Spinner from '../../Common/Spinner/Spinner';
 
 class Dates extends React.Component {
@@ -77,13 +77,18 @@ class Dates extends React.Component {
     render() {
         return (
             <Container fluid>
-                <h2>My Dates</h2>
+                <h2>My Dates</h2> <br />
 
-                <br />
                 <Grid container justify="space-between" direction="row" alignItems="center">
-                    <Grid item><Button variant="contained" color={this.state.requestList ? "primary" : "default"} onClick={this.handleRequested}>Requested</Button></Grid>
-                    <Grid item><Button variant="contained" color={this.state.upcomingList ? "primary" : "default"} onClick={this.handleUpcoming}>Upcoming</Button></Grid>
-                    <Grid item><Button variant="contained" color={this.state.completedList ? "primary" : "default"} onClick={this.handleCompleted}>Completed</Button></Grid>
+                    <DateCategoriesButton 
+                        label="Requested" onClick={this.handleRequested} 
+                        loading={this.state.loading} activeState={this.state.requestList} />
+                    <DateCategoriesButton 
+                        label="Upcoming" onClick={this.handleUpcoming} 
+                        loading={this.state.loading} activeState={this.state.upcomingList} />
+                    <DateCategoriesButton 
+                        label="Completed" onClick={this.handleCompleted} 
+                        loading={this.state.loading} activeState={this.state.completedList} />
                 </Grid>
 
                 {
@@ -103,6 +108,21 @@ class Dates extends React.Component {
             </Container>
         )
     }
+}
+
+const DateCategoriesButton = props => {
+    const { label, activeState, onClick, loading } = props;
+
+    return (
+        <Grid item>
+            <Button 
+                variant="contained" 
+                color={activeState ? "primary" : "default"} 
+                onClick={onClick}
+                disabled={loading}
+            > {label} </Button>
+        </Grid>
+    )
 }
 
 export default Dates;

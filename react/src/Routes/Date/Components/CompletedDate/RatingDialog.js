@@ -4,17 +4,25 @@
 
 import React, { useState } from 'react'
 
-const RatingDialog = props => {
-    const [show, setShow] = useState(false);
+import DialogContainer from '../DialogContainer'
 
-    const handleShow = () => setShow(true);
-    const handleHide = () => setShow(false);
+const RatingDialog = props => {
+    const { openStatus, toggleDialog, date } = props;
+
 
     // new rating
 
-    // update rating
+    // update ratings
 
     return (
-        <h1>This be the rating dialogue</h1>
+        <DialogContainer
+            openStatus={openStatus} toggleDialog={toggleDialog}
+            dialogTitle="New Rating"
+            contentTitle="Rate your date:"
+        >
+            THIS BE THE RATING THING
+        </DialogContainer>
     )
 }
+
+export default RatingDialog;
