@@ -2,12 +2,12 @@
     Component for user to make a rating 
 */
 
-import React, { useState } from 'react'
+import React/* , { useState } */ from 'react'
 
 import DialogContainer from '../DialogContainer'
 
 const RatingDialog = props => {
-    const { openStatus, toggleDialog, date } = props;
+    const { openStatus, toggleDialog/* , date  */} = props;
 
 
     // new rating
