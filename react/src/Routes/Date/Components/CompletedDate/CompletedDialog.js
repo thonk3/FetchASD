@@ -7,11 +7,11 @@ import React from 'react'
 import DialogContainer from '../DialogContainer'
 
 const CompletedDialog = props => {
-    const { openStatus, toggleDialog, date } = props;
+    const { activeState, toggleDialog, date } = props;
 
     return (
         <DialogContainer
-            openStatus={openStatus} toggleDialog={toggleDialog}
+            activeState={activeState} toggleDialog={toggleDialog}
             dialogTitle="Completed Date"
             contentTitle="Here are the details of your date:"
         >

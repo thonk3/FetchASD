@@ -4,11 +4,11 @@
 import React from 'react';
 import axios from 'axios';
 import token from '../../Helpers/token';
-import { Button, Container, Grid } from '@material-ui/core'
+import { Button, Container, Grid, Typography } from '@material-ui/core'
 
-import RequestedDialog from './Components/RequestedDate/RequestedDialog';
-import UpcomingDialog from './Components/UpcomingDate/UpcomingDialog';
-import CompletedDialog from './Components/CompletedDate/CompletedDateItem';
+import RequestedDateItem from './Components/RequestedDate/RequestedDateItem';
+import UpcomingDateItem from './Components/UpcomingDate/UpcomingDialog';
+import CompletedDateItem from './Components/CompletedDate/CompletedDateItem';
 import Spinner from '../../Common/Spinner/Spinner';
 
 class Dates extends React.Component {
@@ -43,11 +43,7 @@ class Dates extends React.Component {
 
     // swap which list to display
     resetDisplay() {
-        this.setState({
-            requestList: false,
-            upcomingList: false,
-            completedList: false
-        })
+        this.setState({ requestList: false, upcomingList: false, completedList: false })
     }
     handleRequested() {
         this.resetDisplay();
@@ -66,13 +62,13 @@ class Dates extends React.Component {
 
     // each date category
     requestedDates = (list) =>
-        list.map((data, i) => <RequestedDialog obj={data} key={i} />)
+        list.map((data, i) => <RequestedDateItem obj={data} key={i} />)
 
     upcomingDates = (list) => 
-        list.map((data, i) => <UpcomingDialog obj={data} key={i} />)
+        list.map((data, i) => <UpcomingDateItem obj={data} key={i} />)
 
     completedDates = (list) => 
-        list.map((data, i) => <CompletedDialog obj={data} key={i} />)
+        list.map((data, i) => <CompletedDateItem obj={data} key={i} />)
 
     render() {
         return (

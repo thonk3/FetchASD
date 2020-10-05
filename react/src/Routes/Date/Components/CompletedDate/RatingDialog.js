@@ -16,7 +16,7 @@ const RatingDialog = props => {
 
     return (
         <DialogContainer
-            openStatus={openStatus} toggleDialog={toggleDialog}
+            activeState={openStatus} toggleDialog={toggleDialog}
             dialogTitle="New Rating"
             contentTitle="Rate your date:"
         >

@@ -8,7 +8,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, B
 const DialogContainer = props => {
     const { 
         dialogTitle,
-        openStatus,
+        activeState,
         toggleDialog,
         contentTitle,
         actionsButtons
@@ -18,8 +18,8 @@ const DialogContainer = props => {
     return (
         <>
             {
-                openStatus ?            
-                <Dialog open={openStatus} onClose={toggleDialog}>
+                activeState ?            
+                <Dialog open={activeState} onClose={toggleDialog}>
                     <DialogTitle>
                         {dialogTitle}
                     </DialogTitle>

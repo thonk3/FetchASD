@@ -32,7 +32,9 @@ class CompletedDateItem extends Component {
         return(
             <Grid container direction="row" spacing={1} alignItems="center">
                 {/* line comment */}
-                <Grid container item xs={10} sm={6}>{this.props.obj.senderDog.name} completed their date with {this.props.obj.receiverDog.name}</Grid>
+                <Grid container item xs={10} sm={8}>
+                    {this.props.obj.senderDog.name} completed their date with {this.props.obj.receiverDog.name}
+                </Grid>
 
                 {/* buttons containers */}
                 <Grid container item xs={2} sm={4} direction="row" alignItems="center">
@@ -44,36 +46,16 @@ class CompletedDateItem extends Component {
                     </Grid>
                 </Grid>
 
+                {/* Dialogs will only render if activeState is true */}
                 <CompletedDialog
-                    openStatus={this.state.detailDialog}
+                    activeState={this.state.detailDialog}
                     toggleDialog={this.toggleDetailDialog}
                     date={this.props.obj} />
 
                 <RatingDialog
-                    openStatus={this.state.ratingDialog}
+                    activeState={this.state.ratingDialog}
                     toggleDialog={this.toggleRatingDialog}
                     date={this.props.obj} />
-
-                {/* Rating detail dialog */}
-                {/* <DialogContainer>
-
-                </DialogContainer> */}
-
-                {/* {(this.state.detailDialog) ?                    
-                <Dialog open={this.state.detailDialog} onClose={this.toggleDetailDialog}>
-                    <DialogTitle id="form-dialog-title"><h3>Completed Date</h3></DialogTitle>
-                    <DialogContent>
-                        <DialogContentText><h3>Details</h3></DialogContentText>
-                            <p>{this.props.obj.senderDog.name} went out with {this.props.obj.receiverDog.name}</p>
-                            <p>When: {new Date(Date.parse(this.props.obj.dateOn)).toLocaleString('en-US')}</p>
-                            <p>Where: {this.props.obj.location}</p>
-
-                    <DialogActions>
-                        <Button onClick={this.toggleDetailDialog} color="primary">Close</Button>
-                    </DialogActions>
-                    </DialogContent>
-
-                </Dialog> : ''} */}
 
                 </Grid>
             );
