@@ -16,32 +16,47 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // mongo connection
-const URI = process.env.ATLAS_URI;
-mongoose.connect(URI, { 
-    useNewUrlParser: true, 
-    useCreateIndex: true,
-    useUnifiedTopology: true
-});
+// const URI = process.env.ATLAS_URI;
+// mongoose.connect(URI, { 
+//     useNewUrlParser: true, 
+//     useCreateIndex: true,
+//     useUnifiedTopology: false,  // true will break tests
+//     useFindAndModify: false
+// });
 
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("MongoDB database connection established successfully");
-})
-
+// const connection = mongoose.connection;
+// connection.once('open', () => {
+//     console.log("MongoDB database connection established successfully");
+// })
 
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));
 
-// api imports --------------------------------------------------
-const caninesRouter = require('./routes/canines');
-const peopleRouter = require('./routes/people');
-const relationshipRouter = require('./routes/relationships');
 
-app.use('/api/canines', caninesRouter);
-app.use('/api/people', peopleRouter);
-app.use('/api/relationships', relationshipRouter);
-// --------------------------------------------------------------
+// api imports ==============================================================
+const dogRouter = require('./routes/dogs');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
+const dateRouter = require('./routes/dogDate');
+const dogRatingRouter = require('./routes/dogRating');
 
+// lock api calls to only users with token
+// token is grabbed from res.header("auth-token")
+// do this after
+const verifyToken = require('./validate-token');
+
+app.use('/api/auth', authRouter);
+app.use('/api/dogs', /* verifyToken, */ dogRouter);
+app.use('/api/users', /* verifyToken, */ userRouter);
+app.use('/api/date', /* verifyToken, */ dateRouter);
+app.use('/api/rate', /* verifyToken, */ dogRatingRouter);
+app.use('/api/test', require('./thing.js'));
+
+// app.get("/api/test", async (req, res) => {
+//   res.json({ message: "pass!" });
+// });
+
+// ==========================================================================
 
 // redirecting everything else to the main build index.html
 app.get('*', (req, res) => {
@@ -49,6 +64,8 @@ app.get('*', (req, res) => {
 })
 
 // start express server
-app.listen(PORT, () => {
-    console.log(`server starting on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`server starting on port: ${PORT}`);
+// });
+
+module.exports = app;

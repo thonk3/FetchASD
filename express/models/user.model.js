@@ -1,77 +1,55 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema ({
+// optional: phoneNumber, staff, dogid
+const userSchema = new Schema({
+    firstName: {
+        type: String,
+        required: true,
+        max: 50,
+    },
+    lastName: {
+        type: String,
+        required: true,
+        max: 50,
+    },
     email: {
         type: String,
         required: true,
-        unique: true,
-        trim: true,
-        minlength: 3
+        min: 6, max: 50,
     },
-    password: {
+    password: {         // hashed passwords only
+        type: String,
+        requireq:true,
+        min: 90, max: 90
+    },
+    phoneNumber: {
+        type: String,
+        required: false,
+        max: 10,
+    },
+    suburb: {
         type: String,
         required: true,
-        minlength: 8
+        max: 30
     },
-    staff: {
+    postcode: {
+        type: String,
+        required: true,
+        min: 4, max: 4
+    },
+    isStaffUser: {
         type: Boolean,
-        require: true,        
-        default: false
+        default: false,
+        required: true
     },
-    access: {
-        when: {
-            type: Date,
-            require: true,
-            default: Date.now
-        },
-        success: {
-            type: Boolean,
-            require: true,            
-        }
-    },
-    dog: [{
-        name: {
-            type: String,
-            require: true,
-        },
-        tag: {
-            type: Array,
-            require: false,            
-        },
-        interaction: [{
-            with: {
-                type: Schema.Types.ObjectId,
-                require: true
-            },
-            message: {
-                type: String,                
-            },
-            relation: {
-                type: String,                
-            },
-            gift: {
-                type: Schema.Types.ObjectId,
-            }
-        }]        
-    }],
-    card: [{
-        number: {
-            type: String,
-            require: true,
-            trim: true
-        },
-        type: {
-            type: String,
-            require: true,
-            trim: true
-        },
-        holder: {
-            type: String,
-            require: true,
-            trim: true
-        }
-    }]
+    // dogs has the type of an array of string values
+    // In the MongoDB dogs has to be set to array
+    dogs: {
+        type: [String],
+        required: false, 
+    }
 });
 
 const User = mongoose.model('User', userSchema);

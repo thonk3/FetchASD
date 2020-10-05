@@ -27,9 +27,12 @@ Thumbs.db
 ##############################
 /react/node_modules
 /express/node_modules
+/node_modules
 
 # react production build #
 ##########################
 /react/build
 
-
+# git creds just to be sure #
+#############################
+.git-credentials

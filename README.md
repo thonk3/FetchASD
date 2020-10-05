@@ -1,4 +1,4 @@
-# Amateur Sausage Deli
+# Amateur Sausage Deli 
 
 [![Codeship Status for doppeltwirkend/AmatuerSausageDeli](https://app.codeship.com/projects/be207d10-bda5-0138-63db-360f77155614/status?branch=master)](https://app.codeship.com/projects/405472)
 
@@ -29,10 +29,10 @@ npm run dev-express
 > to install: `npm i -g nodemon`
 
 to build and deploy
-
 ```
 npm run build
 npm run start
 ```
 
 > **Note**: A MongoDb connection string is required  for the variable `ATLAS_URI` in `express/.env` file to run the express server.
+
