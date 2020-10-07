@@ -2,18 +2,59 @@
     dog rating controller
 */
 
+const User = require('../models/user.model');
 const Dog = require('../models/dog.model');
 const Date = require('../models/dogDate.model');
 
 /* main controllers */
+
+// check if there is a rating yet
+// if yes return the rating object
+// if no return mesage
+module.exports.checkRating = async (req, res) => {
+    // req.body has
+    // |    userID
+    // |    date : 
+    // |    |   dateID
+    // |    |   senderID
+    // |    |   receiverID
+    // check if user exists
+    let date = req.body.date;
+    const user = await User.findById({ _id: req.body.userID });
+    if (user) return res.status(400).json({ error: "user not found, please try again" });
+                                                                                     
+    // figguring which dog belongs to the user
+    let dog_is_sender = false; // assuming one of the dog belongs to the user, unsafe implementation
+    user.dogs.filter(dogID => {
+        if(dogID.toString() === date.sender._id.toString()) dog_is_sender = true;
+    })
+
+    // set who is who
+    const rateMeID = (dog_is_sender) ? date.sender.id : date.receiver.id;
+    const rateByID = (dog_is_sender) ? date.receiver.id : date.sender.id;
+    const rateMe = await Dog.findById({ rateMeID });
+
+    // filter the rating list to find rating
+
+    // if found return the rating object
+
+    // if not found return { msg: "no rating" }
+}
+
+
+// create a new rating
 module.exports.newRating = async (req, res) => {
-    // get existing dog object
+    // check if the dogs exists
     const rateMe = await Dog.findOne({ _id: req.body.dogID });
     const imRating = await Dog.findOne({ _id: req.body.rateBy });
 
     if(!rateMe || !imRating)    // if the dogs are not found
         return res.status(400).json({ error: "Dogs not found, Please try again or contact the admin" });
+    
+    // check if rating exist by filtering dateID in rateme.Rating
+    
 
+    // probably need to redo all of these down here
     // new rating object
     const newRating = {
         rateBy: imRating._id,
@@ -22,6 +63,7 @@ module.exports.newRating = async (req, res) => {
         createdAt: new Date().dateOn,
         lastEdited: new Date().dateOn,
     }
+
 
     // check if the dog rated before
     let pastRating = rateMe.Rating.filter(rating => 
@@ -51,7 +93,7 @@ module.exports.newRating = async (req, res) => {
     }
 }
 
-//
+// update a rating
 module.exports.updateRating = async (req, res) => {
     const rateMe = await Dog.findOne({ _id: req.body.dogID });
     const imRating = await Dog.findOne({ _id: req.body.rateBy });
@@ -82,7 +124,7 @@ module.exports.updateRating = async (req, res) => {
 }
 
 
-
+// delete a rating
 module.exports.deleteRating = async (req, res) => {
     const rateMe = await Dog.findOne({ _id: req.body.dogID });
     const imRating = await Dog.findOne({ _id: req.body.rateBy });
@@ -111,7 +153,7 @@ module.exports.deleteRating = async (req, res) => {
 
 
 
-// helper functions
+/* helper functions */
 
 // get new average
 const newAvgScore = (ratingArray) => {

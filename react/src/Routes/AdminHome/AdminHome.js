@@ -13,11 +13,13 @@ import LocMan from './LocMan/LocMan'
 import UserMan from './UserMan/UserMan'
 import Mesg from './Mesg/Mesg'
 
+// probably need to pretty this up
 const AdminHome = props => {
 
     return (
         <Container>
             <BrowserRouter>
+                <p>ugg pretty this up</p>
                 <p>maybe have 3 buttons that switches between pages? for admin</p>
                 <p>or move all of this back to App.js</p>
 
