@@ -10,6 +10,7 @@ import {
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
+import AdminRoute from './AdminRoute'
 // import Footer from '../Common/Footer/Footer';
 
 // material ui
@@ -40,7 +41,8 @@ const App = (props) => {
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
             <PrivateRoute path='/date/id' component={Routes.RateDate} />
-            <PrivateRoute path='/admin' component={Routes.AdminHome} />
+
+            <AdminRoute path='/admin' component={Routes.AdminHome} />
             <PrivateRoute path='/:id' component={Routes.Dog} />
 
             <Route component={Routes.NotFound} />
