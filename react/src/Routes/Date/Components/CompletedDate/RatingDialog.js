@@ -2,26 +2,69 @@
     Component for user to make a rating 
 */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import token from '../../../../Helpers/token'
 
 import DialogContainer from '../DialogContainer'
 import { Button, Box, Typography, TextField } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
 
+// rating dialog notes
+// 
+
 const RatingDialog = props => {
+    const [loading, setLoading] = useState(true)
     const [score, setScore] = useState(0);
     const [rating, setRating] = useState("");
+    const [isNewRating, setIsNewRating] = useState(true);
+
     const { activeState, toggleDialog, date } = props;
 
+    // load and check if the date has been rated or not
+    const getData = () => {
+        const payload = {
+            userID: token().id,
+            date: {
+                dateID: date._id,
+                senderID: date.senderDog.senderDogID,
+                receiverID: date.receiverDog.receiverDogID,
+            }
+        }
+
+        // post data and get response
+        axios.post('/api/rate/check', payload)
+            .then(res => {
+                if(res.status === 200) {
+                    setLoading(false);
+                    if(!res.data.isNew) {   // set old data
+                        setIsNewRating(res.data.isNew);
+                        // setScore(res.data.rating.score);
+                        // setRating(res.data.rating.rating);
+                    }
+                }
+            })
+            .catch(e => console.log("error:", e))
+
+    }
+    useEffect(() => getData(), [])
+    // ===============================================
+
+    // handling change score number
     const changeRating = e => {
-        if(rating.length <= 150)
-            setRating(e.target.value)
+        if(rating.length <= 150) setRating(e.target.value)
         else setRating(rating.slice(0, 149))
     }
 
-    // new rating
+    const submitRating = () => {
+        console.log("submitting rating changes")
+        if (isNewRating) newRating()
+        else updateRating()
+    }
+
+    // submit new rating to change
     const newRating = () => {
-        console.log("hey this did something")
+        console.log("creating new rating")
         console.log(date)
 
         console.log({
@@ -33,6 +76,20 @@ const RatingDialog = props => {
     }
 
     // update ratings
+    const updateRating = () => {
+        console.log("update");
+        console.log({
+            rating: {
+                score: score,
+                review: rating,
+            }
+        })
+    }
+
+    // delete ratings
+    const deleteRating = () => {
+
+    }
 
     return (
         <DialogContainer
@@ -41,7 +98,7 @@ const RatingDialog = props => {
             contentTitle="Rate your date:"
 
             actionsButtons={
-                <Button onClick={newRating} variant="contained" color="primary">Rate</Button>
+                <Button onClick={submitRating} variant="contained" color="primary">Rate</Button>
             }
         >
             <p>Between {date.receiverDog.name} and {date.senderDog.name}</p>
@@ -53,9 +110,7 @@ const RatingDialog = props => {
                 <Typography component="legend">Score</Typography>
                 <Rating
                     value={score}
-                    onChange={(event, newValue) => {
-                        setScore(newValue);
-                    }}
+                    onChange={(event, newValue) => setScore(newValue)}
                 />
 
                 <br /> <br />
