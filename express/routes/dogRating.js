@@ -21,14 +21,13 @@ const { runValidation } = require('../validators/runValidation');
 
 // check for past ratings
 router.post('/check', ratingController.checkRating);
-// create
-// router.post('/new', /* validators */ ratingController.newRating);
-// read
+router.post('/new', /* validators */ ratingController.newRating);
+// router.post('/update', /* validators */ ratingController.updateRating);
+
 // since the ratings are in dog model
 // possibly handled in dog details pages (in kennel side + manage dog)
 
 // update
-// router.post('/update', /* validators */ ratingController.updateRating);
 
 // delete
 // router.delete('/delete', /* validators */ ratingController.deleteRating);

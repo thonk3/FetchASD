@@ -15,6 +15,9 @@ import Rating from '@material-ui/lab/Rating'
 
 const RatingDialog = props => {
     const [loading, setLoading] = useState(true)
+
+    const [rateMeID, setRateMeID] = useState("");
+    const [rateByID, setRateByID] = useState("")
     const [score, setScore] = useState(0);
     const [rating, setRating] = useState("");
     const [isNewRating, setIsNewRating] = useState(true);
@@ -37,8 +40,10 @@ const RatingDialog = props => {
             .then(res => {
                 if(res.status === 200) {
                     setLoading(false);
+                    setRateMeID(res.data.rateMeID); // setting ids for form
+                    setRateByID(res.data.rateByID);
                     if(!res.data.isNew) {   // set old data
-                        setIsNewRating(res.data.isNew);
+                        setIsNewRating(false);  // update instead 
                         // setScore(res.data.rating.score);
                         // setRating(res.data.rating.rating);
                     }
@@ -58,14 +63,14 @@ const RatingDialog = props => {
 
     const submitRating = () => {
         console.log("submitting rating changes")
-        if (isNewRating) newRating()
-        else updateRating()
+        if (isNewRating) newRating();
+        else updateRating();
     }
 
     // submit new rating to change
     const newRating = () => {
         console.log("creating new rating")
-        console.log(date)
+        alert("creating new rating")
 
         console.log({
             rating: {
@@ -77,7 +82,9 @@ const RatingDialog = props => {
 
     // update ratings
     const updateRating = () => {
-        console.log("update");
+        console.log("update rating");
+        alert("update rating");
+        
         console.log({
             rating: {
                 score: score,
@@ -98,7 +105,9 @@ const RatingDialog = props => {
             contentTitle="Rate your date:"
 
             actionsButtons={
-                <Button onClick={submitRating} variant="contained" color="primary">Rate</Button>
+                <Button onClick={submitRating} variant="contained" color="primary">
+                    { isNewRating ? "Rate" : "Update" }
+                </Button>
             }
         >
             <p>Between {date.receiverDog.name} and {date.senderDog.name}</p>
