@@ -13,10 +13,11 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         minWidth: 200,
+        margin: 10,
     },
     h5: {
-        marginBottom: theme.spacing(4),
-        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(2),
+        marginTop: theme.spacing(2),
         // [theme.breakpoints.up('sm')]: {
         //     marginTop: theme.spacing(10),
         // },
@@ -24,11 +25,15 @@ const useStyles = makeStyles((theme) => ({
     subtitle: {
         marginTop: theme.spacing(2),
     },
+
+    webTitle: {
+        fontWeight:"bold",
+        fontStyle:"italic",
+        
+    },
 }));
 
-// NONE OF THE STYLING MAKES SENSE
 const LandingHero = props => {
-    // const { classes } = props;
     const classes = useStyles();
 
     return (
@@ -36,18 +41,28 @@ const LandingHero = props => {
             <img
                 style={{ display: 'none' }}
                 src={backgroundImage}
-                alt="increase priority"/>
-            <Typography align="center" variant="h2"> A Title Thing </Typography>
+                alt="dogs"/>
+            <Typography className={classes.webTitle} align="center" variant="h2" > FETCH. </Typography>
 
             <Typography
                 align="center"
                 variant="h5"
                 className={classes.h5}
             >
-                STYLING IS DUMB, webdev is dumb, am dum
+                Nobody deserves to be lonely!
             </Typography>
 
             {/* redir to register page */}
+            <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                className={classes.button}
+                component="a"
+                href="/login/"
+            >
+                Login
+            </Button>
             <Button
                 color="secondary"
                 variant="contained"
@@ -60,7 +75,7 @@ const LandingHero = props => {
             </Button>
 
             <Typography variant="body2" className={classes.subtitle}>
-                Get your bestfriend a friend
+                Find your best friend a best friend.
             </Typography>
         </LandingHeroWrapper>
     );

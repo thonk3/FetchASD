@@ -14,8 +14,8 @@ const Styles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
         width: '100%'
     },
-    footer: {
-        padding: theme.spacing(2, 2),
+    footer: { //fixed footer
+        padding: theme.spacing(2, 0),
         marginTop: 'auto',
         width: '100%',
         background: theme.palette.primary.main,

@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from './components/NavLink'
 import { useAuth } from '../../Context/authContext'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
     AppBar,
     Toolbar,
@@ -11,6 +11,9 @@ import {
 } from '@material-ui/core';
 // import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
+
+import token from '../../Helpers/token'
+
 
 /* 
 TODO
@@ -41,6 +44,7 @@ const NavBar = props => {
     const logOut = () => {
         setLoggedIn(null);
         setAuthTokens(null);
+        return <Redirect to='/' />
     }
 
     return (
@@ -62,6 +66,14 @@ const NavBar = props => {
                         (   // logged in
                             <>
                                 <NavLink dir='/' label='the kennel' />
+                                { token().staff ?
+                                    <>
+                                    <Typography>|</Typography> 
+                                    <NavLink dir='/admin' label='Admin' />
+                                    </>
+                                    :
+                                    <></>
+                                }
                                 <Typography>|</Typography>
                                 <Button className={classes.menuLink} ref={anchorRef} onClick={handleToggle}>
                                     <Typography variant='h6'> ME </Typography>

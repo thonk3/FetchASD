@@ -7,10 +7,10 @@ import {
     Button,
     Paper,
     Avatar,
-    CircularProgress
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './Login.style'
+import Spinner from '../../Common/Spinner/Spinner';
 
 function Login(props) {
     // style
@@ -29,12 +29,6 @@ function Login(props) {
     // ----------------------------------------------------------
     return (
         <Container width="300px">
-            <div>
-                testAcc
-                <div>e@e.com</div>
-                <div>123456</div>
-            </div>
-            
             <div className={classes.paper}>
                 <Paper className={classes.innerPaper} elevation={3}>
 
@@ -63,7 +57,8 @@ function Login(props) {
                     {/* OH YEASSSS */}
                     <div className={classes.error}> 
                         <Typography >{ (isError && !isLoading) ? errMsg : "" } </Typography>
-                        { isLoading ? <CircularProgress color="secondary"/> : <></> }
+                        {/* <CircularProgress color="secondary"/> */}
+                        { isLoading ?  <Spinner width='60%'/> : <></> }
                     </div>
 
                 
@@ -83,7 +78,7 @@ function Login(props) {
     );
 };
 
-
+// move this into shared component
 const TextBox = props => {
         const { label, value, onChange, inputType } = props;
     const  type = inputType || "text";
