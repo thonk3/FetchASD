@@ -37,6 +37,10 @@ const canineSchema = new Schema({
         default: false,
         required: true
     },
+    imageUrl: {
+        type: String,
+        required: true
+    },
     Bio: {
         type: String,
         default: "",
