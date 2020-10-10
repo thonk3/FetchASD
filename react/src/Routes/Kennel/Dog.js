@@ -16,6 +16,8 @@ export default class Dog extends Component {
             suburb: '',
             gender: '',
             rating: '',
+            bio: '',
+            imageUrl: '',
             dogs: [],
             interestExpressed: false,
             dateOn: '',
@@ -35,6 +37,8 @@ export default class Dog extends Component {
                 breed: res.data.Breed,
                 suburb: res.data.Suburb,
                 gender: res.data.Gender,
+                bio: res.data.Bio,
+                imageUrl: res.data.imageUrl
                 // rating: res.data.Rating,
             });
         })
@@ -96,12 +100,12 @@ export default class Dog extends Component {
     }
 
     render() {
-        const{name, age, breed, suburb, gender, rating} = this.state
+        const{name, age, breed, suburb, gender, rating, bio, imageUrl} = this.state
         return (
             <div className = "contain-within">
                 <div className="float-left">
                 <div className="imgplaceholder">
-                    image here
+                    <img src={imageUrl}/>
                 </div>
                 <div className="button">
                     <Button onClick={this.handleOpenExpressInterest} variant="contained" color="primary">
@@ -150,7 +154,7 @@ export default class Dog extends Component {
                 <h3> Suburb: {suburb} </h3>
                 <h3> Gender: {gender} </h3>
                 <h3> Rating: {rating} </h3>
-                <h3> Bio:  </h3>
+                <h3> Bio: {bio} </h3>
             </div>  
             </div>
         )
