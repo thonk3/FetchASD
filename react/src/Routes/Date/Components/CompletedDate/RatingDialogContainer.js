@@ -14,46 +14,47 @@ import Rating from '@material-ui/lab/Rating'
 // im sorry me codes terribad
 
 const RatingDialog = props => {
-    const { activeState, toggleDialog, date } = props;
-
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const [rateMeID, setRateMeID] = useState("");
-    const [rateByID, setRateByID] = useState("");
+    const [rateByID, setRateByID] = useState("")
     const [score, setScore] = useState(0);
     const [rating, setRating] = useState("");
     const [isNewRating, setIsNewRating] = useState(true);
 
-    const setData = () => {
-        const payload = {
-            userID: token().id,
-            date: {
-                dateID: date._id,
-                senderID: date.senderDog.senderDogID,
-                receiverID: date.receiverDog.receiverDogID,
-            }
-        }
-        console.log(date);
+    const { activeState, toggleDialog, date } = props;
 
-        // post data and get response
-        axios.post('/api/rate/check', payload)
-            .then(res => {
-                if(res.status === 200) {
-                    setLoading(false);
-                    setRateMeID(res.data.rateMeID); // setting ids for form
-                    setRateByID(res.data.rateByID);
-                    if(!res.data.isNew) {   // set old data
-                        setIsNewRating(false);  // update instead 
-                        setScore(res.data.rating.score);
-                        setRating(res.data.rating.rating);
-                    }
-                }
-            })
-            .catch(e => console.log("error:", e))
+    // load and check if the date has been rated or not
+    const getData = () => {
+        console.log("DDDDDDDDDDDDDDD");
+        console.log(date);
+        // const payload = {
+        //     userID: token().id,
+        //     date: {
+        //         dateID: date._id,
+        //         senderID: date.senderDog.senderDogID,
+        //         receiverID: date.receiverDog.receiverDogID,
+        //     }
+        // }
+        // console.log(date);
+
+        // // post data and get response
+        // axios.post('/api/rate/check', payload)
+        //     .then(res => {
+        //         if(res.status === 200) {
+        //             setLoading(false);
+        //             setRateMeID(res.data.rateMeID); // setting ids for form
+        //             setRateByID(res.data.rateByID);
+        //             if(!res.data.isNew) {   // set old data
+        //                 setIsNewRating(false);  // update instead 
+        //                 setScore(res.data.rating.score);
+        //                 setRating(res.data.rating.rating);
+        //             }
+        //         }
+        //     })
+        //     .catch(e => console.log("error:", e))
     }
-    useEffect(() => {
-        setData();
-    }, []);
+    useEffect(() => getData());
     // ===============================================
 
     // handling change score number
@@ -85,7 +86,6 @@ const RatingDialog = props => {
             .then(() => {
                 setLoading(false);
                 toggleDialog();
-                setIsNewRating(false);
             })
             .catch(e => console.log(e));
     }
@@ -105,26 +105,7 @@ const RatingDialog = props => {
 
     // delete ratings
     const deleteRating = () => {
-        // alert("delete rating");
-        const payload = {
-            dogID: rateMeID,
-            dateID: date._id,
-        }
-
-        setLoading(false);
-        axios.post(
-                "/api/rate/delete", 
-                payload
-            )
-            .then(() => {
-                setLoading(false);
-                toggleDialog();
-                setIsNewRating(true);
-                setRating("");
-                setScore(0);
-            })
-            // .then(() => setData())
-            .catch(e => console.log(e));
+        alert("delete rating");
     }
 
 
@@ -156,12 +137,12 @@ const RatingDialog = props => {
                 <> </>
                 :
                 <>
-                    {/* <div>
+                    <div>
                         <p>testing</p>
                         <p>isNew: {isNewRating.toString()}</p>
                         <p>rate me: {rateMeID}</p>
                         <p>rate by: {rateByID}</p>
-                    </div> */}
+                    </div>
                     <p>Between {date.receiverDog.name} and {date.senderDog.name}</p>
                     <p>at {date.location} on {new Date(Date.parse(date.dateOn)).toLocaleString('en-AU')}</p>
                     <br />

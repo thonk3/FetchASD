@@ -4,9 +4,9 @@
 
 const User = require('../models/user.model');
 const Dog = require('../models/dog.model');
-const Date = require('../models/dogDate.model');
-const e = require('express');
-const { json } = require('express');
+const DateObj = require('../models/dogDate.model');
+
+const { exists, update } = require('../models/user.model');
 
 /* main controllers */
 
@@ -65,7 +65,9 @@ module.exports.checkRating = async (req, res) => {
 
 
     try { // check if past rating exist and return
-        let exist = findRating(rateMe.rating, date.dateID);
+        console.log("check rating");
+        console.log(rateMe.Rating);
+        let exist = findRating(rateMe.Rating, date.dateID);
         let response = {
             isNew: false,
             rateMeID: rateMeID,
@@ -77,10 +79,14 @@ module.exports.checkRating = async (req, res) => {
             response.isNew = true;
         } else {
             console.log("ther is an old one")
-            response.rating = exist;
+            response.rating = {
+                score: exist.score,
+                rating: exist.comment,
+            };
         }
 
-        return res.status(400).json(response);
+        console.log(response)
+        return res.status(200).json(response);
     } catch (error) {
         return res.status(400).json({
             error: e,
@@ -102,112 +108,104 @@ module.exports.checkRating = async (req, res) => {
 
 // create a new rating
 module.exports.newRating = async (req, res) => {
-    // check if the dogs exists
-    const rateMe = await Dog.findOne({ _id: req.body.dogID });
-    const imRating = await Dog.findOne({ _id: req.body.rateBy });
+    let rateMe = await Dog.findById(req.body.rateMeID);
 
-    if(!rateMe || !imRating)    // if the dogs are not found
-        return res.status(400).json({ error: "Dogs not found, Please try again or contact the admin" });
-    
-    // check if rating exist by filtering dateID in rateme.Rating
-    
-
-    // probably need to redo all of these down here
-    // new rating object
     const newRating = {
-        rateBy: imRating._id,
+        rateBy: req.body.rateByID,
+        dateID: req.body.dateID,
         score: req.body.score,
-        comment: req.body.comment,
-        createdAt: new Date().dateOn,
-        lastEdited: new Date().dateOn,
+        comment: req.body.review,
+        createdAt: new Date(),
+        lastEdited: new Date(),
     }
 
+    // add new rating
+    rateMe.Rating = [
+        ...rateMe.Rating,
+        newRating,
+    ];
+    rateMe.Score = newAvgScore(rateMe.Rating);
 
-    // check if the dog rated before
-    let pastRating = rateMe.Rating.filter(rating => 
-        rating.rateBy.toString() === req.body.rateBy);
-    
-    if(pastRating.length === 0) {
+    // console.log(rateMe);
 
-        // filtering out mongo's default empty object in array
-        rateMe.Rating = [
-            ...rateMe.Rating.filter(rating => rating.score !== undefined),
-            newRating
-        ];
-        rateMe.Score = newAvgScore(rateMe.Rating);
-
-        try {   // save to db
-            await rateMe.save();
-            return res.status(200).json({
-                msg: "successfully added a new rating",
-                rating: rateMe.Rating
-            })
-        } catch (e) {
-            return res.status(400).json({ error: e });
-        }
-
-    } else {    // a past rating from this dog exist
-        return res.status(400).json({ error: "There is an existing rating, Please try again or contact the admin" });
+    try {
+        const savedRating = await rateMe.save();
+        return res.status(200).json({ msg: "successfully added a rating" });
+    } catch(e) {
+        return res.status(400).json({
+            error: e,
+            msg: "Error creating new rating",
+        })
     }
 }
 
-// // update a rating
-// module.exports.updateRating = async (req, res) => {
-//     const rateMe = await Dog.findOne({ _id: req.body.dogID });
-//     const imRating = await Dog.findOne({ _id: req.body.rateBy });
+// update a rating
+module.exports.updateRating = async (req, res) => {
+    let rateMe = await Dog.findById(req.body.rateMeID);
+    let rating = findRating(rateMe.Rating, req.body.dateID);
 
-//     if(!rateMe || !imRating)    // if the dogs are not found
-//         return res.status(400).json({ error: "Dogs not found, Please try again or contact the admin" });
+    rating.score = req.body.score;
+    rating.comment = req.body.review;
+    rating.lastEdited = new Date();
 
-//     // update
-//     for(let i = 0; i < rateMe.Rating.length; i++){
-//         if(rateMe.Rating[i].rateBy.toString() === req.body.rateBy){
-//             console.log("foudn it", i);
-//             rateMe.Rating[i] = {
-//                 ...req.body.newChange,
-//                 lastEdited: new Date().dateOn,
-//             }
-//         }
-//     }
-//     rateMe.Score = newAvgScore(rateMe.Rating);
+    rateMe.Score = newAvgScore(rateMe.Rating);
 
-//     try {
-//         return res.status(200).json({
-//             msg: 'succesfuly updated dog rating',
-//             rating: rateMe,
-//         })
-//     } catch (e) {
-//         return res.status(400).json({ error: e });
-//     }
-// }
+    try {
+        await rateMe.save();
+        return res.status(200).json({ msg: "succesfully update rating" })
+    } catch(e) {
+        return res.status(400).json({
+            error: e,
+            msg: 'Update Rating Error',
+        })
+    }
+}
 
 
-// // delete a rating
-// module.exports.deleteRating = async (req, res) => {
-//     const rateMe = await Dog.findOne({ _id: req.body.dogID });
-//     const imRating = await Dog.findOne({ _id: req.body.rateBy });
+// delete a rating
+module.exports.deleteRating = async (req, res) => {
+    let dog = await Dog.findById(req.body.dogID);
 
-//     if(!rateMe || !imRating)    // if the dogs are not found
-//         return res.status(400).json({ error: "Dogs not found, Please try again or contact the admin" });
+    let newRating = dog.Rating.filter(rating => 
+        rating.dateID != req.body.dateID)
+    dog.Score = newAvgScore(newRating);
+    dog.Rating = newRating;
 
-//     // update rating array & avg score
-//     rateMe.Rating = rateMe.Rating.filter(rating => rating.rateBy.toString() !== req.body.rateBy);
-//     rateMe.Score = (rateMe.Rating.length === 0)
-//         ? null
-//         : newAvgScore(rateMe.Rating)
+    try {
+        await dog.save();
+        return res.status(200).json({ msg: "succesfully deleted a rating" })
+    } catch(e) {
+        return res.status(400).json({
+            error: e,
+            msg: 'Delete Rating Error',
+        })
+    }
 
-//     try {
-//         await rateMe.save();
-//         return res.status(200).json({
-//             msg: "successfully removed a rating",
-//             rating: rateMe
-//         })
+    return res.status(200).json({ msg: "OK" });
+    // const rateMe = await Dog.findOne({ _id: req.body.dogID });
+    // const imRating = await Dog.findOne({ _id: req.body.rateBy });
 
-//     } catch(e) {
-//         return res.status(400)
-//             .json({ error: e });
-//     }
-// }
+    // if(!rateMe || !imRating)    // if the dogs are not found
+    //     return res.status(400).json({ error: "Dogs not found, Please try again or contact the admin" });
+
+    // // update rating array & avg score
+    // rateMe.Rating = rateMe.Rating.filter(rating => rating.rateBy.toString() !== req.body.rateBy);
+    // rateMe.Score = (rateMe.Rating.length === 0)
+    //     ? null
+    //     : newAvgScore(rateMe.Rating)
+
+    // try {
+    //     await rateMe.save();
+    //     return res.status(200).json({
+    //         msg: "successfully removed a rating",
+    //         rating: rateMe
+    //     })
+
+    // } catch(e) {
+    //     return res.status(400)
+    //         .json({ error: e });
+    // }
+}
 
 
 
@@ -215,6 +213,7 @@ module.exports.newRating = async (req, res) => {
 
 // get new average
 const newAvgScore = (ratingArray) => {
+    if(ratingArray.length === 0) return 0;
     let score = 0;
     ratingArray.forEach(elem => { score+=elem.score })
 
@@ -224,9 +223,14 @@ const newAvgScore = (ratingArray) => {
 // test this
 // loop through rating list to find rated date
 const findRating = (list, dateID) => {
-    for(r in list) {
-        if(r.dateID === dateID) return r;
+    console.log("yuck")
+    console.log(dateID);
+    console.log(list);
+
+    for(let i = 0; i < list.length; i++) {
+        if(list[i].dateID === dateID) return list[i];
     }
+
     return null;
 }
 

@@ -1,6 +1,8 @@
 import React,{ Component } from 'react';
 import { Grid, Button/* , Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions */ } from '@material-ui/core'
 
+// import token from '../../../../Helpers/token'
+// import axios from 'axios'
 import RatingDialog from './RatingDialog'
 import CompletedDialog from './CompletedDialog'
 
@@ -10,10 +12,12 @@ class CompletedDateItem extends Component {
         this.state = {
             detailDialog: false,
             ratingDialog: false,
+            // forRating: {},
+            // rateLoad: true,
         }
 
         this.toggleDetailDialog = this.toggleDetailDialog.bind(this);
-        this.toggleRatingDialog = this.toggleRatingDialog.bind(this)
+        this.toggleRatingDialog = this.toggleRatingDialog.bind(this);
     }
 
     // to toggle dialog containers
@@ -26,6 +30,8 @@ class CompletedDateItem extends Component {
         this.setState({ ratingDialog: !this.state.ratingDialog })
         console.log('rating', this.state.ratingDialog)
     }
+
+    // pre load data for rating
 
 
     render() {
@@ -55,7 +61,7 @@ class CompletedDateItem extends Component {
                 <RatingDialog
                     activeState={this.state.ratingDialog}
                     toggleDialog={this.toggleRatingDialog}
-                    date={this.props.obj} />
+                    date={this.props.obj}/>
 
                 </Grid>
             );

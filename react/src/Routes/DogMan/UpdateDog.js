@@ -53,7 +53,7 @@ class UpdateDog extends Component {
         this.setState({
             ...this.state,
             UserId: token().id,
-         })
+        })
         // Hardcoded get request the "logged in" user's dogs
         axios.get('/api/dogs/' + this.state.id)
             .then(res => {
