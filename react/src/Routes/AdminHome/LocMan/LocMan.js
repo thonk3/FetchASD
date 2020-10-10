@@ -4,7 +4,7 @@ import axios from "axios";
 import Spinner from '../../../Common/Spinner/Spinner';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import LocationCard from './Components/LocationCard'
+import LocationCard from './Components/LocationCard';
 
 const defaultState = {
     locations: [],

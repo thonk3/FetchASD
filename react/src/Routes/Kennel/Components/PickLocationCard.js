@@ -10,14 +10,16 @@ import Button from '@material-ui/core/Button';
 //user has registered. It makes the amount of location
 //dynamically based on the amount of location a user has
 //registered
-class LocationCard extends Component {
+
+//TODO: figure out how to display booleans
+class PickLocationCard extends Component {
     render() {
         return (
-            <div style={{ margin: "10px", padding: "10px" }}>
+            <div>
                 <Grid>
-                    <Card class="dog" style={{ padding: 5, height: 370, width: "300px" }}>
+                    <Card class="dog" style={{ padding: 5, height: 500, width: "300px" }}>
                         <CardContent>
-                        <CardMedia component="img" alt="cool dog img" image={this.props.obj.parkImageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
+                            <CardMedia component="img" alt="cool dog img" image={this.props.obj.parkImageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
                             <h3>{this.props.obj.Name}</h3>
                             <p>{this.props.obj.Address}</p>
                             {this.props.obj.isLeashRequired ? <p>Leash Required: ✅</p> : <p>Leash Required: ❌</p>}
@@ -26,15 +28,15 @@ class LocationCard extends Component {
                             {this.props.obj.Parking ? <p>Parking: ✅</p> : <p>Parking: ❌</p>}
                             <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                                 {/* <Link to={'/myacc/mypack/' + this.props.obj._id} Component={UpdateDog}> */}
-                                <Button style={{ width: "150px" }} variant="contained" color="primary">Edit Location</Button>
+                                <Button style={{ width: "200px" }} variant="contained" color="primary" onClick={this.props.onChange}>Choose this Location</Button>
                                 {/* </Link> */}
                             </Box>
                         </CardContent>
                     </Card>
                 </Grid>
-            </div >
+            </div>
         );
     }
 }
 
-export default LocationCard;
+export default PickLocationCard;
