@@ -5,6 +5,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import UpdateLocation from '../UpdateLocation';
 
 //This is a component for each location that the particular
 //user has registered. It makes the amount of location
@@ -25,9 +27,9 @@ class LocationCard extends Component {
                             {this.props.obj.hasBubbler ? <p>Bubbler:  <span role="img" aria-labelledby="check-mark-button">✅</span></p> : <p>Bubbler: <span role="img" aria-labelledby="cross-mark">❌</span></p>}
                             {this.props.obj.Parking ? <p>Parking:  <span role="img" aria-labelledby="check-mark-button">✅</span></p> : <p>Parking: <span role="img" aria-labelledby="cross-mark">❌</span></p>}
                             <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                                {/* <Link to={'/admin/loc_man' + this.props.obj._id} Component={UpdateDog}> */}
-                                <Button style={{ width: "150px" }} variant="contained" color="primary">Edit Location</Button>
-                                {/* </Link> */}
+                                <Link to={'/admin/loc_man/' + this.props.obj._id} Component={UpdateLocation}>
+                                    <Button style={{ width: "150px" }} variant="contained" color="primary">Edit Location</Button>
+                                </Link>
                             </Box>
                         </CardContent>
                     </Card>

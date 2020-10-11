@@ -1,10 +1,14 @@
 /* Location management component */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from "axios";
 import Spinner from '../../../Common/Spinner/Spinner';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import LocationCard from './Components/LocationCard';
+import CreateLocation from './CreateLocation';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 const defaultState = {
     locations: [],
@@ -29,25 +33,32 @@ class LocMan extends Component {
                     locations: res.data
                 });
             })
-            .then(() => this.setState({loading: false}))
+            .then(() => this.setState({ loading: false }))
             .catch((error) => console.log(error))
     }
 
     render() {
         return (
             <div>
-                 <Typography component="h1" variant="h4" align="center">
+                <Typography component="h1" variant="h4" align="center">
                     <span role="img" aria-labelledby="park">🏞</span> Location Management <span role="img" aria-labelledby="park">🏞</span>
                 </Typography>
 
                 {
                     this.state.loading ?
-                    <Spinner />
-                    :
-                    <Grid container spacing={2} style={{ marginLeft: 5 }}>
-                        {this.state.locations.map(location => <LocationCard obj={location} />)}
-                    </Grid>
+                        <Spinner />
+                        :
+                        <Grid container spacing={2} style={{ marginLeft: 5 }}>
+                            {this.state.locations.map(location => <LocationCard obj={location} />)}
+                        </Grid>
                 }
+                <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                    <Link to={'/admin/loc_man/new'} Component={CreateLocation}>
+                        <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">
+                            Create New Location
+                        </Button>
+                    </Link>
+                </Box>
             </div>
         )
     }
