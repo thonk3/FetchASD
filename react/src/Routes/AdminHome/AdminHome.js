@@ -2,9 +2,9 @@ import React from 'react'
 import { 
     BrowserRouter,
     Switch as RouterSwitch,
-    Link, Route
+    Link
 } from 'react-router-dom'
-import { Container, Switch } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 // routes
 import AdminRoute from '../../App/AdminRoute'

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import './Components/kennel.css';
-import Typography from '@material-ui/core/Typography';
 import token from '../../Helpers/token';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
@@ -138,7 +137,7 @@ export default class Dog extends Component {
             <div className="contain-within">
                 <div className="float-left">
                     <div className="imgplaceholder">
-                        <img src={imageUrl} />
+                        <img src={imageUrl} alt="Dog"/>
                     </div>
                     <div className="button">
                         <Button onClick={this.handleOpenExpressInterest} variant="contained" color="primary">
@@ -166,7 +165,6 @@ export default class Dog extends Component {
                                             value={this.state.dateOn}
                                             onChange={this.onChangeDateOn.bind(this)}
                                         />
-                                        {/* <InputLabel>Location</InputLabel> */}
                                         <TextField
                                             label="Location"
                                             value={this.state.locationAddress}
@@ -184,6 +182,7 @@ export default class Dog extends Component {
                                         >
                                             <DialogTitle>{"Pick from one of our approved locations!"}</DialogTitle>
                                             <DialogContent>
+                                            {/* This will createa location cards inside the appearing dialog box */}
                                             <Grid container spacing={2} style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                                                 {this.state.locations.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)}/>)}
                                             </Grid>

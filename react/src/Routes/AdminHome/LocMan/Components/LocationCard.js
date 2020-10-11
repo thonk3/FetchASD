@@ -15,17 +15,17 @@ class LocationCard extends Component {
         return (
             <div style={{ margin: "10px", padding: "10px" }}>
                 <Grid>
-                    <Card class="dog" style={{ padding: 5, height: 370, width: "300px" }}>
+                    <Card class="dog" style={{ padding: 5, height: 500, width: "300px" }}>
                         <CardContent>
                         <CardMedia component="img" alt="cool dog img" image={this.props.obj.parkImageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
                             <h3>{this.props.obj.Name}</h3>
                             <p>{this.props.obj.Address}</p>
-                            {this.props.obj.isLeashRequired ? <p>Leash Required: ✅</p> : <p>Leash Required: ❌</p>}
-                            {this.props.obj.hasToliet ? <p>Public Toliets: ✅</p> : <p>Public Toliets: ❌</p>}
-                            {this.props.obj.hasBubbler ? <p>Bubbler: ✅</p> : <p>Bubbler: ❌</p>}
-                            {this.props.obj.Parking ? <p>Parking: ✅</p> : <p>Parking: ❌</p>}
+                            {this.props.obj.isLeashRequired ? <p>No Leash Option: <span role="img" aria-labelledby="cross-mark">❌</span></p> : <p>No Leash Option: <span role="img" aria-labelledby="check-mark-button">✅</span></p>}
+                            {this.props.obj.hasToliet ? <p>Public Toliets:  <span role="img" aria-labelledby="check-mark-button">✅</span></p> : <p>Public Toliets: <span role="img" aria-labelledby="cross-mark">❌</span></p>}
+                            {this.props.obj.hasBubbler ? <p>Bubbler:  <span role="img" aria-labelledby="check-mark-button">✅</span></p> : <p>Bubbler: <span role="img" aria-labelledby="cross-mark">❌</span></p>}
+                            {this.props.obj.Parking ? <p>Parking:  <span role="img" aria-labelledby="check-mark-button">✅</span></p> : <p>Parking: <span role="img" aria-labelledby="cross-mark">❌</span></p>}
                             <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                                {/* <Link to={'/myacc/mypack/' + this.props.obj._id} Component={UpdateDog}> */}
+                                {/* <Link to={'/admin/loc_man' + this.props.obj._id} Component={UpdateDog}> */}
                                 <Button style={{ width: "150px" }} variant="contained" color="primary">Edit Location</Button>
                                 {/* </Link> */}
                             </Box>
