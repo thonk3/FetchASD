@@ -60,28 +60,29 @@ module.exports.updateLocation = async (req, res) => {
 }
 
 // TO FIX
-// module.exports.deleteLocation = async (req, res) => {
-//     try {
-//         const locationId = req.params.id;
-//         console.log(locationId)
-//         await Location.findByIdAndDelete({ locationId, function(err, docs) {
-//                 console.log("HERE")
-//                 if (err) {
-//                     console.log("error:" + err)
-//                 } else {
-//                     // Return 200 OK
-//                     console.log("Deleted:" + docs)
-//                 }
-//             }
-//         })
-//             return res.status(200).json({
-//                 'msg': 'New Location deleted successfully'
-//                 })
-//      } catch (err) {
-//             // There was an error set it to 400 response
-//             return res.status(400).json({ 'error': err });
-//     }
-// }
+module.exports.deleteLocation = async (req, res) => {
+    try {
+        const locationId = req.params.id;
+        console.log(locationId)
+        await Location.findByIdAndDelete({ _id: locationId }, function(err, docs) {
+                console.log("HERE")
+                if (err) {
+                    console.log("error:" + err)
+                } else {
+                    // Return 200 OK
+                    console.log("Deleted:" + docs)
+                    return res.status(200).json({
+                        'msg': 'New Location deleted successfully'
+                        })
+                }
+            }
+        )
+            
+     } catch (err) {
+            // There was an error set it to 400 response
+            return res.status(400).json({ 'error': err });
+    }
+}
 
 
 

@@ -25,7 +25,7 @@ router.post('/add', locationValidator, runValidation, locationController.createL
 // update location
 router.post('/:id/edit', locationValidator, runValidation, locationController.updateLocation);
 // delete location
-// router.post('/:id/delete', locationController.deleteLocation);
+router.post('/:id/delete', locationController.deleteLocation);
 
 
 module.exports = router;
