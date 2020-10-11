@@ -11,11 +11,11 @@ const locationSchema = new Schema({
         required: true
     },
     openTime: {
-        type: Date,
+        type: String,
         required: true
     },
     closeTime: {
-        type: Date,
+        type: String,
         required: true
     },
     isLeashRequired: {
@@ -38,7 +38,7 @@ const locationSchema = new Schema({
         default: false,
         required: true
     },
-    parkImageUrl: {
+    locationImageUrl: {
         type: String,
         default: "",
         required: false,

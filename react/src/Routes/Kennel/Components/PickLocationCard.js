@@ -19,7 +19,7 @@ class PickLocationCard extends Component {
                 <Grid>
                     <Card class="dog" style={{ padding: 5, height: 500, width: "300px" }}>
                         <CardContent>
-                            <CardMedia component="img" alt="cool dog img" image={this.props.obj.parkImageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
+                            <CardMedia component="img" alt="cool dog img" image={this.props.obj.locationImageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
                             <h3>{this.props.obj.Name}</h3>
                             <p>{this.props.obj.Address}</p>
                             {this.props.obj.isLeashRequired ? <p>No Leash Option: <span role="img" aria-labelledby="cross-mark">❌</span></p> : <p>No Leash Option: <span role="img" aria-labelledby="check-mark-button">✅</span></p>}
