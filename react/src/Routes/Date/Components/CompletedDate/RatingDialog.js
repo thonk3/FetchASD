@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import token from '../../../../Helpers/token'
 
+// import Spinner from '../../../../Common/NavBar'
 import DialogContainer from '../DialogContainer'
 import { Button, Box, Typography, TextField } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating'
@@ -24,7 +25,9 @@ const RatingDialog = props => {
     const [rating, setRating] = useState("");
     const [isNewRating, setIsNewRating] = useState(true);
 
-    const setData = () => {
+
+    
+    useEffect(() => {
         const payload = {
             userID: token().id,
             date: {
@@ -33,7 +36,6 @@ const RatingDialog = props => {
                 receiverID: date.receiverDog.receiverDogID,
             }
         }
-        console.log(date);
 
         // post data and get response
         axios.post('/api/rate/check', payload)
@@ -48,12 +50,8 @@ const RatingDialog = props => {
                         setRating(res.data.rating.rating);
                     }
                 }
-            })
-            .catch(e => console.log("error:", e))
-    }
-    useEffect(() => {
-        setData();
-    }, []);
+            }).catch(e => console.log("error:", e))
+    }, [date]);
     // ===============================================
 
     // handling change score number
@@ -78,8 +76,6 @@ const RatingDialog = props => {
 
     // submit new rating to change
     const newRating = () => {
-        console.log("creating new rating");
-
         setLoading(true);
         axios.post("/api/rate/new", ratingPayload)
             .then(() => {
@@ -92,8 +88,6 @@ const RatingDialog = props => {
 
     // update ratings
     const updateRating = () => {
-        console.log("update rating");
-        
         setLoading(true);
         axios.post("/api/rate/update", ratingPayload)
             .then(() => {
@@ -105,11 +99,7 @@ const RatingDialog = props => {
 
     // delete ratings
     const deleteRating = () => {
-        // alert("delete rating");
-        const payload = {
-            dogID: rateMeID,
-            dateID: date._id,
-        }
+        const payload = { dogID: rateMeID, dateID: date._id, }
 
         setLoading(false);
         axios.post(
@@ -123,7 +113,6 @@ const RatingDialog = props => {
                 setRating("");
                 setScore(0);
             })
-            // .then(() => setData())
             .catch(e => console.log(e));
     }
 
@@ -156,12 +145,6 @@ const RatingDialog = props => {
                 <> </>
                 :
                 <>
-                    {/* <div>
-                        <p>testing</p>
-                        <p>isNew: {isNewRating.toString()}</p>
-                        <p>rate me: {rateMeID}</p>
-                        <p>rate by: {rateByID}</p>
-                    </div> */}
                     <p>Between {date.receiverDog.name} and {date.senderDog.name}</p>
                     <p>at {date.location} on {new Date(Date.parse(date.dateOn)).toLocaleString('en-AU')}</p>
                     <br />
@@ -182,7 +165,6 @@ const RatingDialog = props => {
                 </>
             }
             {/* body content of the dialog */}
-
 
         </DialogContainer>
     )
