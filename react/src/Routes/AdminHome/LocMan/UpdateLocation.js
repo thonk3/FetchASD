@@ -12,10 +12,10 @@ const defaultState = {
     id: '',
     Name: '',
     Address: '',
-    openTime: '',
-    closeTime: '',
+    openTime: '00:00',
+    closeTime: '23:59',
     isLeashRequired: false,
-    hasToliet: false,
+    hasToliet: false ,
     hasBubbler: false,
     hasParking: false,
     locationImageUrl: '',
@@ -35,12 +35,13 @@ class UpdateLocation extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            ...this.state
-        });
+        // this.setState({
+        //     ...this.state
+        // });
         // axois request
         axios.get('/api/locations/' + this.state.id)
             .then(res => {
+                console.log(res.data)
                 // add the dog objects in the dogs state array
                 this.setState({ ...res.data });
              })
@@ -63,7 +64,31 @@ class UpdateLocation extends Component {
     onChangeOpen = () => {this.setState({setOpen: true,open: true})};
     onChangeClose = () => {this.setState({setOpen: false,open: false})};
 
-    onSubmit = e => {}
+    onSubmitUpdate = e => {
+        // Method cancels the event if it is cancelable
+        e.preventDefault();
+        // Update Location Object via state
+        const updatedLocation = {   
+            Name: this.state.Name,
+            Address: this.state.Address,
+            openTime: this.state.openTime,
+            closeTime: this.state.closeTime,
+            isLeashRequired: this.state.isLeashRequired,
+            hasToliet: this.state.hasToliet,
+            hasBubbler: this.state.hasBubbler,
+            hasParking: this.state.hasParking,
+            locationImageUrl: this.state.locationImageUrl
+        };
+
+        axios.post('/api/locations/' + this.state.id + '/edit', updatedLocation)
+            .then(res =>{
+                console.log(res.data)
+                window.location = '/admin/loc_man'
+            })
+            .catch((error) => {
+                console.log(error.response.data)
+            })
+    }
 
     render() {
         return (
@@ -71,7 +96,7 @@ class UpdateLocation extends Component {
                 <Typography component="h1" variant="h4" align="center">
                     Update Location
                 </Typography>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmitUpdate}>
                     <InputBox label="Name" required value={this.state.Name} onChange={this.onChangeName} />
                     <InputBox label="Address" required value={this.state.Address} onChange={this.onChangeAddress} />
                     <InputBox label="Image URL" required value={this.state.locationImageUrl} onChange={this.onChangeLocationImageUrl} />
@@ -90,19 +115,20 @@ class UpdateLocation extends Component {
                             />
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "center"}}>
+                    <FormControlLabel
+                                control={<Checkbox color="primary" checked={this.state.hasParking} onChange={this.onChangeHasParking} />}
+                                label="Parking?"
+                                labelPlacement="start"
+                            />
                             <FormControlLabel
                                 control={<Checkbox color="primary" checked={this.state.hasBubbler} onChange={this.onChangeHasBubbler} />}
                                 label="Bubbler?"
                                 labelPlacement="start"
                             />
-                            <FormControlLabel
-                                control={<Checkbox color="primary" checked={this.state.hasParking} onChange={this.onChangeHasParking} />}
-                                label="Parking?"
-                                labelPlacement="start"
-                            />
+                            
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary" onClick={this.onC}>Submit</Button>
                     </Box>
                 </form>
                 <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>

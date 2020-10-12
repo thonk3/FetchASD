@@ -8,7 +8,7 @@ const locationController = require('../controllers/location.controller');
 
 // Validators
 const { runValidation } = require('../validators/runValidation');
-const {locationValidator}  = require('../validators/location.validate');
+const {createLocationValidator, updateLocationValidator}  = require('../validators/location.validate');
 
 // Validation
 // const { runValidation } = require('../validators/runValidation');
@@ -21,9 +21,9 @@ router.get('/', locationController.getAllLocations);
 router.get('/:id', locationController.getLocationbyId);
 // create new locatoin for user
 // router.post('/add', locationController.createLocation);
-router.post('/add', locationValidator, runValidation, locationController.createLocation);
+router.post('/add', createLocationValidator, runValidation, locationController.createLocation);
 // update location
-router.post('/:id/edit', locationValidator, runValidation, locationController.updateLocation);
+router.post('/:id/edit', updateLocationValidator, runValidation, locationController.updateLocation);
 // delete location
 router.post('/:id/delete', locationController.deleteLocation);
 

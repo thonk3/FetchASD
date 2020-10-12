@@ -23,7 +23,7 @@ module.exports.getLocationbyId = (req, res) => {
 
 module.exports.createLocation = async (req, res) => {
     // Location Object
-    let newLocation = new Location(req.body);
+    let newLocation = new Location(req.body.newLocation);
     try {
         // Save the location object
         const savedLocation = await newLocation.save();

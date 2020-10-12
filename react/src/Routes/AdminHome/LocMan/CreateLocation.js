@@ -12,8 +12,8 @@ const defaultState = {
     newLocation: {    
         Name: '',
         Address: '',
-        openTime: '',
-        closeTime: '',
+        openTime: '00:00',
+        closeTime: '23:59',
         isLeashRequired: false,
         hasToliet: false,
         hasBubbler: false,
@@ -48,7 +48,23 @@ class CreateLocation extends Component {
     onChangeHasBubbler = e => {this.setState({ newLocation: {...this.state.newLocation, hasBubbler: e.target.checked}})};
     onChangeHasParking = e => {this.setState({ newLocation: {...this.state.newLocation, hasParking: e.target.checked}})};
 
-    onSubmit = e => {}
+    onSubmit = e => {
+        e.preventDefault();
+        const payload = {
+            newLocation: this.state.newLocation
+        }
+        this.setState({ loading: true});
+        axios.post('/api/locations/add', payload)    
+        .then(res => {
+            window.location = '/admin/loc_man';
+        })
+        .then(() => this.setState({ loading: false }))
+        // if error display in console
+        .catch((error) => {
+            console.log(error);
+            this.setState({ loading: false})
+        })
+    }
 
     render() {
         return (
@@ -79,14 +95,14 @@ class CreateLocation extends Component {
                             />
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "center"}}>
-                            <FormControlLabel
-                                control={<Checkbox color="primary" checked={this.state.hasBubbler} onChange={this.onChangeHasBubbler} />}
-                                label="Bubbler?"
+                    <FormControlLabel
+                                control={<Checkbox color="primary" checked={this.state.hasParking} onChange={this.onChangeHasParking} />}
+                                label="Parking?"
                                 labelPlacement="start"
                             />
                             <FormControlLabel
-                                control={<Checkbox color="primary" checked={this.state.hasParking} onChange={this.onChangeHasParking} />}
-                                label="Parking?"
+                                control={<Checkbox color="primary" checked={this.state.hasBubbler} onChange={this.onChangeHasBubbler} />}
+                                label="Bubbler?"
                                 labelPlacement="start"
                             />
                     </Box>
