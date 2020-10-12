@@ -12,19 +12,24 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Spinner from '../../Common/Spinner/Spinner';
+import InputLabel from '@material-ui/core/InputLabel'
 
 // Default State object
 const defaultState = {
     UserId: '',
-    Name: '',
-    Age: '',
-    Breed: '',
-    Suburb: '',
-    Postcode: '',
-    Gender: 'Male',
-    isVaccinated: false,
-    isDesexed: false,
-    Bio: ''
+    newDog: {
+        Name: '',
+        Age: '',
+        Breed: '',
+        Suburb: '',
+        Postcode: '',
+        Gender: 'Male',
+        isVaccinated: false,
+        isDesexed: false,
+        Bio: ''
+    },
+    loading: false
 };
 
 // Component for CreateDog
@@ -43,49 +48,44 @@ class CreateDog extends Component {
         })
     }
 
-    onChangeName = e => { this.setState({ Name: e.target.value }) };
-    onChangeAge = e => { this.setState({ Age: e.target.value }) };
-    onChangeBreed = e => { this.setState({ Breed: e.target.value }) };
-    onChangeSuburb = e => { this.setState({ Suburb: e.target.value }) };
-    onChangePostcode = e => { this.setState({ Postcode: e.target.value }) };
-    onChangeGender = e => { this.setState({ Gender: e.target.value }) };
+    onChangeName = e => { this.setState({ newDog: { ...this.state.newDog, Name: e.target.value }}) };
+    onChangeAge = e => { this.setState({ newDog: { ...this.state.newDog, Age: e.target.value }}) };
+    onChangeBreed = e => { this.setState({ newDog: { ...this.state.newDog, Breed: e.target.value }}) };
+    onChangeSuburb = e => { this.setState({ newDog: { ...this.state.newDog, Suburb: e.target.value }}) };
+    onChangePostcode = e => { this.setState({ newDog: { ...this.state.newDog, Postcode: e.target.value }}) };
+    onChangeGender = e => { this.setState({ newDog: { ...this.state.newDog, Gender: e.target.value }}) };
     // this is a checkbox so we have to set the state according to 
     // whether it is checked
-    onChangeIsVaccinated = e => { this.setState({ isVaccinated: e.target.checked }) };
-    onChangeIsDesexed = e => { this.setState({ isDesexed: e.target.checked }) };
-    onChangeBio = e => { this.setState({ Bio: e.target.value }) };
+    onChangeIsVaccinated = e => { this.setState({ newDog: { ...this.state.newDog, isVaccinated: e.target.checked }}) };
+    onChangeIsDesexed = e => { this.setState({ newDog: { ...this.state.newDog, isDesexed: e.target.checked }}) };
+    onChangeBio = e => { this.setState({ newDog: { ...this.state.newDog, Bio: e.target.value }}) };
     // function that will run when press the submit button at the bottom
     // of the form
     onSubmit = e => {
         // Method cancels the event if it is cancelable
         e.preventDefault();
         // New Dog Object setting via state
-        const newDog = {
+        const payload = {
             UserId: this.state.UserId,
-            Name: this.state.Name,
-            Age: this.state.Age,
-            Breed: this.state.Breed,
-            Suburb: this.state.Suburb,
-            Postcode: this.state.Postcode,
-            Gender: this.state.Gender,
-            isVaccinated: this.state.isVaccinated,
-            isDesexed: this.state.isDesexed,
-            Bio: this.state.Bio
+            newDog: this.state.newDog
         }
 
-        // Send a post request with the newDog object
-        axios.post('/api/dogs/add', newDog)
+        // creating new dog
+        this.setState({ loading: true });
+        axios.post('/api/dogs/add', payload)
             .then(res => {
                 // Reset the form after adding a dog
-                this.setState({
-                    ...defaultState
-                })
+                // this.setState({
+                //     ...defaultState
+                // })
                 // redirect to main dog management page
                 window.location = '/myacc/mypack';
             })
+            .then(() => this.setState({ loading: true }))
             // if error display in console
             .catch((error) => {
                 console.log(error);
+                this.setState({ loading: false })
             });
     }
 
@@ -96,6 +96,11 @@ class CreateDog extends Component {
                     <Typography component="h1" variant="h4" align="center">
                         Create New Dog
                     </Typography>
+                    {
+                        this.state.loading ?
+                        <Spinner />
+                        :
+                    
                     <form onSubmit={this.onSubmit}>
                         <InputBox label="Name" required value={this.state.Name} onChange={this.onChangeName} />
                         <InputBox label="Age" required value={this.state.Age} onChange={this.onChangeAge} />
@@ -104,6 +109,7 @@ class CreateDog extends Component {
                         <InputBox label="Postcode" required value={this.state.Postcode} onChange={this.onChangePostcode} />
                         <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                             <FormControl variant="outlined" style={{ width: "500px" }}>
+                                <InputLabel>Gender</InputLabel>
                                 <Select
                                     labelId="Gender"
                                     value={this.state.Gender}
@@ -142,6 +148,7 @@ class CreateDog extends Component {
                             <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">Submit</Button>
                         </Box>
                     </form>
+                    }
                 </Paper>
             </div>
         )

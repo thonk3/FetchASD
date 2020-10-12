@@ -25,7 +25,7 @@ module.exports.getDogbyId = (req, res) => {
 // POST - create a new dog for user
 module.exports.createDog = async (req, res) => {
     // Dog Object
-    let newDog = new Dog(req.body);
+    let newDog = new Dog(req.body.newDog);
     try {
         // save the dog to the database
         const savedDog = await newDog.save();
