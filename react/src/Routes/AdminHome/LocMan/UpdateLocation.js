@@ -156,7 +156,7 @@ class UpdateLocation extends Component {
                     </Box>
                 </form>
                 <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                    <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>DELETE DOG</Button>
+                    <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>Delete Locations</Button>
                 </Box>
                 <Dialog
                         open={this.state.open}
