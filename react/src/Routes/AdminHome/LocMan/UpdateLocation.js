@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import Spinner from '../../../Common/Spinner/Spinner';
 import Typography from '@material-ui/core/Typography';
 import InputBox from './Components/InputBox';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const defaultState = {   
     id: '',
@@ -90,6 +94,27 @@ class UpdateLocation extends Component {
             })
     }
 
+    onSubmitDelete = e => {
+        e.preventDefault();
+        // Change state to false to close dialog box
+        this.setState({
+            setOpen: false,
+            open: false
+        });
+        
+        // Make axois rest to delete the current dog
+        axios.post('/api/locations/' + this.state.id + '/delete')
+            .then( res => {
+                // redirect to main dog management page if successful
+                console.log(res.data);
+                window.location = '/admin/loc_man';
+            })
+            // if error display in console
+            .catch((error) => {
+                console.log(error.response.data);
+            });
+    }
+
     render() {
         return (
             <div>
@@ -124,16 +149,36 @@ class UpdateLocation extends Component {
                                 control={<Checkbox color="primary" checked={this.state.hasBubbler} onChange={this.onChangeHasBubbler} />}
                                 label="Bubbler?"
                                 labelPlacement="start"
-                            />
-                            
+                            />   
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary" onClick={this.onC}>Submit</Button>
+                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">Submit</Button>
                     </Box>
                 </form>
                 <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                     <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>DELETE DOG</Button>
                 </Box>
+                <Dialog
+                        open={this.state.open}
+                        onClose={this.onChangeClose}
+                    >
+                        <DialogTitle>{"Are you sure you want to delete " + this.state.Name + "? 😢"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Performing this action will completely remove the location from Fetch. Fetch users won't see this as an approved location anymore.
+                                This action cannot be undone. Please think wisely before performing this action!
+                                </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.onSubmitDelete} color="primary">
+                                Yes
+                                </Button>
+                            <Button onClick={this.onChangeClose} color="primary" autoFocus>
+                                No
+                                </Button>
+                        </DialogActions>
+                    </Dialog>
+
             </div>
         )
     }
