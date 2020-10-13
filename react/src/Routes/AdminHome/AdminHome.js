@@ -2,21 +2,26 @@ import React from 'react'
 import { 
     BrowserRouter,
     Switch as RouterSwitch,
-    Link, Route
+    Link, 
 } from 'react-router-dom'
-import { Container, Switch } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 // routes
 import AdminRoute from '../../App/AdminRoute'
 import LocMan from './LocMan/LocMan'
 import UserMan from './UserMan/UserMan'
 import Mesg from './Mesg/Mesg'
+import UpdateLocation from './LocMan/UpdateLocation'
+import CreateLocation from './LocMan/CreateLocation'
 
+
+// probably need to pretty this up
 const AdminHome = props => {
 
     return (
         <Container>
             <BrowserRouter>
+                <p>ugg pretty this up</p>
                 <p>maybe have 3 buttons that switches between pages? for admin</p>
                 <p>or move all of this back to App.js</p>
 
@@ -33,6 +38,8 @@ const AdminHome = props => {
 
                 {/* rendered components */}
                 <RouterSwitch>
+                    <AdminRoute path='/admin/loc_man/new' component={CreateLocation} />
+                    <AdminRoute path='/admin/loc_man/:id' component={UpdateLocation} />
                     <AdminRoute path='/admin/user_man' component={UserMan} />
                     <AdminRoute path='/admin/loc_man' component={LocMan} />
                     <AdminRoute path='/admin/messages' component={Mesg} />

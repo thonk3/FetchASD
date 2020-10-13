@@ -1,3 +1,7 @@
+/* 
+    each item to be displayed in Date page
+*/
+
 import React,{ Component } from 'react';
 import { Grid, Button } from '@material-ui/core';
 
