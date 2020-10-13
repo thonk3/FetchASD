@@ -3,7 +3,6 @@ import {
     BrowserRouter,
     Switch as RouterSwitch,
     Link, 
-    // Route
 } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 
@@ -12,6 +11,9 @@ import AdminRoute from '../../App/AdminRoute'
 import LocMan from './LocMan/LocMan'
 import UserMan from './UserMan/UserMan'
 import Mesg from './Mesg/Mesg'
+import UpdateLocation from './LocMan/UpdateLocation'
+import CreateLocation from './LocMan/CreateLocation'
+
 
 // probably need to pretty this up
 const AdminHome = props => {
@@ -36,6 +38,8 @@ const AdminHome = props => {
 
                 {/* rendered components */}
                 <RouterSwitch>
+                    <AdminRoute path='/admin/loc_man/new' component={CreateLocation} />
+                    <AdminRoute path='/admin/loc_man/:id' component={UpdateLocation} />
                     <AdminRoute path='/admin/user_man' component={UserMan} />
                     <AdminRoute path='/admin/loc_man' component={LocMan} />
                     <AdminRoute path='/admin/messages' component={Mesg} />

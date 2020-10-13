@@ -50,7 +50,7 @@ class DogMan extends Component {
         return (
             <div>
                 <Paper style={{ margin: "10px", padding: "10px" }}>
-                    <Typography component="h1" variant="h4" align="center">
+                    <Typography component="h1" variant="h4" align="center" style={{margin: "10px"}}>
                         <span role="img" aria-labelledby="dog">🐶</span> My Pack <span role="img" aria-labelledby="dog">🐶</span>
                     </Typography>
 
