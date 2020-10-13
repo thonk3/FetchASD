@@ -67,7 +67,7 @@ class DogMan extends Component {
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                         <Link to={'/myacc/mypack/newdog'} Component={CreateDog}>
 
-                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">
+                            <Button style={{ width: "300px", margin: "10px" }} type="submit" variant="contained" color="primary">
                                 Create New Dog
                             </Button>
                         </Link>

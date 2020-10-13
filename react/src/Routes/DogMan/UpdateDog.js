@@ -28,6 +28,7 @@ const defaultState = {
     Suburb: '',
     Postcode: '',
     Gender: '',
+    imageUrl: '',
     isVaccinated: false,
     isDesexed: false,
     Bio: '',
@@ -76,6 +77,7 @@ class UpdateDog extends Component {
     onChangeBreed = e => {this.setState({Breed: e.target.value})};
     onChangeSuburb = e => {this.setState({Suburb: e.target.value})};
     onChangePostcode = e => {this.setState({Postcode: e.target.value})};
+    onChangeImageURL = e => {this.setState({imageUrl: e.target.value})};
     onChangeGender = e => {this.setState({Gender: e.target.value})};
     // this is a checkbox so we have to set the state according to 
     // whether it is checked
@@ -99,6 +101,7 @@ class UpdateDog extends Component {
             Breed: this.state.Breed,
             Suburb: this.state.Suburb,
             Postcode: this.state.Postcode,
+            imageUrl: this.state.imageUrl,
             Gender: this.state.Gender,
             isVaccinated: this.state.isVaccinated,
             isDesexed: this.state.isDesexed,
@@ -160,6 +163,7 @@ class UpdateDog extends Component {
                         <InputBox label="Breed" required value={this.state.Breed} onChange={this.onChangeBreed} />
                         <InputBox label="Suburb" required value={this.state.Suburb} onChange={this.onChangeSuburb} />
                         <InputBox label="Postcode" required value={this.state.Postcode} onChange={this.onChangePostcode} />
+                        <InputBox label="Image URL" required value={this.state.imageUrl} onChange={this.onChangeImageURL} />
                         <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                             <FormControl variant="outlined" style={{ width: "500px" }}>
                                 <Select
