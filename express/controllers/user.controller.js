@@ -15,6 +15,14 @@ module.exports.listUsers = async (req, res) => {
     }
 }
 
+module.exports.getAllUsers = (req, res) => {
+    User.find()
+        .then((users) => {
+            res.status(200).send(users);
+        })
+        .catch(err => res.status(400).json({ 'error': err }));
+}
+
 // Method to get a particular user's dogs and display it
 // as a series of json dog objects
 module.exports.userGetDogs = async (req, res) => {
