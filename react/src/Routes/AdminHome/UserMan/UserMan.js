@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 
+
 const UserMan = (props) => {
   const [input, setInput] = useState('');
   const [dogListDefault, setDogListDefault] = useState();
@@ -42,8 +43,6 @@ const UserMan = (props) => {
 	  const classes = useStyles();
   return (
     <>
-{/* <Spinner /> */}
-      {/* <img src={doggo} className="spinner" alt='a spinning dog, reaching for his tail - a loading icon.'/> */}
       <br/>
       <h2 class="centre-this">Search for a user..</h2>
       <br/>
@@ -54,24 +53,20 @@ const UserMan = (props) => {
         variant="outlined"
         value={input} 
         onChange={(e) => updateInput(e.target.value)} />
-
       {
         loading ?
         <Spinner />
         :
         <div >
-                        <TableContainer component={Paper}>
+          <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
-
               <TableBody>
-          <DogList dogList={dogList}/>
-          </TableBody>
+                <DogList dogList={dogList}/>
+              </TableBody>
             </Table>
           </TableContainer>
         </div>
-        
       }
-
     </>
   );
 }

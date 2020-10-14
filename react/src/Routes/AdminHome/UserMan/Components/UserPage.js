@@ -4,7 +4,6 @@ import { Box } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-
 export default class User extends Component {
     constructor(props) {
         super(props);
@@ -17,15 +16,11 @@ export default class User extends Component {
             suburb: '',
             postcode: '',
             errors: {},
-            password: '',
-            currentPassword: '',
-            newPassword: '',
-            newPassword2: ''
         };
     }
     componentDidMount = async () => {
         const { id } = this.state
-        axios.get(`/api/users/${id}`)    // get user by id
+        axios.get(`/api/users/${id}`)
         .then(res => {
             this.setState({
                 firstName: res.data.firstName,
@@ -50,10 +45,7 @@ export default class User extends Component {
         this.setState({
             lastName : e.target.value
         })
-
-    
     }
-
     onChangeEmail = e =>{
         this.setState({
             email : e.target.value
@@ -74,21 +66,6 @@ export default class User extends Component {
             postcode : e.target.value
         })
     }
-    onChangeCurrentPassword = e =>{
-        this.setState({
-            currentPassword : e.target.value
-        })
-    }
-    onChangeNewPassword = e =>{
-        this.setState({
-            newPassword : e.target.value
-        })
-    }
-    onChangeNewPassword2 = e =>{
-        this.setState({
-            newPassword2 : e.target.value
-        })
-    }
 
     onSubmit = e => {
         e.preventDefault();
@@ -97,7 +74,6 @@ export default class User extends Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
-            password: this.state.password,
             phoneNumber: this.state.phoneNumber,
             suburb: this.state.suburb,
             postcode: this.state.postcode
@@ -121,16 +97,29 @@ export default class User extends Component {
             })
     }
 
+    onSubmitDelete = e => {
+        e.preventDefault();
+        
+        axios.delete('/api/users/' + this.state.id)
+            .then(res => {
+                console.log(res.data)
+                window.location = '/admin/user_man';
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
+
     handleValidation() {
         let errors = {};
         let formIsValid = true;
 
-        //first name validation
+
         if(!(this.state.firstName.match(/^[a-zA-Z]+$/))){
             formIsValid=false;
             errors["firstName"] = "Only Letters";
         }
-        //lastName validation
+
         if(!(this.state.lastName.match(/^[a-zA-Z]+$/))){
              formIsValid=false;
              errors["lastName"] = "Only Letters";
@@ -139,7 +128,6 @@ export default class User extends Component {
             formIsValid=false;
             errors["email"] = "Email is not valid";
        }
-        //phoneNumber validation
         if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
             formIsValid=false;
             errors["phoneNumber"] = "Only Numbers";
@@ -148,7 +136,7 @@ export default class User extends Component {
         if(!(this.state.suburb.match(/^[0-9a-zA-Z\s]+$/))){
             formIsValid=false;
             errors["suburb"] = "No Special Characters";
-       }
+        }
         //postcode validation
         if(!((this.state.postcode.match(/^[0-9]+$/)) && this.state.postcode.length === 4)){
             formIsValid=false;
@@ -158,14 +146,11 @@ export default class User extends Component {
         this.setState({errors: errors});
         return formIsValid;
         
-
     }
  
     render() {
         return (
-
             <div>  
-
                 <form onSubmit={this.onSubmit}>
                 <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="firstName" label="firstName" value={this.state.firstName} onChange={this.onChangeFirstName}/></Box>
                     <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["firstName"]}</span>
@@ -183,8 +168,16 @@ export default class User extends Component {
                         <Button color="primary" variant="contained" type="submit">
                             Update User Details
                         </Button>
-                    </Box>
+                </Box>
                     </form>
+
+                <form onSubmit={this.onSubmitDelete}>
+                <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
+                        <Button color="secondary" variant="contained" type="submit">
+                            Delete User
+                        </Button>
+                </Box>
+                </form>
            </div>  
 
         )
