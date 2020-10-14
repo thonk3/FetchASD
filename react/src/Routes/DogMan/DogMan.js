@@ -50,7 +50,7 @@ class DogMan extends Component {
         return (
             <div>
                 <Paper style={{ margin: "10px", padding: "10px" }}>
-                    <Typography component="h1" variant="h4" align="center">
+                    <Typography component="h1" variant="h4" align="center" style={{margin: "10px"}}>
                         <span role="img" aria-labelledby="dog">🐶</span> My Pack <span role="img" aria-labelledby="dog">🐶</span>
                     </Typography>
 
@@ -67,7 +67,7 @@ class DogMan extends Component {
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                         <Link to={'/myacc/mypack/newdog'} Component={CreateDog}>
 
-                            <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">
+                            <Button style={{ width: "300px", margin: "10px" }} type="submit" variant="contained" color="primary">
                                 Create New Dog
                             </Button>
                         </Link>
