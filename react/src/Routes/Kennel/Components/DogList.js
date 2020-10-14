@@ -7,8 +7,11 @@ import { Link } from 'react-router-dom';
 import Dog from '../Dog'
 import './kennel.css';
 import CardMedia from '@material-ui/core/CardMedia';
+import token from '../../../Helpers/token';
+
 
 const DogList = ({dogList=[]}) => {
+
   return (
     <>
     { dogList.map((data,index) => {
@@ -26,6 +29,15 @@ const DogList = ({dogList=[]}) => {
                     <Link to={data._id} Component={Dog} class="viewProfile">
                     <Button  variant="contained" color="primary" > View Profile </Button>
                     </Link>
+                    <br/>
+                        { token().staff ?
+                        <>
+                        <br/>
+                        <Button variant="contained" color="secondary">DELETE DOG</Button>
+                        </>
+                        :
+                        <></>
+                        }                    
                 </CardContent> 
             </Card>
 	    </div>	
