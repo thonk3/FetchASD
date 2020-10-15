@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import './Components/kennel.css';
 import token from '../../Helpers/token';
-import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid } from '@material-ui/core';
+import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -29,7 +29,8 @@ export default class Dog extends Component {
             locationAddress: '',
             senderDogID: '',
             open: false,
-            setOpen: false
+            setOpen: false,
+            searchTerm: ''
         };
         this.handleOpenExpressInterest = this.handleOpenExpressInterest.bind(this);
         this.handleCloseExpressInterest = this.handleCloseExpressInterest.bind(this);
@@ -131,11 +132,26 @@ export default class Dog extends Component {
         console.log(this.state.locationAddress);
       }
 
+    // Function for capture the search term placed in the input box
+    editSearchTerm = (e) => {
+        console.log(e.target.value)
+        this.setState({searchTerm: e.target.value});
+    }
+
+    hasSearchTerm =  (value) => {
+        return value.toLowerCase().includes(this.state.searchTerm.toLowerCase());
+    }
+
+    getFilteredLocations = () => {
+        return this.state.locations.filter(location => this.hasSearchTerm(location.Address) || this.hasSearchTerm(location.Name));
+    }
+
     render() {
         const { name, age, breed, suburb, gender, rating, bio, imageUrl } = this.state
         return (
             <div className="contain-within">
                 <div className="float-left">
+
                     <div className="imgplaceholder">
                         <img src={imageUrl} alt="Dog"/>
                     </div>
@@ -182,9 +198,12 @@ export default class Dog extends Component {
                                         >
                                             <DialogTitle>{"Pick from one of our approved locations!"}</DialogTitle>
                                             <DialogContent>
+                                            <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                                                <TextField placeholder="Search for location name or address here..." fullWidth variant="outlined" value={this.state.searchTerm} onChange={this.editSearchTerm}/>
+                                            </Box>
                                             {/* This will createa location cards inside the appearing dialog box */}
-                                            <Grid container spacing={2} style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                                                {this.state.locations.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)}/>)}
+                                            <Grid container spacing={2} style={{justifyContent: "center", marginBottom:"1vw" }}>
+                                                {this.getFilteredLocations().map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)}/>)}
                                             </Grid>
                                             </DialogContent>
                                         </Dialog>
