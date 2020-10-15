@@ -71,16 +71,20 @@ const Register = props => {
                             > Register </Button>
                         
                         <div className={classes.error}> 
-                                { (isError && !isLoading) 
+                            { 
+                                (isError && !isLoading) /* ==== if there is errormsg && not loading ==== */
                                 ?
-                                    (typeof errMsg === "string")
+                                (typeof errMsg === "string") /* ---- if errMsg is a string ---- */
                                     ?
                                     <Typography> {errMsg} </Typography>
-                                    :
+                                    : /* ---- else it would be an array ---- */
                                     <ul>
                                         {errMsg.map(err => <li><b>{err.param}: </b> {err.msg}</li>)}
                                     </ul>
-                                : "" } 
+                                : "" /* ================ else dont print anything ===================== */
+                            } 
+                            
+                            {/* load spinner */}
                             { isLoading ? <Spinner width='60%' /> : <></> }
                         </div>
 
