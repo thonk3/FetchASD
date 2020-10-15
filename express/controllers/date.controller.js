@@ -91,9 +91,6 @@ exports.viewAllUsersDates = async(req, res) => {
     if(!user)  return res.status(400).json({ error: "could not find user" });
         
     let allDogs = await Dog.find();
-    let userDogs = user.dogs;
-    let userDogDates = [];
-
     let receivedDates = await DogDate.find({ receiverDogID: { $in: user.dogs } });
     let sentDates = await DogDate.find({ senderDates: { $in: user.dogs } });
 
@@ -183,8 +180,3 @@ exports.declineDate = (req, res) => {
             });
     });
 }
-
-/* 
-- the decline date currently only deletes the date
-- doesnt notify the inviter
-*/
