@@ -10,6 +10,8 @@ class UpdateDialog extends Component {
             dateOn: '',
             location: '',
         }
+
+        console.log(this.props.obj);
         this.handleHideUpdate = this.handleHideUpdate.bind(this);
         this.handleShowUpdate = this.handleShowUpdate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -22,6 +24,7 @@ class UpdateDialog extends Component {
     }
 
     onChangeLocation(e) {
+        console.log(this.props)
         this.setState({
             location: e.target.value
         })
@@ -47,6 +50,10 @@ class UpdateDialog extends Component {
             dateOn: this.state.dateOn,
             location: this.state.location
         }
+
+        console.log("hello");
+        console.log(this.props);
+
         axios.post(`/api/date/update/${original._id}`, updatedDate)
             .then(
                 window.location = '/date'
@@ -58,7 +65,7 @@ class UpdateDialog extends Component {
 
     render() {
             return(<span>
-                    <Button onClick={this.handleShowUpdate} color="primary">Update</Button>
+                <Button onClick={this.handleShowUpdate} color="primary">Update</Button>
                     {(this.state.showUpdate) ?
                     <Dialog open={this.state.showUpdate} onClose={this.handleHideUpdate} aria-labelledby="alert-dialog-title">
                         <DialogTitle id="form-dialog-title">Date Details</DialogTitle>

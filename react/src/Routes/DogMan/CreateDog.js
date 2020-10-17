@@ -27,7 +27,8 @@ const defaultState = {
         Gender: 'Male',
         isVaccinated: false,
         isDesexed: false,
-        Bio: ''
+        Bio: '',
+        imageUrl: ''
     },
     loading: false
 };
@@ -54,6 +55,7 @@ class CreateDog extends Component {
     onChangeSuburb = e => { this.setState({ newDog: { ...this.state.newDog, Suburb: e.target.value }}) };
     onChangePostcode = e => { this.setState({ newDog: { ...this.state.newDog, Postcode: e.target.value }}) };
     onChangeGender = e => { this.setState({ newDog: { ...this.state.newDog, Gender: e.target.value }}) };
+    onChangeImageURL = e => { this.setState({ newDog: { ...this.state.newDog, imageUrl: e.target.value }}) };
     // this is a checkbox so we have to set the state according to 
     // whether it is checked
     onChangeIsVaccinated = e => { this.setState({ newDog: { ...this.state.newDog, isVaccinated: e.target.checked }}) };
@@ -120,6 +122,7 @@ class CreateDog extends Component {
                                 </Select>
                             </FormControl>
                         </Box>
+                        <InputBox label="Image URL" required value={this.state.imageUrl} onChange={this.onChangeImageURL} />
                         <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                             <TextField
                                 style={{ width: "500px" }}
