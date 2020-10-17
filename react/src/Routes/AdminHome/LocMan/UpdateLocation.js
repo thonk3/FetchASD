@@ -16,8 +16,6 @@ const defaultState = {
     id: '',
     Name: '',
     Address: '',
-    openTime: '00:00',
-    closeTime: '23:59',
     isLeashRequired: false,
     hasToliet: false ,
     hasBubbler: false,
@@ -34,19 +32,17 @@ class UpdateLocation extends Component {
         // operator :)
         this.state = {
             ...defaultState,
+            // grabs the id from the URL parameter
             id: this.props.match.params.id
         };
     }
 
     componentDidMount() {
-        // this.setState({
-        //     ...this.state
-        // });
-        // axois request
+        // axios request to get selected location
         axios.get('/api/locations/' + this.state.id)
             .then(res => {
                 console.log(res.data)
-                // add the dog objects in the dogs state array
+                // sets state via spread operator
                 this.setState({ ...res.data });
              })
             .catch((error) => {
@@ -55,6 +51,7 @@ class UpdateLocation extends Component {
 
     }
 
+    // Standard OnChange functions for state
     onChangeName = e => {this.setState({ Name: e.target.value})};
     onChangeAddress = e => {this.setState({ Address: e.target.value})};
     onChangeOpenTime = e => {this.setState({openTime: e.target.value})};
@@ -65,9 +62,11 @@ class UpdateLocation extends Component {
     onChangeHasBubbler = e => {this.setState({ hasBubbler: e.target.checked})};
     onChangeHasParking = e => {this.setState({ hasParking: e.target.checked})};
 
+    // OnChange functions to open and close the dialog box
     onChangeOpen = () => {this.setState({setOpen: true,open: true})};
     onChangeClose = () => {this.setState({setOpen: false,open: false})};
 
+    // Function that occurs when update form is submitted
     onSubmitUpdate = e => {
         // Method cancels the event if it is cancelable
         e.preventDefault();
@@ -83,17 +82,19 @@ class UpdateLocation extends Component {
             hasParking: this.state.hasParking,
             locationImageUrl: this.state.locationImageUrl
         };
-
+        // send axois request to update the object
         axios.post('/api/locations/' + this.state.id + '/edit', updatedLocation)
             .then(res =>{
-                console.log(res.data)
+                // redirect to main location management page if successful
                 window.location = '/admin/loc_man'
             })
             .catch((error) => {
+                 // if error display in console
                 console.log(error.response.data)
             })
     }
 
+    // Function that occurs when an admin deletes the location object
     onSubmitDelete = e => {
         e.preventDefault();
         // Change state to false to close dialog box
@@ -102,11 +103,10 @@ class UpdateLocation extends Component {
             open: false
         });
         
-        // Make axois rest to delete the current dog
+        // Make axios rest to delete the current location
         axios.post('/api/locations/' + this.state.id + '/delete')
             .then( res => {
-                // redirect to main dog management page if successful
-                console.log(res.data);
+                // redirect to main location management page if successful
                 window.location = '/admin/loc_man';
             })
             // if error display in console
@@ -121,12 +121,11 @@ class UpdateLocation extends Component {
                 <Typography component="h1" variant="h4" align="center">
                     Update Location
                 </Typography>
+                {/* Update form */}
                 <form onSubmit={this.onSubmitUpdate}>
                     <InputBox label="Name" required value={this.state.Name} onChange={this.onChangeName} />
                     <InputBox label="Address" required value={this.state.Address} onChange={this.onChangeAddress} />
                     <InputBox label="Image URL" required value={this.state.locationImageUrl} onChange={this.onChangeLocationImageUrl} />
-                    {/* openTime */}
-                    {/* closeTime */}
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                             <FormControlLabel
                                 control={<Checkbox color="primary" checked={this.state.isLeashRequired} onChange={this.onChangeIsLeashRequired} />}
@@ -158,6 +157,7 @@ class UpdateLocation extends Component {
                 <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
                     <Button style={{ width: "300px" }} type="submit" variant="contained" color="secondary" onClick={this.onChangeOpen}>Delete Locations</Button>
                 </Box>
+                {/* Box that appears when admin presses delete locations buttion */}
                 <Dialog
                         open={this.state.open}
                         onClose={this.onChangeClose}
