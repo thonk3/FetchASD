@@ -48,7 +48,7 @@ class LocMan extends Component {
                     this.state.loading ?
                         <Spinner />
                         :
-                        <Grid container spacing={2} style={{ marginLeft: 5 }}>
+                        <Grid container spacing={2} style={{ justifyContent: "center"}}>
                             {this.state.locations.map(location => <LocationCard obj={location} />)}
                         </Grid>
                 }
