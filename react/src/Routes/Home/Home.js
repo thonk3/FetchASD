@@ -1,28 +1,28 @@
 import React from 'react';
 
 // import NameThing from './NameThing'
+import LandingPage from './LandingPage';
+import Kennel from '../Kennel/Kennel';
+import { useAuth } from '../../Context/authContext'; 
+import Container from '@material-ui/core/Container'
+
+import token from '../../Helpers/token';
 
 const Home = (props) => {
-    // const { loggedIn } = props;
+    const { loggedIn } = useAuth();
 
-    console.log(props.loggedIn)
     return (
         <>
-            <h1>Main Page</h1>
-
-
-            {props.loggedIn ? 
+            {loggedIn ? 
                 <>
-                    <h2> Hallo thar user something</h2>
-                    {/* <NameThing />  */}
+                    <Container>
+                    <h2> Welcome back { token().name }</h2>
+                    </Container>
+                    <Kennel />
                 </>
                 : 
-                <>
-                    <h2> Who are you</h2>
-                    {/* <NameThing />  */}
-                </>}
-
-
+                <LandingPage />
+            }
         </>
     );
 };
