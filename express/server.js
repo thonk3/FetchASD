@@ -39,6 +39,7 @@ const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const dateRouter = require('./routes/dogDate');
 const dogRatingRouter = require('./routes/dogRating');
+const friendRouter = require('./routes/friend');
 
 // lock api calls to only users with token
 // token is grabbed from res.header("auth-token")
@@ -50,6 +51,7 @@ app.use('/api/dogs', /* verifyToken, */ dogRouter);
 app.use('/api/users', /* verifyToken, */ userRouter);
 app.use('/api/date', /* verifyToken, */ dateRouter);
 app.use('/api/rate', /* verifyToken, */ dogRatingRouter);
+app.use('/api/friend', friendRouter);
 app.use('/api/test', require('./thing.js'));
 
 // app.get("/api/test", async (req, res) => {
@@ -64,8 +66,8 @@ app.get('*', (req, res) => {
 })
 
 // start express server
-// app.listen(PORT, () => {
-//     console.log(`server starting on port: ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`server starting on port: ${PORT}`);
+});
 
 module.exports = app;
