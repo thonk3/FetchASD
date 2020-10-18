@@ -12,6 +12,9 @@ import {
 // import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
 
+import token from '../../Helpers/token'
+
+
 /* 
 TODO
 - clean up this mess
@@ -63,6 +66,14 @@ const NavBar = props => {
                         (   // logged in
                             <>
                                 <NavLink dir='/' label='the kennel' />
+                                { token().staff ?
+                                    <>
+                                    <Typography>|</Typography> 
+                                    <NavLink dir='/admin' label='Admin' />
+                                    </>
+                                    :
+                                    <></>
+                                }
                                 <Typography>|</Typography>
                                 <Button className={classes.menuLink} ref={anchorRef} onClick={handleToggle}>
                                     <Typography variant='h6'> ME </Typography>

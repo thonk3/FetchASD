@@ -100,12 +100,11 @@ exports.viewAllUsersDates = async(req, res) => {
             let receivedDate = await DogDate.find({"receiverDogID": userDogs[i] })
             if ((await receivedDate).length != 0) {
                 for (let j = 0; j < receivedDate.length; ++j) {
-                    //Find the received dog data
                     let receivedDateDog = await Dog.findById(receivedDate[j].receiverDogID)
-                    //console.log(receivedDateDog)
                     //Find the sender dog data
                     let senderDateDog = await Dog.findById(receivedDate[j].senderDogID)
                     let dogWithName = [{
+                        _id: receivedDate[j]._id,
                         receiverDog: {
                             receiverDogID: receivedDate[j].receiverDogID,
                             name: receivedDateDog.Name
@@ -121,6 +120,7 @@ exports.viewAllUsersDates = async(req, res) => {
                     userDogDates.push(dogWithName);
                 }
             }
+
             let sentDate = await DogDate.find({ "senderDogID": userDogs[i] })
             if ((await sentDate).length != 0) {
                 for (let k = 0; k < sentDate.length; ++k) {
@@ -129,6 +129,7 @@ exports.viewAllUsersDates = async(req, res) => {
                     //Find the sender dog data
                     let senDateDog = await Dog.findById(sentDate[k].senderDogID)
                     let dateDogWithName = [{
+                        _id: sentDate[k]._id,
                         receiverDog: {
                             receiverDogID: sentDate[k].receiverDogID,
                             name: recDateDog.name
@@ -144,7 +145,9 @@ exports.viewAllUsersDates = async(req, res) => {
                     userDogDates.push(dateDogWithName);
                 }
             }
-            let mergedArray = [].concat.apply([],userDogDates);
+            
+        }
+        let mergedArray = [].concat.apply([],userDogDates);
 
             const requested = mergedArray.filter(dogDate => {
                 return dogDate.status === 'Requested';
@@ -172,7 +175,6 @@ exports.viewAllUsersDates = async(req, res) => {
                 'upcoming': upcoming,
                 'completed': completed,
             })
-        }
     }
 }    
 

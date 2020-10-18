@@ -13,9 +13,10 @@ const dogRatingSchema = new Schema({
     //     // required: true,
     // },
     rateBy: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         // required: true,
     },
+    dateID: String,
     score: {
         type: Number,
         // required: true,

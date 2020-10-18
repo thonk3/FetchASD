@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import Dog from '../Dog'
 import './kennel.css';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const DogList = ({dogList=[]}) => {
   return (
@@ -17,8 +18,7 @@ const DogList = ({dogList=[]}) => {
             <div key={data.Name}>
                <Card class="dog">
                 <CardContent>
-                <div class="imgplaceholder">image here
-                 </div>
+                    <CardMedia component="img" alt="cool dog img" image={data.imageUrl} title="Cool Dog" style={{ height: "150px", marginTop: "5px" }} />
                     <div class="cardtxt">
                     <h2>{data.Name}, {data.Age}</h2>
                     <p>{data.Breed}, {data.Suburb}</p>
