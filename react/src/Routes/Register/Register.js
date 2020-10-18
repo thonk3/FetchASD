@@ -120,6 +120,4 @@ const TextBox = props => {
     )
 }
 
-
-
 export default Register;
