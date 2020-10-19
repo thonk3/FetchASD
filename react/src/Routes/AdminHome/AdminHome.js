@@ -27,21 +27,10 @@ const AdminHome = props => {
     return (
         <Container>
             <BrowserRouter>
-                {/* <p>maybe have 3 buttons that switches between pages? for admin</p>
-                <p>ugg pretty this up</p>
-                <p>maybe have 3 buttons that switches between pages? for admin</p>
-                <p>or move all of this back to App.js</p>
-
-              temp links for quick develop,emt 
-                <Link to='/admin/user_man'>
-                    <p>user management</p>
-                </Link>
-                <Link to='/admin/loc_man'>
-                    <p>location management</p>
-                </Link>
-                <Link to='/admin/messages'>
-                    <p>messages</p>
-                </Link> */}
+                {/* 
+                    popper bug, probably better to
+                    do it like date, since its better for msg notifs
+                */}
 
                 {/* rendered components */}
                 <RouterSwitch>
