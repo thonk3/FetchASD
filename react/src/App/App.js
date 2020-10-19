@@ -40,7 +40,6 @@ const App = (props) => {
 
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
-            <PrivateRoute path='/date/id' component={Routes.RateDate} />
 
             <AdminRoute path='/admin' component={Routes.AdminHome} />
             <PrivateRoute path='/:id' component={Routes.Dog} />
