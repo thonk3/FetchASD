@@ -14,6 +14,11 @@ import Mesg from './Mesg/Mesg'
 import UpdateLocation from './LocMan/UpdateLocation'
 import CreateLocation from './LocMan/CreateLocation'
 
+/* 
+TODO
+
+- chuck the 3 routes into navbar
+*/
 
 // probably need to pretty this up
 const AdminHome = props => {
