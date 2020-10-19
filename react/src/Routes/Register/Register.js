@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import useStyles from '../Login/Login.style'
 import { Link } from 'react-router-dom';
 import { 
@@ -106,18 +105,16 @@ const TextBox = props => {
 
     return (
         <div className="form-group">
-            <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}}>
-            <TextField type={type}
-                required
-                className="form-control"
-                value={value}
-                onChange={onChange}
-                style={{width: "500px"}} 
+
+            <TextField 
                 variant="outlined"
+                margin="normal"
+                required fullWidth
+                type={type}
                 label={label}
+                onChange={onChange}
+                value={value}
             />
-            </Box>
-            
         </div>
     )
 }

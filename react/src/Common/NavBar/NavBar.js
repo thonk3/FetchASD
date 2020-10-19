@@ -93,7 +93,7 @@ const NavBar = props => {
                                             <Paper>
                                                 <ClickAwayListener onClickAway={()=> setOpen(false)}>
                                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                                        <Link to="/myacc/" >
+                                                        <Link to="/myacc" >
                                                             <MenuItem onClick={() => setOpen(false)}>My Account</MenuItem>
                                                         </Link>
                                                         <Link to="/myacc/mypack" >

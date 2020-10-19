@@ -52,17 +52,6 @@ const userSchema = new Schema({
     }
 });
 
-/*
-userSchema
-  .set(function(password) {
-    this.password = password
-})
-
-userSchema.methods = {
-    authenticate: function(plainText) {
-        return plainText === this.password
-    }
-}
-*/
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;

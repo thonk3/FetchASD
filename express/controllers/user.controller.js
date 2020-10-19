@@ -52,7 +52,7 @@ module.exports.userGetDogs = async (req, res) => {
 // get user by id
 module.exports.userByID = async (req, res) => {
     try {
-        let user = await User.findById(req.params.id);
+        let user = await User.findById(req.params.id)
         if(!user) return res.status(400).json({'error': 'User doesnt exist' });
 
         // found user
