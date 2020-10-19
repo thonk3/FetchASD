@@ -43,6 +43,7 @@ const App = (props) => {
 
             <AdminRoute path='/admin' component={Routes.AdminHome} />
             <PrivateRoute path='/:id' component={Routes.Dog} />
+            {/* NOTE: fix this component to process cases where the id is invalid, in cases that user stumble on this randomly */}
 
             <Route component={Routes.NotFound} />
           </RouterSwitch>

@@ -4,8 +4,6 @@ import React from 'react';
 // for request to pages that doesnt exist
 // 404 response
 
-
-
 const NotFound = () => {
     return (
         <>
