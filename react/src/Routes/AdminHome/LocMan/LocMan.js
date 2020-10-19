@@ -44,6 +44,14 @@ class LocMan extends Component {
                     <span role="img" aria-labelledby="park">🏞</span> Location Management <span role="img" aria-labelledby="park">🏞</span>
                 </Typography>
 
+                <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                    <Link to={'/admin/loc_man/new'} Component={CreateLocation}>
+                        <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">
+                            Create New Location
+                        </Button>
+                    </Link>
+                </Box>
+
                 {
                     this.state.loading ?
                         <Spinner />
@@ -52,13 +60,7 @@ class LocMan extends Component {
                             {this.state.locations.map(location => <LocationCard obj={location} />)}
                         </Grid>
                 }
-                <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                    <Link to={'/admin/loc_man/new'} Component={CreateLocation}>
-                        <Button style={{ width: "300px" }} type="submit" variant="contained" color="primary">
-                            Create New Location
-                        </Button>
-                    </Link>
-                </Box>
+
             </div>
         )
     }

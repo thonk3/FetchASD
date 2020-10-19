@@ -8,6 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PickLocationCard from './Components/PickLocationCard'
 
+import NotFound from '../NotFound/NotFound'
+
 export default class Dog extends Component {
     constructor(props) {
         super(props);
@@ -30,11 +32,14 @@ export default class Dog extends Component {
             senderDogID: '',
             open: false,
             setOpen: false,
-            searchTerm: ''
+            searchTerm: '',
+            
+            wrongPage: false,
         };
         this.handleOpenExpressInterest = this.handleOpenExpressInterest.bind(this);
         this.handleCloseExpressInterest = this.handleCloseExpressInterest.bind(this);
     }
+
     componentDidMount = async () => {
         const { id } = this.state
         axios.get(`/api/dogs/${id}`)    // get dog by id
@@ -46,12 +51,13 @@ export default class Dog extends Component {
                     suburb: res.data.Suburb,
                     gender: res.data.Gender,
                     bio: res.data.Bio,
-                    imageUrl: res.data.imageUrl
-                    // rating: res.data.Rating,
+                    imageUrl: res.data.imageUrl,
+                    rating: res.data.Score,
                 });
             })
             .catch((error) => {
-                console.log(error);
+                console.log("redirect to 404");
+                this.setState({ wrongPage: true });
             })
 
         axios.get(`/api/users/${token().id}/dogs`) // get all dogs from user
@@ -87,33 +93,23 @@ export default class Dog extends Component {
     }
 
     handleOpenExpressInterest() {
-        this.setState(state => ({
-            interestExpressed: true,
-        }))
+        this.setState(state => ({ interestExpressed: true, }));
     }
 
     handleCloseExpressInterest() {
-        this.setState(state => ({
-            interestExpressed: false,
-        }))
+        this.setState(state => ({ interestExpressed: false, }));
     }
 
     onChangeDateOn(e) {
-        this.setState({
-            dateOn: e.target.value
-        })
+        this.setState({ dateOn: e.target.value })
     }
 
     onChangeLocationAddress(e) {
-        this.setState({
-            locationAddress: e.target.value
-        })
+        this.setState({ locationAddress: e.target.value });
     }
 
     onChangeSenderDogID(e) {
-        this.setState({
-            senderDogID: e.target.value
-        })
+        this.setState({ senderDogID: e.target.value });
     }
     // Handlers for when the dialog box opens and closes
     onChangeOpen = () => { this.setState({ setOpen: true, open: true }) };
@@ -148,17 +144,20 @@ export default class Dog extends Component {
 
     render() {
         const { name, age, breed, suburb, gender, rating, bio, imageUrl } = this.state
-         
+
+
+        if(this.state.wrongPage) return <NotFound />
+        
         return (
             <div className="contain-within">
                 <div className="float-left">
-                    <div className="imgplaceholder">
-                        <img src={imageUrl} alt="Dog" />
+                    <div>
+                        <img src={imageUrl} alt="Dog" className="imgplaceholder"/>
                     </div>
                     <div className="button">
                         <Button onClick={this.handleOpenExpressInterest} variant="contained" color="primary">
                             Request a date
-                    </Button>
+                        </Button>
                         <br /> {/* yes more lines */}
                         <br />
                         <br />
@@ -167,7 +166,7 @@ export default class Dog extends Component {
                             <Grid container direction="column" spacing={1} alignItems="center">
                                 <form>
                                     <FormGroup>
-                                        <InputLabel>Which dog?</InputLabel>
+                                        <InputLabel>Which dog?</InputLabel> 
                                         <Select value={this.state.senderDogID} onChange={this.onChangeSenderDogID.bind(this)}>
                                             {this.state.dogs.map((dog, i) => {
                                                 return <MenuItem value={dog._id} key={i}>{dog.Name} </MenuItem>
