@@ -53,7 +53,6 @@ const NavBar = props => {
         { link: "/admin/messages", display: "Inquiries"},
     ]
 
-
     function handleListKeyDown(event) {
         if (event.key === "Tab") {
             event.preventDefault();
@@ -89,6 +88,8 @@ const NavBar = props => {
         return <></>
     }   
 
+    // aight the popper thing could be BETTER
+    // 
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
