@@ -29,7 +29,7 @@ module.exports.createLocationValidator = [
         .optional()
         .isURL()
         .isLength({ min: 1, max: 500})
-        .withMessage('Image URK must be less than 500 characters long.')
+        .withMessage('Image URL must be less than 500 characters long.')
 ]
 
 // Performs the validation of Location data upon updating a location object
