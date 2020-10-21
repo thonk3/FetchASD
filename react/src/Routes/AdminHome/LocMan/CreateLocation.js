@@ -8,18 +8,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
+// Default State
 const defaultState = {
+    // newLocation Object
     newLocation: {    
         Name: '',
         Address: '',
-        openTime: '00:00',
-        closeTime: '23:59',
         isLeashRequired: false,
         hasToliet: false,
         hasBubbler: false,
         hasParking: false,
         locationImageUrl: ''
     },
+    // state variable used for spinner
     loading: true
 };
 
@@ -33,11 +34,14 @@ class CreateLocation extends Component {
 
     componentDidMount() {
         this.setState({
+            // set state on firstLoad
             ...this.state,
+            // stop spinner once loaded
             loading: false
         });
     }
 
+    // Standard OnChange functions for state
     onChangeName = e => {this.setState({ newLocation: {...this.state.newLocation, Name: e.target.value}})};
     onChangeAddress = e => {this.setState({ newLocation: {...this.state.newLocation, Address: e.target.value}})};
     onChangeOpenTime = e => {this.setState({ newLocation: {...this.state.newLocation, openTime: e.target.value}})};
@@ -48,6 +52,7 @@ class CreateLocation extends Component {
     onChangeHasBubbler = e => {this.setState({ newLocation: {...this.state.newLocation, hasBubbler: e.target.checked}})};
     onChangeHasParking = e => {this.setState({ newLocation: {...this.state.newLocation, hasParking: e.target.checked}})};
 
+    // Function that occurs once create location form is submitted
     onSubmit = e => {
         e.preventDefault();
         const payload = {
@@ -73,6 +78,7 @@ class CreateLocation extends Component {
                     Create Location
                 </Typography>
                 {
+                    // If it is loading do the spinner if not load form
                         this.state.loading ?
                         <Spinner />
                         :

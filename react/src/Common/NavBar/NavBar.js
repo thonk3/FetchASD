@@ -1,13 +1,16 @@
 import React from 'react';
 import NavLink from './components/NavLink'
+import NotLoggedIn from './components/NotLoggedIn'
+import NavSeperator from './components/NavSeperator'
+import NavPopper from './components/NavPopper'
+
 import { useAuth } from '../../Context/authContext'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import {
     AppBar,
     Toolbar,
     Typography,
     Button,
-    Popper, Grow, Paper, ClickAwayListener, MenuItem, MenuList 
 } from '@material-ui/core';
 // import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
@@ -24,41 +27,73 @@ TODO
 const NavBar = props => {
     // add styling
     const classes = useStyles();
-    const anchorRef = React.useRef(null);
+    const userAnchorRef = React.useRef(null);
+    const adminAnchorRef = React.useRef(null);
     
     const { setAuthTokens, setLoggedIn } = useAuth();
     const { loggedIn } = useAuth();
     
     // drop down menu
-    const [open, setOpen] = React.useState(false);
-    const handleToggle = () => { setOpen((prevOpen) => !prevOpen); };
+    const [openUser, setOpenUser] = React.useState(false);
+    const handleUserToggle = () => { setOpenUser((prevOpen) => !prevOpen); };
+
+    const [openAdmin, setOpenAdmin] = React.useState(false);
+    const handleAdminToggle = () => { setOpenAdmin((prevOpen) => !prevOpen); };
+
+    // items for admin and user buttons drop down
+    const userItems = [
+        { link: "/myacc", display: "My Account"},
+        { link: "/myacc/mypack", display: "My Pack"},
+        { link: "/date", display: "My Date"},
+    ];
+
+    const adminItems = [
+        { link: "/admin/user_man", display: "User Management"},
+        { link: "/admin/loc_man", display: "Location Management"},
+        { link: "/admin/messages", display: "Inquiries"},
+    ]
 
     function handleListKeyDown(event) {
         if (event.key === "Tab") {
             event.preventDefault();
-            setOpen(false);
+            setOpenUser(false);
+            setOpenAdmin(false);
         }
     }
 
     // log out button
     const logOut = () => {
+        setOpenUser(false);
         setLoggedIn(null);
         setAuthTokens(null);
         return <Redirect to='/' />
     }
 
+    // conditional rendering functions
+    const adminButton = () => {
+        if(token().staff)
+            return <> 
+                <NavSeperator />
+                <Button className={classes.menuLink} ref={adminAnchorRef} onClick={handleAdminToggle}>
+                    <Typography variant='h6'> Admin </Typography>
+                </Button>
+
+                <NavPopper 
+                    open={openAdmin} setOpen={setOpenAdmin} logOut={false}
+                    handleListKeyDown={handleListKeyDown}
+                    anchorRef={userAnchorRef}
+                    popperItems={adminItems} />
+            </>
+        
+        return <></>
+    }   
+
+    // aight the popper thing could be BETTER
+    // 
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
                 <Toolbar>
-                    {/* <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color='inherit' aria-label='menu'
-                        >
-                        <MenuIcon />
-                    </IconButton> */}
-                    
                     <Typography variant='h5' className={classes.menuTitle}><b>Fetch</b></Typography>
 
                     {   // setting nav links based on auth status
@@ -66,59 +101,24 @@ const NavBar = props => {
                         (   // logged in
                             <>
                                 <NavLink dir='/' label='the kennel' />
-                                { token().staff ?
-                                    <>
-                                    <Typography>|</Typography> 
-                                    <NavLink dir='/admin' label='Admin' />
-                                    </>
-                                    :
-                                    <></>
-                                }
-                                <Typography>|</Typography>
-                                <Button className={classes.menuLink} ref={anchorRef} onClick={handleToggle}>
+                                { adminButton() } {/* admin only component */}
+                                <NavSeperator />
+
+                                <Button className={classes.menuLink} ref={userAnchorRef} onClick={handleUserToggle}>
                                     <Typography variant='h6'> ME </Typography>
                                 </Button>
 
-                                {/* drop down box */}
-                                {/* Move this popper class outside */}
-                                <Popper open={open} anchorEl={anchorRef.current}
-                                    /* role={undefined} */ transition disablePortal>
-                                    {({ TransitionProps }) => {
-                                        return (
-                                        
-                                        <Grow {...TransitionProps}
+                                <NavPopper 
+                                    open={openUser} setOpen={setOpenUser} logOut={true}
+                                    logOutHandler={logOut}
+                                    handleListKeyDown={handleListKeyDown}
+                                    anchorRef={userAnchorRef}
+                                    popperItems={userItems} />
 
-                                            /* style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }} */ >
-                                            
-                                            <Paper>
-                                                <ClickAwayListener onClickAway={()=> setOpen(false)}>
-                                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                                        <Link to="/myacc" >
-                                                            <MenuItem onClick={() => setOpen(false)}>My Account</MenuItem>
-                                                        </Link>
-                                                        <Link to="/myacc/mypack" >
-                                                            <MenuItem onClick={() => setOpen(false)}>My Pack</MenuItem>
-                                                        </Link>
-                                                        <Link to="/date" >
-                                                            <MenuItem onClick={() => setOpen(false)}>My Dates</MenuItem>
-                                                        </Link>
-                                                        <MenuItem onClick={() => {setOpen(false); logOut()}}>Logout</MenuItem>
-                                                    </MenuList>
-                                                </ClickAwayListener>
-                                            </Paper>
-                                        </Grow>
-                                    )}}
-                                </Popper>
                             </>
                         ) 
                         : 
-                        (   // not logged in
-                            <>
-                                <NavLink dir='/login' label='login' />
-                                <Typography>|</Typography>
-                                <NavLink dir='/register' label='register' />
-                            </>
-                        )
+                        ( <NotLoggedIn /> )  // not logged in nav
                     }
 
                 </Toolbar>
@@ -126,7 +126,6 @@ const NavBar = props => {
         </div>
     );
 };
-
 
 
 export default NavBar;
