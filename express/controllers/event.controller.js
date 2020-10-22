@@ -11,11 +11,8 @@ module.exports.createEvent = (req, res) => {
         })
         .catch(error => {
             return res.status(404).json({
-                error: error
+                error: 'Could not create a new event'
             })
-            // return res.status(404).json({
-            //     error: 'Could not create a new event'
-            // })
         })
 }
 
@@ -41,7 +38,8 @@ module.exports.getEvents = async(req, res) => {
     await Event.find()
         .then(event => {
             res.status(200).json({
-                event: event
+                upcoming: (event.filter(event => event.status === "Upcoming")),
+                completed: (event.filter(event => event.status === "Completed"))
             })
         })
         .catch(error => {

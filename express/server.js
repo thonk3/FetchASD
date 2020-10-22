@@ -9,7 +9,7 @@ require('dotenv').config();
 
 // express server config
 const app = express();
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
@@ -53,8 +53,8 @@ app.get('*', (req, res) => {
 })
 
 // start express server
-app.listen(PORT, () => {
-    console.log(`server starting on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`server starting on port: ${PORT}`);
+// });
 
 module.exports = app;

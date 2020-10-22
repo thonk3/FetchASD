@@ -5,6 +5,9 @@ export {default as Dog} from './Kennel/Dog'
 
 export { default as Dates } from './Date/Date'
 
+export { default as Event } from './Event/Event'
+export { default as EventDetails} from './Event/Components/EventDetails'
+
 // Accounts
 
 

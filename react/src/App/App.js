@@ -37,6 +37,8 @@ const App = (props) => {
             <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
             <PrivateRoute path='/myacc/mypack/:id' component={Routes.UpdateDog} />
             <PrivateRoute path='/myacc/mypack' component={Routes.DogMan} />
+            <PrivateRoute path='/events' component={Routes.Event} />
+            <PrivateRoute path='/event/:id' component={Routes.EventDetails} />
 
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
