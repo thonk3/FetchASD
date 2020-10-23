@@ -19,13 +19,12 @@ const EventList = ({eventList=[]}) => {
                             day: "2-digit"
                         }).format(new Date(data.dateAndTime))}</Typography>
                         <Typography variant="h5">{data.location}</Typography>
-                        <Box>
+                        <Box style={{ marginTop: 5 }}>
                             <Link to={{
                                 pathname: '/event/' + data._id,
                                 state: {
                                     id: data._id,
                                 }
-
                             }} Component={EventDetails} style={{ textDecoration: 'none'}}>
                                 <Button variant="contained" color="primary">Read More</Button>
                             </Link>

@@ -6,6 +6,7 @@ const { runValidation } = require('../validators/runValidation')
 router.get('/', EventController.getEvents);
 router.get('/:id', EventController.getEventByID);
 router.post('/', createEventValidator, runValidation, EventController.createEvent);
+router.put('/complete', EventController.completeEvent);
 router.put('/:id', updateEventValidator, runValidation, EventController.updateEvent);
 router.delete('/:id', EventController.deleteEvent);
 

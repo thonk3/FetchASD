@@ -34,6 +34,24 @@ module.exports.updateEvent = async (req, res) => {
     }
 }
 
+module.exports.completeEvent = async(req, res) => {
+    const eventToComplete = await Event.findOneAndUpdate({
+        _id: req.body.eventID
+    }, {
+        status: "Completed",
+        ...req.body
+    }, { new: true })
+    if (!eventToComplete)
+        return res.status(404).json({
+            error: 'Could not find an event with that ID'
+        })
+    else {
+        return res.status(200).json({
+            message: 'Successfully completed event',
+        });
+    }
+}
+
 module.exports.getEvents = async(req, res) => {
     await Event.find()
         .then(event => {
@@ -61,7 +79,6 @@ module.exports.getEventByID = async(req, res) => {
                 error: 'Could not find event with that ID'
             })
         })
-    
 }
 
 module.exports.deleteEvent = async(req, res) => {
