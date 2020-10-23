@@ -8,6 +8,7 @@ export { default as Dates } from './Date/Date'
 export { default as Event } from './Event/Event'
 export { default as EventDetails } from './Event/Components/EventDetails'
 export { default as EventCreate } from './Event/Components/CreateEvent'
+export { default as EventUpdate } from './Event/Components/UpdateEvent'
 
 // Accounts
 
