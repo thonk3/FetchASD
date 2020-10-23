@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../Common/Spinner/Spinner'
 import axios from 'axios'
 import { Container, Box, Typography, Button, Paper } from '@material-ui/core';
+import getToken from '../../../Helpers/token'
 
 const EventDetails = (props) => {
     const [ eventDetails, setEventDetails ] = useState();
@@ -51,9 +52,24 @@ const EventDetails = (props) => {
                 <Box>
                     <Typography variant="body1">{eventDetails.description}</Typography>
                 </Box>
-                <Link to='/events' Component={Event}>
-                    <Button variant="contained" color="primary">Back</Button>
-                </Link>
+                <Box display="flex" justifyContent="space-between">
+                    <Box>
+                        <Link to='/events' Component={Event} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="primary">Back</Button>
+                        </Link>
+                    </Box>
+                    { getToken().staff ?
+                    <Box>
+                        <Link to='/events' Component={Event} style={{ textDecoration: 'none', marginRight: 10 }}>
+                            <Button variant="contained" color="secondary">Edit Event</Button>
+                        </Link>
+                        <Link to='/events' Component={Event} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="primary">Delete Event</Button>
+                        </Link>
+                    </Box>
+                    : "" }
+                </Box>
+                
             </Paper>
         </Container>
     )

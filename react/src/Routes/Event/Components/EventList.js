@@ -20,16 +20,16 @@ const EventList = ({eventList=[]}) => {
                         }).format(new Date(data.dateAndTime))}</Typography>
                         <Typography variant="h5">{data.location}</Typography>
                         <Box>
-                            {data.description}
+                            <Link to={{
+                                pathname: '/event/' + data._id,
+                                state: {
+                                    id: data._id,
+                                }
+
+                            }} Component={EventDetails} style={{ textDecoration: 'none'}}>
+                                <Button variant="contained" color="primary">Read More</Button>
+                            </Link>
                         </Box>
-                        <Link to={{
-                            pathname: '/event/' + data._id,
-                            state: {
-                                id: data._id,
-                            }
-                        }} Component={EventDetails}>
-                            <Button variant="contained" color="primary">Read More</Button>
-                        </Link>
                     </CardContent>
                 </Card>
                 )

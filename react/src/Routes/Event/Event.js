@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { Container, Paper, Tab, Tabs } from '@material-ui/core';
+import { Container, Paper, Tab, Tabs, Button } from '@material-ui/core';
 import EventList from './Components/EventList'
 import Spinner from '../../Common/Spinner/Spinner'
+import getToken from '../../Helpers/token'
 
 const Event = (props) => {
     const [ upcomingEventList, setUpcomingEventList] = useState();
@@ -46,8 +48,12 @@ const Event = (props) => {
                     <Tab label="Upcoming" />
                     <Tab label="Completed" />
             </Tabs>
-        </Paper>
+        </Paper>            
         <TabPanel value={tabValue} index={0}>
+            { getToken().staff ? 
+                <Link to='/event/create' style={{ textDecoration: 'none' }}>
+                    <Button style={{ marginLeft: 20, marginTop: 20 }} variant="contained" color="primary">Create Event</Button>
+                </Link> : "" }
             <EventList eventList={upcomingEventList}/>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>

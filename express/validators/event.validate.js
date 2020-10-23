@@ -11,7 +11,7 @@ module.exports.createEventValidator = [
     check('dateAndTime')
         .notEmpty().bail()
         .withMessage("The date/time cannot be empty")
-        .isDate().bail()
+        .isISO8601().bail()
         .withMessage("The date format is invalid")
         .isAfter()
         .withMessage("The date cannot be before todays date"),
