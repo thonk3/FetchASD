@@ -26,6 +26,12 @@ const CommsContainer = (props) => {
     const handleTitle = (e) => setTitle(e.target.value);
     const handleContent = (e) => setContent(e.target.value);
 
+    function referer() {
+        if(props.location.state === undefined)
+            return '/'
+        return props.location.state.referer;
+    }
+
     // post form
     const submit = (e) => {
         e.preventDefault();
@@ -40,13 +46,10 @@ const CommsContainer = (props) => {
         axios.post('/api/msg/new', newMsg)
             .then(res => {
                 if(res.status === 200) 
-                    window.location = '/'; // redirect to previous page
+                    window.location = referer(); // redirect to previous page
             })
             .catch(e => console.log(e));
     }
-
-    // should redirect to previous page
-    if (loading)  return <Spinner />
     
     // common style list
     // margin top 20
@@ -75,11 +78,17 @@ const CommsContainer = (props) => {
                         style={{ width: '100%' }}
                     /> </Box>
 
+                    {
+                        loading ? 
+                        <Spinner />
+                        :
+                        <Box display='flex' justifyContent='center' style={{ margin: 20 }}>
+                            <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = referer()}>Cancel</Button>
+                            <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Submit</Button>
+                        </Box>
+                    }
                     {/* submit button */}
-                    <Box display='flex' justifyContent='center' style={{ margin: 20 }}>
-                        <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = '/events'}>Cancel</Button>
-                        <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Submit</Button>
-                    </Box>
+
                 </form>
             </Paper>
         </Container>

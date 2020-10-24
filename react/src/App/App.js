@@ -11,7 +11,6 @@ import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
 import AdminRoute from './AdminRoute'
-import Coms from '../Routes/Comms/CommsContainer'
 // import Footer from '../Common/Footer/Footer';
 
 // material ui
@@ -33,7 +32,7 @@ const App = (props) => {
             <Route exact path='/' component={Routes.Home} />
             <Route path='/register' component={Routes.Register} />
             <Route path='/login' component={Routes.Login} />
-            <Route path='/newmsg' component={Coms} /> {/* fix this */}
+            <Route path='/newmsg' component={Routes.NewMsg} />
 
             {/* dog management */}
             <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
@@ -42,6 +41,7 @@ const App = (props) => {
 
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
+            <PrivateRoute path='/inquiries' component={Routes.UserMsg} />
 
             <AdminRoute path='/admin' component={Routes.AdminHome} />
             <PrivateRoute path='/:id' component={Routes.Dog} />
