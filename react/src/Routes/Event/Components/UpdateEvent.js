@@ -23,20 +23,23 @@ const UpdateEvent = (props) => {
     const [ errorState, setErrorState ] = useState();
 
     useEffect(() => {
-        const retrieveEventDetails = async() => {
-            const result = await axios.get(`/api/event/${props.match.params.id}`)
-            setEventname(result.data.events.name)
-            setEventDate(moment(result.data.events.date).toDate())
-            setEventLocation(result.data.events.location)
-            setEventDescription(result.data.events.description)
-        };
-        retrieveEventDetails();
+        setLoading(true)
+        axios.get(`/api/event/${props.match.params.id}`)
+            .then(res => {
+                console.log(res)
+                setEventname(res.data.events.name)
+                setEventDate(res.data.events.dateAndTime)
+                setEventLocation(res.data.events.location)
+                setEventDescription(res.data.events.description)
+            })
+            .catch(error => console.log(error))
 
-        const retrieveLocationDetails = async() => {
-            const locationResult = await axios.get('/api/locations')
-            setLocations(locationResult.data)
-        };
-        retrieveLocationDetails();
+        axios.get('/api/locations')
+            .then(res => {
+                setLocations(res.data)
+            })
+            .catch(error => console.log(error))
+
         setLoading(false)
     }, [props.match.params.id])
 
@@ -54,8 +57,10 @@ const UpdateEvent = (props) => {
         setLoading(true)
         axios.put(`/api/event/${props.match.params.id}`, updatedEvents)
             .then(res => {
-                if(res.status === 200)
+                if(res.status === 200) {
+                    console.log(res)
                     window.location = '/events'
+                }
             })
             .catch(error => {
                 setError(error.response.data.error)
