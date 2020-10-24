@@ -55,8 +55,11 @@ module.exports.userByID = async (req, res) => {
         let user = await User.findById(req.params.id)
         if(!user) return res.status(400).json({'error': 'User doesnt exist' });
 
+        const a = {...user._doc}
+        const {password, ...found} = {...a}
+
         // found user
-        return res.status(200).json(user);
+        return res.status(200).json(found);
     } catch (err) {
         return res.status(400).json({'error': err});
     }
