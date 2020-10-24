@@ -21,3 +21,5 @@ export { default as UpdateDog } from './DogMan/UpdateDog'
 export { default as AdminHome } from './AdminHome/AdminHome'
 export {default as User} from './AdminHome/UserMan/Components/UserPage'
 export { default as NotFound } from './NotFound/NotFound'
+
+export { default as NewMsg } from './Comms/CommsContainer'
