@@ -9,7 +9,7 @@ require('dotenv').config();
 
 // express server config
 const app = express();
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
@@ -30,6 +30,7 @@ const dateRouter = require('./routes/dogDate');
 const dogRatingRouter = require('./routes/dogRating');
 const locationRouter = require('./routes/locations');
 const msgRouter = require('./routes/messages');
+const eventRouter = require('./routes/event')
 
 // lock api calls to only users with token
 // token is grabbed from res.header("auth-token")
@@ -43,6 +44,7 @@ app.use('/api/date', /* verifyToken, */ dateRouter);
 app.use('/api/rate', /* verifyToken, */ dogRatingRouter);
 app.use('/api/locations', /* verifyToken, */ locationRouter);
 app.use('/api/msg', msgRouter);
+app.use('/api/event', eventRouter);
 app.use('/api/test', require('./thing.js'));
 
 // ==========================================================================

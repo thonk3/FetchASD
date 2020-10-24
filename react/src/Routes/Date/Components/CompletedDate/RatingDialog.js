@@ -9,7 +9,7 @@ import token from '../../../../Helpers/token'
 // import Spinner from '../../../../Common/NavBar'
 import DialogContainer from '../DialogContainer'
 import { Button, Box, Typography, TextField } from '@material-ui/core'
-import Rating from '@material-ui/lab/Rating'
+import Rating from '@material-ui/lab/Rating/Rating'
 
 // rating dialog notes
 // im sorry me codes terribad
