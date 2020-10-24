@@ -10,14 +10,6 @@ const locationSchema = new Schema({
         type: String,
         required: true
     },
-    openTime: {
-        type: String,
-        required: true
-    },
-    closeTime: {
-        type: String,
-        required: true
-    },
     isLeashRequired: {
         type: Boolean,
         default: false,
