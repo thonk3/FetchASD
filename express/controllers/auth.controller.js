@@ -61,3 +61,25 @@ module.exports.login = async (req, res) => {
         }
     })
 }
+
+module.exports.changePassword = async (req, res) => {
+    const user = await User.findById(req.params.id);
+        const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
+        const passHash = await bcrypt.hash(req.body.newPassword, salt);
+        user.password = passHash;
+        try {
+            await user.save();
+            return res.status(200);
+        }  catch (error) {
+            return res.status(400).json({ error });
+        }
+        
+}
+
+module.exports.checkPassword = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    const checkPassword = await bcrypt.compare(req.body.newPassword, user.password);
+    if (checkPassword) {
+        return res.status(200).json({ msg: "Password Matches"})
+    }
+}
