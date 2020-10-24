@@ -25,7 +25,7 @@ module.exports.read = async (req, res) => {
     const msg = await Msg.find();
 
     try {
-        return res.status(200).json(msg);
+        return res.status(200).json({ list: msg });
     } catch (error) {
         return res.status(400).json({ msg: "read all msg error", err: error });
     }
@@ -49,9 +49,9 @@ module.exports.readUser = async (req, res) => {
 
     try {
         if(msg.length === 0)
-            return res.status(200).json({ msg: "no_messages" });
+            return res.status(200).json({ list: [] });
         else
-            return res.status(200).json(msg);
+            return res.status(200).json({ list: msg });
     } catch (error) {
         return res.status(400).json({ msg: "read user msg error", err: error });
     }
@@ -76,12 +76,14 @@ module.exports.updateStatus = async (req, res) => {
 
 /* delete */
 module.exports.delete = async (req, res) => {
-    await Msg.findByIdAndDelete(req.body.id, (err) => {
-        if(err)
-            return res.status(400).json({ msg: "delete msg error", err: error });
-    });
+    const msg = Msg.find({ _id: req.body.id });
+    if(!msg)
+        return res.status(400).json({ msg: "delete msg error", err: error });
 
-    return res.status(200).json({
-        msg: 'succesfully deleted a message',
-    });
+    try {
+        await msg.remove();
+        return res.status(200).json({ msg: 'succesfully deleted a message' });
+    } catch (error) {
+        return res.status(400).json({ msg: "delete msg error", err: error });
+    }
 }

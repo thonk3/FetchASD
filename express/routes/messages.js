@@ -26,7 +26,7 @@ router.get('/one', msgController.readOne);
 router.get('/user', msgController.readUser);
 
 // delete by id
-router.delete('/delete', msgController.delete);
+router.post('/delete', msgController.delete);
 
 
 module.exports = router;

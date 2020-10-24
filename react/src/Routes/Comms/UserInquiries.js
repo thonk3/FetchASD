@@ -6,44 +6,91 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import token from '../../Helpers/token';
-import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom'
+
+import MsgItem from './Components/MsgItem'
+import { Button, Paper, Tabs, Tab, Container } from '@material-ui/core';
 import Spinner from '../../Common/Spinner/Spinner';
 
 // ok deffinitely need redirect??
 
 const UserInquiries = props => {
+    const { admin } = props;
+
     const [ msgList, setMsgList ] = useState([]);
     const [ loading, setLoading ] = useState(true);
-
+    const [ tabVal, setTabVal ] = useState(0);
+    
+    // lists and sorting
+    const filterResolved = (flag) => {
+        console.log(flag);
+        if (flag) return msgList.filter(obj => obj.status === "resolved");
+        else return msgList.filter(obj => obj.status !== "resolved");
+    }
     // load msg list
     useEffect(() => {
-        setLoading(true);
-        axios.get('/api/msg/user', { senderID: token().id })
-            .then(res => {
-                setMsgList(res.data);
-                console.log(res.data);
-            }).catch(error => console.log("error"));
-        setLoading(false);
-    }, []);
+        let api = admin ? '/api/msg/' : '/api/msg/user'
+        console.log(api);
+        axios.get(api, { senderID: token().id })
+            .then(res => setMsgList(res.data.list))
+            .catch(error => console.log("error", error))
+            .then(() => setLoading(false));
+    }, [admin]);
+
+    // handle tab change
+    const handleTabChange = (e, val) => setTabVal(val);
 
     // render msg list
-    const renderList = () => {
-        if(msgList.length === 0) return <h3>No msg</h3>
+    const renderList = (list) => {
+        if(loading) return <Spinner />
+        if(list.length === 0) return <h3>No Messages Found</h3>
+        else return list.map(item => <MsgItem key={item._id} item={item} admin={admin} /> )
+            // change this
+    }
 
-        return msgList.map(li => <li key={li._id}>Date: {li.sentOn} - Title: {li.msgTitle} </li>)
+    // tabpannel
+    const TabPanel = props => {
+        const { children, value, index } = props;
+        return (
+            value === index && <Container maxWidth="md">{children}</Container>
+        )
     }
 
     return (
         <>
-            <p>My Inqquiries</p>
-
-            <Button onClick={() => window.location = '/newmsg'}> new inquiry </Button>
+            <Paper>
+                <Tabs
+                    value={tabVal} onChange={handleTabChange}
+                    indicatorColor="primary"
+                    textColor="primary" centered
+                >
+                    <Tab label="Pending" />
+                    <Tab label="Resolved" />
+                </Tabs>
+            </Paper>
+            
             {
-                loading ?
-                <Spinner />
+                admin ?
+                <></>
                 :
-                <ul>  {renderList()} </ul>
+                <Container maxWidth="md">
+                    <Link to='/newmsg' style={{ textDecoration: 'none' }}>
+                        <Button style={{ marginLeft: 20, marginTop: 20 }} variant="contained" color="primary">New Inquiry</Button>
+                    </Link>
+                </Container>
             }
+
+
+            {/* new , read */}
+            <TabPanel value={tabVal} index={0}>
+                <ul> { renderList(filterResolved(false)) } </ul>
+            </TabPanel>
+
+            {/* resolved */}
+            <TabPanel value={tabVal} index={1}>
+                <ul> { renderList(filterResolved(true)) } </ul>
+            </TabPanel>
+
         </>
     )
 }
