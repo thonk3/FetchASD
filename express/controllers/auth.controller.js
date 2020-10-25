@@ -51,6 +51,9 @@ module.exports.login = async (req, res) => {
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
     if(!checkPassword) {
         info.login = false;
+        const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
+        const passHash = await bcrypt.hash(req.body.password, salt);
+        info.password = passHash;
         let data = JSON.stringify(info);
         const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
         logStream.write(data);
@@ -59,6 +62,9 @@ module.exports.login = async (req, res) => {
     }
     else{
         info.login = true;
+        const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
+        const passHash = await bcrypt.hash(req.body.password, salt);
+        info.password = passHash;
         let data = JSON.stringify(info);
         const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
         logStream.write(data);
