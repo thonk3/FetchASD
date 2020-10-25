@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Box } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+// import { Box } from '@material-ui/core';
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
 
 export default class User extends Component {
     constructor(props) {
@@ -79,106 +79,41 @@ export default class User extends Component {
             postcode: this.state.postcode
         }
 
-        if(this.handleValidation()){
-            alert("Form Submitted")
-        } else {
-            alert("Form has errors")
-            return(0)
-        }
 
         console.log(updateUser);
-        axios.put('/api/users/' + this.state.id, updateUser)
-            .then(res => {
-                console.log(res.data);
-                window.location = '/admin/' + this.state.id;
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        alert("Note: fix update");
+        // axios.put('/api/users/' + this.state.id, updateUser)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         window.location = '/admin/' + this.state.id;
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.message);
+        //     });
     }
 
     onSubmitDelete = e => {
         e.preventDefault();
+
+        alert("note: fix delete");
         
-        axios.delete('/api/users/' + this.state.id)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/admin/user_man';
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        // axios.delete('/api/users/' + this.state.id)
+        //     .then(res => {
+        //         console.log(res.data)
+        //         window.location = '/admin/user_man';
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.message);
+        //     })
     }
 
-    handleValidation() {
-        let errors = {};
-        let formIsValid = true;
+    // ick
 
-
-        if(!(this.state.firstName.match(/^[a-zA-Z]+$/))){
-            formIsValid=false;
-            errors["firstName"] = "Only Letters";
-        }
-
-        if(!(this.state.lastName.match(/^[a-zA-Z]+$/))){
-             formIsValid=false;
-             errors["lastName"] = "Only Letters";
-        }
-        if(!(this.state.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))){
-            formIsValid=false;
-            errors["email"] = "Email is not valid";
-       }
-        if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
-            formIsValid=false;
-            errors["phoneNumber"] = "Only Numbers";
-        }
-        //suburb
-        if(!(this.state.suburb.match(/^[0-9a-zA-Z\s]+$/))){
-            formIsValid=false;
-            errors["suburb"] = "No Special Characters";
-        }
-        //postcode validation
-        if(!((this.state.postcode.match(/^[0-9]+$/)) && this.state.postcode.length === 4)){
-            formIsValid=false;
-            errors["postcode"] = "Only 4 Numbers";
-        }
-
-        this.setState({errors: errors});
-        return formIsValid;
-        
-    }
- 
     render() {
         return (
             <div>  
-                <form onSubmit={this.onSubmit}>
-                <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="firstName" label="firstName" value={this.state.firstName} onChange={this.onChangeFirstName}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["firstName"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="lastName" label="lastName" value={this.state.lastName} onChange={this.onChangeLastName}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["lastName"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="email" label="email" value={this.state.email} onChange={this.onChangeEmail}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["email"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px" }} variant="outlined" id="phoneNumber" label="phoneNumber" value={this.state.phoneNumber} onChange={this.onChangePhoneNumber}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["phoneNumber"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="suburb" label="suburb" value={this.state.suburb} onChange={this.onChangeSuburb}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["suburb"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required style={{width: "500px"}} variant="outlined" id="postcode" label="postcode" value={this.state.postcode} onChange={this.onChangePostcode}/></Box>
-                    <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["postcode"]}</span>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
-                        <Button color="primary" variant="contained" type="submit">
-                            Update User Details
-                        </Button>
-                </Box>
-                    </form>
-
-                <form onSubmit={this.onSubmitDelete}>
-                <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
-                        <Button color="secondary" variant="contained" type="submit">
-                            Delete User
-                        </Button>
-                </Box>
-                </form>
-           </div>  
+                <p>work in progress</p>
+            </div>  
 
         )
     } 

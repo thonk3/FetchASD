@@ -32,8 +32,8 @@ const RatingDialog = props => {
             userID: token().id,
             date: {
                 dateID: date._id,
-                senderID: date.senderDog.senderDogID,
-                receiverID: date.receiverDog.receiverDogID,
+                senderID: date.senderDog._id,
+                receiverID: date.receiverDog._id,
             }
         }
 

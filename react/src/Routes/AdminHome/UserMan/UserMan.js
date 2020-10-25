@@ -21,6 +21,8 @@ const UserMan = (props) => {
     },
   });
 
+  // note: currently not safe
+  // move the routes around
   const getData = async () => {
     return await fetch(`/api/users/all`)
       .then(response => response.json())

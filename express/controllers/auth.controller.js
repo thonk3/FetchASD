@@ -61,33 +61,3 @@ module.exports.login = async (req, res) => {
         }
     })
 }
-
-module.exports.logout = async (req, res) => {
-    res.clearCookie("t")
-    return res.status('200').json({
-        message: "You have been signed out."
-    })
-}
-
-module.exports.changePassword = async (req, res) => {
-    const user = await User.findById(req.params.id);
-    const checkPassword = await bcrypt.compare(req.body.newPassword, user.password);
-        const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
-        const passHash = await bcrypt.hash(req.body.newPassword, salt);
-        let data = {
-            ...req.body,
-            password: passHash
-        }
-        User.findByIdAndUpdate(req.params.id, data, { new: true }, function(
-            err,
-            data
-        ) {
-            if (err) {
-                return res.status(400).json('Error' + err)
-            }
-            else {
-                return res.status(200).send(data)
-            }
-        })
-    
-}
