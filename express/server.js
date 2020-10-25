@@ -3,6 +3,8 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var morgan = require('morgan');
+var winston = require('./winston');
 
 // secrets
 require('dotenv').config();
@@ -17,6 +19,9 @@ app.use(bodyParser.json());
 
 // mongo connection
 // moved to start.js
+
+//morgan-winston logging
+app.use(morgan('common', { stream: winston.stream }));
 
 // serving build static files
 app.use(express.static(path.resolve(__dirname, "../react", "build")));

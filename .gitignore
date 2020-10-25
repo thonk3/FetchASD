@@ -37,6 +37,8 @@ Thumbs.db
 #############################
 .git-credentials
 
+
 # logs #
 ########
-app.log
+/express/logs/*
+
