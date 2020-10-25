@@ -13,10 +13,7 @@ import PrivateRoute from './PrivateRoute'
 import AdminRoute from './AdminRoute'
 // import Footer from '../Common/Footer/Footer';
 
-import LocMan from '../Routes/AdminHome/LocMan/LocMan'
 import Mesg from '../Routes/AdminHome/Mesg/Mesg'
-import UpdateLocation from '../Routes/AdminHome/LocMan/UpdateLocation'
-import CreateLocation from '../Routes/AdminHome/LocMan/CreateLocation'
 
 // material ui
 import useStyles from './App.style';
@@ -48,10 +45,11 @@ const App = (props) => {
 
             {/* admin stuff */}
 
-            <AdminRoute path='/admin/messages' component={Mesg} /> {/* add route */}
-            <AdminRoute path='/admin/loc_man/new' component={CreateLocation} /> {/* add route */}
-            <AdminRoute path='/admin/loc_man/:id' component={UpdateLocation} /> {/* add route */}
-            <AdminRoute path='/admin/loc_man' component={LocMan} /> {/* add route */}
+            <AdminRoute path='/admin/messages' component={Routes.AdminMsg} />
+
+            <AdminRoute path='/admin/loc_man/new' component={Routes.AdminLocCreate} />
+            <AdminRoute path='/admin/loc_man/:id' component={Routes.AdminLocUpdate} />
+            <AdminRoute path='/admin/loc_man' component={Routes.AdminLocMan} />
             
             <AdminRoute path='/admin/user_man' component={Routes.AdminUserList} /> 
             <AdminRoute path='/admin/:id' component={Routes.AdminUserUpdate} />
