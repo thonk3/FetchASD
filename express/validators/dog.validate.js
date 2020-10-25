@@ -46,7 +46,11 @@ module.exports.addDogValidator = [
     check('newDog.isDesexed')
         .isBoolean()
         .withMessage('Desexed status can only be "True" or "False".'),
-    // Decided to make bio 250 characters because that is the same length
+    check('newDog.imageUrl')
+        .isURL()
+        .isLength({ max: 500 })
+        .withMessage('Image URL must be a valid URL'),
+        // Decided to make bio 250 characters because that is the same length
     // as a Twitter post
     check('newDog.Bio')
         .optional()
@@ -54,7 +58,6 @@ module.exports.addDogValidator = [
         .isLength({ min: 1, max: 250})
         .withMessage('Bio must be less than 250 characters long.')
 ]
-
 // Performs the validation of Dog data upon updating intended for the database
 // if wrong it provides the error with "with Message"
 module.exports.updateDogValidator = [
@@ -103,6 +106,10 @@ module.exports.updateDogValidator = [
         .withMessage('Desexed status can only be "True" or "False".'),
     // Decided to make bio 250 characters because that is the same length
     // as a Twitter post
+    check('imageUrl')
+        .isURL()
+        .isLength({ max: 500 })
+        .withMessage('Image URL must be a valid URL'),
     check('Bio')
         .optional()
         .isString()

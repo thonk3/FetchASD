@@ -1,10 +1,14 @@
+/* 
+    main date page
+*/
 import React from 'react';
 import axios from 'axios';
 import token from '../../Helpers/token';
-import { Button, Container, Grid } from '@material-ui/core'
-import RequestedDialog from './Components/RequestedDialog';
-import UpcomingDialog from './Components/UpcomingDialog';
-import CompletedDialog from './Components/CompletedDialog';
+import { Button, Container, Grid/* , Typography */ } from '@material-ui/core'
+
+import RequestedDateItem from './Components/RequestedDate/RequestedDateItem';
+import UpcomingDateItem from './Components/UpcomingDate/UpcomingDateItem';
+import CompletedDateItem from './Components/CompletedDate/CompletedDateItem';
 import Spinner from '../../Common/Spinner/Spinner';
 
 class Dates extends React.Component {
@@ -14,7 +18,7 @@ class Dates extends React.Component {
             requested: [],
             upcoming: [],
             completed: [],
-            requestList: true,
+            requestList: false,
             upcomingList: false,
             completedList: false,
             loading: true,
@@ -24,82 +28,70 @@ class Dates extends React.Component {
         this.handleUpcoming = this.handleUpcoming.bind(this);   
     }
 
+    // load the dates on start
     componentDidMount() {
         axios.get(`/api/date/${token().id}/`)
-            .then(res => {
-                this.setState({
-                    requestList: true,
-                    requested: res.data.requested,
-                    upcoming: res.data.upcoming,
-                    completed: res.data.completed
-                });
-            })
+            .then(res => this.setState({
+                requestList: true,
+                requested: res.data.requested,
+                upcoming: res.data.upcoming,
+                completed: res.data.completed
+            }))
             .then(() => this.setState({ loading: false }))
-            .catch(function (error) {
-                console.log(error);
-            })
+            .catch(function (error) { console.log(error) });
     }
 
+    // swap which list to display
+    resetDisplay() {
+        this.setState({ requestList: false, upcomingList: false, completedList: false })
+    }
     handleRequested() {
-        this.setState(state => ({ 
-            requestList: true, 
-            upcomingList: false, 
-            completedList: false 
-        }));
+        this.resetDisplay();
+        this.setState({requestList: true})
     }
 
     handleUpcoming() {
-        this.setState(state => ({ 
-            requestList: false, 
-            upcomingList: true, 
-            completedList: false 
-        }));
+        this.resetDisplay();
+        this.setState({upcomingList: true})
     }
 
     handleCompleted() {
-        this.setState(state => ({ 
-            requestList: false, 
-            upcomingList: false, 
-            completedList: true 
-        }));
+        this.resetDisplay();
+        this.setState({completedList: true})
     }    
 
-    requestedDates(list) {	    
-        return list.map((data, i) => {	      
-            return <RequestedDialog obj={data} key={i} />;	        
-        });
-    }
+    // each date category
+    requestedDates = (list) =>
+        list.map((data, i) => <RequestedDateItem obj={data} key={i} />)
 
-    upcomingDates(list) {	    
-        return list.map((data, i) => {	      
-            return <UpcomingDialog obj={data} key={i} />;	        
-        });
-    }
+    upcomingDates = (list) => 
+        list.map((data, i) => <UpcomingDateItem obj={data} key={i} />)
 
-    completedDates(list) {	    
-        return list.map((data, i) => {	      
-            return <CompletedDialog obj={data} key={i} />;	        
-        });
-    }
+    completedDates = (list) => 
+        list.map((data, i) => <CompletedDateItem obj={data} key={i} />)
 
     render() {
         return (
             <Container fluid>
-                <h2>My Dates</h2>
+                <h2>My Dates</h2> <br />
 
-                <br />
                 <Grid container justify="space-between" direction="row" alignItems="center">
-                    <Grid item><Button variant="contained" color={this.state.requestList ? "primary" : "default"} onClick={this.handleRequested}>Requested</Button></Grid>
-                    <Grid item><Button variant="contained" color={this.state.upcomingList ? "primary" : "default"} onClick={this.handleUpcoming}>Upcoming</Button></Grid>
-                    <Grid item><Button variant="contained" color={this.state.completedList ? "primary" : "default"} onClick={this.handleCompleted}>Completed</Button></Grid>
+                    <DateCategoriesButton 
+                        label="Requested" onClick={this.handleRequested} 
+                        loading={this.state.loading} activeState={this.state.requestList} />
+                    <DateCategoriesButton 
+                        label="Upcoming" onClick={this.handleUpcoming} 
+                        loading={this.state.loading} activeState={this.state.upcomingList} />
+                    <DateCategoriesButton 
+                        label="Completed" onClick={this.handleCompleted} 
+                        loading={this.state.loading} activeState={this.state.completedList} />
                 </Grid>
 
                 {
                     this.state.loading ?
                     <Spinner />
                     :
-                    <>  {/* buttons */}
-    
+                    <>  {/* loaded content */}
                         <br/>
                         {/* items */}
                         <Grid>
@@ -112,6 +104,21 @@ class Dates extends React.Component {
             </Container>
         )
     }
+}
+
+const DateCategoriesButton = props => {
+    const { label, activeState, onClick, loading } = props;
+
+    return (
+        <Grid item>
+            <Button 
+                variant="contained" 
+                color={activeState ? "primary" : "default"} 
+                onClick={onClick}
+                disabled={loading}
+            > {label} </Button>
+        </Grid>
+    )
 }
 
 export default Dates;

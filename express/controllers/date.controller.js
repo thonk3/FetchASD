@@ -27,7 +27,6 @@ exports.updateDate = async(req, res) => {
         dateOn: req.body.dateOn,
         location: req.body.location,
     }, {new: true})
-    console.log(updatedDate);
     if(!updatedDate)
         return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
     else {
@@ -88,92 +87,56 @@ exports.updateDate = async(req, res) => {
 
 exports.viewAllUsersDates = async(req, res) => {
     const user = await User.findById(req.params.id);
-    if(!user) 
-        return res.status(400).json({
-            'Error': "Could not find dogs"
-        });
-    else {
-        let userDogs = user.dogs;
-        let userDogDates = []
-        for (let i = 0; i < userDogs.length; ++i) {
-            //Find date where dog is the receiver of a date request
-            let receivedDate = await DogDate.find({"receiverDogID": userDogs[i] })
-            if ((await receivedDate).length != 0) {
-                for (let j = 0; j < receivedDate.length; ++j) {
-                    //Find the received dog data
-                    let receivedDateDog = await Dog.findById(receivedDate[j].receiverDogID)
-                    //console.log(receivedDateDog)
-                    //Find the sender dog data
-                    let senderDateDog = await Dog.findById(receivedDate[j].senderDogID)
-                    let dogWithName = [{
-                        receiverDog: {
-                            receiverDogID: receivedDate[j].receiverDogID,
-                            name: receivedDateDog.Name
-                        },
-                        senderDog: {
-                            senderDogID: receivedDate[j].senderDogID,
-                            name: senderDateDog.Name
-                        },
-                        status: receivedDate[j].status,
-                        dateOn: receivedDate[j].dateOn,
-                        location: receivedDate[j].location
-                    }]
-                    userDogDates.push(dogWithName);
-                }
+    if(!user)  return res.status(400).json({ error: "could not find user" });
+        
+    let allDogs = await Dog.find();
+    let receivedDates = await DogDate.find({ receiverDogID: { $in: user.dogs } });
+    let sentDates = await DogDate.find({ senderDates: { $in: user.dogs } });
+
+    // return dogs with name objects
+    const getName = (id, list) => {
+        let rtn = {}
+        for(let i = 0; i < list.length; i++) {
+            if(list[i]._id.toString() === id.toString()) {
+                rtn = { _id: list[i]._id, name: list[i].Name };
             }
-            let sentDate = await DogDate.find({ "senderDogID": userDogs[i] })
-            if ((await sentDate).length != 0) {
-                for (let k = 0; k < sentDate.length; ++k) {
-                    //Find the received dog data
-                    let recDateDog = await Dog.findById(sentDate[k].receiverDogID)
-                    //Find the sender dog data
-                    let senDateDog = await Dog.findById(sentDate[k].senderDogID)
-                    let dateDogWithName = [{
-                        receiverDog: {
-                            receiverDogID: sentDate[k].receiverDogID,
-                            name: recDateDog.name
-                        },
-                        senderDog: {
-                            senderDogID: sentDate[k].senderDogID,
-                            name: senDateDog.name
-                        },
-                        status: sentDate[k].status,
-                        dateOn: sentDate[k].dateOn,
-                        location: sentDate[k].location
-                    }]
-                    userDogDates.push(dateDogWithName);
-                }
-            }
-            let mergedArray = [].concat.apply([],userDogDates);
+        }
 
-            const requested = mergedArray.filter(dogDate => {
-                return dogDate.status === 'Requested';
-            })
-            let requestedArray = [];
+        return rtn;
+    }
 
-            for (let i = 0; i < userDogs.length; ++i) {
-                for (let j = 0; j < requested.length; ++j) {
-                    if (requested[j].receiverDog.receiverDogID.toString() === userDogs[i].toString())
-                        requestedArray.push(requested[j])
-                }
-            }
+    // return the date list
+    const datePayload = list => 
+        list.map(date => {
+            return { 
+                _id: date._id,
+                receiverDog: getName(date.receiverDogID, allDogs),
+                senderDog: getName(date.senderDogID, allDogs),
+                status: date.status,
+                dateOn: date.dateOn,
+                location: date.location,
+            };
+        })
+        
+    let receivedNames = datePayload(receivedDates);
+    let senderNames = datePayload(sentDates);
 
-            const upcoming = mergedArray.filter(dogDate => {
-                return dogDate.status === 'Upcoming';
-            })
+    let mergedArray = [...receivedNames, ...senderNames];
 
-            const completed = mergedArray.filter(dogDate => {
-                return dogDate.status === 'Completed';
-            })
+    const requested = mergedArray.filter(date => date.status=== 'Requested');
+    const upcoming = mergedArray.filter(date => date.status=== 'Upcoming');
+    const completed = mergedArray.filter(date => date.status=== 'Completed');
 
-            return res.status(200).json({
+    try {
+        return res.status(200).json(
+            {
                 'Message': 'Successful',
-                'requested': requestedArray,
+                'requested': requested,
                 'upcoming': upcoming,
                 'completed': completed,
-            })
-        }
-    }
+            });
+    } catch(e) { return res.status(400).json({ bad: "bad" }) }
+
 }    
 
 // Accepts a requested date 
@@ -216,8 +179,3 @@ exports.declineDate = (req, res) => {
             });
     });
 }
-
-/* 
-- the decline date currently only deletes the date
-- doesnt notify the inviter
-*/
