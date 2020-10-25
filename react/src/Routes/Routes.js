@@ -23,6 +23,15 @@ export { default as CreateDog } from './DogMan/CreateDog'
 export { default as UpdateDog } from './DogMan/UpdateDog'
 
 // admin
-export { default as AdminHome } from './AdminHome/AdminHome'
-export {default as User} from './AdminHome/UserMan/Components/UserPage'
+export {default as AdminUserList} from './AdminHome/UserMan/UserMan'
+export {default as AdminUserUpdate} from './AdminHome/UserMan/Components/UserPage'
+
+export { default as AdminLocMan } from './AdminHome/LocMan/LocMan'
+export { default as AdminLocCreate } from './AdminHome/LocMan/CreateLocation'
+export { default as AdminLocUpdate } from './AdminHome/LocMan/UpdateLocation'
+
+export { default as AdminMsg } from './AdminHome/Mesg/Mesg'
+
+
+
 export { default as NotFound } from './NotFound/NotFound'
