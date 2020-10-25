@@ -22,4 +22,4 @@ function token() {
     }
 }
 
-export default token
+export default token;

@@ -31,7 +31,8 @@ export { default as AdminLocCreate } from './AdminHome/LocMan/CreateLocation'
 export { default as AdminLocUpdate } from './AdminHome/LocMan/UpdateLocation'
 
 export { default as AdminMsg } from './AdminHome/Mesg/Mesg'
-
+export { default as NewMsg } from './Comms/NewInquiry'
+export { default as UserMsg } from './Comms/UserInquiries'
 
 
 export { default as NotFound } from './NotFound/NotFound'
