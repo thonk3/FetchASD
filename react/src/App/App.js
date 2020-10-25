@@ -53,6 +53,8 @@ const App = (props) => {
             <AdminRoute path='/admin/loc_man/new' component={Routes.AdminLocCreate} />
             <AdminRoute path='/admin/loc_man/:id' component={Routes.AdminLocUpdate} />
             <AdminRoute path='/admin/loc_man' component={Routes.AdminLocMan} />
+
+            <AdminRoute path='/admin/logs' component={Routes.AdminLogs} />
             
             <AdminRoute path='/admin/user_man' component={Routes.AdminUserList} /> 
             <AdminRoute path='/admin/:id' component={Routes.AdminUserUpdate} />

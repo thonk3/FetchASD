@@ -53,6 +53,7 @@ const NavBar = props => {
         { link: "/admin/user_man", display: "User Management"},
         { link: "/admin/loc_man", display: "Location Management"},
         { link: "/admin/messages", display: "Inquiries"},
+        { link: "/admin/logs", display: "Logs"},
     ]
 
     function handleListKeyDown(event) {
