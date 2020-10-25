@@ -10,6 +10,7 @@ import {
 import NavBar from '../Common/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
+import AdminRoute from './AdminRoute'
 // import Footer from '../Common/Footer/Footer';
 
 // material ui
@@ -39,9 +40,10 @@ const App = (props) => {
 
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
-            <PrivateRoute path='/date/id' component={Routes.RateDate} />
-            <PrivateRoute path='/admin' component={Routes.AdminHome} />
+
+            <AdminRoute path='/admin' component={Routes.AdminHome} />
             <PrivateRoute path='/:id' component={Routes.Dog} />
+            {/* NOTE: fix this component to process cases where the id is invalid, in cases that user stumble on this randomly */}
 
             <Route component={Routes.NotFound} />
           </RouterSwitch>

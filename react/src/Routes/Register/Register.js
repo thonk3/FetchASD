@@ -1,5 +1,4 @@
 import React from 'react';
-
 import useStyles from '../Login/Login.style'
 import { Link } from 'react-router-dom';
 import { 
@@ -8,9 +7,9 @@ import {
     Avatar, Typography,
     TextField,
     Button,
-    CircularProgress
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Spinner from '../../Common/Spinner/Spinner';
 
 /* 
     TODO:
@@ -71,17 +70,21 @@ const Register = props => {
                             > Register </Button>
                         
                         <div className={classes.error}> 
-                                { (isError && !isLoading) 
+                            { 
+                                (isError && !isLoading) /* ==== if there is errormsg && not loading ==== */
                                 ?
-                                    (typeof errMsg === "string")
+                                (typeof errMsg === "string") /* ---- if errMsg is a string ---- */
                                     ?
                                     <Typography> {errMsg} </Typography>
-                                    :
+                                    : /* ---- else it would be an array ---- */
                                     <ul>
                                         {errMsg.map(err => <li><b>{err.param}: </b> {err.msg}</li>)}
                                     </ul>
-                                : "" } 
-                            { isLoading ? <CircularProgress color="secondary"/> : <></> }
+                                : "" /* ================ else dont print anything ===================== */
+                            } 
+                            
+                            {/* load spinner */}
+                            { isLoading ? <Spinner width='60%' /> : <></> }
                         </div>
 
                         <hr className={classes.line} />
@@ -107,15 +110,15 @@ const TextBox = props => {
     return (
         <div className="form-group">
 
-        <TextField 
-            variant="outlined"
-            margin="normal"
-            required fullWidth
-            type={type}
-            label={label}
-            onChange={onChange}
-            value={value}
-        />
+            <TextField 
+                variant="outlined"
+                margin="normal"
+                required fullWidth
+                type={type}
+                label={label}
+                onChange={onChange}
+                value={value}
+            />
         </div>
     )
 }

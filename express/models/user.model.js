@@ -22,7 +22,7 @@ const userSchema = new Schema({
     password: {         // hashed passwords only
         type: String,
         requireq:true,
-        min: 60, max: 60
+        min: 90, max: 90
     },
     phoneNumber: {
         type: String,

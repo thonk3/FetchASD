@@ -1,16 +1,11 @@
-import React from 'react'
+import React from 'react';
+
 // import { 
 //     BrowserRouter as Router, 
 //     Route,
 //     Link
 // } from 'react-router-dom'
-
 const AccountMan = props => {
-    return (
-        <div>
-            <h1>Accounts</h1>
-        </div>
-    );
-};
-
+    return <><h1>Account</h1></>
+}
 export default AccountMan;

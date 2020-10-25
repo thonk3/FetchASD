@@ -41,10 +41,16 @@ module.exports.login = async (req, res) => {
 
     // create token
     const tokenPayload = {
-        email: user.email,
+        name: `${user.firstName} ${user.lastName}`,
+        staff: user.isStaffUser,
         id: user._id,
     }
-    const token = jwt.sign(tokenPayload, process.env.TOKEN_SECRET);
+
+    const token = jwt.sign(
+        tokenPayload, 
+        process.env.TOKEN_SECRET,
+        { expiresIn: '1h' }
+    );
 
     // return token
     res.json({
@@ -55,4 +61,3 @@ module.exports.login = async (req, res) => {
         }
     })
 }
-

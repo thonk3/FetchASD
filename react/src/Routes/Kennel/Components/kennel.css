@@ -1,66 +1,57 @@
 .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    }
-
-.dog{
-    width: 15vw;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin:1vw;
-    padding:0.5vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.contain-within{
-    margin: 5vw;  
+.dog {
+  width: 15vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 1vw;
+  padding: 0.5vw;
+}
+
+.contain-within {
+  margin: 5vw;
 }
 
 .imgplaceholder {
-    height: 13vw;
-    width: 13vw;
-    background-color: lightpink;
-    color:white;
-    font-weight: bold;
-    text-align:center;
-    margin:auto;
-  }
+  height: 13vw;
+  background-color: lightpink;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: auto;
+}
 /* for spinner */
-.spinner{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
- }
-  .paper {
-      height:10vw;
-  }
+
+.paper {
+  height: 10vw;
+}
 .float-left {
-    float:left;
-    margin-right:2vw;
+  float: left;
+  margin-right: 2vw;
 }
 .button {
-    margin: 1vw;
+  margin: 1vw;
 }
-h3{
-    font-weight:normal;
+h3 {
+  font-weight: normal;
 }
-.centre-this{
-    margin:auto;
-    text-align: center;
-    padding-left: 15vw;
-    padding-right:15vw;
+.centre-this {
+  margin: auto;
+  text-align: center;
+  padding-left: 15vw;
+  padding-right: 15vw;
 }
-.viewProfile{
-    text-decoration:none;
-}
-
-h2{
-    line-height:0vw;
+.viewProfile {
+  text-decoration: none;
 }
 
-.cardtxt{
-    margin-top:1.5vw;
+h2 {
+  line-height: 0vw;
+}
+
+.cardtxt {
+  margin-top: 1.5vw;
 }

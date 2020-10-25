@@ -11,7 +11,6 @@ import './index.css';
 import AppContainer from './App/AppContainer';
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
 
@@ -19,8 +18,7 @@ ReactDOM.render(
         <AppContainer />
         
       </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 
