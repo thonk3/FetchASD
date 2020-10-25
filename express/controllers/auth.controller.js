@@ -42,16 +42,29 @@ module.exports.login = async (req, res) => {
     const info = {
         email : req.body.email,
         password : req.body.password,
+        datetime : new Date()
     }
-    let data = JSON.stringify(info);
-    const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
-    logStream.write(data);
-    logStream.end('\n');
+    
    // fs.writeFileSync('./logs/access.json', data);
 
     // check matching password
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
-    if(!checkPassword) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+    if(!checkPassword) {
+        info.login = false;
+        let data = JSON.stringify(info);
+        const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
+        logStream.write(data);
+        logStream.end('\n');
+        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+    }
+    else{
+        info.login = true;
+        let data = JSON.stringify(info);
+        const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
+        logStream.write(data);
+        logStream.end('\n');
+    }
+    
 
     // create token
     const tokenPayload = {
