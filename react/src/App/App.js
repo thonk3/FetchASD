@@ -31,6 +31,7 @@ const App = (props) => {
             <Route exact path='/' component={Routes.Home} />
             <Route path='/register' component={Routes.Register} />
             <Route path='/login' component={Routes.Login} />
+            <Route path='/newmsg' component={Routes.NewMsg} />
 
             {/* dog management */}
             <PrivateRoute path='/myacc/mypack/newdog' component={Routes.CreateDog} />
@@ -43,6 +44,7 @@ const App = (props) => {
 
             <PrivateRoute path='/myacc' component={Routes.AccountMan} />
             <PrivateRoute path='/date' component={Routes.Dates} />
+            <PrivateRoute path='/inquiries' component={Routes.UserMsg} />
 
             {/* admin stuff */}
 

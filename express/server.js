@@ -34,6 +34,7 @@ const userRouter = require('./routes/users');
 const dateRouter = require('./routes/dogDate');
 const dogRatingRouter = require('./routes/dogRating');
 const locationRouter = require('./routes/locations');
+const msgRouter = require('./routes/messages');
 const eventRouter = require('./routes/event')
 
 // lock api calls to only users with token
@@ -47,6 +48,7 @@ app.use('/api/users', /* verifyToken, */ userRouter);
 app.use('/api/date', /* verifyToken, */ dateRouter);
 app.use('/api/rate', /* verifyToken, */ dogRatingRouter);
 app.use('/api/locations', /* verifyToken, */ locationRouter);
+app.use('/api/msg', msgRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/test', require('./thing.js'));
 
