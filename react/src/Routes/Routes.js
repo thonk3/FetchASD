@@ -18,6 +18,5 @@ export { default as CreateDog } from './DogMan/CreateDog'
 export { default as UpdateDog } from './DogMan/UpdateDog'
 
 // admin
-export { default as AdminHome } from './AdminHome/AdminHome'
 export {default as User} from './AdminHome/UserMan/Components/UserPage'
 export { default as NotFound } from './NotFound/NotFound'
