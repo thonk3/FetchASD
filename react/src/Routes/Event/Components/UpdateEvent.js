@@ -41,13 +41,6 @@ const UpdateEvent = (props) => {
                     .catch(error => console.log(error))
             )
             .then(setLoading(false))
-
-        // axios.get('/api/locations')
-        //     .then(res => {
-        //         setLocations(res.data)
-        //     })
-        //     .catch(error => console.log(error))
-        //setLoading(false)
     }, [props.match.params.id])
 
     if (loading)

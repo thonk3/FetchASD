@@ -2,7 +2,6 @@ import React,{ Component } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import moment from 'moment'
 import axios from 'axios';
 
 class UpdateDialog extends Component {

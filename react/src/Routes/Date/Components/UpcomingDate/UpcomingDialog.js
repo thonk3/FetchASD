@@ -62,7 +62,16 @@ class UpcomingDialog extends Component {
                 </>}
             >
                 <p>{date.senderDog.name} is going out with {date.receiverDog.name}</p>
-                <p><b>When: </b>{new Date(Date.parse(date.dateOn)).toLocaleString('en-US')}</p>
+                <p><b>When: </b>{new Intl.DateTimeFormat("en-AU", { 
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "2-digit"
+                                }).format(new Date(date.dateOn))} at {new Intl.DateTimeFormat("en-AU", { 
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    timeZone: "Australia/Sydney",
+                                    timeZoneName: "short"
+                                }).format(new Date(date.dateOn))}</p>
                 <p><b>Where: </b>{date.location}</p>
             </DialogContainer>
         );

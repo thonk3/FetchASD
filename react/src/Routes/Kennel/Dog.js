@@ -5,6 +5,7 @@ import token from '../../Helpers/token';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
+import moment from 'moment'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -85,7 +86,7 @@ export default class Dog extends Component {
             senderDogID: this.state.senderDogID,
             receiverDogID: this.state.id,
             status: "Requested",
-            dateOn: this.state.dateOn,
+            dateOn: moment(this.state.dateOn).toISOString(),
             location: this.state.locationAddress,
         }
         axios.post('/api/date/add/', newDate)
