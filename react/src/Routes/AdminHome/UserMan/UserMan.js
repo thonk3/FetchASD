@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DogList from './Components/table';
+import UserList from './Components/table';
 import TextField from '@material-ui/core/TextField';
 import Spinner from '../../../Common/Spinner/Spinner';
 import { makeStyles } from '@material-ui/core/styles';
@@ -63,7 +63,7 @@ const UserMan = (props) => {
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableBody>
-                <DogList dogList={dogList}/>
+                <UserList userList={dogList}/>
               </TableBody>
             </Table>
           </TableContainer>

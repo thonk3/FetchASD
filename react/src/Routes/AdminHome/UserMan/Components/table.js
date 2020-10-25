@@ -8,10 +8,13 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import User from "./UserPage";
 
-const DogList = ({ dogList = [] }) => {
+
+
+
+const UserList = ({ userList = [] }) => {
   return (
     <>
-      {dogList.map((data, index) => {
+      {userList.map((data, index) => {
         if (data) {
           return (
             <div>
@@ -37,4 +40,4 @@ const DogList = ({ dogList = [] }) => {
   );
 };
 
-export default DogList;
+export default UserList;
