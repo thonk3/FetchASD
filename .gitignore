@@ -36,3 +36,7 @@ Thumbs.db
 # git creds just to be sure #
 #############################
 .git-credentials
+
+# logs #
+########
+app.log
