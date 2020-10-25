@@ -115,6 +115,7 @@ const EventDetails = (props) => {
                 <Box>
                     <Typography variant="h5">{eventDetails.location}</Typography>
                 </Box>
+                <br />
                 <Box>
                     <Typography style={{whiteSpace: 'pre-wrap'}} variant="body1">{eventDetails.description}</Typography>
                 </Box>
@@ -137,6 +138,11 @@ const EventDetails = (props) => {
                         <Button onClick={() => setCompletedState(true)} variant="contained" color="secondary" style={{ marginRight: 10 }}>Mark Completed</Button>
                         <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Event</Button>
                     </Box>
+                    : "" }
+                    { getToken().staff   && eventDetails.status === "Completed" ?
+                        <Box>
+                            <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Completed Event</Button>
+                        </Box>
                     : "" }
                 </Box>
                 
