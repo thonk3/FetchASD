@@ -110,23 +110,26 @@ class AccountMan extends Component {
             .catch(err => {
                 formIsValid = false;
                 errors["password"] = "Incorrect Password";
+                console.log("end");
+                return;
             })
+            .then(() => {
+                if(this.state.newPassword!==this.state.newPassword2){
+                    errors["passwords"] = "Passwords do not match";
+                    formIsValid = false;
+                }
 
-        if(this.state.newPassword!==this.state.newPassword2){
-            errors["passwords"] = "Passwords do not match";
-            formIsValid = false;
-        }
+                this.setState({errors: errors});
+                if(formIsValid === false) return;    
 
-        this.setState({errors: errors});
-        if(formIsValid === false) return(0)
-
-        Axios.put('/api/auth/changePassword/' + this.state.id, data)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/';
-            })
-            .catch((error) => console.log(error.message))
-            .then(() => window.location = "/");
+                
+                Axios.put('/api/auth/changePassword/' + this.state.id, data)
+                    .then(res => {
+                        console.log(res.data)
+                        window.location = '/';
+                    })
+                    .catch((error) => console.log(error.message))
+        })
     }
 
     handleValidation() {
@@ -202,7 +205,8 @@ class AccountMan extends Component {
                 </form>
                 <h4 align="center">Change Password</h4>
                 <form onSubmit={this.onSubmitPassword}>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required type="password" style={{width: "500px"}} variant="outlined" id="CurrentPassword" label="Current Password" value={this.state.currentPassword} onChange={this.onChangeCurrentPassword}/></Box>
+                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
+                        <TextField required type="password" style={{width: "500px"}} variant="outlined" id="CurrentPassword" label="Current Password" value={this.state.currentPassword} onChange={this.onChangeCurrentPassword}/></Box>
                     <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["password"]}</span>
                     <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required type="password" style={{width: "500px"}} variant="outlined" id="New Password" label="New Password" value={this.state.newPassword} onChange={this.onChangeNewPassword}/></Box>
                     <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["passwords"]}</span>

@@ -29,10 +29,7 @@ const UserInquiries = props => {
     // load msg list
     useEffect(() => {
         let api = admin ? '/api/msg/' : '/api/msg/user'
-        console.log(api);
-        const payload = { senderID: token().id }
-        console.log(payload);
-        axios.post(api, payload)
+        axios.post(api, { senderID: token().id })
             .then(res => setMsgList(res.data.list))
             .catch(error => console.log("error", error))
             .then(() => setLoading(false));
@@ -46,7 +43,6 @@ const UserInquiries = props => {
         if(loading) return <Spinner />
         if(list.length === 0) return <h3>No Messages Found</h3>
         else return list.map(item => <MsgItem key={item._id} item={item} admin={admin} /> )
-            // change this
     }
 
     // tabpannel
