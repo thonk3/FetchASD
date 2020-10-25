@@ -14,10 +14,15 @@ const EventList = ({eventList=[]}) => {
                     <CardContent>
                         <Typography variant='h4'>{data.name}</Typography>
                         <Typography variant="h5">{new Intl.DateTimeFormat("en-AU", { 
-                            year: "numeric",
-                            month: "long",
-                            day: "2-digit"
-                        }).format(new Date(data.dateAndTime))}</Typography>
+                                year: "numeric",
+                                month: "long",
+                                day: "2-digit"
+                            }).format(new Date(data.dateAndTime))} at {new Intl.DateTimeFormat("en-AU", { 
+                                hour: "numeric",
+                                minute: "numeric",
+                                timeZone: "Australia/Sydney",
+                                timeZoneName: "short"
+                            }).format(new Date(data.dateAndTime))}</Typography>
                         <Typography variant="h5">{data.location}</Typography>
                         <Box style={{ marginTop: 5 }}>
                             <Link to={{

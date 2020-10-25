@@ -99,19 +99,25 @@ const EventDetails = (props) => {
                 <Box>
                     <Typography variant="h3">{eventDetails.name}</Typography>
                 </Box>
-                <hr></hr>
+                <hr />
                 <Box>
                     <Typography variant="h5">{new Intl.DateTimeFormat("en-AU", { 
                                 year: "numeric",
                                 month: "long",
                                 day: "2-digit"
+                            }).format(new Date(eventDetails.dateAndTime))} at {new Intl.DateTimeFormat("en-AU", { 
+                                hour: "numeric",
+                                minute: "numeric",
+                                timeZone: "Australia/Sydney",
+                                timeZoneName: "short"
                             }).format(new Date(eventDetails.dateAndTime))}</Typography>
                 </Box>
                 <Box>
                     <Typography variant="h5">{eventDetails.location}</Typography>
                 </Box>
+                <br />
                 <Box>
-                    <Typography variant="body1">{eventDetails.description}</Typography>
+                    <Typography style={{whiteSpace: 'pre-wrap'}} variant="body1">{eventDetails.description}</Typography>
                 </Box>
                 <Box style={{ marginTop: 5 }} display="flex" justifyContent="space-between">
                     <Box>
@@ -132,6 +138,11 @@ const EventDetails = (props) => {
                         <Button onClick={() => setCompletedState(true)} variant="contained" color="secondary" style={{ marginRight: 10 }}>Mark Completed</Button>
                         <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Event</Button>
                     </Box>
+                    : "" }
+                    { getToken().staff   && eventDetails.status === "Completed" ?
+                        <Box>
+                            <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Completed Event</Button>
+                        </Box>
                     : "" }
                 </Box>
                 

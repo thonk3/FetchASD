@@ -1,14 +1,16 @@
 import React,{ Component } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import axios from 'axios';
 
 class UpdateDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showUpdate: false,
-            dateOn: '',
-            location: '',
+            //showUpdate: false,
+            dateOn: this.props.obj.dateOn,
+            location: this.props.obj.location,
         }
 
         console.log(this.props.obj);
@@ -19,7 +21,7 @@ class UpdateDialog extends Component {
 
     onChangeDateOn(e) {
         this.setState({
-            dateOn: e.target.value
+            dateOn: e
         })
     }
 
@@ -64,6 +66,7 @@ class UpdateDialog extends Component {
     }
 
     render() {
+        console.log(this.state)
             return(<span>
                 <Button onClick={this.handleShowUpdate} color="primary">Update</Button>
                     {(this.state.showUpdate) ?
@@ -72,14 +75,16 @@ class UpdateDialog extends Component {
                         <DialogContent>
                             <DialogContentText>Please note that if you change the details of this date, the other party must accept the updated request</DialogContentText>
                                 <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
-                                <TextField
-                                    label="Your date will be on"
-                                    type="datetime-local"
-                                    InputLabelProps={{ shrink: true }}
-                                    value={this.state.dateOn}
-                                    defaultValue={(this.props.obj.dateOn).substring(0, 16)}
-                                    onChange={this.onChangeDateOn.bind(this)}
-                                />
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <KeyboardDateTimePicker
+                                        variant="inline"
+                                        label="Time and Date"
+                                        disablePast
+                                        value={this.state.dateOn}
+                                        required
+                                        onChange={this.onChangeDateOn.bind(this)}
+                                    />                     
+                                </MuiPickersUtilsProvider>
                                 <br/>
                                 <br/>
                                 <TextField

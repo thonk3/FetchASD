@@ -38,9 +38,18 @@ const RequestedDialog = props => {
             }
         >
             <p>{date.senderDog.name} wants to go out with {date.receiverDog.name}</p>
-            <p><b>Proposed date and time: </b> {new Date(Date.parse(date.dateOn)).toLocaleString('en-US')}</p>
+            <p><b>Proposed date and time: </b> {new Intl.DateTimeFormat("en-AU", { 
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "2-digit"
+                                                }).format(new Date(date.dateOn))} at {new Intl.DateTimeFormat("en-AU", { 
+                                                    hour: "numeric",
+                                                    minute: "numeric",
+                                                    timeZone: "Australia/Sydney",
+                                                    timeZoneName: "short"
+                                                }).format(new Date(date.dateOn))}
+            </p>
             <p><b>Proposed Location: </b>{date.location}</p>
-
         </DialogContainer>
     )
 }
