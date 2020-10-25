@@ -29,7 +29,6 @@ const DogList = ({dogList=[]}) => {
                     {data.firstName}
                     </TableCell>
                     <TableCell>{data.email}</TableCell>
-                    <TableCell>Delete</TableCell>
                     <TableCell><Link to={data._id} Component={User}>
                     <Button  variant="contained" color="primary" > View Profile </Button>
                     </Link></TableCell>
