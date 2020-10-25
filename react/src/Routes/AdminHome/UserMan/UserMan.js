@@ -11,8 +11,8 @@ import Paper from '@material-ui/core/Paper';
 
 const UserMan = (props) => {
   const [input, setInput] = useState('');
-  const [dogListDefault, setDogListDefault] = useState();
-  const [dogList, setDogList] = useState();
+  const [userListDefault, setUserListDefault] = useState();
+  const [userList, setUserList] = useState();
   const [loading, setLoading] = useState(true);
 
   const useStyles = makeStyles({
@@ -27,18 +27,18 @@ const UserMan = (props) => {
     return await fetch(`/api/users/all`)
       .then(response => response.json())
       .then(users => {
-        setDogList(users) 
-        setDogListDefault(users)
+        setUserList(users) 
+        setUserListDefault(users)
         setLoading(false)
       });
   }
 
   const updateInput = (input) => {
-    const filtered = dogListDefault.filter(user => {
-      return user.firstName.toLowerCase().includes(input.toLowerCase())
+    const filtered = userListDefault.filter(user => {
+      return user.email.toLowerCase().includes(input.toLowerCase())
     })
     setInput(input);
-    setDogList(filtered);
+    setUserList(filtered);
   }
 
   useEffect( () => {getData()},[]);
@@ -46,15 +46,18 @@ const UserMan = (props) => {
   return (
     <>
       <br/>
-      <h2 class="centre-this">Search for a user..</h2>
       <br/>
+      <h2 class="centre-this">Search for a user..</h2>
+      <br/> <br/>  
       <TextField class="centre-this"
         id="standard-full-width" 
         fullWidth
-        placeholder="Enter your suburb here..."
+        placeholder="Enter the user's email here..."
         variant="outlined"
         value={input} 
         onChange={(e) => updateInput(e.target.value)} />
+        <br/>
+      <br/>
       {
         loading ?
         <Spinner />
@@ -63,7 +66,7 @@ const UserMan = (props) => {
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableBody>
-                <UserList userList={dogList}/>
+                <UserList userList={userList}/>
               </TableBody>
             </Table>
           </TableContainer>
