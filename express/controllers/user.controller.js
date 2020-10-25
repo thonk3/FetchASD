@@ -92,8 +92,7 @@ module.exports.userByID = async (req, res) => {
          //iterate of the user's dog
          for (x in user.dogs) {
             console.log("MATCH");
-            console.log(user);
-            console.log(dog);
+            console.log(user.dogs[x]);
             await User.findOneAndUpdate(
             { _id: req.body.id },
                      //pull the dog id from the dogs array
@@ -106,9 +105,6 @@ module.exports.userByID = async (req, res) => {
                 }
             });
             console.log("Dog Document Deleted");
-            return res.status(200).json({
-                'msg': 'Dog deleted succesfully'
-            });
          }
         let deletedUser = await user.remove();
         return res.status(200).json(deletedUser);
