@@ -73,7 +73,6 @@ class UpdateDialog extends Component {
                     <Dialog open={this.state.showUpdate} onClose={this.handleHideUpdate} aria-labelledby="alert-dialog-title">
                         <DialogTitle id="form-dialog-title">Date Details</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>Please note that if you change the details of this date, the other party must accept the updated request</DialogContentText>
                                 <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
                                     <KeyboardDateTimePicker
