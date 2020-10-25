@@ -79,7 +79,7 @@ module.exports.updateUser = async (req, res) => {
             }
             else {
                 console.log(data);
-                return res.status(200)
+                return res.status(200).json({ msg: "ok" })
             }
         })
     } catch (err) {
