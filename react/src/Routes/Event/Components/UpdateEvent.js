@@ -33,15 +33,25 @@ const UpdateEvent = (props) => {
                 setEventDescription(res.data.events.description)
             })
             .catch(error => console.log(error))
+            .then(
+                axios.get('/api/locations')
+                    .then(res => {
+                        setLocations(res.data)
+                    })
+                    .catch(error => console.log(error))
+            )
+            .then(setLoading(false))
 
-        axios.get('/api/locations')
-            .then(res => {
-                setLocations(res.data)
-            })
-            .catch(error => console.log(error))
-
-        setLoading(false)
+        // axios.get('/api/locations')
+        //     .then(res => {
+        //         setLocations(res.data)
+        //     })
+        //     .catch(error => console.log(error))
+        //setLoading(false)
     }, [props.match.params.id])
+
+    if (loading)
+        return <Spinner />
 
     const updateEvent = e => {
         e.preventDefault();
@@ -92,8 +102,7 @@ const UpdateEvent = (props) => {
         return locations.filter(location => hasSearchTerm(location.Address) || hasSearchTerm(location.Name));
     }
 
-    if (loading)
-        return <Spinner />
+    
 
     return (
         <Container maxWidth="md" style={{ marginTop: 20 }}>
@@ -172,7 +181,7 @@ const UpdateEvent = (props) => {
                         />
                     </Box>
                     <Box display='flex' justifyContent='center' style={{ margin: 20 }}>
-                        <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = '/events'}>Cancel</Button>
+                        <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = '/event/' + props.match.params.id}>Cancel</Button>
                         <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Update</Button>
                     </Box>
                 </form>
