@@ -19,8 +19,8 @@ const NavPopper = props => {
 
   const PopperItems = () => {
     return popperItems.map(item => {
-      return <Link to={item.link}>
-        <MenuItem onClick={() => setOpen(false)}>{item.display}</MenuItem>
+      return <Link style={{ textDecoration: "none" }} to={item.link}>
+        <MenuItem  onClick={() => setOpen(false)}>{item.display}</MenuItem>
       </Link>
     })
   }
