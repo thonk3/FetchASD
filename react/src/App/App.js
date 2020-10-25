@@ -14,9 +14,7 @@ import AdminRoute from './AdminRoute'
 // import Footer from '../Common/Footer/Footer';
 
 import LocMan from '../Routes/AdminHome/LocMan/LocMan'
-import UserMan from '../Routes/AdminHome/UserMan/UserMan'
 import Mesg from '../Routes/AdminHome/Mesg/Mesg'
-import User from '../Routes/AdminHome/UserMan/Components/UserPage'
 import UpdateLocation from '../Routes/AdminHome/LocMan/UpdateLocation'
 import CreateLocation from '../Routes/AdminHome/LocMan/CreateLocation'
 
@@ -55,8 +53,8 @@ const App = (props) => {
             <AdminRoute path='/admin/loc_man/:id' component={UpdateLocation} /> {/* add route */}
             <AdminRoute path='/admin/loc_man' component={LocMan} /> {/* add route */}
             
-            <AdminRoute path='/admin/user_man' component={UserMan} /> {/* add route */}
-            <AdminRoute path='/admin/:id' component={User} /> {/* add add route */}
+            <AdminRoute path='/admin/user_man' component={Routes.AdminUserList} /> 
+            <AdminRoute path='/admin/:id' component={Routes.AdminUserUpdate} />
 
             <PrivateRoute path='/:id' component={Routes.Dog} />
             {/* NOTE: fix this component to process cases where the id is invalid, in cases that user stumble on this randomly */}
