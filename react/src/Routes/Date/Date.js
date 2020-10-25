@@ -72,9 +72,9 @@ class Dates extends React.Component {
 
     render() {
         return (
-            <Container fluid>
+            <Container display="fluid">
                 <h2>My Dates</h2> <br />
-
+           
                 <Grid container justify="space-between" direction="row" alignItems="center">
                     <DateCategoriesButton 
                         label="Requested" onClick={this.handleRequested} 

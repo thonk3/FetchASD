@@ -23,7 +23,6 @@ exports.updateDate = async(req, res) => {
     let updatedDate = await DogDate.findOneAndUpdate({
         _id: req.params.id
     }, {
-        status: "Requested",
         dateOn: req.body.dateOn,
         location: req.body.location,
     }, {new: true})
@@ -36,54 +35,6 @@ exports.updateDate = async(req, res) => {
         });
     }
 }
-
-// It works dude
-// exports.viewAllUsersDates = async(req, res) => {
-//     const user = await User.findById(req.params.id);
-//     if(!user) 
-//         return res.status(400).json({
-//             'Error': "Could not find dogs"
-//         });
-//     else {
-//         let userDogs = user.dogs;
-//         let userDogDates = []
-//         for (let i = 0; i < userDogs.length; ++i) {
-//             let receivedDates = await DogDate.find({
-//                 "receiverDogID": userDogs[i]
-//             })
-//             let sentDates = await DogDate.find({
-//                 "senderDogID": userDogs[i]
-//             })
-//             if ((await receivedDates).length != 0)
-//                 userDogDates.push(receivedDates)
-//             if ((await sentDates).length != 0)
-//                 userDogDates.push(sentDates)
-//         }
-//         let mergedArray = [].concat.apply([],userDogDates);
-//         const requested = mergedArray.filter(dogDate => {
-//             return dogDate.status === 'Requested';
-//         })
-//         let requestedArray = [];
-//         for (let i = 0; i < userDogs.length; ++i) {
-//             for (let j = 0; j < requested.length; ++j) {
-//                 if (requested[j].receiverDogID.toString() === userDogs[i].toString())
-//                     requestedArray.push(requested[j])
-//             }
-//         }
-//         const upcoming = mergedArray.filter(dogDate => {
-//             return dogDate.status === 'Upcoming';
-//         })
-//         const completed = mergedArray.filter(dogDate => {
-//             return dogDate.status === 'Completed';
-//         })
-//         return res.status(200).json({
-//             'Message': 'Successful',
-//             'requested': requestedArray,
-//             'upcoming': upcoming,
-//             'completed': completed,
-//         })
-//     }
-// }    
 
 exports.viewAllUsersDates = async(req, res) => {
     const user = await User.findById(req.params.id);
@@ -140,25 +91,42 @@ exports.viewAllUsersDates = async(req, res) => {
 }    
 
 // Accepts a requested date 
-exports.acceptDate = (req, res) => {
-    DogDate.findById(req.params.id, function(err, dogDate) {
-        if(!dogDate) {  // not found
-            return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
-        }
-        dogDate.status = "Upcoming";
-        dogDate.save()
-            .then(dogDate => {
-                return res.status(200).json({ 
-                    'message': 'Dog Date has been accepted',
-                });
-            })
-            .catch(err => {
-                return res.status(400).send({ 
-                    'error': 'Could not accept the dog date',
-                    'err': err 
-                });
-            });
-    });
+exports.acceptDate = async (req, res) => {
+    const updateDate = await DogDate.findOneAndUpdate({
+        _id: req.params.id
+    }, {
+        status: 'Upcoming',
+        ...req.body
+    }, { new: true })
+    if (!updateDate)
+        return res.status(404).json({
+            error: 'Could not find date with that ID'
+        })
+    else {
+        return res.status(200).json({
+            message: 'Successfully accepted date',
+            events: updateDate 
+        });
+    }
+}
+
+exports.completeDate = async (req, res) => {
+    const updateDate = await DogDate.findOneAndUpdate({
+        _id: req.params.id
+    }, {
+        status: 'Completed',
+        ...req.body
+    }, { new: true })
+    if (!updateDate)
+        return res.status(404).json({
+            error: 'Could not find date with that ID'
+        })
+    else {
+        return res.status(200).json({
+            message: 'Successfully completed date',
+            events: updateDate 
+        });
+    }
 }
 
 // Declines a requested date and deletes a created date
@@ -179,3 +147,4 @@ exports.declineDate = (req, res) => {
             });
     });
 }
+
