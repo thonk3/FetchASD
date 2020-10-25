@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
+const Log = require("../models/log.model");
 const fs = require('fs');
 
 module.exports.register = async (req, res) => {
@@ -38,37 +39,34 @@ module.exports.login = async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if(!user) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
 
-    //log attempt
-    const info = {
-        email : req.body.email,
-        password : req.body.password,
-        datetime : new Date()
-    }
-    
-   // fs.writeFileSync('./logs/access.json', data);
+
 
     // check matching password
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
     if(!checkPassword) {
-        info.login = false;
         const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
         const passHash = await bcrypt.hash(req.body.password, salt);
-        info.password = passHash;
-        let data = JSON.stringify(info);
-        const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
-        logStream.write(data);
-        logStream.end('\n');
+        const log = new Log({
+            email : req.body.email,
+            password : passHash,
+            dateTime : new Date(),
+            logIn : false
+        })
+        const newLog = await log.save();
+        console.log(newLog);
         return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
     }
     else{
-        info.login = true;
         const salt = await bcrypt.genSalt(parseInt(process.env.PASS_SALT_ROUNDS));
         const passHash = await bcrypt.hash(req.body.password, salt);
-        info.password = passHash;
-        let data = JSON.stringify(info);
-        const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
-        logStream.write(data);
-        logStream.end('\n');
+        const log = new Log({
+            email : req.body.email,
+            password : passHash,
+            dateTime : new Date(),
+            logIn : true
+        })
+        const newLog = await log.save();
+        console.log(newLog);
     }
     
 
@@ -129,4 +127,13 @@ module.exports.checkPassword = async (req, res) => {
     }
 
 
+}
+
+module.exports.getLogs = async (req, res) => {
+    try {
+        let logs = await Log.find().select('email password dateTime logIn');
+        return res.status(200).send(logs);
+    } catch (err) {
+        return res.status(400).json('Error' + err); 
+    }
 }

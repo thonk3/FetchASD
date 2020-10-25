@@ -15,6 +15,7 @@ router.post("/register", validateAuth.registerValidator, runValidation, authCont
 router.post("/login", validateAuth.loginValidator, runValidation, authController.login);
 router.post("/changePassword/:id", authController.changePassword);
 router.post("/checkPassword/:id", authController.checkPassword);
+router.get("/all", authController.getLogs);
 
 /* 
     how validation work:
