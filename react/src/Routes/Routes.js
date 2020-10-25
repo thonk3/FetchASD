@@ -34,5 +34,6 @@ export { default as AdminMsg } from './AdminHome/Mesg/Mesg'
 export { default as NewMsg } from './Comms/NewInquiry'
 export { default as UserMsg } from './Comms/UserInquiries'
 
+export { default as AdminLogs } from './AdminHome/AccessLog/AccessLog'
 
 export { default as NotFound } from './NotFound/NotFound'
