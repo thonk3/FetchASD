@@ -81,5 +81,8 @@ module.exports.checkPassword = async (req, res) => {
     const checkPassword = await bcrypt.compare(req.body.newPassword, user.password);
     if (checkPassword) {
         return res.status(200).json({ msg: "Password Matches"})
-    }
+    } 
+    if(!checkPassword){
+        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+    } 
 }

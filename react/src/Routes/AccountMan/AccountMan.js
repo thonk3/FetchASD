@@ -131,11 +131,18 @@ class AccountMan extends Component {
         e.preventDefault();
         let errors = {};
         let formIsValid = true;
-        const checkPass = (this.state.currentPassword, this.state.password);
-        if (!checkPass){
-            errors["password"] = "Incorrect Password";
-            formIsValid = false;
+        const data = {
+            id : this.state.id,
+            newPassword : this.state.newPassword
         }
+        Axios.post('/api/auth/checkPassword/' + this.state.id, data)
+            .then( response => {
+                formIsValid = true;
+            })
+            .catch(err => {
+                formIsValid = false;
+                errors["password"] = "Incorrect Password";
+            })
         if(this.state.newPassword!==this.state.newPassword2){
             errors["passwords"] = "Passwords do not match";
             formIsValid = false;
@@ -145,10 +152,7 @@ class AccountMan extends Component {
             return(0)
         }
         //this.setState({...defaultState, id: token().id})
-        const data = {
-            id : this.state.id,
-            newPassword : this.state.newPassword
-        }
+
         Axios.put('/api/auth/changePassword/' + this.state.id, data)
             .then(res => {
                 console.log(res.data)
