@@ -44,6 +44,7 @@ const NavBar = props => {
     const userItems = [
         { link: "/myacc", display: "My Account"},
         { link: "/myacc/mypack", display: "My Pack"},
+        { link: "/events", display: "Events"},
         { link: "/date", display: "My Date"},
     ];
 

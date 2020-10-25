@@ -2,15 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const friendSchema = new Schema ({
-    firstDogID: {
+    userID: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    dogID: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Canine'
     },
-    secondDogID: {
-        type: Schema.Types.ObjectId,
+    status: {
+        type: String,
         required: true,
-        ref: 'Canine'
+        enum: ["Requested", "Accepted"]
     },
     createdAt: {
         type: Date,
