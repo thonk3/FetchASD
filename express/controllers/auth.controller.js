@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
+const fs = require('fs');
 
 module.exports.register = async (req, res) => {
     // check existing email
@@ -31,9 +32,22 @@ module.exports.register = async (req, res) => {
 }
 
 module.exports.login = async (req, res) => {
+
+
     // check matching email
     const user = await User.findOne({ email: req.body.email });
     if(!user) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
+
+    //log attempt
+    const info = {
+        email : req.body.email,
+        password : req.body.password,
+    }
+    let data = JSON.stringify(info);
+    const logStream = fs.createWriteStream('./logs/access.log', {flags: 'a'});
+    logStream.write(data);
+    logStream.end('\n');
+   // fs.writeFileSync('./logs/access.json', data);
 
     // check matching password
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
