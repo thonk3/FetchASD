@@ -121,7 +121,7 @@ const EventDetails = (props) => {
                 </Box>
                 <Box style={{ marginTop: 5 }} display="flex" justifyContent="space-between">
                     <Box>
-                        <Link to='/events' Component={Event} style={{ textDecoration: 'none' }}>
+                        <Link to='/events' style={{ textDecoration: 'none' }}>
                             <Button variant="contained" color="primary">Back</Button>
                         </Link>
                     </Box>

@@ -23,7 +23,6 @@ const UserInquiries = props => {
     
     // lists and sorting
     const filterResolved = (flag) => {
-        console.log(flag);
         if (flag) return msgList.filter(obj => obj.status === "resolved");
         else return msgList.filter(obj => obj.status !== "resolved");
     }
@@ -31,7 +30,9 @@ const UserInquiries = props => {
     useEffect(() => {
         let api = admin ? '/api/msg/' : '/api/msg/user'
         console.log(api);
-        axios.get(api, { senderID: token().id })
+        const payload = { senderID: token().id }
+        console.log(payload);
+        axios.post(api, payload)
             .then(res => setMsgList(res.data.list))
             .catch(error => console.log("error", error))
             .then(() => setLoading(false));

@@ -23,7 +23,7 @@ router.post('/update', msgController.updateStatus);
 // read
 router.get('/', msgController.read);
 router.get('/one', msgController.readOne);
-router.get('/user', msgController.readUser);
+router.post('/user', msgController.readUser);
 
 // delete by id
 router.post('/delete', msgController.delete);
