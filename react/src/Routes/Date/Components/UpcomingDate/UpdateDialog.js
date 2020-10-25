@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import moment from 'moment'
 import axios from 'axios';
 
 class UpdateDialog extends Component {
@@ -21,7 +22,7 @@ class UpdateDialog extends Component {
 
     onChangeDateOn(e) {
         this.setState({
-            dateOn: e.target.value
+            dateOn: e
         })
     }
 
@@ -76,17 +77,15 @@ class UpdateDialog extends Component {
                             <DialogContentText>Please note that if you change the details of this date, the other party must accept the updated request</DialogContentText>
                                 <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
-                                    <KeyboardDateTimePicker 
-                                        variant='inline'
-                                        ampm='true'
-                                        label="Your date will be on"
-                                        defaultValue={this.props.obj.dateOn}
+                                    <KeyboardDateTimePicker
+                                        variant="inline"
+                                        label="Time and Date"
+                                        disablePast
                                         value={this.state.dateOn}
-                                        InputLabelProps={{ shrink: true}}
+                                        required
                                         onChange={this.onChangeDateOn.bind(this)}
-                                        //format="dd/MM/yyyy HH:mm"
-                                    />
-                                </MuiPickersUtilsProvider> 
+                                    />                     
+                                </MuiPickersUtilsProvider>
                                 <br/>
                                 <br/>
                                 <TextField

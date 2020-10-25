@@ -3,6 +3,8 @@ import axios from "axios";
 import './Components/kennel.css';
 import token from '../../Helpers/token';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
+import MomentUtils from '@date-io/moment'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -25,7 +27,7 @@ export default class Dog extends Component {
             imageUrl: '',
             dogs: [],
             interestExpressed: false,
-            dateOn: '',
+            dateOn: null,
             locations: [],
             locationId: '',
             locationAddress: '',
@@ -84,7 +86,7 @@ export default class Dog extends Component {
             receiverDogID: this.state.id,
             status: "Requested",
             dateOn: this.state.dateOn,
-            location: this.state.locationId,
+            location: this.state.locationAddress,
         }
         axios.post('/api/date/add/', newDate)
             .catch((error => {
@@ -101,7 +103,7 @@ export default class Dog extends Component {
     }
 
     onChangeDateOn(e) {
-        this.setState({ dateOn: e.target.value })
+        this.setState({ dateOn: e })
     }
 
     onChangeLocationAddress(e) {
@@ -163,7 +165,7 @@ export default class Dog extends Component {
                         <br />
                         <br />
                         {(this.state.interestExpressed) ?
-                            <Grid container direction="column" spacing={1} alignItems="center">
+                            <Grid container direction="column" alignItems="left">
                                 <form>
                                     <FormGroup>
                                         <InputLabel>Which dog?</InputLabel> 
@@ -173,18 +175,26 @@ export default class Dog extends Component {
                                             })}
                                         </Select>
                                         <br />
+                                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                                            <KeyboardDateTimePicker
+                                                //autoOk
+                                                variant="inline"
+                                                label="Time and Date"
+                                                disablePast
+                                                value={this.state.dateOn}
+                                                required
+                                                onChange={this.onChangeDateOn.bind(this)}
+                                            />                     
+                                        </MuiPickersUtilsProvider>
+                                        <br />
                                         <TextField
-                                            label="Time and Date"
-                                            type="datetime-local"
-                                            InputLabelProps={{ shrink: true }}
-                                            value={this.state.dateOn}
-                                            onChange={this.onChangeDateOn.bind(this)}
-                                        />
-                                        <TextField
-                                            label="Location"
+                                            label="Choose your own location"
                                             value={this.state.locationAddress}
                                             onChange={this.onChangeLocationAddress.bind(this)}
                                         />
+                                        <br />
+                                        <Typography align="center"><strong>OR</strong></Typography>
+                                        <br />
                                         {/* // This will open to a full width xl scrolling body dialog box */}
                                         <Button variant="contained" color="primary" onClick={this.onChangeOpen}> Choose an approved location </Button>
                                         <br />
@@ -210,9 +220,10 @@ export default class Dog extends Component {
                                                 </Grid>
                                             </DialogContent>
                                         </Dialog>
-                                        <Button onClick={this.handleCloseExpressInterest} variant="contained" color="default"> Cancel </Button>
-                                        <br />
-                                        <Button type="submit" onClick={() => this.onRequestSubmit()} variant="contained" color="primary"> Send Request </Button>
+                                        <Box display="flex" justifyContent="space-between">
+                                            <Button style={{ width: '49%' }} onClick={this.handleCloseExpressInterest} variant="contained" color="default"> Cancel </Button>
+                                            <Button style={{ width: '49%' }} type="submit" onClick={() => this.onRequestSubmit()} variant="contained" color="primary"> Send</Button>
+                                        </Box>
                                     </FormGroup>
                                 </form>
                             </Grid>
