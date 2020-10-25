@@ -57,7 +57,6 @@ class AccountMan extends Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
-            password: this.state.password,
             phoneNumber: this.state.phoneNumber,
             suburb: this.state.suburb,
             postcode: this.state.postcode
@@ -95,18 +94,16 @@ class AccountMan extends Component {
             })
     }
     
-    onSubmitPassword = e => {
+    onSubmitPassword = async e => {
         e.preventDefault();
         let errors = {};
         let formIsValid = true;
         const data = {
             id : this.state.id,
-            newPassword : this.state.newPassword
+            currentPass : this.state.currentPassword
         }
-        Axios.post('/api/auth/checkPassword/' + this.state.id, data)
-            .then( response => {
-                formIsValid = true;
-            })
+        await Axios.post('/api/auth/checkPassword/' + this.state.id, data)
+            .then( () => formIsValid = true )
             .catch(err => {
                 formIsValid = false;
                 errors["password"] = "Incorrect Password";
@@ -118,18 +115,23 @@ class AccountMan extends Component {
                     errors["passwords"] = "Passwords do not match";
                     formIsValid = false;
                 }
-
+                console.log(formIsValid);
                 this.setState({errors: errors});
-                if(formIsValid === false) return;    
+                if(formIsValid === false) return;   
+            });
 
-                
-                Axios.put('/api/auth/changePassword/' + this.state.id, data)
+            console.log("changing");
+                const newPass = {
+                    id: this.state.id,
+                    newPassword: this.state.newPassword,
+                }
+                await Axios.post('/api/auth/changePassword/' + this.state.id, newPass)
                     .then(res => {
                         console.log(res.data)
                         window.location = '/';
                     })
                     .catch((error) => console.log(error.message))
-        })
+        
     }
 
     handleValidation() {
@@ -153,10 +155,10 @@ class AccountMan extends Component {
             errors["email"] = "Email is not valid";
         }
         //phoneNumber validation
-        if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
-            formIsValid=false;
-            errors["phoneNumber"] = "Only Numbers";
-        }
+        // if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
+        //     formIsValid=false;
+        //     errors["phoneNumber"] = "Only Numbers";
+        // }
         //suburb
         if(!(this.state.suburb.match(/^[0-9a-zA-Z\s]+$/))){
             formIsValid=false;
