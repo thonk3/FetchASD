@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Button } from '@material-ui/core';
-import EventDetails from './EventDetails';
 
 const EventList = ({eventList=[]}) => {
 
@@ -30,7 +29,7 @@ const EventList = ({eventList=[]}) => {
                                 state: {
                                     id: data._id,
                                 }
-                            }} Component={EventDetails} style={{ textDecoration: 'none'}}>
+                            }} style={{ textDecoration: 'none'}}>
                                 <Button variant="contained" color="primary">Read More</Button>
                             </Link>
                         </Box>

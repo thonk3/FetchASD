@@ -1,120 +1,108 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { Box, Container, Paper, TextField, Typography, Button } from '@material-ui/core';
+import Spinner from '../../../../Common/Spinner/Spinner';
 // import { Box } from '@material-ui/core';
 // import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';
 
-export default class User extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: this.props.match.params.id,
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            suburb: '',
-            postcode: '',
-            errors: {},
-        };
-    }
-    componentDidMount = async () => {
-        const { id } = this.state
-        axios.get(`/api/users/${id}`)
-        .then(res => {
-            this.setState({
-                firstName: res.data.firstName,
-                lastName: res.data.lastName,
-                email: res.data.email,
-                phoneNumber: res.data.phoneNumber,
-                suburb: res.data.suburb,
-                postcode: res.data.postcode,
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+const UserPage = props => {
+    const id = props.match.params.id;
 
-    onChangeFirstName = e =>{
-        this.setState({
-            firstName : e.target.value
-        })
-    }
-    onChangeLastName = e =>{
-        this.setState({
-            lastName : e.target.value
-        })
-    }
-    onChangeEmail = e =>{
-        this.setState({
-            email : e.target.value
-        })
-    }
-    onChangePhoneNumber = e =>{
-        this.setState({
-            phoneNumber : e.target.value
-        })
-    }
-    onChangeSuburb = e =>{
-        this.setState({
-            suburb : e.target.value
-        })
-    }
-    onChangePostcode = e =>{
-        this.setState({
-            postcode : e.target.value
-        })
-    }
+    // first, last, email, phone, sub, postcode
+    const [first, setFirst] = useState("");
+    const [last, setLast] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [sub, setSub] = useState("");
+    const [post, setPost] = useState("");
 
-    onSubmit = e => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get('/api/users/' + id)
+            .then(res => {
+                // set user data
+                console.log(res.data);
+                setFirst(res.data.firstName);
+                setLast(res.data.lastName);
+                setEmail(res.data.email);
+                setPhone(res.data.phoneNumber);
+                setSub(res.data.suburb);
+                setPost(res.data.postcode);
+            })
+            .catch(error => console.log(error))
+            .then(() => setLoading(false));
+    }, [id])
+
+    const changeFirst = e => setFirst(e.target.value);
+    const changeLast = e => setLast(e.target.value);
+    const changeEmail = e => setEmail(e.target.value);
+    const changePhone = e => setPhone(e.target.value);
+    const changeSub = e => setSub(e.target.value);
+    const changePost = e => setPost(e.target.value);
+
+    const redir = () => { window.location = '/admin/user_man'; }
+    const handleUpdate = e => {
         e.preventDefault();
 
-        const updateUser = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            phoneNumber: this.state.phoneNumber,
-            suburb: this.state.suburb,
-            postcode: this.state.postcode
+        const update = {
+            firstName: first,
+            lastName: last,
+            email: email,
+            phoneNumber: phone,
+            suburb: sub,
+            postcode: post,
         }
 
-
-        console.log(updateUser);
-        alert("Note: fix update");
-        // axios.put('/api/users/' + this.state.id, updateUser)
-        //     .then(res => {
-        //         console.log(res.data);
-        //         window.location = '/admin/' + this.state.id;
-        //     })
-        //     .catch((error) => {
-        //         console.log(error.message);
-        //     });
+        axios.post("/api/users/"+id, update)
+            .then(() => {
+                setLoading(true);
+                window.location='/admin/user_man'
+            })
+            .catch(error => console.log(error))
     }
 
-    onSubmitDelete = e => {
-        e.preventDefault();
+    return (
+        <Container style={{ marginTop: 20 }}>
+            <Paper style={{ padding: 20 }}>
+                <Typography variant="h3" style={{ margin: 20 }}>Update User</Typography>
+                <br/>
 
-        alert("note: fix delete");
-        
-        // axios.delete('/api/users/' + this.state.id)
-        //     .then(res => {
-        //         console.log(res.data)
-        //         window.location = '/admin/user_man';
-        //     })
-        //     .catch((error) => {
-        //         console.log(error.message);
-        //     })
-    }
+                {
+                    loading ?
+                    <Spinner />
+                    :
+                    <form onSubmit={handleUpdate}>
+                        <TextThing label="First Name" value={first} change={changeFirst} />
+                        <TextThing label="Last Name" value={last} change={changeLast} />
+                        <TextThing label="Email" value={email} change={changeEmail} />
+                        <TextThing label="Phone" value={phone} change={changePhone} />
+                        <TextThing label="Suburb" value={sub} change={changeSub} />
+                        <TextThing label="Postcode" value={post} change={changePost} />
 
-    // ick
+                        <Box display='flex' justifyContent='center' style={{ margin: 20 }}>
+                            <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={redir}>Cancel</Button>
+                            <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Update</Button>
+                        </Box>
+                    </form>
+                }
 
-    render() {
-        return (
-            <div>  
-                <p>work in progress</p>
-            </div>  
+            </Paper>
+        </Container>
+    )
+}
 
-        )
-    } 
-}                                                                                                                          
+const TextThing = props => {
+    const { label, value, change } = props;
+    
+    return (
+        <Box style={{ margin: 20 }}>
+            <TextField required variant="outlined"
+            label={label} value={value} onChange={change}
+            style={{ width: '100%'}} />
+        </Box>
+    )
+}
+
+export default UserPage;

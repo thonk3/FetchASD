@@ -10,7 +10,7 @@ router.get('/all', userController.getAllUsers)
 
 // @MAX maybe try to move the ID into the request body?? its fine eitherway
 router.get('/:id', userController.userByID);
-router.put('/:id', userController.updateUser);
+router.post('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 // Route for getting a user's dogs
 // it requires a user _id

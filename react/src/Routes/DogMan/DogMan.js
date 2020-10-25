@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import DogCard from './Components/DogCard'
-import CreateDog from './CreateDog';
 import { Link } from 'react-router-dom';
 import Spinner from '../../Common/Spinner/Spinner';
 
@@ -65,7 +64,7 @@ class DogMan extends Component {
 
                     <br />
                     <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                        <Link to={'/myacc/mypack/newdog'} Component={CreateDog}>
+                        <Link to={'/myacc/mypack/newdog'} >
 
                             <Button style={{ width: "300px", margin: "10px" }} type="submit" variant="contained" color="primary">
                                 Create New Dog

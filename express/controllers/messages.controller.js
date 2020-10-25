@@ -45,8 +45,8 @@ module.exports.readOne = async (req, res) => {
 
 /* read from user */
 module.exports.readUser = async (req, res) => {
-    const msg = await Msg.find(req.body);
-
+    const msg = await Msg.find({ senderID: req.body.senderID });
+    
     try {
         if(msg.length === 0)
             return res.status(200).json({ list: [] });

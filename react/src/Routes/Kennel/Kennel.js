@@ -3,6 +3,7 @@ import DogList from './Components/DogList';
 import './Components/kennel.css';
 import TextField from '@material-ui/core/TextField';
 import Spinner from '../../Common/Spinner/Spinner'
+import { Container } from '@material-ui/core';
 
 const Kennel = (props) => {
   const [input, setInput] = useState('');
@@ -35,26 +36,25 @@ const Kennel = (props) => {
 {/* <Spinner /> */}
       {/* <img src={doggo} className="spinner" alt='a spinning dog, reaching for his tail - a loading icon.'/> */}
       <br/>
-      <h2 class="centre-this">Search for a friend..</h2>
+      <h2 className="centre-this">Search for a friend..</h2>
       <br/>
-      <TextField class="centre-this"
-        id="standard-full-width" 
+      <Container>
+      <TextField
         fullWidth
         placeholder="Enter your suburb here..."
         variant="outlined"
         value={input} 
         onChange={(e) => updateInput(e.target.value)} />
+      </Container>
 
       {
         loading ?
         <Spinner />
         :
-        <div class="flex-container">
+        <div className="flex-container">
           <DogList dogList={dogList}/>
         </div>
-        
       }
-
     </>
   );
 }

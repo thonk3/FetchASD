@@ -3,7 +3,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import User from "./UserPage";
+// import User from "./UserPage";
 
 
 const UserList = ({ userList = [] }) => {
@@ -23,7 +23,7 @@ const UserList = ({ userList = [] }) => {
                   </Button>
                 </TableCell>
                 <TableCell style={{ minWidth: 150 }}>
-                  <Link to={data._id} Component={User} style={{ textDecoration: "none" }}>
+                  <Link to={data._id}  style={{ textDecoration: "none" }}>
                     <Button variant="contained" color="primary" >
                       {" "}
                       View Profile{" "}

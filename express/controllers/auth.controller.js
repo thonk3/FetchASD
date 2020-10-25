@@ -111,11 +111,22 @@ module.exports.changePassword = async (req, res) => {
 
 module.exports.checkPassword = async (req, res) => {
     const user = await User.findById(req.params.id);
-    const checkPassword = await bcrypt.compare(req.body.newPassword, user.password);
-    if (checkPassword) {
-        return res.status(200).json({ msg: "Password Matches"})
-    } 
-    if(!checkPassword){
-        return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
-    } 
+
+    try {
+        const checkPassword = await bcrypt.compare(req.body.currentPass, user.password);
+        console.log(req.body);
+        if (checkPassword) {
+            console.log("check OK");
+            return res.status(200).json({ msg: "Password Matches"})
+        } 
+        if(!checkPassword){
+            return res.status(400).json({ error: "WRONG PASSWORD" });
+        } 
+    } catch (error) {
+        console.log("error")
+        console.log(error)
+        return;
+    }
+
+
 }
