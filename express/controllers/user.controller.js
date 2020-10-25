@@ -29,7 +29,7 @@ module.exports.userGetDogs = async (req, res) => {
     try {
         // find if user exist by their _id provided by mongodb
         const user = await User.findById(req.params.id);
-        if(!user) return res.status(400).json('Error' + err);
+        if (!user) return res.status(400).json('Error' + err);
 
         // store the users dog _ids
         const dogsArray = user.dogs;
@@ -53,62 +53,63 @@ module.exports.userGetDogs = async (req, res) => {
 module.exports.userByID = async (req, res) => {
     try {
         let user = await User.findById(req.params.id)
-        if(!user) return res.status(400).json({'error': 'User doesnt exist' });
+        if (!user) return res.status(400).json({ 'error': 'User doesnt exist' });
 
-        const a = {...user._doc}
-        const {password, ...found} = {...a}
+        const a = { ...user._doc }
+        const { password, ...found } = { ...a }
 
         // found user
         return res.status(200).json(found);
     } catch (err) {
-        return res.status(400).json({'error': err});
+        return res.status(400).json({ 'error': err });
     }
 
 }
 
 
- module.exports.updateUser = async (req, res) => {
-     try {
-         let _id = req.params.id;
-         User.findByIdAndUpdate(_id, req.body, { new: true }, function(
-             err,
-             data
-         ) {
-             if (err) {
-                 return res.status(400).json('Error' + err)
-             }
-             else {
-                 return res.status(200)
-             }
-         })
-     } catch (err) {
-         return res.status(400).json('Error' + err)
-     }
- }
-
- module.exports.deleteUser = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
     try {
-         const user = await User.findById(req.params.id);
-         //iterate of the user's dog
-         for (x in user.dogs) {
+        let _id = req.params.id;
+        User.findByIdAndUpdate(_id, req.body, { new: true }, function (
+            err,
+            data
+        ) {
+            if (err) {
+                return res.status(400).json('Error' + err)
+            }
+            else {
+                console.log(data);
+                return res.status(200).json({ msg: "ok" })
+            }
+        })
+    } catch (err) {
+        return res.status(400).json('Error' + err)
+    }
+}
+
+module.exports.deleteUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        //iterate of the user's dog
+        for (x in user.dogs) {
             console.log("MATCH");
             console.log(user.dogs[x]);
             await User.findOneAndUpdate(
-            { _id: req.body.id },
-                     //pull the dog id from the dogs array
-            { $pull: { dogs: user.dogs[x] } }
+                { _id: req.body.id },
+                //pull the dog id from the dogs array
+                { $pull: { dogs: user.dogs[x] } }
             );
             console.log("Id Removed from User");
             await Dog.findByIdAndDelete(user.dogs[x], function (err) {
-                if (err){
+                if (err) {
                     console.log("Error: " + err);
                 }
             });
             console.log("Dog Document Deleted");
-         }
+        }
         let deletedUser = await user.remove();
         return res.status(200).json(deletedUser);
     } catch (err) {
         return res.status(400).json('Error' + err)
     }
- }
+}

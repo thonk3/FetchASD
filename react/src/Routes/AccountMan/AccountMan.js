@@ -36,52 +36,20 @@ class AccountMan extends Component {
             })
     }
 
-    onChangeFirstName = e =>{
-        this.setState({
-            firstName : e.target.value
-        })
-    }
-    onChangeLastName = e =>{
-        this.setState({
-            lastName : e.target.value
-        })
-    }
-    onChangeEmail = e =>{
-        this.setState({
-            email : e.target.value
-        })
-    }
-    onChangePhoneNumber = e =>{
-        this.setState({
-            phoneNumber : e.target.value
-        })
-    }
-    onChangeSuburb = e =>{
-        this.setState({
-            suburb : e.target.value
-        })
-    }
-    onChangePostcode = e =>{
-        this.setState({
-            postcode : e.target.value
-        })
-    }
-    onChangeCurrentPassword = e =>{
-        this.setState({
-            currentPassword : e.target.value
-        })
-    }
-    onChangeNewPassword = e =>{
-        this.setState({
-            newPassword : e.target.value
-        })
-    }
-    onChangeNewPassword2 = e =>{
-        this.setState({
-            newPassword2 : e.target.value
-        })
-    }
-
+    // update handlers
+    onChangeFirstName = e => this.setState({ firstName : e.target.value })
+    onChangeLastName = e => this.setState({ lastName : e.target.value })
+    onChangeEmail = e => this.setState({ email : e.target.value })
+    onChangePhoneNumber = e => this.setState({ phoneNumber : e.target.value })
+    onChangeSuburb = e => this.setState({ suburb : e.target.value })
+    onChangePostcode = e => this.setState({ postcode : e.target.value })
+    
+    // password handlers
+    onChangeCurrentPassword = e => this.setState({ currentPassword : e.target.value })
+    onChangeNewPassword = e => this.setState({ newPassword : e.target.value })
+    onChangeNewPassword2 = e => this.setState({ newPassword2 : e.target.value })
+    
+    // update
     onSubmit = e => {
         e.preventDefault();
 
@@ -89,7 +57,6 @@ class AccountMan extends Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
-            password: this.state.password,
             phoneNumber: this.state.phoneNumber,
             suburb: this.state.suburb,
             postcode: this.state.postcode
@@ -127,44 +94,44 @@ class AccountMan extends Component {
             })
     }
     
-    onSubmitPassword = e => {
+    onSubmitPassword = async e => {
         e.preventDefault();
         let errors = {};
         let formIsValid = true;
         const data = {
             id : this.state.id,
-            newPassword : this.state.newPassword
+            currentPass : this.state.currentPassword
         }
-        Axios.post('/api/auth/checkPassword/' + this.state.id, data)
-            .then( response => {
-                formIsValid = true;
-            })
+        await Axios.post('/api/auth/checkPassword/' + this.state.id, data)
+            .then( () => formIsValid = true )
             .catch(err => {
                 formIsValid = false;
                 errors["password"] = "Incorrect Password";
+                console.log("end");
+                return;
             })
-        if(this.state.newPassword!==this.state.newPassword2){
-            errors["passwords"] = "Passwords do not match";
-            formIsValid = false;
-        }
-        this.setState({errors: errors});
-        if(formIsValid === false){
-            return(0)
-        }
-        //this.setState({...defaultState, id: token().id})
+            .then(() => {
+                if(this.state.newPassword!==this.state.newPassword2){
+                    errors["passwords"] = "Passwords do not match";
+                    formIsValid = false;
+                }
+                console.log(formIsValid);
+                this.setState({errors: errors});
+                if(formIsValid === false) return;   
+            });
 
-        Axios.put('/api/auth/changePassword/' + this.state.id, data)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/';
-            })
-            .catch((error) => {
-                console.log(error.message);
-            }) 
-
+            console.log("changing");
+                const newPass = {
+                    id: this.state.id,
+                    newPassword: this.state.newPassword,
+                }
+                await Axios.post('/api/auth/changePassword/' + this.state.id, newPass)
+                    .then(res => {
+                        console.log(res.data)
+                        window.location = '/';
+                    })
+                    .catch((error) => console.log(error.message))
         
-
-
     }
 
     handleValidation() {
@@ -178,20 +145,20 @@ class AccountMan extends Component {
         }
         //lastName validation
         if(!(this.state.lastName.match(/^[a-zA-Z]+$/))){
-             formIsValid=false;
-             errors["lastName"] = "Only Letters";
+            formIsValid=false;
+            errors["lastName"] = "Only Letters";
         }
         //email validation
         //digust need change and fix
         if(!(this.state.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))){
             formIsValid=false;
             errors["email"] = "Email is not valid";
-       }
-        //phoneNumber validation
-        if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
-            formIsValid=false;
-            errors["phoneNumber"] = "Only Numbers";
         }
+        //phoneNumber validation
+        // if(!((this.state.phoneNumber.match(/^[0-9]+$/)) && this.state.phoneNumber.length === 10)){
+        //     formIsValid=false;
+        //     errors["phoneNumber"] = "Only Numbers";
+        // }
         //suburb
         if(!(this.state.suburb.match(/^[0-9a-zA-Z\s]+$/))){
             formIsValid=false;
@@ -240,7 +207,8 @@ class AccountMan extends Component {
                 </form>
                 <h4 align="center">Change Password</h4>
                 <form onSubmit={this.onSubmitPassword}>
-                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required type="password" style={{width: "500px"}} variant="outlined" id="CurrentPassword" label="Current Password" value={this.state.currentPassword} onChange={this.onChangeCurrentPassword}/></Box>
+                    <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} >
+                        <TextField required type="password" style={{width: "500px"}} variant="outlined" id="CurrentPassword" label="Current Password" value={this.state.currentPassword} onChange={this.onChangeCurrentPassword}/></Box>
                     <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["password"]}</span>
                     <Box style={{display: "flex", margin: "1vw", justifyContent:"center"}} ><TextField required type="password" style={{width: "500px"}} variant="outlined" id="New Password" label="New Password" value={this.state.newPassword} onChange={this.onChangeNewPassword}/></Box>
                     <span style={{color: "red", display: "flex", margin: "1vw", justifyContent:"center"}}>{this.state.errors["passwords"]}</span>
