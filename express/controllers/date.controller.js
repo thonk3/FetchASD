@@ -27,7 +27,6 @@ exports.updateDate = async(req, res) => {
         dateOn: req.body.dateOn,
         location: req.body.location,
     }, {new: true})
-    console.log(updatedDate);
     if(!updatedDate)
         return res.status(400).json({ 'error': 'Could not find dog date with that ID'});
     else {

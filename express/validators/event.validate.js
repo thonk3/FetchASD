@@ -1,0 +1,78 @@
+const { check } = require('express-validator')
+
+module.exports.createEventValidator = [
+    check('name')
+        .notEmpty().bail()
+        .withMessage("The event name cannot be empty")
+        .isString().bail()
+        .withMessage("The event name must be a string")
+        .isLength({ max: 40 })
+        .withMessage("Title can only be 40 characters long"),
+    check('dateAndTime')
+        .notEmpty().bail()
+        .withMessage("The date/time cannot be empty")
+        .isISO8601().bail()
+        .withMessage("The date format is invalid")
+        .isAfter()
+        .withMessage("The date cannot be before todays date"),
+    check('status')
+        .notEmpty().bail()
+        .withMessage("The status of the event has not been set")
+        .isString().bail()
+        .withMessage("The status of the event is not in string format")
+        .equals("Upcoming").bail()
+        .withMessage("The status of a new event must be upcoming"),
+    check('location')
+        .notEmpty().bail()
+        .withMessage("The location of the event must not be empty")
+        .isString()
+        .withMessage("The location of the event must be a string"),
+    check('description')
+        .notEmpty().bail()
+        .withMessage("The description of the event must not be empty")
+        .isString().bail()
+        .withMessage("The description of the event must be a string")
+        .isLength({ max: 500})
+        .withMessage("Only allowed to write 500 characters for the event description")
+]
+
+module.exports.updateEventValidator = [
+    check('name')
+        .optional({ nullable: true })
+        .notEmpty().bail()
+        .withMessage("The event name cannot be empty")
+        .isString().bail()
+        .withMessage("The event name must be a string")
+        .isLength({ max: 40 })
+        .withMessage("Title can only be 40 characters long"),
+    check('dateAndTime')
+        .optional({ nullable: true })
+        .notEmpty().bail()
+        .withMessage("The date/time cannot be empty")
+        .isISO8601().bail()
+        .withMessage("The date format is invalid")
+        .isAfter()
+        .withMessage("The date cannot be before todays date"),
+    check('status')
+        .optional({ nullable: true })
+        .notEmpty().bail()
+        .withMessage("The status of the event has not been set")
+        .isString().bail()
+        .withMessage("The status of the event is not in string format")
+        .isIn(["Upcoming", "Completed"]).bail()
+        .withMessage("The status of event must be Upcoming or Completed"),
+    check('location')
+        .optional({ nullable: true })
+        .notEmpty().bail()
+        .withMessage("The location of the event must not be empty")
+        .isString()
+        .withMessage("The location of the event must be a string"),
+    check('description')
+        .optional({ nullable: true })
+        .notEmpty().bail()
+        .withMessage("The description of the event must not be empty")
+        .isString().bail()
+        .withMessage("The description of the event must be a string")
+        .isLength({ max: 500})
+        .withMessage("Only allowed to write 500 characters for the event description")
+]
