@@ -36,8 +36,9 @@ export default class Dog extends Component {
             open: false,
             setOpen: false,
             searchTerm: '',
-            
             wrongPage: false,
+            error: [],
+            errorState: false
         };
         this.handleOpenExpressInterest = this.handleOpenExpressInterest.bind(this);
         this.handleCloseExpressInterest = this.handleCloseExpressInterest.bind(this);
@@ -81,7 +82,9 @@ export default class Dog extends Component {
             .catch((error) => console.log(error))
     }
 
-    onRequestSubmit() { // create a new date
+    onRequestSubmit(e) { // create a new date
+        e.preventDefault();
+        this.setState({ errorState: false })
         const newDate = {
             senderDogID: this.state.senderDogID,
             receiverDogID: this.state.id,
@@ -90,8 +93,12 @@ export default class Dog extends Component {
             location: this.state.locationAddress,
         }
         axios.post('/api/date/add/', newDate)
+            .then(window.location = '/')
             .catch((error => {
-                console.log("Could not create a new date")
+                this.setState({
+                    error: error.response.data.error,
+                    errorState: true
+                })
             }))
     }
 
@@ -223,8 +230,15 @@ export default class Dog extends Component {
                                         </Dialog>
                                         <Box display="flex" justifyContent="space-between">
                                             <Button style={{ width: '49%' }} onClick={this.handleCloseExpressInterest} variant="contained" color="default"> Cancel </Button>
-                                            <Button style={{ width: '49%' }} type="submit" onClick={() => this.onRequestSubmit()} variant="contained" color="primary"> Send</Button>
+                                            <Button style={{ width: '49%' }} type="submit" onClick={(e) => this.onRequestSubmit(e)} variant="contained" color="primary"> Send</Button>
                                         </Box>
+                                        {(this.state.errorState) ? (typeof error === "string") ?
+                                            <Typography> {this.state.error} </Typography>
+                                            :
+                                            <ul>
+                                                {this.state.error.map((err, i) => <li key={i}><b>{err.param}: </b> {err.msg}</li>)}
+                                            </ul>
+                                        : "" }
                                     </FormGroup>
                                 </form>
                             </Grid>

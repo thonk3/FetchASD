@@ -3,6 +3,7 @@ import React,{ Component } from 'react';
 import DialogContainer from '../DialogContainer'
 import UpdateDialog from './UpdateDialog';
 import DeleteDialog from './DeleteDialog';
+import MarkCompletedDialog from './MarkCompletedDialog';
 
 class UpcomingDialog extends Component {
     constructor(props) {
@@ -48,6 +49,13 @@ class UpcomingDialog extends Component {
         return <DeleteDialog obj={list} />;
     }
 
+    markCompleteDialog(list) {	    
+        // return list.map((data, i) => {	      
+        //     return <UpdateDialog obj={data} key={i} />;	        
+        // });
+        return <MarkCompletedDialog obj={list} />;
+    }
+
     render() {
         const { date, toggleDialog, activeState } = this.props;
 
@@ -58,6 +66,7 @@ class UpcomingDialog extends Component {
                 contentTitle="Here are the details of your date:"
                 actionsButtons={<>
                     {this.updateDialog(date)}
+                    {this.markCompleteDialog(date)}
                     {this.deleteDialog(date)}
                 </>}
             >

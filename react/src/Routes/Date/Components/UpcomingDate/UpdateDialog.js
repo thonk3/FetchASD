@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
+import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import axios from 'axios';
@@ -73,7 +73,6 @@ class UpdateDialog extends Component {
                     <Dialog open={this.state.showUpdate} onClose={this.handleHideUpdate} aria-labelledby="alert-dialog-title">
                         <DialogTitle id="form-dialog-title">Date Details</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>Please note that if you change the details of this date, the other party must accept the updated request</DialogContentText>
                                 <p>{this.props.obj.senderDog.name} is going out with {this.props.obj.receiverDog.name}</p>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
                                     <KeyboardDateTimePicker

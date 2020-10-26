@@ -16,8 +16,17 @@ const CompletedDialog = props => {
             contentTitle="Here are the details of your date:"
         >
             <p>{date.senderDog.name} went out with {date.receiverDog.name}</p>
-            <p>When: {new Date(Date.parse(date.dateOn)).toLocaleString('en-AU')}</p>
-            <p>Where: {date.location}</p>
+            <p><b>When:</b> {new Intl.DateTimeFormat("en-AU", { 
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                    }).format(new Date(date.dateOn))} at {new Intl.DateTimeFormat("en-AU", { 
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZone: "Australia/Sydney",
+                        timeZoneName: "short"
+                    }).format(new Date(date.dateOn))}</p>
+            <p><b>Where:</b> {date.location}</p>
         </DialogContainer>
     )
 }
