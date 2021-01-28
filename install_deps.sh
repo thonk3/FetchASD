@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## function installing react npm deps
 react_dep() {
     cd react;
     echo "[REACT] installing dependencies, give this asec";
@@ -8,6 +9,7 @@ react_dep() {
     echo "[REACT] instalation complete";
 }
 
+## function installing backend server npm deps
 express_dep() {
     cd express;
     echo "[EXPRS] installing dependencies";
@@ -16,7 +18,7 @@ express_dep() {
     echo "[EXPRS] instalation complete";
 }
 
-# letsa go
+# install react and express dependencies
 react_dep &
 express_dep &
 
