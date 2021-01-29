@@ -27,6 +27,7 @@ const App = (props) => {
     { path: '/newmsg', component: Routes.NewMsg, exact: false },
   ];
 
+  // need to test
   const userRoutes = [
     { path: '/myacc/mypack/newdog', component: Routes.CreateDog, exact: false },
     { path: '/myacc/mypack/:id', component: Routes.UpdateDog, exact: false },
@@ -40,6 +41,7 @@ const App = (props) => {
     { path: '/inquiries', component: Routes.UserMsg, exact: false },
   ];
 
+  // need to test
   const adminRoutes = [
     { path: '/admin/messages', component: Routes.AdminMsg },
     { path: '/admin/loc_man/new', component: Routes.AdminLocCreate },
