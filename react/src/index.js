@@ -2,17 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider 
-  // CssBaseline 
-} from '@material-ui/core';
-import theme from './Theme';
+import { ThemeProvider } from '@material-ui/core';
+import Theme from './Theme';
 
 import './index.css';
 import AppContainer from './App/AppContainer';
 
 ReactDOM.render(
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
 
         {/* <CssBaseline /> */}
         <AppContainer />
