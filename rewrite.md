@@ -67,9 +67,10 @@ everything seems ok, it ends up being general renaming of things
 - [ ] /app folder
   - [x] converting everything to jsx
   - [x] Rename cleanup
-  - [ ] App cleanup
-  - [ ] UserRoute cleanup
-  - [ ] AdminRoute cleanup
+  - [x] App cleanup
+  - [x] UserRoute cleanup
+  - [x] AdminRoute cleanup
+  - [ ] AppContainer cleanup
 - [ ] edit public/html meta data
 
 ## Notes

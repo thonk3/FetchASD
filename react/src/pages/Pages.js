@@ -15,8 +15,6 @@ export { default as EventCreate } from './Event/Components/CreateEvent'
 export { default as EventUpdate } from './Event/Components/UpdateEvent'
 
 // Accounts
-
-
 export { default as Register } from './Register/RegisterContainer'
 export { default as Login } from './Login/LoginContainer'
 export { default as AccountMan } from './AccountMan/AccountMan'

@@ -3,10 +3,15 @@ import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../contexts/authContext'
 import token from '../utils/token'
 
-/* used by route that needs to be hidden behind authentication */
-/* only staffs can acces these routes */
 
-// may need to be change to function
+/* 
+    Route wrapper that only allows 
+    authenticated users with admin authorization
+
+    redirect to previous page if not authorized
+    redirect to login page if not logged in
+*/
+
 const AdminRoute = ({ component: Component, ...rest }) => {
     const { loggedIn } = useAuth();
     const isStaff = token().staff;
@@ -23,7 +28,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
                     to={{ 
                         pathname: "/", 
                         state: { referer: props.location } }}
-                    /> /* redirect if not auth */
+                    />
                 )
             }
         />
