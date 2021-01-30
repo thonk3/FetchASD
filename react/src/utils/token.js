@@ -12,7 +12,7 @@
  *      email
  * }
  */
-function token() {
+const token = () => {
     try {
         let tkpl = localStorage.getItem("tokens").split('.')[1]
         return JSON.parse(atob(tkpl));

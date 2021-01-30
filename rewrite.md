@@ -12,6 +12,7 @@ adding new bits and pieces of new stuff ive learned.
 things i need to worry about
 
 - folder structure
+- changing stuff to `jsx`
 - how things are organised
 - have a second look at context
 - set up some testing
@@ -31,7 +32,7 @@ aside from the testing deps
 - moment - time format
 - react
 - react-dom
-- react-router-don
+- react-router-dom
 - react-scripts
 
 removed deps for not being used

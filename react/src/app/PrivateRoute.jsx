@@ -5,7 +5,6 @@ import { useAuth } from '../contexts/authContext'
 /* used by route that needs to be hidden behind authentication */
 /* redirect to home page if not authenticated */
 
-// may need to be change to function
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const { loggedIn } = useAuth();
 
