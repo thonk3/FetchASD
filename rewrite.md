@@ -38,6 +38,29 @@ removed deps for not being used
 
 - react-toastify
 
+## folder structure
+
+current
+```
+- app
+- assets
+- common
+- context
+- helpers
+- routes
+```
+
+new 
+```
+- app
+- assets
+- components
+- context
+- utils
+- pages
+```
+everything seems ok, it ends up being general renaming of things
+
 ---
 
 # backend(express)

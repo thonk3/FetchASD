@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Spinner from '../../../Common/Spinner/Spinner'
+import Spinner from '../../../components/Spinner/Spinner'
 import axios from 'axios'
 import { Container, Box, Typography, Button, Paper, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText } from '@material-ui/core';
 import getToken from '../../../Helpers/token'

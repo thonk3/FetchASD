@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 // component imports
-import NavBar from '../Common/NavBar/NavBar'
+import NavBar from '../components/NavBar/NavBar'
 import * as Routes from '../Routes/Routes'
 import PrivateRoute from './PrivateRoute'
 import AdminRoute from './AdminRoute'

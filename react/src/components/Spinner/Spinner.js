@@ -1,6 +1,6 @@
 import React from 'react'
 
-import doggo from '../../Assets/doggo.gif'
+import doggo from '../../assets/doggo.gif'
 import { makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({

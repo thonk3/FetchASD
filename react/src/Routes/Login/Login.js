@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './Login.style'
-import Spinner from '../../Common/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 
 function Login(props) {
     // style

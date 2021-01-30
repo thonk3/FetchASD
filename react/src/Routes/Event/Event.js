@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { Container, Paper, Tab, Tabs, Button } from '@material-ui/core';
 import EventList from './Components/EventList'
-import Spinner from '../../Common/Spinner/Spinner'
+import Spinner from '../../components/Spinner/Spinner'
 import getToken from '../../Helpers/token'
 
 const Event = (props) => {

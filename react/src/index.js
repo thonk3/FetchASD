@@ -6,7 +6,7 @@ import { ThemeProvider } from '@material-ui/core';
 import Theme from './Theme';
 
 import './index.css';
-import AppContainer from './App/AppContainer';
+import AppContainer from './app/AppContainer';
 
 ReactDOM.render(
     <BrowserRouter>

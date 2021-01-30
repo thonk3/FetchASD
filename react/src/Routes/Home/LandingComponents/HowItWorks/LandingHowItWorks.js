@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Container, Button, Typography } from '@material-ui/core';
-import heart_thing from '../../../../Assets/heart_paw.png';
+import heart_thing from '../../../../assets/heart_paw.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
