@@ -64,7 +64,16 @@ everything seems ok, it ends up being general renaming of things
 
 ## Cleaning up checklist
 
+- [ ] /app folder
+  - [x] converting everything to jsx
+  - [x] Rename cleanup
+  - [ ] App cleanup
+  - [ ] UserRoute cleanup
+  - [ ] AdminRoute cleanup
+- [ ] edit public/html meta data
+
 ## Notes
+- need a way to return to front page (both public/logged in)
 
 ---
 

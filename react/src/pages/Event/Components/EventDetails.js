@@ -4,7 +4,7 @@ import Spinner from '../../../components/Spinner/Spinner'
 import axios from 'axios'
 import { Container, Box, Typography, Button, Paper, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText } from '@material-ui/core';
 import getToken from '../../../utils/token'
-import { EventUpdate } from '../../Routes';
+import { EventUpdate } from '../../Pages';
 
 const EventDetails = (props) => {
     const [ eventDetails, setEventDetails ] = useState();

@@ -1,3 +1,7 @@
+/* 
+    grouping pages components for export
+*/
+
 export { default as Home } from './Home/Home'
 
 export { default as Kennel } from './Kennel/Kennel'
