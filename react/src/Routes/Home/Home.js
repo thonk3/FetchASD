@@ -6,7 +6,7 @@ import Kennel from '../Kennel/Kennel';
 import { useAuth } from '../../Context/authContext'; 
 import Container from '@material-ui/core/Container'
 
-import token from '../../Helpers/token';
+import token from '../../utils/token';
 
 const Home = (props) => {
     const { loggedIn } = useAuth();

@@ -5,7 +5,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import token from '../../Helpers/token';
+import token from '../../utils/token';
 import { Link } from 'react-router-dom'
 
 import MsgItem from './Components/MsgItem'

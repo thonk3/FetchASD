@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import token from '../../../../Helpers/token'
+import token from '../../../../utils/token'
 
 // import Spinner from '../../../../Common/NavBar'
 import DialogContainer from '../DialogContainer'

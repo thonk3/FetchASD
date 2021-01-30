@@ -15,7 +15,7 @@ import {
 // import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
 
-import token from '../../Helpers/token'
+import token from '../../utils/token'
 
 
 /* 

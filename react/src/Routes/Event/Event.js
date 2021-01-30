@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, Paper, Tab, Tabs, Button } from '@material-ui/core';
 import EventList from './Components/EventList'
 import Spinner from '../../components/Spinner/Spinner'
-import getToken from '../../Helpers/token'
+import getToken from '../../utils/token'
 
 const Event = (props) => {
     const [ upcomingEventList, setUpcomingEventList] = useState();

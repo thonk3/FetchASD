@@ -9,7 +9,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import { Container, Paper, Typography, Box, Button, TextField } from '@material-ui/core';
 
 import { useAuth } from '../../Context/authContext';
-import token from '../../Helpers/token';
+import token from '../../utils/token';
 
 const CommsContainer = (props) => {
     // set id if logged in

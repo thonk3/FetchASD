@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner'
 import axios from 'axios'
 import { Container, Box, Typography, Button, Paper, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText } from '@material-ui/core';
-import getToken from '../../../Helpers/token'
+import getToken from '../../../utils/token'
 import { EventUpdate } from '../../Routes';
 
 const EventDetails = (props) => {

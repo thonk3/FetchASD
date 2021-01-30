@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { useAuth } from '../Context/authContext'
-import token from '../Helpers/token'
+import { useAuth } from '../contexts/authContext'
+import token from '../utils/token'
 
 /* used by route that needs to be hidden behind authentication */
 /* only staffs can acces these routes */

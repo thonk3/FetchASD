@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Axios from 'axios';
 import React, { Component } from 'react';
-import token from '../../Helpers/token';
+import token from '../../utils/token';
 const defaultState = {
     id: '', 
     firstName: '',

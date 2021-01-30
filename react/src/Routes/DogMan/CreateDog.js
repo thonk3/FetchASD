@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import token from '../../Helpers/token'
+import token from '../../utils/token'
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';

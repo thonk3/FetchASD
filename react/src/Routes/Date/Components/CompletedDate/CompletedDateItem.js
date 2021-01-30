@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import { Grid, Button/* , Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions */ } from '@material-ui/core'
 
-// import token from '../../../../Helpers/token'
 // import axios from 'axios'
 import RatingDialog from './RatingDialog'
 import CompletedDialog from './CompletedDialog'

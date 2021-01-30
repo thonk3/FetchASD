@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import './kennel.css';
 import CardMedia from '@material-ui/core/CardMedia';
-import token from '../../../Helpers/token';
+import token from '../../../utils/token';
 
 
 const DogList = ({ dogList = [] }) => {

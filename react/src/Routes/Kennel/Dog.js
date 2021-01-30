@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import './Components/kennel.css';
-import token from '../../Helpers/token';
+import token from '../../utils/token';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import token from '../../Helpers/token'
+import token from '../../utils/token'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';

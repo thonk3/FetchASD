@@ -52,10 +52,10 @@ current
 
 new 
 ```
-- app
-- assets
-- components
-- context
+- app -ok
+- assets - ok
+- components - ok
+- context - ok
 - utils
 - pages
 ```
