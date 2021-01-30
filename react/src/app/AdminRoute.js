@@ -11,9 +11,6 @@ const AdminRoute = ({ component: Component, ...rest }) => {
     const { loggedIn } = useAuth();
     const isStaff = token().staff;
 
-    console.log(token());
-    console.log("this user is a staff", isStaff)
-
     return (
         <Route 
             {...rest}

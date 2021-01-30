@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { useAuth } from '../Context/authContext'
+import { useAuth } from '../contexts/authContext'
 
 /* used by route that needs to be hidden behind authentication */
 /* redirect to home page if not authenticated */

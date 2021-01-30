@@ -38,7 +38,7 @@ removed deps for not being used
 
 - react-toastify
 
-## folder structure
+## folder structure OK
 
 current
 ```
@@ -56,10 +56,14 @@ new
 - assets - ok
 - components - ok
 - context - ok
-- utils
-- pages
+- utils - ok
+- pages - ok
 ```
 everything seems ok, it ends up being general renaming of things
+
+## Cleaning up checklist
+
+## Notes
 
 ---
 

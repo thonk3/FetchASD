@@ -4,7 +4,7 @@ import NotLoggedIn from './components/NotLoggedIn'
 import NavSeperator from './components/NavSeperator'
 import NavPopper from './components/NavPopper'
 
-import { useAuth } from '../../Context/authContext'
+import { useAuth } from '../../contexts/authContext'
 import { Redirect } from 'react-router-dom'
 import {
     AppBar,

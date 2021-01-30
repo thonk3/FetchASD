@@ -8,7 +8,7 @@ import {
 
 // component imports
 import NavBar from '../components/NavBar/NavBar'
-import * as Routes from '../Routes/Routes'
+import * as Routes from '../pages/Routes'
 import PrivateRoute from './PrivateRoute'
 import AdminRoute from './AdminRoute'
 

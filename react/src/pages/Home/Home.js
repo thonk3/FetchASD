@@ -3,7 +3,7 @@ import React from 'react';
 // import NameThing from './NameThing'
 import LandingPage from './LandingPage';
 import Kennel from '../Kennel/Kennel';
-import { useAuth } from '../../Context/authContext'; 
+import { useAuth } from '../../contexts/authContext'; 
 import Container from '@material-ui/core/Container'
 
 import token from '../../utils/token';
