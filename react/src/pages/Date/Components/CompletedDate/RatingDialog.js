@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import token from '../../../../utils/token'
+import token from '../../../../utils/tokenUtils'
 
 // import Spinner from '../../../../Common/NavBar'
 import DialogContainer from '../DialogContainer'
@@ -29,7 +29,7 @@ const RatingDialog = props => {
     
     useEffect(() => {
         const payload = {
-            userID: token().id,
+            userID: token.getID(),
             date: {
                 dateID: date._id,
                 senderID: date.senderDog._id,

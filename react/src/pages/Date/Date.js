@@ -3,7 +3,7 @@
 */
 import React from 'react';
 import axios from 'axios';
-import token from '../../utils/token';
+import token from '../../utils/tokenUtils';
 import { Button, Container, Grid/* , Typography */ } from '@material-ui/core'
 
 import RequestedDateItem from './Components/RequestedDate/RequestedDateItem';
@@ -30,7 +30,7 @@ class Dates extends React.Component {
 
     // load the dates on start
     componentDidMount() {
-        axios.get(`/api/date/${token().id}/`)
+        axios.get(`/api/date/${token.getID()}/`)
             .then(res => this.setState({
                 requestList: true,
                 requested: res.data.requested,

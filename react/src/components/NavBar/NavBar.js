@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../contexts/authContext'
 import { Redirect } from 'react-router-dom'
-import token from '../../utils/token'
+import token from '../../utils/tokenUtils'
 // components
 import NavLink from './NavLink'
 import NotLoggedIn from './NotLoggedIn'
@@ -73,7 +73,7 @@ const NavBar = props => {
 
     // conditional rendering functions
     const adminButton = () => {
-        if(token().staff)
+        if(token.isStaff())
             return <> 
                 <NavSeperator />
                 <Button className={classes.menuLink} ref={adminAnchorRef} onClick={handleAdminToggle}>

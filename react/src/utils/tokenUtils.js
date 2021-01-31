@@ -12,7 +12,8 @@
  *      email
  * }
  */
-const token = () => {
+
+const _token = () => {
     try {
         let tkpl = localStorage.getItem("tokens").split('.')[1]
         return JSON.parse(atob(tkpl));
@@ -20,6 +21,13 @@ const token = () => {
         console.log("token err: ", e);
         return null;
     }
+};
+const token = {
+    getToken: () => _token(),
+    getID: () => _token().id,
+    getName: () => _token().name,
+    isStaff: () => _token().staff,
+
 }
 
 export default token;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import './Components/kennel.css';
-import token from '../../utils/token';
+import token from '../../utils/tokenUtils';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
@@ -63,7 +63,7 @@ export default class Dog extends Component {
                 this.setState({ wrongPage: true });
             })
 
-        axios.get(`/api/users/${token().id}/dogs`) // get all dogs from user
+        axios.get(`/api/users/${token.getToken()}/dogs`) // get all dogs from user
             .then(res => {
                 this.setState({
                     dogs: res.data,

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, Paper, Tab, Tabs, Button } from '@material-ui/core';
 import EventList from './Components/EventList'
 import Spinner from '../../components/Spinner/Spinner'
-import getToken from '../../utils/token'
+import token from '../../utils/tokenUtils'
 
 const Event = (props) => {
     const [ upcomingEventList, setUpcomingEventList] = useState();
@@ -50,7 +50,7 @@ const Event = (props) => {
             </Tabs>
         </Paper>            
         <TabPanel value={tabValue} index={0}>
-            { getToken().staff ? 
+            { token.isStaff() ? 
                 <Link to='/event/create' style={{ textDecoration: 'none' }}>
                     <Button style={{ marginLeft: 20, marginTop: 20 }} variant="contained" color="primary">Create Event</Button>
                 </Link> : "" }

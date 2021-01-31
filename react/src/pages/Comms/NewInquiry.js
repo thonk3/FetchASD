@@ -9,12 +9,12 @@ import Spinner from '../../components/Spinner/Spinner';
 import { Container, Paper, Typography, Box, Button, TextField } from '@material-ui/core';
 
 import { useAuth } from '../../contexts/authContext';
-import token from '../../utils/token';
+import token from '../../utils/tokenUtils';
 
 const CommsContainer = (props) => {
     // set id if logged in
     // const { loggedIn } = useAuth();
-    const id = useAuth().loggedIn ? token().id : "";
+    const id = useAuth().loggedIn ? token.getID() : "";
 
     // state hooks
     const [ title, setTitle ] = useState("");

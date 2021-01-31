@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../../contexts/authContext'
-import token from '../../utils/token'
+import token from '../../utils/tokenUtils'
 
 
 /* 
@@ -14,7 +14,7 @@ import token from '../../utils/token'
 
 const AdminRoute = ({ component: Component, ...rest }) => {
     const { loggedIn } = useAuth();
-    const isStaff = token().staff;
+    const isStaff = token.isStaff();
 
     return (
         <Route 

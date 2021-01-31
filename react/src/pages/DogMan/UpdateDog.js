@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import token from '../../utils/token';
+import token from '../../utils/tokenUtils';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -53,7 +53,7 @@ class UpdateDog extends Component {
     componentDidMount() {
         this.setState({
             ...this.state,
-            UserId: token().id,
+            UserId: token.getID(),
         })
         // Hardcoded get request the "logged in" user's dogs
         axios.get('/api/dogs/' + this.state.id)

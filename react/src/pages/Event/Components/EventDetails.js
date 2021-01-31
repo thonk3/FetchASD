@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner'
 import axios from 'axios'
 import { Container, Box, Typography, Button, Paper, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText } from '@material-ui/core';
-import getToken from '../../../utils/token'
+import token from '../../../utils/tokenUtils'
 import { EventUpdate } from '../../Pages';
 
 const EventDetails = (props) => {
@@ -125,7 +125,7 @@ const EventDetails = (props) => {
                             <Button variant="contained" color="primary">Back</Button>
                         </Link>
                     </Box>
-                    { getToken().staff && eventDetails.status !== "Completed" ?
+                    { token.isStaff() && eventDetails.status !== "Completed" ?
                     <Box>
                         <Link to={{
                             pathname: '/event/update/' + eventDetails._id,
@@ -139,7 +139,7 @@ const EventDetails = (props) => {
                         <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Event</Button>
                     </Box>
                     : "" }
-                    { getToken().staff   && eventDetails.status === "Completed" ?
+                    { token.isStaff() && eventDetails.status === "Completed" ?
                         <Box>
                             <Button onClick={() => setDeletedState(true)} variant="contained" color="primary">Delete Completed Event</Button>
                         </Box>

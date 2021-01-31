@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import token from '../../utils/token'
+import token from '../../utils/tokenUtils'
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -45,7 +45,7 @@ class CreateDog extends Component {
     componentDidMount () {
         this.setState({
             ...this.state,
-            UserId: token().id,
+            UserId: token.getID(),
         })
     }
 

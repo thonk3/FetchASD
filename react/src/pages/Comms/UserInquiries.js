@@ -5,7 +5,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import token from '../../utils/token';
+import token from '../../utils/tokenUtils';
 import { Link } from 'react-router-dom'
 
 import MsgItem from './Components/MsgItem'
@@ -29,7 +29,7 @@ const UserInquiries = props => {
     // load msg list
     useEffect(() => {
         let api = admin ? '/api/msg/' : '/api/msg/user'
-        axios.post(api, { senderID: token().id })
+        axios.post(api, { senderID: token.getID() })
             .then(res => setMsgList(res.data.list))
             .catch(error => console.log("error", error))
             .then(() => setLoading(false));

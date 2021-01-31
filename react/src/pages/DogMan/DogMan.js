@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import token from '../../utils/token'
+import token from '../../utils/tokenUtils'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -31,7 +31,7 @@ class DogMan extends Component {
     componentDidMount() {
         this.setState({
             ...this.state,
-            UserId: token().id
+            UserId: token.getID()
         });
         // Axios request to grab all the user's dogs
         axios.get('/api/users/' + token().id + '/dogs')

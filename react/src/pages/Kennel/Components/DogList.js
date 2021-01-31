@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import './kennel.css';
 import CardMedia from '@material-ui/core/CardMedia';
-import token from '../../../utils/token';
+import token from '../../../utils/tokenUtils';
 
 
 const DogList = ({ dogList = [] }) => {
@@ -28,7 +28,7 @@ const DogList = ({ dogList = [] }) => {
                     <Button variant="contained" color="primary" > View Profile </Button>
                   </Link>
                   <br />
-                  {token().staff ?
+                  {token.isStaff() ?
                     <>
                       <br />
                       <Button variant="contained" color="secondary">DELETE DOG</Button>
