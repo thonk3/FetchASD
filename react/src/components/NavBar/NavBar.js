@@ -1,21 +1,21 @@
 import React from 'react';
-import NavLink from './components/NavLink'
-import NotLoggedIn from './components/NotLoggedIn'
-import NavSeperator from './components/NavSeperator'
-import NavPopper from './components/NavPopper'
-
 import { useAuth } from '../../contexts/authContext'
 import { Redirect } from 'react-router-dom'
+import token from '../../utils/token'
+// components
+import NavLink from './NavLink'
+import NotLoggedIn from './NotLoggedIn'
+import NavSeperator from './NavSeperator'
+import NavPopper from './NavPopper'
+// styling
 import {
     AppBar,
     Toolbar,
     Typography,
     Button,
 } from '@material-ui/core';
-// import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './NavBar.style';
 
-import token from '../../utils/token'
 
 
 /* 
@@ -26,13 +26,13 @@ TODO
 
 const NavBar = props => {
     // add styling
-    const classes = useStyles();
+    const classes = useStyles()
+    //  anchor for drop down popper
     const userAnchorRef = React.useRef(null);
     const adminAnchorRef = React.useRef(null);
-    
+    // authentication context
     const { setAuthTokens, setLoggedIn } = useAuth();
     const { loggedIn } = useAuth();
-    
     // drop down menu
     const [openUser, setOpenUser] = React.useState(false);
     const handleUserToggle = () => { setOpenUser((prevOpen) => !prevOpen); };
@@ -63,7 +63,7 @@ const NavBar = props => {
         }
     }
 
-    // log out button
+    // log out and redirect to home screen
     const logOut = () => {
         setOpenUser(false);
         setLoggedIn(null);
@@ -91,7 +91,6 @@ const NavBar = props => {
     }   
 
     // aight the popper thing could be BETTER
-    // 
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
