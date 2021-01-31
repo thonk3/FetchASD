@@ -25,7 +25,7 @@ const NavPopper = props => {
     })
   }
 
-  const renderLogOut = () => {
+  const LogOut = () => {
     if(logOut) 
       return <MenuItem onClick={logOutHandler}>Log Out</MenuItem>
   }
@@ -44,7 +44,7 @@ const NavPopper = props => {
                   onKeyDown={handleListKeyDown} >
 
                   { PopperItems() }
-                  { renderLogOut() }
+                  { LogOut() }
                 </MenuList>
               </ClickAwayListener>
             </Paper>

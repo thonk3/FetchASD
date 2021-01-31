@@ -15,14 +15,13 @@ import {
 } from '@material-ui/core';
 import useStyles from './NavBar.style';
 
-
-
 /* 
 TODO
 - clean up this mess
 - move the popup menu in its own component
  */
 
+// --------------------------------------------------------------------------------
 const NavBar = props => {
     // add styling
     const classes = useStyles()
@@ -41,20 +40,20 @@ const NavBar = props => {
 
     // items for admin and user buttons drop down
     const userItems = [
-        { link: "/myacc", display: "My Account"},
-        { link: "/myacc/mypack", display: "My Pack"},
-        { link: "/events", display: "Events"},
-        { link: "/date", display: "My Date"},
-        { link: "/inquiries", display: "My Inquiries"}
+        { link: "/myacc", display: "My Account" },
+        { link: "/myacc/mypack", display: "My Pack" },
+        { link: "/events", display: "Events" },
+        { link: "/date", display: "My Date" },
+        { link: "/inquiries", display: "My Inquiries" }
     ];
 
     const adminItems = [
-        { link: "/admin/user_man", display: "User Management"},
-        { link: "/admin/loc_man", display: "Location Management"},
-        { link: "/admin/messages", display: "Inquiries"},
+        { link: "/admin/user_man", display: "User Management" },
+        { link: "/admin/loc_man", display: "Location Management" },
+        { link: "/admin/messages", display: "Inquiries" },
     ]
 
-    function handleListKeyDown(event) {
+    const handleListKeyDown = (event) => {
         if (event.key === "Tab") {
             event.preventDefault();
             setOpenUser(false);
@@ -70,56 +69,62 @@ const NavBar = props => {
         return <Redirect to='/' />
     }
 
-    // conditional rendering functions
-    const adminButton = () => {
-        if(token.isStaff())
-            return <> 
+    // --------------------------------------------------------------------------------
+    // render admin dropdown if user is admin
+    const renderAdminNav = () => {
+        if (token.isStaff())
+            return <>
                 <Typography>|</Typography>
                 <Button className={classes.menuLink} ref={adminAnchorRef} onClick={handleAdminToggle}>
                     <Typography variant='h6'> Admin </Typography>
                 </Button>
 
-                <NavPopper 
+                <NavPopper
                     open={openAdmin} setOpen={setOpenAdmin} logOut={false}
                     handleListKeyDown={handleListKeyDown}
                     anchorRef={userAnchorRef}
                     popperItems={adminItems} />
             </>
-        
-        return <></>
-    }   
 
-    // aight the popper thing could be BETTER
+        return <></>
+    }
+
+    // render nav for authenticated users
+    const renderUserNav = () => {
+        return <>
+            <NavLink dir='/' label='the kennel' />
+            { renderAdminNav()} {/* admin only component */}
+            <Typography>|</Typography>
+
+            <Button className={classes.menuLink} ref={userAnchorRef} onClick={handleUserToggle}>
+                <Typography variant='h6'> ME </Typography>
+            </Button>
+
+            <NavPopper
+                open={openUser} setOpen={setOpenUser} logOut={true}
+                logOutHandler={logOut}
+                handleListKeyDown={handleListKeyDown}
+                anchorRef={userAnchorRef}
+                popperItems={userItems} />
+
+        </>
+    }
+
+    // render nav depending if user is authenticated or not
+    const visibleNav = () => {
+        if(loggedIn) return renderUserNav();
+        else return <NotLoggedIn />
+    }
+
+
+    // --------------------------------------------------------------------------------
     return (
         <div className={classes.menuRoot}>
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant='h5' className={classes.menuTitle}><b>Fetch</b></Typography>
 
-                    {   // setting nav links based on auth status
-                        loggedIn ?
-                        (   // logged in
-                            <>
-                                <NavLink dir='/' label='the kennel' />
-                                { adminButton() } {/* admin only component */}
-                                <Typography>|</Typography>
-
-                                <Button className={classes.menuLink} ref={userAnchorRef} onClick={handleUserToggle}>
-                                    <Typography variant='h6'> ME </Typography>
-                                </Button>
-
-                                <NavPopper 
-                                    open={openUser} setOpen={setOpenUser} logOut={true}
-                                    logOutHandler={logOut}
-                                    handleListKeyDown={handleListKeyDown}
-                                    anchorRef={userAnchorRef}
-                                    popperItems={userItems} />
-
-                            </>
-                        ) 
-                        : 
-                        ( <NotLoggedIn /> )  // not logged in nav
-                    }
+                    { visibleNav() }
 
                 </Toolbar>
             </AppBar>
