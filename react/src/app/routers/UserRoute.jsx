@@ -9,7 +9,7 @@ import { useAuth } from '../../contexts/authContext'
     redirect to login page if not logged in
 */
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const UserRoute = ({ component: Component, ...rest }) => {
     const { loggedIn } = useAuth();
 
     return (
@@ -32,4 +32,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     )
 }
 
-export default PrivateRoute;
+export default UserRoute;

@@ -34,7 +34,7 @@ class DogMan extends Component {
             UserId: token.getID()
         });
         // Axios request to grab all the user's dogs
-        axios.get('/api/users/' + token().id + '/dogs')
+        axios.get('/api/users/' + token.getID() + '/dogs')
             .then(res => {
                 // add the dog objects in the dogs state array
                 this.setState({
