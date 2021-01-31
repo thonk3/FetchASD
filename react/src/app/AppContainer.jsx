@@ -10,7 +10,7 @@ import { AuthContext } from '../contexts/authContext'
     sets up context provider for autherization status
 */
 
-function AppWrapper(props) {
+const AppWrapper = () => {
     // token context - empty string or token string
     const existingTokens = JSON.parse(localStorage.getItem("tokens"));
     const [ authTokens, setAuthTokens ] = useState(existingTokens);

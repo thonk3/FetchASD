@@ -1,6 +1,5 @@
 // messy imports
 import React from 'react';
-import { Switch as RouterSwitch } from 'react-router-dom';
 // component imports
 import NavBar from '../components/NavBar/NavBar'
 import AppRoutes from './routers/Routes'
@@ -16,14 +15,14 @@ import { Typography } from '@material-ui/core';
 */
 
 // --------------------------------------------------------------------------------
-const App = (props) => {
+const App = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.main}>
         <NavBar />
-        <div className={classes.offset}></div>
+        <div className={classes.navOffset}></div>
 
         <AppRoutes />
   </div>

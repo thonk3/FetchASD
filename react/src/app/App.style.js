@@ -1,10 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const Styles = makeStyles((theme) => ({
-    offset: theme.mixins.toolbar,
-    borderThing: {
-        border: '1px solid red',
-    },
+    navOffset: theme.mixins.toolbar,
     root: {
         display: 'flex',
         flexDirection: 'column',

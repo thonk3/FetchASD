@@ -5,7 +5,6 @@ import token from '../../utils/tokenUtils'
 // components
 import NavLink from './NavLink'
 import NotLoggedIn from './NotLoggedIn'
-import NavSeperator from './NavSeperator'
 import NavPopper from './NavPopper'
 // styling
 import {
@@ -75,7 +74,7 @@ const NavBar = props => {
     const adminButton = () => {
         if(token.isStaff())
             return <> 
-                <NavSeperator />
+                <Typography>|</Typography>
                 <Button className={classes.menuLink} ref={adminAnchorRef} onClick={handleAdminToggle}>
                     <Typography variant='h6'> Admin </Typography>
                 </Button>
@@ -103,7 +102,7 @@ const NavBar = props => {
                             <>
                                 <NavLink dir='/' label='the kennel' />
                                 { adminButton() } {/* admin only component */}
-                                <NavSeperator />
+                                <Typography>|</Typography>
 
                                 <Button className={classes.menuLink} ref={userAnchorRef} onClick={handleUserToggle}>
                                     <Typography variant='h6'> ME </Typography>

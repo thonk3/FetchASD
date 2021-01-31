@@ -1,11 +1,11 @@
+import { Typography } from '@material-ui/core';
 import React from 'react'
 import NavLink from './NavLink'
-import NavSeperator from './NavSeperator'
 
 const NotLoggedIn = () => 
     <>
         <NavLink dir='/login' label='login' />
-        <NavSeperator />
+        <Typography>|</Typography>
         <NavLink dir='/register' label='register' />
     </>
 
