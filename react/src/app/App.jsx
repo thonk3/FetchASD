@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch as RouterSwitch } from 'react-router-dom';
 // component imports
 import NavBar from '../components/NavBar/NavBar'
-import * as Rt from './Routes'
+import * as Rt from './routers/Routes'
 // material ui
 import useStyles from './App.style';
 import { Typography } from '@material-ui/core';

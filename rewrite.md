@@ -70,7 +70,7 @@ everything seems ok, it ends up being general renaming of things
   - [x] App cleanup
   - [x] UserRoute cleanup
   - [x] AdminRoute cleanup
-  - [ ] AppContainer cleanup
+  - [x] AppContainer cleanup
 - [ ] edit public/html meta data
 
 ## Notes

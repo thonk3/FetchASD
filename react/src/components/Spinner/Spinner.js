@@ -1,8 +1,13 @@
 import React from 'react'
-
 import doggo from '../../assets/doggo.gif'
 import { makeStyles } from '@material-ui/core';
 
+/* 
+    component of a spinner gif
+
+    size is adjustable providing the props
+    width: to set the size of the spinner
+*/
 const useStyle = makeStyles(theme => ({
     spinner: {
         display: 'block',

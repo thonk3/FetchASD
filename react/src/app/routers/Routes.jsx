@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import * as Pages from '../pages/Pages'
+import * as Pages from '../../pages/Pages'
 import UserRoute from './UserRoute'
 import AdminRoute from './AdminRoute'
 import PrivateRoute from './UserRoute'
