@@ -12,8 +12,15 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: theme.spacing(3),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(2),
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
         // background: "#fafafa"
+    },
+    avatar: {
+        background: theme.palette.secondary.main,
+        margin: theme.spacing(1)
     },
 }))
 

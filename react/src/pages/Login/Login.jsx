@@ -25,75 +25,43 @@ function Login(props) {
         isLoading
     } = props;  // from login wrapper
 
+
     return (
-        <FormWrapper 
-            title="Login" maxWidth="lg"
+        <FormWrapper
+            // not sure if maxWidth affects anything
+            title="Login" maxWidth="sm"
             icon={LockOutlinedIcon}
+            onSubmit={onSubmit}
         >
             {/* text box */}
-            <TextBox style={{width:"40000px"}} label="Email" value={email} onChange={emailHandler} />
+            <TextBox label="Email" value={email} onChange={emailHandler} />
             <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
+
             {/* button */}
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+            > Log In </Button>
+
             {/* error msg */}
+            <div className={classes.error}>
+                <Typography >{(isError && !isLoading) ? errMsg : ""} </Typography>
+                {isLoading ? <Spinner width='60%' /> : <></>}
+            </div>
+
             {/* line seperator need spacing style*/}
-            <hr style={{margin: "1rem 2rem"}} /> 
+            <hr style={{ margin: "1rem 2rem" }} />
+
             {/* link to register */}
+            <Typography align="center">
+                Don't have an account?
+                &nbsp;<Link to="/register">Register here</Link>
+            </Typography>
         </FormWrapper>
     )
-    // useEffect(() => console.log(isLoading), [errMsg])
-    // ----------------------------------------------------------
-    return (
-        <Container width="300px">
-            {/* wrapper style */}
-            {/* div to box? prob wont change much*/}
-            <div className={classes.paper}>
-            {/* wrapper style */}
-                <Paper className={classes.innerPaper} elevation={3}>
-
-                    {/* avatar thing */}
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h4">Login</Typography>
-
-                    {/* form thing */}
-                    <form onSubmit={onSubmit}>
-                        {/*  */}
-                        <TextBox label="Email" value={email} onChange={emailHandler} />
-                        <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
-
-                        {/* submit */}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        > Log In </Button>
-
-
-                        {/* OH YEASSSS */}
-                        <div className={classes.error}>
-                            <Typography >{(isError && !isLoading) ? errMsg : ""} </Typography>
-                            {/* <CircularProgress color="secondary"/> */}
-                            {isLoading ? <Spinner width='60%' /> : <></>}
-                        </div>
-
-
-                        {/* line and register link */}
-                        <hr className={classes.line} />
-
-                        <Container maxWidth="xs">
-                            <Link to="/register">
-                                <Typography align="center"> Don't have an account? Register here </Typography>
-                            </Link>
-                        </Container>
-                    </form>
-
-                </Paper>
-            </div>
-        </Container>
-    );
 };
 
 export default Login;

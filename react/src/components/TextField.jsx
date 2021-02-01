@@ -16,7 +16,7 @@ const TextBox = props => {
             margin="normal"
             required 
             // ill see if its needed to be a prop
-            style={{ minWidth: "30rem"}}
+            style={{ minWidth: "25rem"}}
             label={label}
             type={type}
             onChange={onChange}

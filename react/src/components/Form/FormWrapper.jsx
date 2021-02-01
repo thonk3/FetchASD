@@ -17,11 +17,13 @@ const FormWrapper = (props) => {
     } = props;
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth={maxWidth}>
             <Box className={classes.paper}>
-                <Paper elevation={3} >
+                <Paper elevation={3} className={classes.innerPaper}>
                     {/* title */}
-                    <Avatar><Icon /></Avatar>
+                    <Avatar className={classes.avatar}>
+                        <Icon />
+                    </Avatar>
                     <Typography componen="h1" variant="h4">
                         { title }
                     </Typography>
