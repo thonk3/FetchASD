@@ -65,7 +65,8 @@ const Register = props => {
                         <TextBox label="PostCode" value={postcode} onChange={onChangePostcode} />
                         
                         <Button
-                            type="submit" fullWidth
+                            type="submit" 
+                            fullWidth
                             variant="contained"
                             color="primary"
                             classname={classes.submit}

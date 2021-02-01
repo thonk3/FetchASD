@@ -36,9 +36,9 @@ function Login(props) {
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
+                    <Typography component="h1" variant="h4">Login</Typography>
 
                     {/* form thing */}
-                    <Typography component="h1" variant="h4">Login</Typography>
                     <form onSubmit={onSubmit}>
                         {/*  */}
                         <TextBox label="Email" value={email} onChange={emailHandler} />
