@@ -6,6 +6,12 @@ import {
 } from '@material-ui/core';
 import useStyles from './Form.style';
 
+/* 
+    Generic wrapper for Forms
+
+    or atleast i think its generic
+*/
+
 const FormWrapper = (props) => {
     const classes = useStyles();
 
@@ -20,24 +26,29 @@ const FormWrapper = (props) => {
         <Container maxWidth={maxWidth}>
             <Box className={classes.paper}>
                 <Paper elevation={3} className={classes.innerPaper}>
-                    {/* title */}
                     <Avatar className={classes.avatar}>
-                        <Icon />
+                        <Icon />    {/* ttle */}
                     </Avatar>
                     <Typography componen="h1" variant="h4">
-                        { title }
+                        {title}
                     </Typography>
 
-                    {/* form */}
                     <form onSubmit={onSubmit}>
-                        {children}
+                        {children}  {/* form */}
                     </form>
-
                 </Paper>
             </Box>
         </Container>
 
     );
+}
+
+FormWrapper.propTypes = {
+    children: PropTypes.node.isRequired,
+    icon: PropTypes.elementType,
+    title: PropTypes.string,
+    maxWidth: PropTypes.string,
+    onSubmit: PropTypes.func,
 }
 
 export default FormWrapper;
