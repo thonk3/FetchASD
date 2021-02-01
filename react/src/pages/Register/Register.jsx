@@ -1,25 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-    Container,
-    Paper,
-    Avatar,
-    Typography,
-    Button,
-} from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+// comonents
 import Spinner from '../../components/Spinner/Spinner';
 import TextBox from '../../components/TextField'
-
-import useStyles from '../Login/Login.style'
 import FormWrapper from '../../components/Form/FormWrapper';
 import BtSubmit from '../../components/Buttons/BtSubmit';
 
-/* 
-    TODO:
-    - Display error messages from the payload
-    - split these into logic / style components
-*/
+import useStyles from '../Login/Login.style'
 
 const Register = props => {
     const classes = useStyles();

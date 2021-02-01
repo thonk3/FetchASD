@@ -8,6 +8,7 @@ import TextBox from '../../components/TextField'
 import FormWrapper from '../../components/Form/FormWrapper';
 import BtSubmit from '../../components/Buttons/BtSubmit';
 // remove after containerizeing error code
+import PropTypes from 'prop-types';
 import useStyles from './Login.style'
 
 function Login(props) {
@@ -15,8 +16,7 @@ function Login(props) {
 
     const {
         onSubmit,
-        email, emailHandler,
-        password, passHandler,
+        form,
         isError, errMsg,
         isLoading
     } = props;  // from login wrapper
@@ -28,9 +28,9 @@ function Login(props) {
         onSubmit={onSubmit}
     >
         {/* textbox, submit */}
-        <TextBox label="Email" value={email} onChange={emailHandler} />
-        <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
-        <BtSubmit fullWidth={true} text="Log In"/>
+        <TextBox label="Email" value={form.email} onChange={form.onChangeEmail} />
+        <TextBox label="Password" value={form.password} onChange={form.onChangePass} inputType="password" />
+        <BtSubmit fullWidth={true} text="Log In" />
 
         {/* error msg */}
         <div className={classes.error}>
@@ -50,6 +50,18 @@ function Login(props) {
 };
 
 // add proptypes
+Login.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    isError: PropTypes.bool.isRequired,
+    errMsg: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    form: PropTypes.exact({
+        email: PropTypes.string,
+        password: PropTypes.string,
+        onChangeEmail: PropTypes.func,
+        onChangePass: PropTypes.func,
+    }).isRequired,
+}
 
 
 export default Login;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-
-import  Register from './Register';
+import { useAuth } from '../../contexts/authContext'
+import Register from './Register';
 
 const RegisterContainer = props => {
     // hooks
@@ -15,25 +15,28 @@ const RegisterContainer = props => {
     const [postcode, setpostcode] = useState();
 
     // errors stuff
-    const [isLoading, setIsLoading] = useState(false); 
-    const [isError, setIsError] = useState(false); 
-    const [errMsg, setErrMsg ] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [errMsg, setErrMsg] = useState([]);
     const [redirLogin, setRedirLogin] = useState(false);
 
+    // loggin context
+    const { loggedIn } = useAuth();
+
     // on field change
-    const onChangeFName = (e) =>  setFirstName(e.target.value);
-    const onChangeLName = (e) =>  setLastName(e.target.value);
-    const onChangeEmail = (e) =>  setEmail(e.target.value);
-    const onChangePassword = (e) =>  setPassword(e.target.value);
-    const onChangePhone = (e) =>  setPhoneNumber(e.target.value);
-    const onChangeSuburb = (e) =>  setSuburb(e.target.value);
-    const onChangePostcode = (e) =>  setpostcode(e.target.value);
+    const onChangeFName = (e) => setFirstName(e.target.value);
+    const onChangeLName = (e) => setLastName(e.target.value);
+    const onChangeEmail = (e) => setEmail(e.target.value);
+    const onChangePass = (e) => setPassword(e.target.value);
+    const onChangePhone = (e) => setPhoneNumber(e.target.value);
+    const onChangeSuburb = (e) => setSuburb(e.target.value);
+    const onChangePostcode = (e) => setpostcode(e.target.value);
 
     // redirect to login after sign in
-    if(redirLogin) return <Redirect to='/login' />
+    if (redirLogin) return <Redirect to='/login' />
 
 
-    const submit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         setTimeout(2000);
@@ -46,10 +49,10 @@ const RegisterContainer = props => {
         setIsLoading(true);
         axios.post('/api/auth/register', payload)
             .then(res => {
-                if(res.status === 200) {
+                if (res.status === 200) {
                     console.log("New User Created")
                     setRedirLogin(true);
-                } else {    
+                } else {
                     console.log("Somthing went wrong");
                 }
             }).catch(error => {
@@ -62,22 +65,29 @@ const RegisterContainer = props => {
             }).then(() => setIsLoading(false));
     }
 
-
     // -------------------------------------------------------
+    const referer = () => {
+        if (props.location.state === undefined) return '/';
+        return props.location.state.referer;
+    }
+
+    if(loggedIn) return <Redirect to={referer(props)} />
+
+
     let form = {
         firstName, onChangeFName,
         lastName, onChangeLName,
         email, onChangeEmail,
-        password, onChangePassword,
+        password, onChangePass,
         phoneNumber, onChangePhone,
         suburb, onChangeSuburb,
         postcode, onChangePostcode,
     }
 
     return (
-        <Register 
+        <Register
             form={form}
-            submit={submit}
+            submit={onSubmit}
             errMsg={errMsg} isError={isError}
             isLoading={isLoading}
         />

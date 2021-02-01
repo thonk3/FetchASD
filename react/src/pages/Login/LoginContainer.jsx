@@ -4,11 +4,10 @@ import { useAuth } from '../../contexts/authContext';
 import Login from './Login'
 import { Redirect } from 'react-router-dom';
 
-function LoginWrapper(props) {
-
+const LoginWrapper = (props) => {
     // hooks 
     const [isError, setIsError] = useState(false);
-    const [ errMsg, setErrMsg ] = useState("");
+    const [errMsg, setErrMsg] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
@@ -19,12 +18,12 @@ function LoginWrapper(props) {
     const { loggedIn, setLoggedIn } = useAuth();
 
     // onTextChange
-    const handleEmail = e => setEmail(e.target.value);
-    const handlePassword = e => setPassword(e.target.value);
+    const onChangeEmail = e => setEmail(e.target.value);
+    const onChangePass = e => setPassword(e.target.value);
 
     // set redirecting path
     // should do the same for register
-    function referer() {
+    const referer = (props) => {
         if(props.location.state === undefined)
             return '/'
         return props.location.state.referer;
@@ -35,7 +34,7 @@ function LoginWrapper(props) {
         e.preventDefault();
 
         const payload = { email, password };
-        setisLoading(true)
+        setisLoading(true);
         axios.post('/api/auth/login', payload)
             .then(res => {
                 if(res.status === 200) { // save jwt token, is logged in context
@@ -46,7 +45,7 @@ function LoginWrapper(props) {
                 }
             })
             .catch(e => {
-                console.log("Something went wrong, please refresh your browser or contact support");
+                console.log("Login api call error");
 
                 setErrMsg(e.response.data.error);
                 setIsError(true);
@@ -57,14 +56,14 @@ function LoginWrapper(props) {
 
     // redirect to main or previous link
     // shoudl do the same for register
-    if(loggedIn) {
-        console.log("redirecting to ", referer);
-        return <Redirect to={referer()} />
-    }
+    if(loggedIn) return <Redirect to={referer(props)} />;
 
+    let form = {
+        email, onChangeEmail,
+        password, onChangePass,
+    }
     return <Login
-        email={email} emailHandler={handleEmail}
-        password={password} passHandler={handlePassword}
+        form={form}
         onSubmit={onSubmit}
         isLoading={isLoading}
         isError={isError} errMsg={errMsg}
