@@ -3,7 +3,6 @@
 */
 
 export { default as Home } from './Home/Home'
-
 export { default as Kennel } from './Kennel/Kennel'
 export {default as Dog} from './Kennel/Dog'
 
@@ -35,6 +34,5 @@ export { default as AdminLocUpdate } from './AdminHome/LocMan/UpdateLocation'
 export { default as AdminMsg } from './AdminHome/Mesg/Mesg'
 export { default as NewMsg } from './Comms/NewInquiry'
 export { default as UserMsg } from './Comms/UserInquiries'
-
 
 export { default as NotFound } from './NotFound/NotFound'

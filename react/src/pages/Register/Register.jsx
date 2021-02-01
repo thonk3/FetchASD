@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { 
     Container,
     Paper,
-    Avatar, Typography,
-    TextField,
+    Avatar, 
+    Typography,
     Button,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Spinner from '../../components/Spinner/Spinner';
+import TextBox from '../../components/TextField'
+
 
 /* 
     TODO:
@@ -101,26 +103,5 @@ const Register = props => {
         </Container>
     );
 };
-
-// component for input boxes
-const TextBox = props => {
-    const { label, value, onChange, inputType, } = props;
-    const  type = inputType || "text";
-
-    return (
-        <div className="form-group">
-
-            <TextField 
-                variant="outlined"
-                margin="normal"
-                required fullWidth
-                type={type}
-                label={label}
-                onChange={onChange}
-                value={value}
-            />
-        </div>
-    )
-}
 
 export default Register;
