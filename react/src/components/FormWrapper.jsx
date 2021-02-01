@@ -1,27 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+    Avatar,
     Container, Paper, Typography
 } from '@material-ui/core';
 
 const FormWrapper = (props) => {
     const {
-        avt: Avt,
-        
+        children,
+        icon: Icon,    // element type
+        title,
+        maxWidth,
+
     } = props;
 
     return (
-        <Container>
+        <Container maxWidth={maxWidth}>
             <div>
                 <Paper>
                     {/* title */}
-                    {/* add avatar for form?? */}
+                    <Avatar><Icon /></Avatar>
                     <Typography componen="h1" variant="h4">
-                        { cheese }
+                        { title }
                     </Typography>
 
                     {/* form */}
-                    <form onSubmit={cheese}>
+                    <form onSubmit={maxWidth}>
                         {children}
                     </form>
 

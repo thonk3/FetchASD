@@ -12,6 +12,8 @@ import Spinner from '../../components/Spinner/Spinner';
 import TextBox from '../../components/TextField'
 import useStyles from './Login.style'
 
+import FormWrapper from '../../components/FormWrapper';
+
 function Login(props) {
     // style
     const classes = useStyles();
@@ -22,9 +24,23 @@ function Login(props) {
         password, passHandler,
         isError, errMsg,
         isLoading
-    } = props;
+    } = props;  // from login wrapper
 
-
+    return (
+        <FormWrapper 
+            title="Login" maxWidth="sm"
+            icon={LockOutlinedIcon}
+            
+        >
+            {/* text box */}
+            <TextBox label="Email" value={email} onChange={emailHandler} />
+            <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
+            {/* button */}
+            {/* error msg */}
+            {/* line seperator */}
+            {/* link to register */}
+        </FormWrapper>
+    )
     // useEffect(() => console.log(isLoading), [errMsg])
     // ----------------------------------------------------------
     return (
