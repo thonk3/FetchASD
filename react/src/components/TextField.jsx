@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
+import { useTheme } from '@material-ui/core';
 
 
 const TextBox = props => {
@@ -13,7 +14,9 @@ const TextBox = props => {
         <TextField 
             variant="outlined"
             margin="normal"
-            required fullWidth
+            required 
+            // ill see if its needed to be a prop
+            style={{ minWidth: "30rem"}}
             label={label}
             type={type}
             onChange={onChange}

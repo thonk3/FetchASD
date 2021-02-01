@@ -12,10 +12,9 @@ import Spinner from '../../components/Spinner/Spinner';
 import TextBox from '../../components/TextField'
 import useStyles from './Login.style'
 
-import FormWrapper from '../../components/FormWrapper';
+import FormWrapper from '../../components/Form/FormWrapper';
 
 function Login(props) {
-    // style
     const classes = useStyles();
 
     const {
@@ -28,16 +27,16 @@ function Login(props) {
 
     return (
         <FormWrapper 
-            title="Login" maxWidth="sm"
+            title="Login" maxWidth="lg"
             icon={LockOutlinedIcon}
-            
         >
             {/* text box */}
-            <TextBox label="Email" value={email} onChange={emailHandler} />
+            <TextBox style={{width:"40000px"}} label="Email" value={email} onChange={emailHandler} />
             <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
             {/* button */}
             {/* error msg */}
-            {/* line seperator */}
+            {/* line seperator need spacing style*/}
+            <hr style={{margin: "1rem 2rem"}} /> 
             {/* link to register */}
         </FormWrapper>
     )
@@ -45,7 +44,10 @@ function Login(props) {
     // ----------------------------------------------------------
     return (
         <Container width="300px">
+            {/* wrapper style */}
+            {/* div to box? prob wont change much*/}
             <div className={classes.paper}>
+            {/* wrapper style */}
                 <Paper className={classes.innerPaper} elevation={3}>
 
                     {/* avatar thing */}

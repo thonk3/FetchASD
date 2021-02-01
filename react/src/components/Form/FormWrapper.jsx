@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Avatar,
+    Avatar, Box,
     Container, Paper, Typography
 } from '@material-ui/core';
+import useStyles from './Form.style';
 
 const FormWrapper = (props) => {
+    const classes = useStyles();
+
     const {
         children,
         icon: Icon,    // element type
-        title,
-        maxWidth,
-
+        title, maxWidth,
+        onSubmit,
     } = props;
 
     return (
-        <Container maxWidth={maxWidth}>
-            <div>
-                <Paper>
+        <Container maxWidth="lg">
+            <Box className={classes.paper}>
+                <Paper elevation={3} >
                     {/* title */}
                     <Avatar><Icon /></Avatar>
                     <Typography componen="h1" variant="h4">
@@ -25,12 +27,12 @@ const FormWrapper = (props) => {
                     </Typography>
 
                     {/* form */}
-                    <form onSubmit={maxWidth}>
+                    <form onSubmit={onSubmit}>
                         {children}
                     </form>
 
                 </Paper>
-            </div>
+            </Box>
         </Container>
 
     );
