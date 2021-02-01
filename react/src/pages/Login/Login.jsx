@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
+// components
 import Spinner from '../../components/Spinner/Spinner';
 import TextBox from '../../components/TextField'
-import useStyles from './Login.style'
 import FormWrapper from '../../components/Form/FormWrapper';
 import BtSubmit from '../../components/Buttons/BtSubmit';
+// remove after containerizeing error code
+import useStyles from './Login.style'
 
 function Login(props) {
     const classes = useStyles();
@@ -29,7 +30,7 @@ function Login(props) {
         {/* textbox, submit */}
         <TextBox label="Email" value={email} onChange={emailHandler} />
         <TextBox label="Password" value={password} onChange={passHandler} inputType="password" />
-        <BtSubmit fullWidth={true} text="Log In" />
+        <BtSubmit fullWidth={true} text="Log In"/>
 
         {/* error msg */}
         <div className={classes.error}>

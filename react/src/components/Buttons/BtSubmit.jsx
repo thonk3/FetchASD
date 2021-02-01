@@ -25,12 +25,12 @@ const BtSubmit = (props) => {
 
 BtSubmit.defaultProps = {
     fullWidt: false,
-    color: "primary",
+    color: "primary"
 }
 
 BtSubmit.propTypes = {
     fullWidth: PropTypes.bool,
-    color: PropTypes.oneOf(["primary", "seccondary"]),
+    color: PropTypes.string,
 
 }
 
