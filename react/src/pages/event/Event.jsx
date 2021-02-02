@@ -7,7 +7,7 @@ import Spinner from '../../components/spinner/Spinner'
 import token from '../../utils/tokenUtils'
 
 const Event = (props) => {
-    const [ upcomingEventList, setUpcomingEventList] = useState();
+    const [ upcomingEventList, setUpcomingEventList ] = useState();
     const [ completedEventList, setCompletedEventList ] = useState();
     const [ loading, setLoading ] = useState(true);
     const [ tabValue, setTabValue] = useState(0);
