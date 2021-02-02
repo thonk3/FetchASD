@@ -4,10 +4,10 @@ import { Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import PropTypes from 'prop-types';
 // comonents
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 import TextBox from '../../components/TextField'
-import FormWrapper from '../../components/Form/FormWrapper';
-import BtSubmit from '../../components/Buttons/BtSubmit';
+import FormWrapper from '../../components/form/FormWrapper';
+import BtSubmit from '../../components/buttons/BtSubmit';
 
 import useStyles from '../Login/Login.style'
 

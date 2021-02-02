@@ -1,7 +1,7 @@
 // messy imports
 import React from 'react';
 // component imports
-import NavBar from '../components/NavBar/NavBar'
+import NavBar from '../components/navBar/NavBar'
 import AppRoutes from './routers/Routes'
 // material ui
 import useStyles from './App.style';

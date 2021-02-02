@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 // components
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 import TextBox from '../../components/TextField'
-import FormWrapper from '../../components/Form/FormWrapper';
-import BtSubmit from '../../components/Buttons/BtSubmit';
+import FormWrapper from '../../components/form/FormWrapper';
+import BtSubmit from '../../components/buttons/BtSubmit';
 // remove after containerizeing error code
 import PropTypes from 'prop-types';
 import useStyles from './Login.style'

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import DogCard from './Components/DogCard'
 import { Link } from 'react-router-dom';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 
 // Default state to view all the users current dogs
 // We only need an array of dogs and the UserId 

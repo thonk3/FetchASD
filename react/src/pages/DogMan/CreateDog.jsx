@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 import InputLabel from '@material-ui/core/InputLabel'
 
 // Default State object

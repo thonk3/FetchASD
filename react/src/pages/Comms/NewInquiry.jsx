@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 import { Container, Paper, Typography, Box, Button, TextField } from '@material-ui/core';
 
 import { useAuth } from '../../contexts/authContext';

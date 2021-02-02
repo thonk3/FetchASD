@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 
 import MsgItem from './Components/MsgItem'
 import { Button, Paper, Tabs, Tab, Container } from '@material-ui/core';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 
 // ok deffinitely need redirect??
 

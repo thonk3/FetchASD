@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import Spinner from '../../../components/Spinner/Spinner';
+import Spinner from '../../../components/spinner/Spinner';
 import Typography from '@material-ui/core/Typography';
 import InputBox from './Components/InputBox';
 import Box from '@material-ui/core/Box';

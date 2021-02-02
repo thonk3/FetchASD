@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Container, Box, Typography, Button, Paper, TextField, Dialog, DialogTitle, DialogContent, Grid } from '@material-ui/core';
 import MomentUtils from '@date-io/moment'
 import moment from 'moment'
-import Spinner from '../../../components/Spinner/Spinner'
+import Spinner from '../../../components/spinner/Spinner'
 import PickLocationCard from '../../Kennel/Components/PickLocationCard'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 

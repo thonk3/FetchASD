@@ -9,7 +9,7 @@ import { Button, Container, Grid/* , Typography */ } from '@material-ui/core'
 import RequestedDateItem from './Components/RequestedDate/RequestedDateItem';
 import UpcomingDateItem from './Components/UpcomingDate/UpcomingDateItem';
 import CompletedDateItem from './Components/CompletedDate/CompletedDateItem';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 
 class Dates extends React.Component {
     constructor(props) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Box, Container, Paper, TextField, Typography, Button } from '@material-ui/core';
-import Spinner from '../../../../components/Spinner/Spinner';
+import Spinner from '../../../../components/spinner/Spinner';
 // import { Box } from '@material-ui/core';
 // import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';

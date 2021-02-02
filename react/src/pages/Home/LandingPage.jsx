@@ -4,6 +4,10 @@ import LandingCategories from './LandingComponents/Categories/LandingCategories'
 import LandingHowItWorks from './LandingComponents/HowItWorks/LandingHowItWorks';
 import LandingHelp from './LandingComponents/Help/LandingHelp';
 
+/* 
+    LandingPage component for not logged in user
+*/
+
 const LandingPage = () => {
     return (
         <>

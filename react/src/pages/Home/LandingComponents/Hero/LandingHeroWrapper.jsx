@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         [theme.breakpoints.up('sm')]: {
-        height: '80vh',
-        minHeight: 500,
-        maxHeight: 1300,
-    },
+            height: '80vh',
+            minHeight: 500,
+            maxHeight: 1300,
+        },
     },
     container: {
         marginTop: theme.spacing(3),
@@ -42,10 +42,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         zIndex: -2,
     },
-    // arrowDown: {
-    //     position: 'absolute',
-    //     bottom: theme.spacing(4),
-    // },
 }));
 
 const LandingHeroWrapper = props => {
@@ -54,14 +50,14 @@ const LandingHeroWrapper = props => {
 
     return (
         <section className={classes.root}>
-        <Container className={classes.container}>
-            {children}
-            
-            <div className={classes.backdrop} />
-            <div className={clsx(classes.background, backgroundClassName)} />
-      </Container>
-    </section>
-  );
+            <Container className={classes.container}>
+                {children}
+
+                <div className={classes.backdrop} />
+                <div className={clsx(classes.background, backgroundClassName)} />
+            </Container>
+        </section>
+    );
 }
 
 export default LandingHeroWrapper;

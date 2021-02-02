@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './Components/table';
 import TextField from '@material-ui/core/TextField';
-import Spinner from '../../../components/Spinner/Spinner';
+import Spinner from '../../../components/spinner/Spinner';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

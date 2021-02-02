@@ -1,30 +1,32 @@
 import React from 'react';
+import { useAuth } from '../../contexts/authContext';
 
-// import NameThing from './NameThing'
+import Container from '@material-ui/core/Container'
 import LandingPage from './LandingPage';
 import Kennel from '../Kennel/Kennel';
-import { useAuth } from '../../contexts/authContext'; 
-import Container from '@material-ui/core/Container'
 
 import token from '../../utils/tokenUtils';
+
+/* 
+    Component for the main page at path /
+
+    returns
+        LandingPage - if logged in
+        Kennel      - if not logged in
+*/
 
 const Home = (props) => {
     const { loggedIn } = useAuth();
 
-    return (
+    if (loggedIn) return (
         <>
-            {loggedIn ? 
-                <>
-                    <Container>
-                    <h2> Welcome back { token.getName() }</h2>
-                    </Container>
-                    <Kennel />
-                </>
-                : 
-                <LandingPage />
-            }
+            <Container>
+                <h2> Welcome back {token.getName()}</h2>
+            </Container>
+            <Kennel />
         </>
     );
+    else return <LandingPage />;
 };
 
 export default Home;

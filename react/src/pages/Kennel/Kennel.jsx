@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DogList from './Components/DogList';
 import './Components/kennel.css';
 import TextField from '@material-ui/core/TextField';
-import Spinner from '../../components/Spinner/Spinner'
+import Spinner from '../../components/spinner/Spinner'
 import { Container } from '@material-ui/core';
 
 const Kennel = (props) => {
