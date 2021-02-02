@@ -1,5 +1,6 @@
 import React from "react";
 
+import PropTypes from 'prop-types';
 import {  
   Popper, Grow, Paper, ClickAwayListener, MenuItem, MenuList
 }
@@ -43,7 +44,7 @@ const NavPopper = props => {
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown} >
 
-                  { PopperItems() }
+                  { PopperItems() /* drop down items */}
                   { LogOut() }
                 </MenuList>
               </ClickAwayListener>
@@ -54,5 +55,16 @@ const NavPopper = props => {
     </Popper>
   );
 };
+
+NavPopper.propTypes = {
+    open: PropTypes.bool,
+    setOpen: PropTypes.func,
+    logOutHandler: PropTypes.func,
+    // anchorRef,   // not sure the type of this
+
+    logOut: PropTypes.bool,   // why is this here
+    handleListKeyDown: PropTypes.func,
+    popperItems: PropTypes.arrayOf(PropTypes.object),
+}
 
 export default NavPopper;

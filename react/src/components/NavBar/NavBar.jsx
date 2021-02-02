@@ -16,10 +16,8 @@ import {
 import useStyles from './NavBar.style';
 
 /* 
-TODO
-- clean up this mess
-- move the popup menu in its own component
- */
+    Navigation bar stickied on the top of the page
+*/
 
 // --------------------------------------------------------------------------------
 const NavBar = props => {
