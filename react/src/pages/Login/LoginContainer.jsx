@@ -10,7 +10,7 @@ const LoginWrapper = (props) => {
     const [errMsg, setErrMsg] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
     const [isLoading, setisLoading] = useState(false);
 
     // context
@@ -24,7 +24,7 @@ const LoginWrapper = (props) => {
     // set redirecting path
     // should do the same for register
     const referer = (props) => {
-        if(props.location.state === undefined)
+        if (props.location.state === undefined)
             return '/'
         return props.location.state.referer;
     }
@@ -37,12 +37,8 @@ const LoginWrapper = (props) => {
         setisLoading(true);
         axios.post('/api/auth/login', payload)
             .then(res => {
-                if(res.status === 200) { // save jwt token, is logged in context
-                    setAuthTokens(res.data.payload.token);
-                    setLoggedIn(true);
-                } else { // set error message
-                    setIsError(true);   // do something with this // account doesnt exist/ wrong password 
-                }
+                setAuthTokens(res.data.payload.token);
+                setLoggedIn(true);
             })
             .catch(e => {
                 console.log("Login api call error");
@@ -50,13 +46,11 @@ const LoginWrapper = (props) => {
                 setErrMsg(e.response.data.error);
                 setIsError(true);
             }).then(() => setisLoading(false));
-            // setLoggedIn(false)
-
     };
 
     // redirect to main or previous link
     // shoudl do the same for register
-    if(loggedIn) return <Redirect to={referer(props)} />;
+    if (loggedIn) return <Redirect to={referer(props)} />;
 
     let form = {
         email, onChangeEmail,
@@ -67,7 +61,7 @@ const LoginWrapper = (props) => {
         onSubmit={onSubmit}
         isLoading={isLoading}
         isError={isError} errMsg={errMsg}
-        />
+    />
 }
 
 export default LoginWrapper

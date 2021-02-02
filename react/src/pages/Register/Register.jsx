@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import PropTypes from 'prop-types';
 // comonents
 import Spinner from '../../components/Spinner/Spinner';
 import TextBox from '../../components/TextField'
@@ -32,7 +33,7 @@ const Register = props => {
         <TextBox label="Phone" value={form.phoneNumber} onChange={form.onChangePhone} inputType="tel" />
         <TextBox label="Suburb" value={form.suburb} onChange={form.onChangeSuburb} />
         <TextBox label="PostCode" value={form.postcode} onChange={form.onChangePostcode} />
-        <BtSubmit fullWidth={true} text="Register" />
+        <BtSubmit fullWidth={true} text="Register" isLoading={isLoading}/>
 
         {/* error msg */}
         <div className={classes.error}>
@@ -61,15 +62,33 @@ const Register = props => {
             Have an account?
             &nbsp;<Link to="/login">Login Here</Link>
         </Typography>
-
-
     </FormWrapper>
-    // const [redirLogin, setRedirLogin] = useState(false);
-
-    // redirect to login after sign in
-    // if(redirLogin) return <Redirect to='/login' />
 };
 
 // add prop types
+Register.propTypes = {
+    submit: PropTypes.func.isRequired,
+    isError: PropTypes.bool,
+    errMsg: PropTypes.oneOfType([
+        PropTypes.string, PropTypes.array,
+    ]),
+    isLoading: PropTypes.bool,
+    form: PropTypes.exact({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        email: PropTypes.string,
+        password: PropTypes.string,
+        phoneNumber: PropTypes.string,
+        suburb: PropTypes.string,
+        postcode: PropTypes.string,
+        onChangeFName: PropTypes.func,
+        onChangeLName: PropTypes.func,
+        onChangePass: PropTypes.func,
+        onChangeEmail: PropTypes.func,
+        onChangePhone: PropTypes.func,
+        onChangeSuburb: PropTypes.func,
+        onChangePostcode: PropTypes.func,
+    }).isRequired,
+}
 
 export default Register;

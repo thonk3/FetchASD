@@ -30,7 +30,7 @@ function Login(props) {
         {/* textbox, submit */}
         <TextBox label="Email" value={form.email} onChange={form.onChangeEmail} />
         <TextBox label="Password" value={form.password} onChange={form.onChangePass} inputType="password" />
-        <BtSubmit fullWidth={true} text="Log In" />
+        <BtSubmit fullWidth={true} text="Log In" isLoading={isLoading}/>
 
         {/* error msg */}
         <div className={classes.error}>
@@ -49,7 +49,6 @@ function Login(props) {
     </FormWrapper>;
 };
 
-// add proptypes
 Login.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,

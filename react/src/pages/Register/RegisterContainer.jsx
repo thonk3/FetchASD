@@ -18,7 +18,7 @@ const RegisterContainer = props => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errMsg, setErrMsg] = useState([]);
-    const [redirLogin, setRedirLogin] = useState(false);
+    const [regComplete, setRegComplete] = useState(false);
 
     // loggin context
     const { loggedIn } = useAuth();
@@ -33,45 +33,36 @@ const RegisterContainer = props => {
     const onChangePostcode = (e) => setpostcode(e.target.value);
 
     // redirect to login after sign in
-    if (redirLogin) return <Redirect to='/login' />
-
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        setTimeout(2000);
+        setIsLoading(true);
 
         const payload = {
-            firstName, lastName, email, password, phoneNumber, suburb, postcode
+            firstName, lastName, 
+            email, password, 
+            phoneNumber, suburb, postcode
         }
-
-        console.log(payload)
-        setIsLoading(true);
         axios.post('/api/auth/register', payload)
             .then(res => {
-                if (res.status === 200) {
-                    console.log("New User Created")
-                    setRedirLogin(true);
-                } else {
-                    console.log("Somthing went wrong");
-                }
+                setRegComplete(true);
             }).catch(error => {
-                console.log("uhoh ");
-                console.log(error.response.data.error);
+                // console.log(error.response.data.error);
                 setErrMsg(error.response.data.error);
                 setIsError(true);
-
-                // console.log(typeof errMsg);
             }).then(() => setIsLoading(false));
     }
 
     // -------------------------------------------------------
+    // containerize redirect??
     const referer = () => {
         if (props.location.state === undefined) return '/';
         return props.location.state.referer;
     }
 
-    if(loggedIn) return <Redirect to={referer(props)} />
+    if (loggedIn) return <Redirect to={referer(props)} />
+
+    if (regComplete) return <Redirect to='/login' />
 
 
     let form = {

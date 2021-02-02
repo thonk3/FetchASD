@@ -12,11 +12,12 @@ import useStyles from './Bts.style';
 
 const BtSubmit = (props) => {
     const classes = useStyles();
-    const { fullWidth, color, text } = props;
+    const { fullWidth, color, text, isLoading } = props;
 
     return <Button
         type="submit"
         variant="contained"
+        disabled={isLoading}
         fullWidth={fullWidth}
         color={color}
         className={classes.submit}
@@ -31,7 +32,7 @@ BtSubmit.defaultProps = {
 BtSubmit.propTypes = {
     fullWidth: PropTypes.bool,
     color: PropTypes.string,
-
+    isLoading: PropTypes.bool,
 }
 
 export default BtSubmit
