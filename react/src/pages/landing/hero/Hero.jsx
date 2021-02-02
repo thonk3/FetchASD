@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import LandingHeroWrapper from './HeroWrapper';
+import HeroWrapper from './HeroWrapper';
 import { Button, Typography } from '@material-ui/core';
 import useStyles from './Hero.style';
 
@@ -35,7 +35,7 @@ const LandingHero = (props) => {
     const classes = useStyles();
 
     return (
-        <LandingHeroWrapper backgroundClassName={classes.cBackground}>
+        <HeroWrapper backgroundClassName={classes.cBackground}>
             {/* title */}
             <Typography className={classes.cWebTitle} align="center" variant="h2" > FETCH. </Typography>
             <Typography align="center" variant="h5" className={classes.cH5}> Nobody deserves to be lonely!</Typography>
@@ -47,7 +47,7 @@ const LandingHero = (props) => {
             <Typography variant="body2" className={classes.cSubtitle}>
                 Find your best friend a best friend.
             </Typography>
-        </LandingHeroWrapper>
+        </HeroWrapper>
     );
 }
 

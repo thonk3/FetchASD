@@ -1,8 +1,8 @@
 import React from 'react';
-import LandingHero from './Hero/Hero';
-import LandingCategories from './Categories/LandingCategories'
-import LandingHowItWorks from './HowItWorks/LandingHowItWorks';
-import LandingHelp from './Help/LandingHelp';
+import LandingHero from './hero/Hero';
+import Categories from './categories/Categories'
+import LandingHowItWorks from './howItWorks/LandingHowItWorks';
+import LandingHelp from './help/LandingHelp';
 
 /* 
     LandingPage component for not logged in user
@@ -12,7 +12,7 @@ const LandingPage = () => {
     return (
         <>
             <LandingHero />
-            <LandingCategories/>
+            <Categories/>
             <LandingHowItWorks />
             <LandingHelp />
         </>

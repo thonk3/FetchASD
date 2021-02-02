@@ -1,0 +1,47 @@
+[
+    {
+        "url": "https://images.unsplash.com/photo-1585072857532-4bffcc57aaee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
+        "title": "Husky",
+        "width": "40%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1558236809-1fcce1bf8f7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+        "title": "Pomeranian",
+        "width": "20%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1519098901909-b1553a1190af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+        "title": "Corgi",
+        "width": "40%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1597513494470-9e5e199de58c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+        "title": "Beagle",
+        "width": "38%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1597773139169-9aa0a445936d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+        "title": "Shiba Inu",
+        "width": "38%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1532397476918-0b485c271c7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+        "title": "Labrador",
+        "width": "24%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1599219091426-557c2123a1c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+        "title": "Dachshund",
+        "width": "40%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1529429617124-95b109e86bb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
+        "title": "Samoyed",
+        "width": "20%"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1589070680566-0ccca496dbf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+        "title": "German Shepherd",
+        "width": "40%"
+    }
+]
