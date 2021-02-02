@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../contexts/authContext';
 
 import Container from '@material-ui/core/Container'
-import LandingPage from './LandingPage';
+import LandingPage from '../landing/LandingPage';
 import Kennel from '../kennel/Kennel';
 
 import token from '../../utils/tokenUtils';
