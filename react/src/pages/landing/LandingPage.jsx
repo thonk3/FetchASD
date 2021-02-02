@@ -1,8 +1,8 @@
 import React from 'react';
 import LandingHero from './hero/Hero';
 import Categories from './categories/Categories'
-import LandingHowItWorks from './howItWorks/LandingHowItWorks';
-import LandingHelp from './help/LandingHelp';
+import HowTo from './howTo/HowTo';
+import Help from './help/LandingHelp';
 
 /* 
     LandingPage component for not logged in user
@@ -13,8 +13,8 @@ const LandingPage = () => {
         <>
             <LandingHero />
             <Categories/>
-            <LandingHowItWorks />
-            <LandingHelp />
+            <HowTo />
+            <Help />
         </>
     );
 };

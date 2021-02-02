@@ -1,16 +1,13 @@
 import React from 'react';
 
-import {
-    Button, Container, Typography
-} from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 import useStyles from './LandingHelp.style';
 
-const LandingHelp = ( props ) => {
+const Help = ( props ) => {
     const classes = useStyles();
 
-    const clickHelp = () => {
-        window.location = '/newmsg'
-    }
+    // redirect to inquiry page
+    const clickHelp = () => { window.location = '/newmsg' }
 
     return (
         <Container className={classes.root} component="section">
@@ -23,4 +20,4 @@ const LandingHelp = ( props ) => {
     );
 };
 
-export default LandingHelp;
+export default Help;
