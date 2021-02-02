@@ -62,7 +62,6 @@ const Categories = (props) => {
     categoryList.map((data, i) =>
       <Category key={i} url={data.url} title={data.title} width={data.width} />);
 
-
   return (
     <Container className={classes.root} component="section">
       <Typography variant="h4" marked="center" align="center" component="h2">
