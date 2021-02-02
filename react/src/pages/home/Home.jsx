@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/authContext';
 
 import Container from '@material-ui/core/Container'
 import LandingPage from './LandingPage';
-import Kennel from '../Kennel/Kennel';
+import Kennel from '../kennel/Kennel';
 
 import token from '../../utils/tokenUtils';
 

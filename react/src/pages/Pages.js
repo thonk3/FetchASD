@@ -2,37 +2,37 @@
     grouping pages components for export
 */
 
-export { default as Home } from './Home/Home'
-export { default as Kennel } from './Kennel/Kennel'
-export {default as Dog} from './Kennel/Dog'
+export { default as Home } from './home/Home'
+export { default as Kennel } from './kennel/Kennel'
+export {default as Dog} from './kennel/Dog'
 
-export { default as Dates } from './Date/Date'
+export { default as Dates } from './date/Date'
 
-export { default as Event } from './Event/Event'
-export { default as EventDetails } from './Event/Components/EventDetails'
-export { default as EventCreate } from './Event/Components/CreateEvent'
-export { default as EventUpdate } from './Event/Components/UpdateEvent'
+export { default as Event } from './event/Event'
+export { default as EventDetails } from './event/Components/EventDetails'
+export { default as EventCreate } from './event/Components/CreateEvent'
+export { default as EventUpdate } from './event/Components/UpdateEvent'
 
 // Accounts
-export { default as Register } from './Register/RegisterContainer'
-export { default as Login } from './Login/LoginContainer'
-export { default as AccountMan } from './AccountMan/AccountMan'
+export { default as Register } from './register/RegisterContainer'
+export { default as Login } from './login/LoginContainer'
+export { default as AccountMan } from './accountManagement/AccountMan'
 
 // Dog management
-export { default as DogMan } from './DogMan/DogMan'
-export { default as CreateDog } from './DogMan/CreateDog'
-export { default as UpdateDog } from './DogMan/UpdateDog'
+export { default as DogMan } from './dogManagement/DogMan'
+export { default as CreateDog } from './dogManagement/CreateDog'
+export { default as UpdateDog } from './dogManagement/UpdateDog'
 
 // admin
-export {default as AdminUserList} from './AdminHome/UserMan/UserMan'
-export {default as AdminUserUpdate} from './AdminHome/UserMan/Components/UserPage'
+export {default as AdminUserList} from './adminHome/UserMan/UserMan'
+export {default as AdminUserUpdate} from './adminHome/UserMan/Components/UserPage'
 
-export { default as AdminLocMan } from './AdminHome/LocMan/LocMan'
-export { default as AdminLocCreate } from './AdminHome/LocMan/CreateLocation'
-export { default as AdminLocUpdate } from './AdminHome/LocMan/UpdateLocation'
+export { default as AdminLocMan } from './adminHome/LocMan/LocMan'
+export { default as AdminLocCreate } from './adminHome/LocMan/CreateLocation'
+export { default as AdminLocUpdate } from './adminHome/LocMan/UpdateLocation'
 
-export { default as AdminMsg } from './AdminHome/Mesg/Mesg'
+export { default as AdminMsg } from './adminHome/Mesg/Mesg'
 export { default as NewMsg } from './Comms/NewInquiry'
 export { default as UserMsg } from './Comms/UserInquiries'
 
-export { default as NotFound } from './NotFound/NotFound'
+export { default as NotFound } from './notFound/NotFound'

@@ -9,7 +9,7 @@ import TextBox from '../../components/TextField'
 import FormWrapper from '../../components/form/FormWrapper';
 import BtSubmit from '../../components/buttons/BtSubmit';
 
-import useStyles from '../Login/Login.style'
+import useStyles from '../login/Login.style'
 
 const Register = props => {
     const classes = useStyles();

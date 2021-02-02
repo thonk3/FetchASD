@@ -11,7 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PickLocationCard from './Components/PickLocationCard'
 
-import NotFound from '../NotFound/NotFound'
+import NotFound from '../notFound/NotFound'
 
 export default class Dog extends Component {
     constructor(props) {

@@ -4,10 +4,10 @@ import { Container, Box, Typography, Button, Paper, TextField, Dialog, DialogTit
 import MomentUtils from '@date-io/moment'
 import moment from 'moment'
 import Spinner from '../../../components/spinner/Spinner'
-import PickLocationCard from '../../Kennel/Components/PickLocationCard'
+import PickLocationCard from '../../kennel/Components/PickLocationCard'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 
-const UpdateEvent = (props) => {
+const CreateEvent = () => {
     const [ loading, setLoading ] = useState(false);
     
     const [ locations, setLocations ] = useState([]);
@@ -23,34 +23,20 @@ const UpdateEvent = (props) => {
     const [ errorState, setErrorState ] = useState();
 
     useEffect(() => {
-        setLoading(true)
-        axios.get(`/api/event/${props.match.params.id}`)
+        axios.get('/api/locations/')
             .then(res => {
-                console.log(res)
-                setEventname(res.data.events.name)
-                setEventDate(res.data.events.dateAndTime)
-                setEventLocation(res.data.events.location)
-                setEventDescription(res.data.events.description)
+                setLocations(res.data)
             })
-            .catch(error => console.log(error))
-            .then(
-                axios.get('/api/locations')
-                    .then(res => {
-                        setLocations(res.data)
-                    })
-                    .catch(error => console.log(error))
-            )
-            .then(setLoading(false))
-    }, [props.match.params.id])
+            .catch((error) => console.log(error))
+            .then(() => setLoading(false))
 
-    if (loading)
-        return <Spinner />
+    }, [])
 
-    const updateEvent = e => {
+    const submitNewEvent = e => {
         e.preventDefault();
         setError(false)
 
-        const updatedEvents = {
+        const newEvent = {
             name: eventName,
             dateAndTime: moment(eventDate).toISOString(),
             status: "Upcoming",
@@ -58,12 +44,10 @@ const UpdateEvent = (props) => {
             description: eventDescription
         }
         setLoading(true)
-        axios.put(`/api/event/${props.match.params.id}`, updatedEvents)
+        axios.post('/api/event/', newEvent)
             .then(res => {
-                if(res.status === 200) {
-                    console.log(res)
+                if(res.status === 200)
                     window.location = '/events'
-                }
             })
             .catch(error => {
                 setError(error.response.data.error)
@@ -95,12 +79,13 @@ const UpdateEvent = (props) => {
         return locations.filter(location => hasSearchTerm(location.Address) || hasSearchTerm(location.Name));
     }
 
-    
+    if (loading)
+        return <Spinner />
 
     return (
         <Container maxWidth="md" style={{ marginTop: 20 }}>
             <Paper style={{ padding: 20 }}>
-                <Typography variant="h2" style={{ margin: 20 }}>Update Event</Typography>
+                <Typography variant="h2" style={{ margin: 20 }}>Create new event</Typography>
                 { 
                     (errorState && !loading) ? (typeof error === "string") ?
                         <Typography> {error} </Typography>
@@ -109,7 +94,7 @@ const UpdateEvent = (props) => {
                             {error.map((err, i) => <li key={i}><b>{err.param}: </b> {err.msg}</li>)}
                         </ul>
                     : "" } 
-                <form onSubmit={updateEvent}>
+                <form onSubmit={submitNewEvent}>
                     <Box style={{ margin: 20 }}>
                         <TextField 
                             label="Event name"
@@ -174,8 +159,8 @@ const UpdateEvent = (props) => {
                         />
                     </Box>
                     <Box display='flex' justifyContent='center' style={{ margin: 20 }}>
-                        <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = '/event/' + props.match.params.id}>Cancel</Button>
-                        <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Update</Button>
+                        <Button style={{ width: '20%', marginRight: 5 }} variant="contained" color="secondary" onClick={() => window.location = '/events'}>Cancel</Button>
+                        <Button style={{ width: '20%', marginLeft: 5 }} variant="contained" color="primary" type="submit">Submit</Button>
                     </Box>
                 </form>
             </Paper>
@@ -183,4 +168,4 @@ const UpdateEvent = (props) => {
     )
 }
 
-export default UpdateEvent;
+export default CreateEvent;
