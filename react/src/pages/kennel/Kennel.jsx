@@ -1,42 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import DogList from './DogList';
+import KennelList from './KennelList';
 import Spinner from '../../components/spinner/Spinner'
-import { Container, TextField } from '@material-ui/core';
-import './kennel.css';
+import { Container, TextField, Typography } from '@material-ui/core';
 
 const Kennel = (props) => {
   const { filterText, onFilterChange, dogList, loading } = props;
-	
+
+  const loadingData = () => {
+    if(loading) return <Spinner />
+    else return <div className="flex-container"><KennelList dogList={dogList} /></div>
+  }
+
   return (
     <>
-{/* <Spinner /> */}
-      {/* <img src={doggo} className="spinner" alt='a spinning dog, reaching for his tail - a loading icon.'/> */}
-      <br/>
-      <h2 className="centre-this">Search for a friend..</h2>
-      <br/>
-      <Container>
-      <TextField
-        fullWidth
-        placeholder="Enter your suburb here..."
-        variant="outlined"
-        value={filterText} 
-        onChange={onFilterChange} />
+      <Typography variant="h4" align="center">
+        Search for a friend...
+      </Typography>
+
+      <Container maxWidth="md">
+        <TextField
+          fullWidth
+          placeholder="Enter your suburb here..."
+          variant="outlined"
+          value={filterText}
+          onChange={onFilterChange} />
+
+
       </Container>
 
-      {
-        loading ?
-        <Spinner />
-        :
-        <div className="flex-container">
-          <DogList dogList={dogList}/>
-        </div>
-      }
+      {loadingData()}
     </>
   );
 }
 
-export default Kennel 
+Kennel.propTypes = {
+  filterText: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  dogList: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+}
+
+export default Kennel
 
 
 

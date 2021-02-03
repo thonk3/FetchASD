@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Kennel from './Kennel';
@@ -10,7 +9,7 @@ import Kennel from './Kennel';
 const KennelContainer = props => {
     const [filterText, setFilterText] = useState('');
     const [dogListDefault, setDogListDefault] = useState();
-    const [dogList, setDogList] = useState();
+    const [dogList, setDogList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

@@ -4,13 +4,6 @@
   justify-content: center;
 }
 
-.dog {
-  width: 15vw;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 1vw;
-  padding: 0.5vw;
-}
-
 .contain-within {
   margin: 5vw;
 }
@@ -35,9 +28,7 @@
 .button {
   margin: 1vw;
 }
-h3 {
-  font-weight: normal;
-}
+
 .centre-this {
   margin: auto;
   text-align: center;
@@ -48,10 +39,3 @@ h3 {
   text-decoration: none;
 }
 
-h2 {
-  line-height: 0vw;
-}
-
-.cardtxt {
-  margin-top: 1.5vw;
-}
