@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import DogList from './Components/DogList';
-import './Components/kennel.css';
-import TextField from '@material-ui/core/TextField';
+
+import DogList from './DogList';
 import Spinner from '../../components/spinner/Spinner'
-import { Container } from '@material-ui/core';
+import { Container, TextField } from '@material-ui/core';
+import './kennel.css';
 
 const Kennel = (props) => {
+  // const { input, setInput } = props;
   const [input, setInput] = useState('');
   const [dogListDefault, setDogListDefault] = useState();
   const [dogList, setDogList] = useState();

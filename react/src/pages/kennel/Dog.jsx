@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import './Components/kennel.css';
+import './kennel.css';
 import token from '../../utils/tokenUtils';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
@@ -9,7 +9,7 @@ import moment from 'moment'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import PickLocationCard from './Components/PickLocationCard'
+import PickLocationCard from './PickLocationCard'
 
 import NotFound from '../notFound/NotFound'
 

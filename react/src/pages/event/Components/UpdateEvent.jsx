@@ -4,7 +4,7 @@ import { Container, Box, Typography, Button, Paper, TextField, Dialog, DialogTit
 import MomentUtils from '@date-io/moment'
 import moment from 'moment'
 import Spinner from '../../../components/spinner/Spinner'
-import PickLocationCard from '../../kennel/Components/PickLocationCard'
+import PickLocationCard from '../../kennel/PickLocationCard'
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
 
 const UpdateEvent = (props) => {
