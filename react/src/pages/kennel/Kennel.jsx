@@ -6,31 +6,7 @@ import { Container, TextField } from '@material-ui/core';
 import './kennel.css';
 
 const Kennel = (props) => {
-  // const { input, setInput } = props;
-  const [input, setInput] = useState('');
-  const [dogListDefault, setDogListDefault] = useState();
-  const [dogList, setDogList] = useState();
-  const [loading, setLoading] = useState(true);
-
-  const getData = async () => {
-    return await fetch(`/api/dogs`)
-      .then(response => response.json())
-      .then(dog => {
-        setDogList(dog) 
-        setDogListDefault(dog)
-        setLoading(false)
-      });
-  }
-
-  const updateInput = (input) => {
-    const filtered = dogListDefault.filter(dog => {
-      return dog.Suburb.toLowerCase().includes(input.toLowerCase())
-    })
-    setInput(input);
-    setDogList(filtered);
-  }
-
-  useEffect( () => {getData()},[]);
+  const { filterText, onFilterChange, dogList, loading } = props;
 	
   return (
     <>
@@ -44,8 +20,8 @@ const Kennel = (props) => {
         fullWidth
         placeholder="Enter your suburb here..."
         variant="outlined"
-        value={input} 
-        onChange={(e) => updateInput(e.target.value)} />
+        value={filterText} 
+        onChange={onFilterChange} />
       </Container>
 
       {
