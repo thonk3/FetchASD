@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import './kennel.css';
+import '../kennel/kennel.css';
 import token from '../../utils/tokenUtils';
 import { Button, FormGroup, InputLabel, MenuItem, Select, TextField, Grid, Box, Typography } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers'
@@ -9,9 +9,13 @@ import moment from 'moment'
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import PickLocationCard from './PickLocationCard'
+import PickLocationCard from '../kennel/PickLocationCard'
 
 import NotFound from '../notFound/NotFound'
+
+const DoubleD = (props) => {
+
+}
 
 export default class Dog extends Component {
     constructor(props) {
@@ -62,6 +66,8 @@ export default class Dog extends Component {
                 console.log("redirect to 404");
                 this.setState({ wrongPage: true });
             })
+
+        console.log(token.getToken())
 
         axios.get(`/api/users/${token.getToken()}/dogs`) // get all dogs from user
             .then(res => {

@@ -23,7 +23,7 @@ const _token = () => {
     }
 };
 const token = {
-    getToken: () => _token(),
+    getToken: () => _token().id,
     getID: () => _token().id,
     getName: () => _token().name,
     isStaff: () => _token().staff,
