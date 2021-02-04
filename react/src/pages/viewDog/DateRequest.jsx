@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
     Button, Grid, FormGroup, InputLabel, Select,
@@ -8,13 +8,12 @@ import {
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import PickLocationCard from '../kennel/PickLocationCard';
+import axios from 'axios';
+import token from '../../utils/tokenUtils';
 
 const DateRequest = props => {
     const {
-        myDogs,
-        filterTerm,
-        filterLocations,
-        filteredLocation,
+        receiverID
     } = props;
 
     // date dialogue
@@ -30,6 +29,15 @@ const DateRequest = props => {
     const [locationID, setLocationID] = useState("");
     const [locationAddr, setLocationAddr] = useState("");
 
+    // api data
+    const [myDogs, setMyDogs] = useState([]);
+    const [locationList, setLocationList] = useState([]);
+
+    // filtering
+    const [filterTerm, setFilterTerm] = useState("");
+    const [filteredLocations, setFilteredLocations] = useState([]);
+
+
     const [isLoading, setIsLoading] = useState(true);
 
     // --------------------------------------------------------------------------------
@@ -37,11 +45,12 @@ const DateRequest = props => {
     const changeDateSender = (e) => setSenderDog(e.target.value);
     const changeDateTime = (e) => setDateTime(e);
 
-    const toggleNewDate = () => setNewDate(() => {console.log(!newDate); return !newDate});
+    // date stuff
+    const toggleNewDate = () => setNewDate(() => { console.log(!newDate); return !newDate });
 
 
+    // submit
     const onRequestSubmit = () => {
-        // submit date request
     }
 
 
@@ -56,6 +65,37 @@ const DateRequest = props => {
         setLocationID(e._id);
         setLocationAddr(e.Address);
     }
+
+    // location filter
+    const filterTaste = (val) => val.toLowerCase().includes(filterTerm.toLowerCase());
+    const filterLocations = (e) => {
+        setFilterTerm(e.target.value);
+        setFilteredLocations(
+            locationList.filter(loc => filterTaste(loc.Address) || filterTaste(loc.Name))
+        )
+    }
+    // --------------------------------------------------------------------------------
+    // get current user dog list to set date request
+    const getMyDogs = () => {
+        axios.get(`/api/users/${token.getToken()}/dogs`) // get all dogs from user
+            .then(res => setMyDogs([...res.data]))
+            .catch((error) => console.log("loading dog list err.", error));
+    }
+
+    // get location list to set date request
+    const getLocationList = () => {
+        console.log("hello");
+        axios.get('/api/locations/')
+            .then(res => {
+                setLocationList([...res.data]);
+                setIsLoading(false);
+                setFilteredLocations([...res.data]);
+            })
+            .catch((error) => console.log("loading locations err", error));
+    }
+    // add these in useEffect
+
+
 
     // --------------------------------------------------------------------------------
     const showLocationPicker = () => {
@@ -112,9 +152,9 @@ const DateRequest = props => {
                                                     it returns the Location cards according to the filter. Otherwise, no objects are in the array meaning 
                                                     no objects match the search filter, produce a no location found string */}
                                     {
-                                        filteredLocation.length
+                                        filteredLocations.length
                                             ?
-                                            filteredLocation.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)} />)
+                                            filteredLocations.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)} />)
                                             :
                                             <Typography component="h1" variant="h4" style={{ margin: "1vw" }}>{" No Location Found 😢"}</Typography>
                                     }

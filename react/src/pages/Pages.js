@@ -4,7 +4,7 @@
 
 export { default as Home } from './home/Home'
 export { default as Kennel } from './kennel/KennelContainer'
-export {default as Dog} from './viewDog/ViewDogContainer'
+export {default as Dog} from './viewDog/ViewDog'
 
 export { default as Dates } from './date/Date'
 
