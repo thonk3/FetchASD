@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
     Button, Grid, FormGroup, InputLabel, Select,
@@ -11,16 +11,14 @@ import PickLocationCard from '../kennel/PickLocationCard';
 import axios from 'axios';
 import token from '../../utils/tokenUtils';
 
+// new date not working yet
 const DateRequest = props => {
     const {
         receiverID
     } = props;
 
-    // date dialogue
-    const [newDate, setNewDate] = useState(false);
-
     // dialogues open
-    const [dateRqDialog, setDateRqDialog] = useState(false)
+    const [newDate, setNewDate] = useState(false);
     const [locationSelect, setLocationSelect] = useState(false);
 
     // date data
@@ -51,9 +49,8 @@ const DateRequest = props => {
 
     // submit
     const onRequestSubmit = () => {
+        // submit new date
     }
-
-
 
     // togglers
     const toggleLocationSelect = () => setLocationSelect(!locationSelect);
@@ -93,12 +90,14 @@ const DateRequest = props => {
             })
             .catch((error) => console.log("loading locations err", error));
     }
-    // add these in useEffect
-
+    useEffect(() => {
+        getMyDogs();
+        getLocationList();
+    }, [])
 
 
     // --------------------------------------------------------------------------------
-    const showLocationPicker = () => {
+    const showDateRequest = () => {
         if (newDate) return (
             <Grid container direction="column" alignItems="left">
                 <form>
@@ -134,46 +133,45 @@ const DateRequest = props => {
                         {/* // This will open to a full width xl scrolling body dialog box */}
                         <Button variant="contained" color="primary" onClick={toggleLocationSelect}>
                             Choose an approved location
-                                    </Button>
+                        </Button>
 
                         <br />
                         {/* Dialog box that has body scroll has full width and is extra large */}
-                        <Dialog open={locationSelect} onClose={closeLocationSelect} scroll="body" fullWidth={true} maxWidth={"xl"}>
-                            <DialogTitle>{"Pick from one of our approved locations!"}</DialogTitle>
-                            <DialogContent>
-                                <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
-                                    <TextField placeholder="Search for location name or address here..."
-                                        fullWidth variant="outlined" value={filterTerm}
-                                        onChange={filterLocations} />
-                                </Box>
-                                {/* This will create a location cards inside the appearing dialog box */}
-                                <Grid container spacing={2} style={{ justifyContent: "center", marginBottom: "1vw" }}>
-                                    {/* If getFilteredLocations returns an array of objects if there are objects in the array
-                                                    it returns the Location cards according to the filter. Otherwise, no objects are in the array meaning 
-                                                    no objects match the search filter, produce a no location found string */}
-                                    {
-                                        filteredLocations.length
-                                            ?
-                                            filteredLocations.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)} />)
-                                            :
-                                            <Typography component="h1" variant="h4" style={{ margin: "1vw" }}>{" No Location Found 😢"}</Typography>
-                                    }
-                                </Grid>
-                            </DialogContent>
-                        </Dialog>
+                        { showLocationPicker() }
 
                         {/* date request button */}
                         <Box display="flex" justifyContent="space-between">
                             <Button style={{ width: '49%' }} onClick={toggleNewDate} variant="contained" color="default"> Cancel </Button>
-                            <Button style={{ width: '49%' }} type="submit" onClick={onRequestSubmit} variant="contained" color="primary">
-                                Send
-                                        </Button>
+                            <Button style={{ width: '49%' }} type="submit" onClick={onRequestSubmit} variant="contained" color="primary"> Send </Button>
                         </Box>
                     </FormGroup>
                 </form>
             </Grid>
         );
         else return <> </>
+    }
+
+    const showLocationPicker = () => {
+        return <Dialog open={locationSelect} onClose={closeLocationSelect} scroll="body" fullWidth={true} maxWidth={"xl"}>
+            <DialogTitle>{"Pick from one of our approved locations!"}</DialogTitle>
+            <DialogContent>
+                <Box style={{ display: "flex", justifyContent: "center", margin: "1vw" }}>
+                    <TextField placeholder="Search for location name or address here..."
+                        fullWidth variant="outlined" value={filterTerm}
+                        onChange={filterLocations} />
+                </Box>
+                {/* This will create a location cards inside the appearing dialog box */}
+                <Grid container spacing={2} style={{ justifyContent: "center", marginBottom: "1vw" }}>
+                    {
+                        filteredLocations.length
+                            ?
+                            filteredLocations.map(location => <PickLocationCard obj={location} onChange={(e) => this.onPickLocation(location)} />)
+                            :
+                            <Typography component="h1" variant="h4" style={{ margin: "1vw" }}>{" No Location Found 😢"}</Typography>
+                    }
+                </Grid>
+            </DialogContent>
+        </Dialog>
     }
 
 
@@ -184,7 +182,7 @@ const DateRequest = props => {
             </Button>
             <br style={{ margin: "5vh " }} />
 
-            {showLocationPicker()}
+            {showDateRequest()}
         </div>
     )
 }
@@ -193,4 +191,4 @@ DateRequest.propTypes = {
 
 }
 
-export default DateRequest
+export default DateRequest;
