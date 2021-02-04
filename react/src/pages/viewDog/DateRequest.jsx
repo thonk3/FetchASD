@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {
     Button, Grid, FormGroup, InputLabel, Select,
     MenuItem, TextField, Box, Typography,
@@ -13,9 +13,9 @@ import token from '../../utils/tokenUtils';
 
 // new date not working yet
 const DateRequest = props => {
-    const {
-        receiverID
-    } = props;
+    // const {
+    //     receiverID
+    // } = props;
 
     // dialogues open
     const [newDate, setNewDate] = useState(false);
@@ -50,6 +50,7 @@ const DateRequest = props => {
     // submit
     const onRequestSubmit = () => {
         // submit new date
+        console.log(isLoading, pickLocation, locationID)
     }
 
     // togglers
