@@ -16,7 +16,7 @@ export { default as EventUpdate } from './event/Components/UpdateEvent'
 // Accounts
 export { default as Register } from './register/RegisterContainer'
 export { default as Login } from './login/LoginContainer'
-export { default as AccountMan } from './accountManagement/AccountMan'
+export { default as AccountMan } from './accountManagement/AccountManContainer'
 
 // Dog management
 export { default as DogMan } from './dogManagement/DogMan'
