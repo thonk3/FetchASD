@@ -40,84 +40,90 @@ const AccountManContainer = (props) => {
     const onSubmit = e => { // test this
         e.preventDefault();
 
-        const updateUser = {
-            firstName, lastName,
-            email, phoneNumber,
-            suburb, postcode
-        }
+        console.log(
+            firstName, lastName, email, phoneNumber, suburb, postcode
+        )
+        // const updateUser = {
+        //     firstName, lastName,
+        //     email, phoneNumber,
+        //     suburb, postcode
+        // }
 
-        // disgusting
-        if (handleValidation()) {
-            alert("Form Submitted")
-        } else {
-            alert("Form has errors")
-            return (0)
-        }
+        // // disgusting
+        // if (handleValidation()) {
+        //     alert("Form Submitted")
+        // } else {
+        //     alert("Form has errors")
+        //     return (0)
+        // }
 
-        console.log(updateUser);
-        Axios.put('/api/users/' + ID, updateUser)
-            .then(res => {
-                console.log(res.data);
-                window.location = '/myacc';
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        // console.log(updateUser);
+        // Axios.put('/api/users/' + ID, updateUser)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         window.location = '/myacc';
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.message);
+        //     })
     }
 
     const onSubmitDelete = (e) => {
         // test this
         e.preventDefault();
+        console.log("deleting user");
 
-        Axios.delete('/api/users/' + ID)
-            .then(res => {
-                console.log(res.data)
-                localStorage.removeItem("tokens")
-                window.location = '/';
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        // Axios.delete('/api/users/' + ID)
+        //     .then(res => {
+        //         console.log(res.data)
+        //         localStorage.removeItem("tokens")
+        //         window.location = '/';
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.message);
+        //     })
     }
 
     const onSubmitPassword = async (e) => {
         // do this // what the fuck is this mess
+        console.log("why is this 2 different calls");
+        console.log("one is good");
         e.preventDefault();
-        let errors = {};
-        let formIsValid = true;
-        const data = {
-            id: ID,
-            currentPass: currentPassword
-        }
-        await Axios.post('/api/auth/checkPassword/' + ID, data)
-            .then(() => formIsValid = true)
-            .catch(err => {
-                formIsValid = false;
-                errors["password"] = "Incorrect Password";
-                console.log("end");
-                return;
-            })
-            .then(() => {
-                if (newPassword !== newPassword2) {
-                    errors["passwords"] = "Passwords do not match";
-                    formIsValid = false;
-                }
-                console.log(formIsValid);
-                setErrors(errors)
-                if (formIsValid === false) return;
-            });
+        // let errors = {};
+        // let formIsValid = true;
+        // const data = {
+        //     id: ID,
+        //     currentPass: currentPassword
+        // }
+        // await Axios.post('/api/auth/checkPassword/' + ID, data)
+        //     .then(() => formIsValid = true)
+        //     .catch(err => {
+        //         formIsValid = false;
+        //         errors["password"] = "Incorrect Password";
+        //         console.log("end");
+        //         return;
+        //     })
+        //     .then(() => {
+        //         if (newPassword !== newPassword2) {
+        //             errors["passwords"] = "Passwords do not match";
+        //             formIsValid = false;
+        //         }
+        //         console.log(formIsValid);
+        //         setErrors(errors)
+        //         if (formIsValid === false) return;
+        //     });
 
-        console.log("changing");
-        const newPass = {
-            id: ID,
-            newPassword: newPassword,
-        }
-        await Axios.post('/api/auth/changePassword/' + ID, newPass)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/';
-            })
-            .catch((error) => console.log(error.message))
+        // console.log("changing");
+        // const newPass = {
+        //     id: ID,
+        //     newPassword: newPassword,
+        // }
+        // await Axios.post('/api/auth/changePassword/' + ID, newPass)
+        //     .then(res => {
+        //         console.log(res.data)
+        //         window.location = '/';
+        //     })
+        //     .catch((error) => console.log(error.message))
     }
 
     // yuck
