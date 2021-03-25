@@ -16,6 +16,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+/* TODO: fix mongo connection */
+
 // mongo connection
 // const URI: string= process.env.ATLAS_URI || "";
 // console.log(typeof URI);
@@ -36,28 +38,31 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../../react", "build")));
 
 // api imports ==============================================================
-import dogRouter from "./routes/dogs";
-import authRouter from "./routes/auth";
-import userRouter from "./routes/users";
-import dateRouter from "./routes/dogDate";
-import dogRatingRouter from "./routes/dogRating";
-import locationRouter from "./routes/locations";
-import msgRouter from "./routes/messages";
-import eventRouter from "./routes/event";
+// import dogRouter from "./routes/dogs";
+// import authRouter from "./routes/auth";
+// import userRouter from "./routes/users";
+// import dateRouter from "./routes/dogDate";
+// import dogRatingRouter from "./routes/dogRating";
+// import locationRouter from "./routes/locations";
+// import msgRouter from "./routes/messages";
+// import eventRouter from "./routes/event";
 
 // lock api calls to only users with token
 // token is grabbed from res.header("auth-token")
 // do this after
 // const verifyToken = require("./validate-token");
 
-app.use("/api/auth", authRouter);
-app.use("/api/dogs", /* verifyToken, */ dogRouter);
-app.use("/api/users", /* verifyToken, */ userRouter);
-app.use("/api/date", /* verifyToken, */ dateRouter);
-app.use("/api/rate", /* verifyToken, */ dogRatingRouter);
-app.use("/api/locations", /* verifyToken, */ locationRouter);
-app.use("/api/msg", msgRouter);
-app.use("/api/event", eventRouter);
+/* 
+  TODO: something to going on with imports
+*/
+// app.use("/api/auth", authRouter);
+// app.use("/api/dogs", /* verifyToken, */ dogRouter);
+// app.use("/api/users", /* verifyToken, */ userRouter);
+// app.use("/api/date", /* verifyToken, */ dateRouter);
+// app.use("/api/rate", /* verifyToken, */ dogRatingRouter);
+// app.use("/api/locations", /* verifyToken, */ locationRouter);
+// app.use("/api/msg", msgRouter);
+// app.use("/api/event", eventRouter);
 
 // ==========================================================================
 
