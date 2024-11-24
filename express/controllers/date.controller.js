@@ -136,7 +136,6 @@ exports.viewAllUsersDates = async(req, res) => {
                 'completed': completed,
             });
     } catch(e) { return res.status(400).json({ bad: "bad" }) }
-
 }    
 
 // Accepts a requested date 

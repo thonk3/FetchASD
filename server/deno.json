@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "@types/express": "npm:@types/express@^5.0.0",
+    "cors": "npm:cors@^2.8.5",
+    "dotenv": "npm:dotenv@^16.4.5",
+    "express": "npm:express@^4.21.1",
+    "mongoose": "npm:mongoose@^8.8.2"
+  },
+  "tasks": {
+    "dev": "deno run -A --watch ./src/main.ts"
+  }
+}

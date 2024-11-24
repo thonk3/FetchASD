@@ -32,8 +32,6 @@ module.exports.register = async (req, res) => {
 }
 
 module.exports.login = async (req, res) => {
-
-
     // check matching email
     const user = await User.findOne({ email: req.body.email });
     if(!user) return res.status(400).json({ error: "WRONG EMAIL/PASSWORD" });
